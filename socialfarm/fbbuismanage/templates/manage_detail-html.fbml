@@ -1,0 +1,16 @@
+<fb:header icon="false">
+  Manage {{ bname }}:
+</fb:header><br><br>
+
+<fb:editor action="." labelwidth="200">
+Business Purpose:
+{{ bpurpose }}
+<br><br>
+Business Created: {{ bdate }}
+<br><br> 
+  <fb:multi-friend-input />
+  <fb:editor-buttonset>  
+    <fb:editor-button value="Invite"/>  
+    <fb:editor-cancel />  
+  </fb:editor-buttonset> 
+</fb:editor>
