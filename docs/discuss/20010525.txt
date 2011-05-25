@@ -1,0 +1,32 @@
+
+
+
+Wed May 25 17:19:49 EDT 2011
+
+Use cases for FB App and Scarbo 
+communication
+
+Suppose a task starts in scarbo. The task 
+leads to the creation of a number of subtasks 
+which have some dependencies.  
+
+Each subtask must have feilds and role for the 
+person who will do it. 
+
+Upon subtask scheduling, the RSTful api (or 
+other API) of social network app will
+ get a message that has all the fields of 
+the task and the role(s) (some tasks may 
+need multiple skills) required to complete it. 
+At this point, the FB app must select an 
+appropriate person from the social netowk 
+ansd transform the subtask into a "job" 
+
+FBApp must notify back the completion of 
+task to the scheduling engine. 
+
+Engine must be able to check status of a
+task by querying the FBapp somehow. 
+
+
+
