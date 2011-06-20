@@ -1,0 +1,28 @@
+<fb:header icon="false">Test Application</fb:header>
+
+<fb:tabs>
+  <fb:tab-item href='http://apps.facebook.com/sstestappl/manage/' title='My Businesses' selected='true' />
+  <fb:tab-item href='http://apps.facebook.com/sstestappl/events/' title='My Business Events' />
+</fb:tabs>
+
+<fb:header icon="false">
+  Manage {{ bname }}:
+</fb:header>
+
+<a href="http://apps.facebook.com/sstestappl/manage/members/{{ bid }}/">Manage Members</a> | 
+<!-- To Do -->
+<a href="http://apps.facebook.com/sstestappl/manage/repdist/{{ bid }}/">Adjust Reputation Distribution</a> | 
+<a href="http://apps.facebook.com/sstestappl/manage/paydist/{{ bid }}/">Adjust Payment Distribution</a>
+<!-- To here -->
+
+<fb:editor action="http://apps.facebook.com/sstestappl/manage/invite/{{ bid }}/" labelwidth="200">
+  <fb:editor-custom label="Business Purpose">{{ bpurpose }}</fb:editor-custom>
+  <fb:editor-custom label="Business Created">{{ bdate }}</fb:editor-custom>
+  <fb:editor-custom label="Select friends to invite">
+    <fb:multi-friend-input />
+  </fb:editor-custom>
+  <fb:editor-buttonset>
+    <fb:editor-button value="Invite"/>
+    <fb:editor-cancel href='http://apps.facebook.com/sstestappl/manage/' />
+  </fb:editor-buttonset>
+</fb:editor>

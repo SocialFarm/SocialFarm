@@ -1,0 +1,19 @@
+<fb:header>
+  Create your business:
+</fb:header>
+
+<form action="." method="POST">
+  Business Name:&nbsp&nbsp&nbsp&nbsp&nbsp
+  <input type="text" name="bname" size="28" />
+  <br><br>
+  Business Summary:
+  <textarea rows="10" cols="30" name="bpurpose"></textarea>
+  <select name="badmodel">
+    <option value="0" selected>Friend-to-Friend</option>
+    <option value="1">Friend-to-Friend with Forwarding</option>
+    <option value="2">Limited Public Advertisement</option>
+    <option value="3">Public Advertisement</option>
+  </select>
+  <br><br>
+  <input type="submit" value="Submit" />
+</form>

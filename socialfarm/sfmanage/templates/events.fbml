@@ -1,0 +1,39 @@
+<fb:header icon="false">Test Application</fb:header>
+
+<fb:tabs>
+  <fb:tab-item href='http://apps.facebook.com/sstestappl/manage/' title='My Businesses' />
+  <fb:tab-item href='http://apps.facebook.com/sstestappl/events/' title='My Business Events' selected='true' />
+</fb:tabs>
+
+<fb:header icon="false">
+  Event List:
+</fb:header>
+
+{% if events %}
+	<fb:editor action="." labelwidth="200">
+		<table>
+			<tr>
+				<th>Event Number</th>
+				<th>| Event Name</th>
+				<th>| Business</th>
+				<th>| Event Status</th>
+				<th>| Date Received</th>
+			</tr>
+		<hr>
+		{% for event in events.all %}
+      		       <tr>
+				<td>{{ forloop.counter }}</td>
+	   			<td><a href='http://apps.facebook.com/sstestappl/events/{{ event.id }}/'>| {{ event.name }}</a></td>
+				<td>| {{ event.bid.name }}</td>
+				<td>| {{ event.status }}</td>
+				<td>| {{ event.creat_date }}</td>
+				<td>|&nbsp;<a href="http://apps.facebook.com/sstestappl/events/hide/{{ event.id }}/">Hide</a></td>
+			</tr>
+		{% endfor %}
+		</table>
+		<hr>
+		<fb:editor-custom label="Open events">&nbsp;{{ events_count }}</fb:editor-custom>
+{% else %}
+		<fb:editor-custom label="Open events">&nbsp;0</fb:editor-custom>
+{% endif %}
+	</fb:editor>
