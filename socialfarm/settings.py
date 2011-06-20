@@ -9,8 +9,14 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+""" old
 FACEBOOK_API_KEY = 'd13fce17a4983bd20e50bc058d2f021a'
 FACEBOOK_SECRET_KEY = '80de603ede0d282f52cd495fb8357110'
+"""
+
+FACEBOOK_API_KEY = '7165704a80616d58e50629512349a8c1'
+FACEBOOK_SECRET_KEY = '14a74c4bcf2537f42d714c5cd8324c6e'
+
 
 DATABASES = {
     'default': {
@@ -83,4 +89,4 @@ INSTALLED_APPS = (
     'socialfarm.sfmanage',
 )
 
-STATIC_DOC_ROOT = '/home/orie/projects/django_projects/socialfarm/fbbuismanage/templates/styles/'
+STATIC_DOC_ROOT = '/home/orie/projects/django_projects/socialfarm/socialfarm/sfmanage/templates/styles/'
