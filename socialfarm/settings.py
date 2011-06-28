@@ -73,7 +73,7 @@ MIDDLEWARE_CLASSES = (
     'facebook.djangofb.FacebookMiddleware',
 )
 
-ROOT_URLCONF = 'socialfarm.urls'
+ROOT_URLCONF = 'fbbuis.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -86,7 +86,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'socialfarm.sfmanage',
+    'fbbuis.fbbuismanage',
 )
 
-STATIC_DOC_ROOT = '/home/orie/projects/django_projects/socialfarm/socialfarm/sfmanage/templates/styles/'
+STATIC_DOC_ROOT = '/home/smaldone/fbbuis/fbbuismanage/templates/styles/'

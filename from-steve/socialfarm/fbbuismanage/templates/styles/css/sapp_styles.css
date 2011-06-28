@@ -1,0 +1,71 @@
+<style type="text/css">
+p
+{ 
+	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size:11px;
+	color: #333333;
+}
+.notice_red {
+	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size:11px;
+	color: #FF0000
+}
+.notice_blue {
+	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+	font-size:11px;
+	color: #0000FF
+}
+h2
+{
+	background-color:#D8DFEA;
+	border-top:1px solid #3B5998;
+	color:#3B5998;
+	font-size:11px;
+	padding:1px 6px;
+	margin:0;
+	font-weight:bold;
+}	
+/* Subheader, e.g. "Displaing 10 of 100 items" */
+.subtitle
+{
+	background-color:#EEEEEE;
+	border-bottom:1px solid #CCCCCC;
+	color:#000000;
+	font-size:11px;
+	font-weight:normal;
+	padding:3px 5px 2px;
+} 
+div.wide
+{
+	float:left;
+	margin:0;
+	padding:0 0 0 20px;
+	width:396px;
+}
+div.narrow
+{
+	float:right;
+	margin:0;
+	padding:0 0 0 20px;
+	width:200px;
+}
+div.full
+{
+	float:left;
+	margin:0;
+	padding:0 0 0 20px;
+	width:600px;
+}
+.table_div table { margin-left:20px; margin-top:17px; width:370px; text-align:center; }
+.table_div th.name_heading { color:#333333; font-size:11px; font-weight:bold; }
+.table_div table th { border-color:#C7CFE0; border-bottom:1px solid #E2E6EF; margin:0; padding:3px; color:#777777; font-size:9px; } .table_div td { border-bottom:1px solid #E2E6EF; margin:0; padding:3px; color:#555555; font-size:11px; }
+.table_div table .even_colomn { background:#F8F8F8 none repeat scroll 0 0; }
+.table_div td.action_text { width:230px; }
+input, textarea, select { border:1px solid #BDC7D8; font-family:"lucida grande",tahoma,verdana,arial,sans-serif; font-size:11px; padding:3px; }
+input:focus, textarea:focus, select:focus {border-color:#687FB0}
+.field {border:1px solid #bdc7d8; padding:2px}
+.field:focus {border-color:#687FB0}
+textarea.field {width:98.5%;height:100px} 
+button { padding:1px 3px 1px 4px; font-size:1em; cursor:pointer; background:#3b5998; color:#fff; border:1px solid #0e1f5b;border-left-color:#D9DFEA; border-top-color:#D9DFEA; }
+button.next, button.cancel { background:#ddd; color:#111; border:1px solid #666; border-left-color:#ddd; border-top-color:#ddd }
+</style>

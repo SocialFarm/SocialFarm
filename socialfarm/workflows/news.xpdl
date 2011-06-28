@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?><Package xmlns="http://www.wfmc.org/2002/XPDL1.0" xmlns:jwt2xpdl="http://xml.apache.org/xalan/java/org.eclipse.jwt.transformations.xslt.tools.CustomXslFunctions" xmlns:processes="org.eclipse.jwt/processes" xmlns:organisations="org.eclipse.jwt/organisations" xmlns:data="org.eclipse.jwt/data" xmlns:core="org.eclipse.jwt/core" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xpdl="http://www.wfmc.org/2002/XPDL1.0" Name="Workflow" Id="Workflow" xsi:schemaLocation="http://www.wfmc.org/2002/XPDL1.0 http://wfmc.org/standards/docs/TC-1025_schema_10_xpdl.xsd">
+<PackageHeader>
+<XPDLVersion>1.0</XPDLVersion>
+<Vendor>JWT</Vendor>
+<Created>2011-06-24 13:10:42</Created>
+</PackageHeader>
+<RedefinableHeader>
+<Author/>
+<Version/>
+</RedefinableHeader>
+<ConformanceClass GraphConformance="NON_BLOCKED"/>
+<WorkflowProcesses>
+<WorkflowProcess AccessLevel="PUBLIC" Name="Social News Workflow" Id="Social News Workflow">
+<ProcessHeader/>
+<RedefinableHeader>
+<Version/>
+</RedefinableHeader>
+<DataFields>
+<DataField Name="article " Id="article ">
+<DataType>
+<BasicType Type="STRING"/>
+</DataType>
+<InitialValue/>
+<ExtendedAttributes/>
+</DataField>
+</DataFields>
+<Participants>
+<Participant Name="Writer" Id="Writer">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+<Participant Name="Researcher" Id="Researcher">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+<Participant Name="Editor" Id="Editor">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+<Participant Name="Customer" Id="Customer">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+</Participants>
+<Applications>
+<Application Name="Social Farm" Id="Social Farm">
+<ExtendedAttributes>
+<ExtendedAttribute Value="" Name="jarArchive"/>
+<ExtendedAttribute Value="" Name="javaClass"/>
+<ExtendedAttribute Value="" Name="method"/>
+</ExtendedAttributes>
+</Application>
+</Applications>
+<Activities>
+<Activity Id="BonitaEnd-1" Name="BonitaEnd-1">
+<Implementation>
+<No/>
+</Implementation>
+<StartMode>
+<Automatic/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Join Type="XOR"/>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+</Activities>
+<Transitions>
+<Transition To="Revision Phase" From="Research Phase" Name="Research Phase_Revision Phase" Id="Research_Phase_Revision_Phase"/>
+<Transition To="BonitaEnd-1" From="Revision Phase" Name="Revision Phase_BonitaEnd-1" Id="Revision_Phase_BonitaEnd-1"/>
+</Transitions>
+</WorkflowProcess>
+<WorkflowProcess AccessLevel="PUBLIC" Name="Research Phase" Id="Research Phase">
+<ProcessHeader/>
+<RedefinableHeader>
+<Version/>
+</RedefinableHeader>
+<DataFields>
+<DataField Name="article " Id="article ">
+<DataType>
+<BasicType Type="STRING"/>
+</DataType>
+<InitialValue/>
+<ExtendedAttributes/>
+</DataField>
+</DataFields>
+<Participants>
+<Participant Name="Writer" Id="Writer">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+<Participant Name="Researcher" Id="Researcher">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+<Participant Name="Editor" Id="Editor">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+<Participant Name="Customer" Id="Customer">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+</Participants>
+<Applications>
+<Application Name="Social Farm" Id="Social Farm">
+<ExtendedAttributes>
+<ExtendedAttribute Value="" Name="jarArchive"/>
+<ExtendedAttribute Value="" Name="javaClass"/>
+<ExtendedAttribute Value="" Name="method"/>
+</ExtendedAttributes>
+</Application>
+</Applications>
+<Activities>
+<Activity Id="Activity1" Name="Activity1">
+<Implementation>
+<No/>
+</Implementation>
+<StartMode>
+<Automatic/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Join Type="XOR"/>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+<Activity Id="BonitaEnd-2" Name="BonitaEnd-2">
+<Implementation>
+<No/>
+</Implementation>
+<StartMode>
+<Automatic/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Join Type="XOR"/>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+<Activity Id="Request" Name="Request">
+<Implementation>
+<No/>
+</Implementation>
+<Performer>Writer</Performer>
+<StartMode>
+<Manual/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Join Type="XOR"/>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+<Activity Id="Research" Name="Research">
+<Implementation>
+<No/>
+</Implementation>
+<Performer>Researcher</Performer>
+<StartMode>
+<Manual/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Join Type="XOR"/>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+<Activity Id="Review" Name="Review">
+<Implementation>
+<No/>
+</Implementation>
+<Performer>Writer</Performer>
+<StartMode>
+<Manual/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Join Type="XOR"/>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+<Activity Id="Route1" Name="Route1">
+<Route/>
+<StartMode>
+<Automatic/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Split Type="XOR">
+<TransitionRefs>
+<TransitionRef Id="ref"/>
+</TransitionRefs>
+</Split>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+</Activities>
+<Transitions>
+<Transition To="Request" From="Activity1" Name="Activity1_Request" Id="Activity1_Request"/>
+<Transition To="Research" From="Request" Name="Request_Research" Id="Request_Research"/>
+<Transition To="Route1" From="Review" Name="Review_Route1" Id="Review_Route1"/>
+<Transition To="BonitaEnd-2" From="Route1" Name="Route1_BonitaEnd-2" Id="Route1_BonitaEnd-2"/>
+<Transition To="Repeat Research" From="Route1" Name="Route1_Repeat Research" Id="Route1_Repeat_Research"/>
+<Transition To="Review" From="Research" Name="Research_Review" Id="Research_Review"/>
+</Transitions>
+</WorkflowProcess>
+<WorkflowProcess AccessLevel="PUBLIC" Name="Revision Phase" Id="Revision Phase">
+<ProcessHeader/>
+<RedefinableHeader>
+<Version/>
+</RedefinableHeader>
+<DataFields>
+<DataField Name="article " Id="article ">
+<DataType>
+<BasicType Type="STRING"/>
+</DataType>
+<InitialValue/>
+<ExtendedAttributes/>
+</DataField>
+</DataFields>
+<Participants>
+<Participant Name="Writer" Id="Writer">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+<Participant Name="Researcher" Id="Researcher">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+<Participant Name="Editor" Id="Editor">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+<Participant Name="Customer" Id="Customer">
+<ParticipantType Type="HUMAN"/>
+<ExtendedAttributes>
+<ExtendedAttribute Value="true" Name="NewParticipant"/>
+</ExtendedAttributes>
+</Participant>
+</Participants>
+<Applications>
+<Application Name="Social Farm" Id="Social Farm">
+<ExtendedAttributes>
+<ExtendedAttribute Value="" Name="jarArchive"/>
+<ExtendedAttribute Value="" Name="javaClass"/>
+<ExtendedAttribute Value="" Name="method"/>
+</ExtendedAttributes>
+</Application>
+</Applications>
+<Activities>
+<Activity Id="BonitaEnd-3" Name="BonitaEnd-3">
+<Implementation>
+<No/>
+</Implementation>
+<StartMode>
+<Automatic/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Join Type="XOR"/>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+<Activity Id="Write" Name="Write">
+<Implementation>
+<No/>
+</Implementation>
+<Performer>Writer</Performer>
+<StartMode>
+<Manual/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Join Type="XOR"/>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+<Activity Id="Review" Name="Review">
+<Implementation>
+<No/>
+</Implementation>
+<Performer>Editor</Performer>
+<StartMode>
+<Manual/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Join Type="XOR"/>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+<Activity Id="Approve_Revise" Name="Approve_Revise">
+<Route/>
+<StartMode>
+<Automatic/>
+</StartMode>
+<TransitionRestrictions>
+<TransitionRestriction>
+<Split Type="XOR">
+<TransitionRefs>
+<TransitionRef Id="ref"/>
+</TransitionRefs>
+</Split>
+</TransitionRestriction>
+</TransitionRestrictions>
+<ExtendedAttributes>
+<ExtendedAttribute Value="0" Name="XOffsetParticipantView"/>
+<ExtendedAttribute Value="0" Name="YOffsetParticipantView"/>
+<ExtendedAttribute Value="" Name="XOffset"/>
+<ExtendedAttribute Value="" Name="YOffset"/>
+<ExtendedAttribute Value="30" Name="CellHeight"/>
+<ExtendedAttribute Value="150" Name="CellWidth"/>
+</ExtendedAttributes>
+</Activity>
+</Activities>
+<Transitions>
+<Transition To="Repeat Revision" From="Approve_Revise" Name="Approve_Revise_Repeat Revision" Id="Approve_Revise_Repeat_Revision">
+<Condition Type="CONDITION"/>
+</Transition>
+<Transition To="BonitaEnd-3" From="Approve_Revise" Name="Approve_Revise_BonitaEnd-3" Id="Approve_Revise_BonitaEnd-3">
+<Condition Type="CONDITION"/>
+</Transition>
+<Transition To="Review" From="Write" Name="Write_Review" Id="Write_Review"/>
+<Transition To="Approve_Revise" From="Review" Name="Review_Approve_Revise" Id="Review_Approve_Revise"/>
+</Transitions>
+</WorkflowProcess>
+</WorkflowProcesses>
+<ExtendedAttributes>
+<ExtendedAttribute Value="JWT2XPDL" Name="MadeBy"/>
+<ExtendedAttribute Value="Activity" Name="View"/>
+</ExtendedAttributes>
+</Package>
