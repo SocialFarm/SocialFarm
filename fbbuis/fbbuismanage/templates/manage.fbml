@@ -1,0 +1,34 @@
+<fb:header icon="false">Test Application</fb:header>
+
+<fb:tabs>
+  <fb:tab-item href='http://apps.facebook.com/sstestappl/manage/' title='My Businesses' selected='true' />
+  <fb:tab-item href='http://apps.facebook.com/sstestappl/events/' title='My Business Events' />
+</fb:tabs>
+
+<fb:header icon="false">
+  Manage your businesses:
+</fb:header>
+
+{% if bids %}
+<fb:editor action="." labelwidth="200">  
+  <fb:editor-custom label="Select a business to manage">  
+    <select name="bselect">
+      {% for bid in bids.all %}
+        {% ifequal forloop.counter 1 %}
+          <option value={{ bid.id }} selected>{{ bid.name }}</option>
+	{% else %}
+	  <option value={{ bid.id }} >{{ bid.name }}</option>
+	{% endifequal %}
+      {% endfor %}
+    </select>  
+  </fb:editor-custom>  
+  <fb:editor-buttonset>  
+    <fb:editor-button value="Select"/>  
+    <fb:editor-cancel value="Create New Business" href="http://apps.facebook.com/sstestappl/create/" />
+  </fb:editor-buttonset> 
+</fb:editor>
+{% else %}
+<fb:editor action="." labelwidth="200">  
+  <fb:editor-custom label="No businesses available"><a href="http://apps.facebook.com/sstestappl/create/">Create New Business</a></fb:editor-custom>  
+</fb:editor>
+{% endif %}
