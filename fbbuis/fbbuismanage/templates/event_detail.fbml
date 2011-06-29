@@ -1,15 +1,15 @@
 <fb:header icon="false">Test Application</fb:header>
 
 <fb:tabs>
-  <fb:tab-item href='http://apps.facebook.com/sstestappl/manage/' title='My Businesses' />
-  <fb:tab-item href='http://apps.facebook.com/sstestappl/events/' title='My Business Events' selected='true' />
+  <fb:tab-item href='http://apps.facebook.com/social_farm/manage/' title='My Businesses' />
+  <fb:tab-item href='http://apps.facebook.com/social_farm/events/' title='My Business Events' selected='true' />
 </fb:tabs>
 
 <fb:header icon="false">
   Event Detail:
 </fb:header>
 
-<fb:editor action="http://apps.facebook.com/sstestappl/closeevent/{{ event.id }}/" labelwidth="200">
+<fb:editor action="http://apps.facebook.com/social_farm/closeevent/{{ event.id }}/" labelwidth="200">
   <fb:editor-custom label="Event Name">{{ event.name }}</fb:editor-custom>
   <fb:editor-custom label="Business">{{ event.bid.name }}</fb:editor-custom>
   <fb:editor-custom label="Date Received">{{ event.creat_date }}</fb:editor-custom>
@@ -31,6 +31,6 @@
       {% endifequal %}
       <fb:editor-button name="accept" value="Accept Invitation"/>
     {% endifequal %}
-    <fb:editor-cancel value="Hide Event" href="http://apps.facebook.com/sstestappl/events/hide/{{ event.id }}/" />
+    <fb:editor-cancel value="Hide Event" href="http://apps.facebook.com/social_farm/events/hide/{{ event.id }}/" />
   </fb:editor-buttonset> 
 </fb:editor>

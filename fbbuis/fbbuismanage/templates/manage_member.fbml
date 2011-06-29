@@ -1,8 +1,8 @@
 <fb:header icon="false">Test Application</fb:header>
 
 <fb:tabs>
-  <fb:tab-item href='http://apps.facebook.com/sstestappl/manage/' title='My Businesses' selected='true' />
-  <fb:tab-item href='http://apps.facebook.com/sstestappl/events/' title='My Business Events' />
+  <fb:tab-item href='http://apps.facebook.com/social_farm/manage/' title='My Businesses' selected='true' />
+  <fb:tab-item href='http://apps.facebook.com/social_farm/events/' title='My Business Events' />
 </fb:tabs>
 
 <fb:header icon="false">
@@ -14,6 +14,6 @@
   <fb:editor-custom label="Member UID">{{ uid }}</fb:editor-custom>
   <fb:editor-buttonset>
     <fb:editor-button name="remove" value="Remove"/>
-    <fb:editor-cancel href='http://apps.facebook.com/sstestappl/manage/members/{{ bid }}/' />
+    <fb:editor-cancel href='http://apps.facebook.com/social_farm/manage/members/{{ bid }}/' />
   </fb:editor-buttonset>
 </fb:editor>

@@ -9,12 +9,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-""" old key for stevestestapp
-FACEBOOK_API_KEY = 'd13fce17a4983bd20e50bc058d2f021a'
-FACEBOOK_SECRET_KEY = '80de603ede0d282f52cd495fb8357110'
-"""
-
-# new key for socialfarm.org
+FACEBOOK_CANVAS_PAGE = 'http://apps.facebook.com/social_farm/'
 FACEBOOK_API_KEY = '7165704a80616d58e50629512349a8c1'
 FACEBOOK_SECRET_KEY = '14a74c4bcf2537f42d714c5cd8324c6e'
 

@@ -1,6 +1,6 @@
 <fb:header icon="false">Test Application</fb:header>
 
 <fb:tabs>
-  <fb:tab-item href='http://apps.facebook.com/sstestappl/manage/' title='My Businesses' selected='true'/>
-  <fb:tab-item href='http://apps.facebook.com/sstestappl/events/' title='My Business Events' />
+  <fb:tab-item href='http://apps.facebook.com/social_farm/manage/' title='My Businesses' selected='true'/>
+  <fb:tab-item href='http://apps.facebook.com/social_farm/events/' title='My Business Events' />
 </fb:tabs>

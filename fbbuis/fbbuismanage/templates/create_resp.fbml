@@ -1,15 +1,15 @@
 <fb:header icon="false">Test Application</fb:header>
 
 <fb:tabs>
-  <fb:tab-item href='http://apps.facebook.com/sstestappl/manage/' title='My Businesses' selected='true' />
-  <fb:tab-item href='http://apps.facebook.com/sstestappl/events/' title='My Business Events' />
+  <fb:tab-item href='http://apps.facebook.com/social_farm/manage/' title='My Businesses' selected='true' />
+  <fb:tab-item href='http://apps.facebook.com/social_farm/events/' title='My Business Events' />
 </fb:tabs>
 
 <fb:header icon="false">
   Your business {{ bname }} has been created.<br><br>Details:
 </fb:header>
 
-<fb:editor action="http://apps.facebook.com/sstestappl/manage/" labelwidth="200">
+<fb:editor action="http://apps.facebook.com/social_farm/manage/" labelwidth="200">
   <fb:editor-custom label="Business Name">{{ bname }}</fb:editor-custom>
   <fb:editor-custom label="Business Summary">{{ bpurpose }}</fb:editor-custom>
   <fb:editor-custom label="Business Created">{{ bdate }}</fb:editor-custom>
