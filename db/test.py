@@ -123,7 +123,7 @@ db['job-001'] = { "type" : "job" ,
 #state = start | running | finished | error 
 #tasks = ids of tasks
  
-# list all the activities in the business
+print '''list all the activities in the business''' 
 map_fun = '''
 function(doc) {
    if (doc.type == "activity" ) { 
@@ -131,16 +131,20 @@ function(doc) {
    }
 } ''' 
 for row in db.query(map_fun):
-    data = db[row.key] 
+    key = row.key
+    data = db[key] 
     data['type'] = 'task' 
     data['state'] = 'start' 
-    data['job'] = row.key
-    #row['_id'] = 'job-001-%s' % row.key 
-    print ' added ' , db.copy(data, 'job-001-%s' % row.key ) 
+    data['job'] = key
+    del data['_id'] 
+    db[ 'job-001-%s' % key ] = data 
+    print ' added ' , db.get(  'job-001-%s' % key ) 
+    #print ' added ' , db.copy(data, 'job-001-%s' % row.key ) 
 
 
 
-# list all the tasks in the business
+print '''list all the tasks in the business''' 
+
 map_fun = '''
 function(doc) {
    if (doc.type == "task" ) { 
