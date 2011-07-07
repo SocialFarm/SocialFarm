@@ -131,12 +131,12 @@ function(doc) {
    }
 } ''' 
 for row in db.query(map_fun):
-    print row.key
-    row['type'] = 'task' 
-    row['state'] = 'start' 
-    row['job'] = row.key
-    row['_id'] = 'job-001-%s' % row.key 
-    print ' added ' , db.copy(row, 'job-001-%s' % row.key ) 
+    data = db[row.key] 
+    data['type'] = 'task' 
+    data['state'] = 'start' 
+    data['job'] = row.key
+    #row['_id'] = 'job-001-%s' % row.key 
+    print ' added ' , db.copy(data, 'job-001-%s' % row.key ) 
 
 
 
