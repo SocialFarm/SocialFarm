@@ -15,8 +15,9 @@ total_profit =
 
 
 
-Private database: 
+Private database one per business: 
 ----------------
+business = 
 type = activity                  // activity is the class of tasks 
 name 
 predecessors = start | ... 
@@ -37,6 +38,7 @@ total_rating =
 
 
 type = task                      // something done by worker  
+job = 
 name = "name of task" 
 worker = ... 
 predecessors = start | ... 
