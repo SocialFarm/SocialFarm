@@ -1,0 +1,36 @@
+Google Docs:
+https://docs.google.com/document/d/1YgVvfxS6IyhydOpZ-muPIDKVEMzaJVji3SKgd9Rk8D8/edit?hl=en_US
+
+Workflows
+GET http://socialfarm.org/api/workflows
+view a list of all workflows
+
+GET http://socialfarm.org/api/workflow/{id}
+view details of a specific workflow
+
+Users
+GET http://socialfarm.org/api/workflow/{id}/users
+view a list of all users and their respective roles for a given workflow
+
+GET http://socialfarm.org/api/workflow/{id}/user/{id}/tasks/{id}
+view a list of all tasks assigned to a user for a given workflow
+
+POST http://socialfarm.org/api/workflow/{id}/user/{id}/tasks
+add a task to the list of all tasks assigned to a user for a given workflow
+
+Tasks
+GET http://socialfarm.org/api/workflow/{id}/tasks
+view a list of all tasks for a given workflow
+
+POST http://socialfarm.org/api/workflow/{id}/tasks
+add a task to the list of all tasks for a given workflow
+
+GET http://socialfarm.org/api/workflow/{id}/task/{id}
+view details of a specific task for a given workflow
+
+UPDATE http://socialfarm.org/api/workflow/{id}/task/{id}
+update the details of a specific task for a given workflow
+
+DELETE http://socialfarm.org/api/workflow/{id}/task/{id}
+delete a specific task for a given workflow
+
