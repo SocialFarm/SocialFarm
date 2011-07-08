@@ -6,7 +6,8 @@ from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^social/', include('socialregistration.urls')),
-
+    url(r'^notify/', include('social_farm.notify.urls')),
+    url(r'^dashboard/', include('social_farm.dashboard.urls')),
     # Examples:
     # url(r'^$', 'social_farm.views.home', name='home'),
     # url(r'^social_farm/', include('social_farm.foo.urls')),
