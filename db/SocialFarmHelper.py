@@ -222,7 +222,7 @@ class BusinessDirector :
 
 
     def taskOffers(self): 
-        for row in self.db.view( 'scheduler/assign_tasks' ) : 
+        for row in self.db.view( 'scheduler/offer_tasks' ) : 
             return row.value 
 
 
