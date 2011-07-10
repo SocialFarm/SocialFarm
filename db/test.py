@@ -1,58 +1,180 @@
 #!/usr/bin/env python 
 
+from hashlib import md5 
 from couchdb.client import Database, Server 
+import json 
 import sys
 
 
 server = Server()
 server.resource.credentials = ('socialfarm', 'success')
-
 db = server['socialfarm_public'] 
-db.resource.credentials = ('socialfarm', 'success')
 
 
 
-def process_new_jobs() : 
+
+def schedule_tasks() : 
     # assume that number of activities per job is 
     # small enough to be written to a string, but 
     # the total number of new jobs is potentially extremely large 
-
-    # get all activities that need to be done for a job
-    newjobs = [] 
-    # get the jobids 
-    map_jobs = '''
-function(doc) { 
-   if (doc.type == "job" && 
-      doc.state != "finished" && doc.state != "error" ) {
-      emit(doc._id, doc)
-   }
-} 
-'''
-    for row in db.query( map_jobs ) :
-        #print 'got job' , row.key 
-        newjobs.append( row.key ) 
-
+    # requiring distributed process on map reduce 
     map_fun = '''
 function(doc) {
    if (doc.type == "activity" ) { 
-      emit(doc._id, null) 
+      emit(doc._id, doc) 
    }
 } ''' 
-    for row in db.query(map_fun):
-        key = row.key
-        data = db[key]
-        data['type'] = 'task' 
-        if data['predecessors'] == [] : 
-            data['state'] = 'ready' 
-        else:
-            data['state'] = 'waiting' 
-        del data['_id'] 
-        
-        for job in newjobs: 
-            taskid = 'job-%s-%s' % (job, key)
-            data['job'] = key
-            db[taskid] = data 
-            #print ' added ' , db.get(taskid) 
+    startingjob = None 
+    predecessors = {} 
+    successors = {} 
+    skills_required = {} 
+    data_items = {} 
+    for row in db.query(map_fun): 
+        predecessors[ row.key ] = row.value["predecessors"] 
+        if predecessors[ row.key ] == [] : 
+            startingjob = row.key 
+        successors[ row.key ] = row.value["successors"] 
+        skills_required[ row.key ] = row.value[ 'skills_required' ] 
+        data_items[ row.key ] = row.value[ "data_items" ] 
+
+    map_fun = '''
+function(doc) { 
+   if (doc.type == "job" && doc.state != "finished" && doc.state != "error" ) {
+      emit(doc._id, { "type" : "job" , "rev" : doc._rev } )
+   }
+   if (doc.type == "task") { 
+      emit(doc.jobid, doc) 
+   }                             
+}                 
+'''
+
+    reduce_fun = '''
+function(keys, values, rereduce) { 
+
+   function find_successor_task(tasklist) {
+      //log ( "start tasklist" ) ; 
+      //for ( var i = 0; i < tasklist.length; i++ ) 
+      //   log ( "tasklist : " + tasklist[i].activityid + " " + tasklist[i]._id + " " + tasklist[i].jobid) ; 
+      //log ( "done tasklist" ) ; 
+
+      successors = %s ; 
+
+      // no tasks with this job, i.e. it is a new job, schedule its first task   
+      if (tasklist.length == 0) 
+         return [ null, null, "%s" ] ; 
+
+      // ignore jobs that have ongoing or about to run tasks 
+      for ( var i = 0; i < tasklist.length; i++ ) {
+         task = tasklist[i] ; 
+         if ( task.state == "running" ||  task.state == "ready" ) 
+            return [ null, null, null ] ; 
+      } 
+
+      // the job has only finished tasks, find the new activity that must create task   
+      done_tasks = {} 
+      for ( var i = 0; i < tasklist.length; i++ ) 
+         done_tasks[ tasklist[i].activityid ] = 1 ; 
+
+      for ( var i = 0; i < tasklist.length; i++ ) {
+         last_one = 1; 
+         for( var succ in successors[tasklist[i].activityid] ) 
+            if ( done_tasks[ succ ] )
+               last_one = 0; 
+
+         if(last_one) { 
+            task = tasklist[i] 
+            //log( " last task : " + task.activityid + " " + task._id + " " + task.jobid) ; 
+            if ( task.choice ) { 
+               return [ task._id, task._rev, task.choice ] ; 
+            }
+            nsucc = successors[task.activityid].length ;
+            if ( nsucc == 1 ) {
+               return [ task._id, task._rev, successors[task.activityid][0] ] ; 
+            } 
+            if ( nsucc == 0 ) {
+               return [ task._id, task._rev, null]; 
+            }
+            else 
+               throw( {"Error" : "multiple successor tasks but choice not set" } ) ;
+         }
+      } 
+   }
+
+   if( !rereduce ) {
+      currjobrev = null; 
+      currjobid = null; 
+      prevjobid = null; 
+      tasks = [] ;
+      new_tasks = [] ;
+      for( var i = 0; i < keys.length; i++ ) {
+         jobid = keys[i][0] ;        
+         doc = values[i] ;
+         //log( "jobid = " + jobid ) 
+
+         // do whats needed with this job now 
+         if ( prevjobid != undefined && prevjobid != jobid ) { 
+            [tid, trev, newactivity] = find_successor_task( tasks ) ;
+            if( currjobid != undefined && (newactivity || tid ) )  
+               new_tasks.push( [currjobid, currjobrev, tid, trev, newactivity ] ) ;
+            tasks = [] 
+         } 
+
+         if ( doc.type == "job" ) {
+            currjobid = jobid ;
+            currjobrev = doc.rev ; 
+         } 
+
+         if( doc.type == "task" ) 
+            tasks.push( doc ) ; 
+
+         prevjobid = jobid ; 
+      }
+      [tid, trev, newactivity] = find_successor_task( tasks ) ;
+      if( currjobid != undefined && (newactivity || tid ) ) 
+         new_tasks.push( [currjobid, currjobrev, tid, trev, newactivity ] ) ; 
+      return new_tasks ; 
+   }
+   else {
+      new_tasks = []; 
+      while( tasks = values.shift() )  
+         new_tasks = new_tasks.concat(tasks) ;
+      return new_tasks ; 
+   } 
+}
+''' % (json.dumps(successors) , startingjob) 
+
+    for row in db.query(map_fun, reduce_fun):
+        for (jobid, jobrev, prevtid, prevtrev, activityid) in row.value: 
+            print jobid, jobrev, prevtid, prevtrev, activityid 
+            job = db[jobid] 
+               
+            if activityid is not None: 
+                newtask = { 
+                    "type" : "task", 
+                    "jobid" : jobid, 
+                    "prevtid" : prevtid, 
+                    "activityid" : activityid, 
+                    "skills_required" : skills_required[activityid] , 
+                    "state" : "ready" } 
+                taskid = md5( 'task-%s-%s' % (jobid, activityid) ).hexdigest() 
+                # first task of new job, gets data items from job
+                if prevtid is None: 
+                    for f in job[ "data_items" ] : 
+                        newtask[f] = job.get( f, None ) 
+                else:
+                    prev = db[prevtid] 
+                    for f in data_items[prev["activityid"]] : 
+                        newtask[f] = prev.get( f, None ) 
+                db[taskid] = newtask
+
+            if activityid is not None: 
+                job[ "state" ] = "running" 
+                job[ "taskid" ] = taskid
+            else: 
+                job[ "state" ] = "finished" 
+                job[ "taskid" ] = None 
+                
+            db[jobid] = job 
 
 
 
@@ -61,7 +183,11 @@ function(doc) {
 
 
 
-def schedule() : 
+
+
+
+
+def assign_tasks() : 
     map_fun = '''
 function(doc) {
    if (doc.type == "task" && doc.state == "ready" ) { 
@@ -92,11 +218,13 @@ function(keys, values, rereduce) {
 
          if( prevskill && prevskill != skill ) {
             //log("completing skill = " + skill) ;
-            //log(people) ;  
-            //log(jobs) ; 
+            //log("people = " + people.toString() ) ;  
+            //log("jobs = " + jobs.toString() ) ; 
+
             // if there are people with the given skill
             // set the association from person to job 
             while( (p = people.shift()) && (j = jobs.shift()) ) {
+               log( "adding = " + [p,j,skill] ) 
                persons_to_jobs.push( [p,j,skill] ) ; 
                busy_people[p] = 1;
             }
@@ -105,9 +233,10 @@ function(keys, values, rereduce) {
          }
 
          // found the person with given skill, who is not yet assigned  
-         if (rating != undefined && (!busy_people[values[i]]) ) 
-            people.push( values[i] ) ; 
-
+         if (rating != undefined ) { 
+            if (!busy_people[values[i]]) 
+               people.push( values[i] ) ; 
+         } 
         
          // found a job to be done. 
          else
@@ -142,7 +271,6 @@ function(keys, values, rereduce) {
    } 
 }
 '''
-    
     assignment = [] 
     for row in db.query(map_fun, reduce_fun):
         assignment += row.value 
@@ -178,19 +306,24 @@ db["A"] = { 'type':'activity',
             'name' : 'Activity A',
             'predecessors' : [ ] , 
             'successors' :  [ 'B' ] , 
-            'skills_required' :  [ 's1' ] } 
+            'skills_required' :  [ 's1' ] , 
+            'data_items' : [ "name" , "address" ] 
+            } 
 
 db["B"] = { 'type':'activity', 
             'name' : 'Activity B',
             'predecessors' : [ 'A' ] , 
             'successors' :  [ 'C' ] , 
-            'skills_required' :  [ 's2'] } 
+            'skills_required' :  [ 's2'] , 
+            'data_items' : [ "name" , "height" ] 
+            } 
 
 db["C"] = { 'type':'activity', 
             'name' : 'Activity C',
             'predecessors' : [ 'B' ] , 
             'successors' :  [ ] , 
-            'skills_required' :  [] } 
+            'skills_required' :  [ 's3' ] , 
+            'data_items' : [ "name" , "height" , "weight" ]  } 
 
 
 
@@ -261,37 +394,46 @@ db['job-001'] = { "type" : "job" ,
                   "customer" :  "dalai lama" , 
                   "state" : "start" , 
                   "price" : 1.00 , 
-                  "total_rating" : 0.00 } 
+                  "total_rating" : 0.00 , 
+                  'data_items' : [ "name" ,  "address" , "height" , "weight" ] } 
 
 db['job-002'] = { "type" : "job" , 
                   "started_since" : "7-7-2011", 
                   "customer" :  "cust 2" , 
                   "state" : "start" , 
                   "price" : 1.50 , 
-                  "total_rating" : 0.00 } 
+                  "total_rating" : 0.00 , 
+                  'data_items' :  [ "name" , "address" , "height" , "weight" ] } 
 
 db['job-003'] = { "type" : "job" , 
                   "started_since" : "7-7-2011", 
                   "customer" :  "cust 3" , 
                   "state" : "start" , 
                   "price" : 1.20 , 
-                  "total_rating" : 0.00 } 
-
-
-#state = start | running | finished | error 
-#tasks = ids of tasks
-process_new_jobs()
+                  "total_rating" : 0.00 , 
+                  'data_items' :  [ "name" , "address" , "height" , "weight" ] } 
 
 
 
+while True: 
+    schedule_tasks()
+    assignment = assign_tasks() 
+    print 'Created work assignment from map reduce\n' , assignment
+    for (worker, task, skill) in assignment: 
+        # in real run, here the worker should get the message saying 
+        # task is available.  if he accepts, he become unavailable by 
+        # the field looking for work and the task gets the worker field 
+        # assigned.   
+        # Q : what happens if he rejects or does not accept for a while 
+        # remember the task is still ready and perhaps another worker 
+        # will pick it up 
+        print worker, task, skill 
+        # simulatign worker did the task 
+        t = db[task] 
+        t["state"] = "finished" 
+        db[task] = t 
+     
 
-
-print '''create design doc i.e. program for selecting workers''' 
-
-
-
-assignment = schedule() 
-print 'Created work assignment from map reduce\n' , assignment 
 
 
 

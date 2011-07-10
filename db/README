@@ -1,0 +1,164 @@
+The database supports a restful query interface for various 
+operations 
+
+
+
+BUSINESSES
+==========
+
+
+List businesses
+---------------
+GET http://127.0.0.1:5984/socialfarm_public/_all_docs
+
+View a list of all businesses.  The output has ids of the 
+business which is also the name of the database used for 
+storing the private business data 
+
+eg:
+curl -X GET http://127.0.0.1:5984/socialfarm_public/_all_docs
+   {"total_rows":4,"offset":0,"rows":[
+   {"id":"1111","key":"1111","value":{"rev":"1-93a905dc7935ee197b1ff5a173db4c27"}},
+   {"id":"b1111","key":"b1111","value":{"rev":"1-b8d6f2b4490c6d9248d67720803df1e5"}},
+   {"id":"b11111","key":"b11111","value":{"rev":"1-4875218e13678ccb02f731ac13b922d7"}},
+   {"id":"b22222","key":"b22222","value":{"rev":"1-160fb33733e61d6f3d98da5a2798d8bd"}}
+   ]}
+
+
+
+Get Details of specific business
+--------------------------------
+GET http://127.0.0.1:5984/socialfarm_public/{id} 
+view details of a specific business. 
+eg: 
+curl -X GET http://127.0.0.1:5984/socialfarm_public/b22222
+     {"_id":"b22222","_rev":"1-160fb33733e61d6f3d98da5a2798d8bd","type":"business","author":"vpathak","description":"this business aims to do nothing","list_of_partners":["iftode","vpathak","smaldone","osteele"],"started_since":"7-7-2011","list_of_roles":["role0"],"total_rating":0.0,"total_profit":0.0}
+
+
+Modify a business 
+-----------------
+PUT http://127.0.0.1:5984/socialfarm_public/{id} 
+
+Note that the correct revision must be there for the update to go 
+through. 
+
+eg: 
+curl -X PUT http://127.0.0.1:5984/socialfarm_public/b22222 -d '{"_rev":"1-160fb33733e61d6f3d98da5a2798d8bd","type":"business","author":"vpathak","description":"this business aims to do nothing","list_of_partners":["iftode","vpathak","smaldone","osteele"],"started_since":"7-7-2011","list_of_roles":["role0"],"total_rating":0.0,"total_profit":0.1}'
+
+
+
+
+
+
+
+
+
+Note that specific information about particular businesses
+is stored in a database with the business name. Hence, replace
+socialfarm_private with the business name. The apis are as follows:
+
+
+
+
+TASKS AND JOBS
+============== 
+
+
+Tasks for Jobs in Progress
+--------------------------
+
+Get all the (job, tasks) tuples where job is not finished or error
+Can make query for particular jobid, range of jobids (alphabetically sorted)
+or get list of all pending jobs
+
+The output is a list with each elements of following format: [jobid1, [taskid1, taskid2,...]] 
+
+GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/pending_jobs_tasks
+GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/pending_jobs_tasks?key="jobid"
+GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/pending_jobs_tasks?startkey="jobid1"&endkey="jobid2"
+
+eg: 
+curl --user socialfarm:success -X GET 'http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/pending_jobs_tasks?startkey="job-001"&endkey="job-002"'
+     {"rows":[
+     {"key":null,"value":[["job-002",[]]]}
+     ]}
+
+
+
+Get details of particular task or job
+-------------------------------------
+Once you have the id of a given job or task, you can query it directly from the 
+business database 
+
+GET http://127.0.0.1:5984/socialfarm_private/<jobid|taskid> 
+eg: 
+curl --user socialfarm:success -X GET http://127.0.0.1:5984/socialfarm_private/job-002
+     {"_id":"job-002","_rev":"3-2277476cf4487c9dc52f7d71d8476367","customer":"cust 2","total_rating":0.0,"started_since":"7-7-2011","data_items":["name","address","height","weight"],"state":"running","taskid":"5540012372512c024b30f0b3e519b79a","type":"job","price":1.5}
+
+
+Modify details of a particular task or job
+------------------------------------------
+PUT http://127.0.0.1:5984/socialfarm_public/<id>
+
+eg (changing the data field called address in the task) : 
+curl -X GET http://127.0.0.1:5984/socialfarm_private/d73889570eebd5ded5a223dd3819bdf6
+    {"_id":"d73889570eebd5ded5a223dd3819bdf6","_rev":"1-e88fa41e5d5bde4c41ae6eedc189d7d7","skills_required":["s2"],"name":null,"state":"ready","jobid":"job-003","activityid":"B","prevtid":"3e722b1597f32eab203d82db332f75ae","address":null,"type":"task"}
+
+curl -X PUT http://127.0.0.1:5984/socialfarm_private/d73889570eebd5ded5a223dd3819bdf6 -d '{"_rev":"1-e88fa41e5d5bde4c41ae6eedc189d7d7","skills_required":["s2"],"name":null,"state":"ready","jobid":"job-003","activityid":"B","prevtid":"3e722b1597f32eab203d82db332f75ae","address":"somerset, nj" ,"type":"task"}'
+
+curl -X GET http://127.0.0.1:5984/socialfarm_private/d73889570eebd5ded5a223dd3819bdf6
+    {"_id":"d73889570eebd5ded5a223dd3819bdf6","_rev":"2-9c4a629db7d6ea6247be1d6cf2c318d7","skills_required":["s2"],"name":null,"state":"ready","jobid":"job-003","activityid":"B","prevtid":"3e722b1597f32eab203d82db332f75ae","address":"somerset, nj","type":"task"}
+
+
+
+
+
+
+
+MEMBERS
+=======
+
+
+List members of a business
+--------------------------
+
+Get a list of all members in a business.  The view command takes
+different arguments to query the exact member, range of members, 
+and a limit on number of members retrieved. 
+
+GET http://127.0.0.1:5984/socialfarm_private/_design/info/_view/list_members
+GET http://127.0.0.1:5984/socialfarm_private/_design/info/_view/list_members?key=guest
+GET http://127.0.0.1:5984/socialfarm_private/_design/info/_view/list_members?startkey="a"&endkey="z"
+GET http://127.0.0.1:5984/socialfarm_private/_design/info/_view/list_members?limit=2
+
+eg: 
+curl --user socialfarm:success -X GET http://127.0.0.1:5984/socialfarm_private/_design/info/_view/list_members?limit=1
+     {"total_rows":5,"offset":0,"rows":[
+     {"id":"guest","key":"guest","value":{"_id":"guest","_rev":"1-aae9335ec7f58d04956fad7aa9d3c1ca","looking_for_work":"yes","name":"guest","ratings":[1,2,3],"skills":["s1","s2","s3"],"working_since":"1-1-2001","role":"worker","type":"person"}}
+     ]}
+
+
+
+
+Task assignment
+---------------
+
+Get a proposed assignment of workers to ready tasks.  Since it 
+uses skills as map reduce key, the only meaningful way of 
+qualifying the view output is to use the limit operator to send 
+out only a few proposed assignments.   
+
+The return value is a list of tuples of form [personid, taskid].  
+
+GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/assign_tasks
+GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/assign_tasks?limit="1" 
+
+eg: 
+curl --user socialfarm:success -X GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/assign_tasks?limit="1" 
+     {"rows":[
+     {"key":null,"value":[["guest","d73889570eebd5ded5a223dd3819bdf6"]]}
+     ]}
+
+
+
+

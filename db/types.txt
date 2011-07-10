@@ -5,21 +5,24 @@ Public database:
 ----------------
 type = business 
 author                          // permanent admin 
-list_of_partners                
-process_definition 
+list_of_partners
+activity_graph
+activity_dataitems
+activity_skills
 description 
 started_since
-list_of_roles
-total_rating =
-total_profit =
+total_rating 
+total_profit                   // TODO : profit distribution 
+                               // TODO : reputation distribution 
+
 
 
 
 Private database one per business: 
 ----------------
-business = 
 type = activity                  // activity is the class of tasks 
-name 
+name = .. friendly name of the activity
+data_items = []                  // common data items carry to successor 
 predecessors = start | ... 
 successors = end | ... 
 skills_required 
@@ -33,20 +36,18 @@ state = start | running | finished | error
 tasks = ids of tasks
 price = 
 total_rating = 
+data_items = {}                  // data items (over) written in by tasks 
 
 
 
 
 type = task                      // something done by worker  
-job = 
-name = "name of task" 
+jobid = 
+activityid = 
 worker = ... 
-predecessors =  ... 
-successors =  ... 
-skills_required 
 state = ready | waiting | running | finished | error 
 rating = 
-
+choice = .... selected successor 
 
  
 

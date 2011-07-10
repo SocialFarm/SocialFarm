@@ -17,3 +17,5 @@ curl -X GET http://127.0.0.1:5984/socialfarm_public/_all_docs
 
 
 
+# get a list of scheduled actions from scheduler 
+curl --user socialfarm:success -X GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler
