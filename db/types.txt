@@ -47,8 +47,10 @@ activityid =
 worker = ... 
 state = ready | waiting | running | finished | error 
 rating = 
+successors = 
+skills_required
 choice = .... selected successor 
-
+data_items = {}
  
 
 

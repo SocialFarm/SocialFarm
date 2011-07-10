@@ -150,11 +150,11 @@ out only a few proposed assignments.
 
 The return value is a list of tuples of form [personid, taskid].  
 
-GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/assign_tasks
-GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/assign_tasks?limit="1" 
+GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/offer_tasks
+GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/offer_tasks?limit="1" 
 
 eg: 
-curl --user socialfarm:success -X GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/assign_tasks?limit="1" 
+curl --user socialfarm:success -X GET http://127.0.0.1:5984/socialfarm_private/_design/scheduler/_view/offer_tasks?limit="1" 
      {"rows":[
      {"key":null,"value":[["guest","d73889570eebd5ded5a223dd3819bdf6"]]}
      ]}

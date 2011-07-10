@@ -12,8 +12,9 @@ import json
 import time 
 from hashlib import md5 
 from pprint import pprint 
-from couchdb.client import Database, Server 
-from couchdb.mapping import TextField, IntegerField, DateField, FloatField 
+import couchdb 
+from couchdb.client import Database, Server
+
 
 
 
@@ -134,28 +135,179 @@ class BusinessDirector :
         if username is not None and password is not None: 
             self.server.resource.credentials = (username, password) 
         self.db = self.server[businessname]         
+        for row in self.db.view( 'info/get_start_action' ): 
+            self.start_action = row.value 
+        #pprint(self.start_action) 
+
 
 
     def createJob(self, customer, price, data_items) : 
-        ### TODO ### 
+        print "Creating job!!" 
+        ''' create new records for the job and the 
+        first task of the job; add them to db in the 
+        ready state, to be picked up by scheduler '''
+        now = time.time() 
         jobdef = { 
             'type' : 'job' ,
-            'started_since' : time.time() , 
+            'started_since' : now , 
             'customer' : customer , 
             'price' : price , 
             'total_rating' : 0 , 
-            'data_items' : data_items 
+            'data_items' : data_items , 
+            'state' : 'ready'
             } 
+        jobid = 'job-%s' % md5('%s-%f' % (customer, now)).hexdigest()
+   
+        for k in self.start_action['data_items']: 
+            assert k in data_items 
+
+        (taskid, taskdef) = self.__getTask( jobid, 
+                                            self.start_action, 
+                                            data_items ) 
+        self.db[ jobid ] = jobdef 
+        self.db[ taskid ] = taskdef 
+
+
+
+    def __getTask(self, jobid, activity, data_items): 
+        activityid = activity['_id']  
+        activity_data_items = {} 
+
+        for k in activity['data_items']: 
+            activity_data_items[k] = None 
+
+        for k in data_items:
+            activity_data_items[k] = data_items[k] 
+
+        taskdef = { 
+            'type' : 'task' , 
+            'jobid' : jobid , 
+            'activityid' : activityid ,
+            'data_items' : activity_data_items, 
+            'worker' : None, 
+            'state' : 'ready', 
+            'successors' : activity["successors"] , 
+            'skills_required' : activity['skills_required'],
+            'choice' : None 
+            }
+        taskid = 'task-%s' % md5( '%s-%s' % (jobid, activityid) ).hexdigest()         
+        return (taskid,  taskdef) 
+
+
+
+
+    def addWorker(self, name, skills, role = 'worker', looking = True) : 
+        looking_for_work = 'no' 
+        if looking : 
+            looking_for_work = 'yes' 
+        assert role is "worker" or role is "partner" 
+
+        now = time.time() 
+        workerdef = {
+            'type' : 'person' , 
+            'role' : role, 
+            'skills' : skills, 
+            'ratings' : [ 0.0 for s in skills ] , 
+            'looking_for_work' : looking_for_work , 
+            'working_since' : now 
+            } 
+        self.db[ name ] = workerdef 
+
         
+    def delWorker(self, name): 
+        del self.db[ name ]
 
 
+
+    def taskOffers(self): 
+        for row in self.db.view( 'scheduler/assign_tasks' ) : 
+            return row.value 
+
+
+    def handleCompletion(self): 
+        newtasks = [] 
+
+        for row in self.db.view( 'scheduler/pending_jobs_tasks' ) : 
+            jobs_tasks = row.value 
+            break
+
+        for (jobid, tasklist) in jobs_tasks:
+            #pprint ( jobid ) 
+            #pprint ( [ t['_id'] for t in tasklist ] ) 
+            if not jobid : # job is marked finished , todo: cleanup its tasks 
+                continue   
+            
+            completed = {} 
+            ongoing = None 
+            for t in tasklist: 
+                if t['state'] == 'finished' : 
+                    completed[ t['activityid'] ] = t 
+                elif t['state'] == 'running' or t['state'] == 'ready':
+                    ongoing = t 
+                    break 
+            if ongoing:  # some task runs, nothing to do
+                continue 
+
+            aid = self.start_action["_id"] 
+            # first job is niether started nor finished 
+            if aid not in completed: 
+                (taskid, taskdef) = self.__getTask( jobid, 
+                                                    self.start_action, 
+                                                    self.db[jobid]['data_items'] ) 
+                self.db[ taskid ] = taskdef 
+                newtasks.append( taskid ) 
+                continue 
+                
+            while True: 
+                # reached end , job is complete ! 
+                if len(completed[aid]['successors']) == 0: 
+                    jobdef = self.db[jobid] 
+                    jobdef[ 'state' ] = 'finished' 
+                    for k in completed[aid]['data_items'].keys() : 
+                        if jobdef[ 'data_items' ].has_key(k): 
+                            jobdef[ 'data_items' ][k] = completed[aid]['data_items'][k]
+                    self.db[jobid] = jobdef
+                    break 
+
+                if len(completed[aid]['successors']) == 1:
+                    nextaid = completed[aid]['successors'][0] 
+                        
+                elif completed[aid].has_key('choice') : 
+                    nextaid = completed[aid]['choice'] 
+
+                else: 
+                    raise Exception( 'many successors and no choice! %s:%s' % (jobid, aid) )
+
+                # found next action that has to be run 
+                if nextaid not in completed: 
+                    activitydef = self.db[nextaid] 
+                    (taskid, taskdef) = self.__getTask( jobid, 
+                                                        activitydef, 
+                                                        completed[aid]['data_items'] ) 
+                    self.db[ taskid ] = taskdef 
+                    newtasks.append( taskid ) 
+                    break 
+
+                aid = nextaid 
+
+        return newtasks 
+
+
+                        
+
+
+            
+                
+                
+            
+        
 
 
 
 if __name__ == "__main__": 
     import sys 
     
-    if len(sys.argv) == 0:
+    if len(sys.argv) == 1:
         print "Usage : %s <user> <pwd> [<couchdb url>]"
         sys.exit(-2) 
 
@@ -181,10 +333,10 @@ if __name__ == "__main__":
             'D' : [ 'name' , 'colleagues' , 'reputation' ] 
             } , 
         'activity_skills' : { 
-            'A' : [ 's1' , 's2' ] , 
+            'A' : [ 's1' ] , 
             'B' : [ 's3' ] , 
-            'C' : [ 's3' ] , 
-            'D' : [ 's1' , 's3' ] 
+            'C' : [ 's4' ] , 
+            'D' : [ 's2' ] 
             } , 
         'description' : 'This business will find out your true reputation for a small fee!' 
         }
@@ -192,3 +344,39 @@ if __name__ == "__main__":
     sf.createBusiness( 'testbus' , busdef ) 
 
     
+    bd = BusinessDirector( 'testbus' , username, password ) 
+    bd.createJob( 'dalai lama' , 1.00 , {
+            'name' : 'vivek pathak' , 
+            'profession' : 'professor; technologist' 
+            } ) 
+    bd.createJob( 'pope' , 1.10 , {
+            'name' : 'osteele' , 
+            'profession' : 'student; technologist' 
+            } ) 
+    bd.addWorker('vpathak', ['s1','s3','s4'] , 'partner' ) 
+    bd.addWorker('osteele', ['s1','s2','s4'] )    
+
+    print 'calculating task offers' 
+
+    
+    # at this stage a real business would allow workers to 
+    # accept the task.  the task would get the worker and 
+    # and state changed to running, and the worker would be 
+    # not looking for work for a while (until task completes). 
+    # here we just complete the task immediately 
+    for i in range(1,10): 
+        for (workerid, taskid) in bd.taskOffers() :
+            print 'offer' , workerid , taskid 
+            tdef = bd.db[ taskid ] 
+            tdef[ 'worker' ] = workerid
+            tdef[ 'state' ] = 'finished' 
+            bd.db[ taskid ] = tdef 
+    
+        print 'check completion, spawn new if needed'
+        try:
+            print 'new tasks : ' , repr( bd.handleCompletion() ) 
+        except couchdb.http.ResourceConflict : 
+            bd.db.commit() 
+
+
+
