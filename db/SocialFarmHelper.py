@@ -45,8 +45,10 @@ class SocialFarm :
 
 
     def deleteBusiness(self, businessname) :
-        del self.db[ businessname ] 
-        del self.server[ businessname ] 
+        if businessname in self.db:
+            del self.db[ businessname ] 
+        if businessname in self.server:
+            del self.server[ businessname ] 
 
 
     def createBusiness(self, businessname, busdef):  
