@@ -1,21 +1,25 @@
-#!/usr/bin/env python 
-
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from templatemapper import templatemapper 
+
 import urllib2
-import urlparse
 
 PORT = 8080
 
+templates_wrappers = {
+    'allbusiness' : URLWrapper('/allbusiness/{startkey}/{count}' , '/socialfarm/_all_docs/?start_key={startkey}&count={count}' , 'http://.../someprefix.js' , 'http://.../somesuffix.js') , 
+    'getbusiness' : URLWrapper('/getbusiness/{id}' , '/socialfarm/{id}' , 'http://.../someprefix.js' , 'http://.../somesuffix.js' )
+    'deletebusiness' : CodeWrapper('/deletebusiness/{id}', pythonobj , method ) 
+    }
 
-class MultiplexerHandler(BaseHTTPRequestHandler):
 
-    def register
+
+
+class BaseHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        #print 'got path' , self.path 
-        
-        h = self.path.split("/")
-        print repr(h) 
+        for t in templates_wrappers: 
+            if t.match(self.path) :
 
+        h = self.path.split("/")[1]
         if h in Handlers.keys():
             Handlers[h].get(self)
         else:
@@ -28,35 +32,33 @@ class MultiplexerHandler(BaseHTTPRequestHandler):
 
 
 
+class URLWrapper(SocialFarmInterfaceWrapper) :       
 
+    def __init__(self, srctemplate, tgttemplate, prefixcode, suffixcode) : 
+        self.prefixcode = prefixcode
+        self.suffixcode = suffixcode 
+        self.template = templatemapper( srctemplate, tgttemplate )  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class FacebookHandler():
     def get(self, request):
         request.send_response(200)
         request.send_header('Content-type', 'text/html')
         request.end_headers()
-        template ='facebook/canvas.mak'
-        json = urllib2.urlopen("http://localhost:5984/socialfarm_public/_all_docs")
-        request.wfile.write(tl.get_template(template).render(json))
+
+        target = self.template.replace(request.path) 
+
+        json = urllib2.urlopen("http://localhost:5984/%s" % target )
+
+        request.wfile.write(self.prefixcode)
+        request.wfile.write(json) 
+        request.wfile.write(self.suffixcode) 
+
 
     def post(self, request):
         print "post"
 
-Handlers = {'facebook': FacebookHandler()}
+
+
+
 
 
 def main():
@@ -71,3 +73,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
