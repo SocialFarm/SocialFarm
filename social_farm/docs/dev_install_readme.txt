@@ -25,3 +25,11 @@ Creating a pyramid app
     http://docs.pylonsproject.org/projects/pyramid_cookbook/dev/couchdb.html
         $ easy_install couchdb
 
+Configuring ModWSGI
+
+before the virtual host block for you app make sure to specify, 
+the python path using the appropriate virtual env:
+ 
+WSGIPythonPath /usr/local/pyramid/social_farm_env/lib/python2.6/site-packages
+
+see httpd-vhost.conf for virtual host configuration

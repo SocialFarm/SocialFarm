@@ -3,8 +3,11 @@ MANIFEST.in
 README.txt
 development.ini
 production.ini
+pyramid.wsgi
+run.sh
 setup.cfg
 setup.py
+docs/dev_install_readme.txt
 social_farm/__init__.py
 social_farm/tests.py
 social_farm/views.py
@@ -16,4 +19,12 @@ social_farm.egg-info/not-zip-safe
 social_farm.egg-info/paster_plugins.txt
 social_farm.egg-info/requires.txt
 social_farm.egg-info/top_level.txt
-social_farm/templates/mytemplate.pt
+social_farm/handlers/__init__.py
+social_farm/handlers/base.py
+social_farm/handlers/facebook.py
+social_farm/lib/SocialFarmHelper.py
+social_farm/lib/__init__.py
+social_farm/lib/facebook.py
+social_farm/templates/base.mak
+social_farm/templates/facebook/facebook.mak
+social_farm/templates/facebook/oauth_redirect.mak

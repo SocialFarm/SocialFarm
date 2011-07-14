@@ -1,2 +1,4 @@
 pyramid
 WebError
+simplejson
+couchdb
