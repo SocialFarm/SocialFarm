@@ -5,7 +5,7 @@ PORT = 80
 FACEBOOK_APP_ID       = '234690403213067'
 FACEBOOK_API_KEY      = '7165704a80616d58e50629512349a8c1'
 FACEBOOK_APi_SECRET   = '14a74c4bcf2537f42d714c5cd8324c6e'
-FACEBOOK_CALLBACK_URL = 'http://apps.facebook.com/social_farm/'
+FACEBOOK_CALLBACK_URL = 'http://apps.facebook.com/social_farm/facebook/'
 
 class BaseHandler(BaseHTTPRequestHandler):
     def do_GET(self):
