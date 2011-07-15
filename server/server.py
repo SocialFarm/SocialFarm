@@ -1,11 +1,10 @@
 
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper 
-from SocialFarmHelper import SocialFarm
 
 import urllib2
 
-PORT = 8080
+PORT = 80
 FACEBOOK_APP_ID       = '234690403213067'
 FACEBOOK_API_KEY      = '7165704a80616d58e50629512349a8c1'
 FACEBOOK_APi_SECRET   = '14a74c4bcf2537f42d714c5cd8324c6e'
@@ -69,7 +68,7 @@ suffix = """
     <body>
         <h1>social_farm</h1>
         <ul>
-            <li><a href='""" + FACEBOOK_CALLBACK_URL + """getbusiness/testbus'> get testbus</a></li>
+            <li><a href='/getbusiness/testbus'> get testbus</a></li>
         </ul>
         <div id="json_wrapper"></div>
 
