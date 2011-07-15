@@ -1,61 +1,84 @@
 #!/usr/bin/env python 
 
+
 from pprint import pprint 
+from collections import namedtuple 
 import re 
+
+
+Literal = namedtuple( 'Literal' , 'path' ) 
+Variable = namedtuple( 'Variable' , 'name' ) 
 
 
 class templatemapper: 
 
+
     def __init__(self, src, tgt): 
         self.src = src 
         self.tgt = tgt 
-        self.srclist = src.split('/') 
-        self.tgtlist = tgt.split('/') 
-        self.srctemplates = self.__get_templates( self.srclist ) 
-        self.tgttemplates = self.__get_templates( self.tgtlist ) 
+        (_, self.tgttemplate)  = self.__get_templates( self.tgt ) 
+        (self.srcregexstr, self.srctemplate) = self.__get_templates( self.src ) 
+        self.srcregex = re.compile(self.srcregexstr)  
 
 
+    def __get_templates(self, path) :
+        boundaries = [] 
+        for m in re.finditer(  r'\{(\w*)\}' , path ) : 
+            boundaries.append( (m.start(), m.end(), m.group(1)) ) 
 
-    def __get_templates(self, pathcomplist) :
-        # TODO: It would be best if components could be extracted without
-        # assuming that the served url must have at most one template arg per 
-        # path component - see ___todo___
-        pathtemplates = {} 
-        i = 0
-        for pathcomp in pathcomplist: 
-            if len(pathcomp) > 2 and pathcomp[0] == '{' and pathcomp[-1] == '}' :
-                pathtemplates[ pathcomp[1:-1] ] = i 
-            i += 1 
-        return pathtemplates
+        regex = '^'         
+        template = [] 
+        prevend = 0
+        for (start, end, varname) in boundaries: 
+            if start != end: 
+                template.append( Literal( path[prevend:start] ) )  
+                template.append( Variable( varname ) )
+                regex += re.escape( path[prevend:start] )  
+                regex += '(\w*)' 
+                prevend = end
+        
+        if prevend != len(path): 
+            template.append( Literal( path[prevend:len(path)] ) ) 
+            regex += re.escape( path[prevend:start] )       
+        
+        regex += '$' 
 
+        return (regex, template) 
 
-    def ___todo___(TODO): 
-        self.srctemplates = {} 
-        # these should be the boundaries of the components, regardless of 
-        # / in the url.  something like this should go in place of split('/')  
-        for m in re.finditer(  r'\{(\w*)\}' , src ) : 
-            self.srctemplates[ m.group(1) ] = (m.start(), m.end()) 
-            
-        self.tgttemplates = {} 
-        for m in re.finditer(  r'\{(\w*)\}' , tgt ) : 
-            self.tgttemplates[ m.group(1) ] = (m.start(), m.end())             
 
 
 
     def replace(self, url): 
-        urlcomps = url.split('/') 
-        data = {} 
-        for key in self.srctemplates:
-            data[ key ] = urlcomps[ self.srctemplates[key] ] 
+        m = self.srcregex.match(url)
+        if m is None:
+            raise Exception( '%s does not match pattern %s' % (url, self.src) ) 
 
-        res = self.tgt
-        for key in data: 
-            res = res.replace( '{%s}' % key, data[ key ] ) 
-        return res 
-            
+        # get the matches for each variable according to regex match
+        i = 1
+        matches = {} 
+        for obj in self.srctemplate: 
+            if type(obj) is Variable:
+                matches [ obj[0] ] = m.group(i) 
+                i += 1
+
+
+        reslist = []
+        for obj in self.tgttemplate: 
+            if type(obj) is Literal: 
+                reslist.append( obj[0] )
+            else:
+                reslist.append( matches[ obj[0] ] ) 
+
+        return ''.join(reslist) 
+
+
      
-    def matches(self): 
-        return True 
+    def matches(self, url): 
+        if self.srcregex.match(url) :
+            return True 
+        return False
+
+
 
 
 if __name__ == '__main__':
