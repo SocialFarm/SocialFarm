@@ -19,8 +19,8 @@ def _usage() :
 
 
 def _get_recursive_dict( keylist , data ) :
-    if len(keylist) == 1:
-        return {keylist[0] : data}
+    if keylist == []: 
+        return data 
     else:
         return {keylist[0] : _get_recursive_dict(keylist[1:], data) } 
 
@@ -35,7 +35,7 @@ def _merge_updates(obj, fldkeys, data):
         k = fldkeys[i]
         # no key, get the remaining dicts directly 
         if k not in curr:
-            curr[k] = _get_recursive_dict( fldkeys[i:] , data )
+            curr[k] = _get_recursive_dict( fldkeys[i+1:] , data )
             return res
         # last key, overwrite the data 
         if i == (n-1):
@@ -91,7 +91,11 @@ if __name__ == "__main__":
     if dbname not in server: 
         server.create( dbname ) 
     db = server[dbname]
-    obj = db[objid]
+
+    if objid in db: 
+        obj = db[objid]
+    else: 
+        obj = { }
     
     # create possible objects that we need to insert
     newobj = _merge_updates( obj, fldkeys, data )
