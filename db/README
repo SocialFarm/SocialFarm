@@ -10,6 +10,8 @@ BUSINESSES
 List businesses
 ---------------
 GET http://127.0.0.1:5984/socialfarm_public/_all_docs
+GET http://localhost:5984/socialfarm/_design/business/_view/list
+
 
 View a list of all businesses.  The output has ids of the 
 business which is also the name of the database used for 
@@ -33,6 +35,10 @@ view details of a specific business.
 eg: 
 curl -X GET http://127.0.0.1:5984/socialfarm_public/b22222
      {"_id":"b22222","_rev":"1-160fb33733e61d6f3d98da5a2798d8bd","type":"business","author":"vpathak","description":"this business aims to do nothing","list_of_partners":["iftode","vpathak","smaldone","osteele"],"started_since":"7-7-2011","list_of_roles":["role0"],"total_rating":0.0,"total_profit":0.0}
+
+HTML Format: USe the show function 
+lynx localhost:5984/socialfarm/_design/business/_show/facebook_show/testbus  (TODO - needs more info in the show function facebook_show.js) 
+
 
 
 Modify a business 
