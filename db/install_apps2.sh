@@ -1,6 +1,7 @@
 #!/bin/bash
 
 
+./update_field.py -l socialfarm:success socialfarm_business_template _design/valid validate_doc_update validate_docs.js
 
 ./update_field.py -l socialfarm:success socialfarm_business_template _design/scheduler views.offer_tasks.map scheduler/offer_tasks/map.js
 ./update_field.py -l socialfarm:success socialfarm_business_template _design/scheduler views.offer_tasks.reduce scheduler/offer_tasks/reduce.js
