@@ -82,6 +82,7 @@ if __name__ == "__main__":
     dbname = args[0]
     objid  = args[1]
     fldkeys = args[2].split('.')
+    # TODO : use codecs.EncodedFile( fd, ... , errors = "ignore" ) 
     if len(args) == 4: 
         data = open(args[3]).read()
     else :
