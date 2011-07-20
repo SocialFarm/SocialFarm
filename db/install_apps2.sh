@@ -6,7 +6,7 @@
 ./update_field.py -l socialfarm:success socialfarm _design/business shows.facebook_show  business/facebook_show.js 
 
 # mustache test 
-./update_field.py -l socialfarm:success socialfarm _design/business common.js.mustache business/mustache.js 
+./update_field.py -l socialfarm:success socialfarm _design/business common.js.mustache mustache.js 
 ./update_field.py -l socialfarm:success socialfarm _design/business common.html.mustache business/mustache_show.html 
 ./update_field.py -l socialfarm:success socialfarm _design/business shows.mustache_show  business/mustache_show.js
 
