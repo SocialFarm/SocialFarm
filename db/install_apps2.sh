@@ -3,9 +3,11 @@
 # public database 
 ./update_field.py -l socialfarm:success socialfarm _design/business views.list.map  business/list/map.js
 
+# facebook
+./update_field.py -l socialfarm:success socialfarm _design/business common.html.facebook business/facebook_show.html 
 ./update_field.py -l socialfarm:success socialfarm _design/business shows.facebook_show  business/facebook_show.js 
 
-# mustache test 
+# mustache 
 ./update_field.py -l socialfarm:success socialfarm _design/business common.js.mustache mustache.js 
 ./update_field.py -l socialfarm:success socialfarm _design/business common.html.mustache business/mustache_show.html 
 ./update_field.py -l socialfarm:success socialfarm _design/business shows.mustache_show  business/mustache_show.js
