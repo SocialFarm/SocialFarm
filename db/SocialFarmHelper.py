@@ -322,8 +322,30 @@ if __name__ == "__main__":
 
     print 'created social farm object' 
 
-    print 'creating business testbus' 
+    print 'creating business testbus2' 
+    busdef = {
+        'author': 'vpathak',
+        'list_of_partners' : [ 'vpathak'  ] ,
+        'activity_graph' : {'A' : ['B'] , 'B' : ['C'], 'C' : [] } , 
+        'activity_dataitems' : {
+            'A' : [ 'name' , 'profession' ] , 
+            'B' : [ 'name' , 'profession' , 'level' ] , 
+            'C' : [ 'name' , 'colleagues' ] 
+            } , 
+        'activity_skills' : { 
+            'A' : [ 's1' ] , 
+            'B' : [ 's3' ] , 
+            'C' : [ 's1' ] 
+            } , 
+        'description' : 'This business is a test ' 
+        }
+    sf.deleteBusiness( 'testbus2' ) 
+    sf.createBusiness( 'testbus2' , busdef ) 
 
+    
+
+
+    print 'creating business testbus' 
     busdef = {
         'author': 'vpathak',
         'list_of_partners' : [ 'vpathak' , 'osteele' ] ,

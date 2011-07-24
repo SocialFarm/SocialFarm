@@ -1,16 +1,26 @@
 #!/bin/bash
 
+
+# upload mustache.js - used by various show and lists below  
+./update_field.py -l socialfarm:success socialfarm _design/business common.js.mustache mustache.js 
+
+
 # public database 
 ./update_field.py -l socialfarm:success socialfarm _design/business views.list.map  business/list/map.js
+
+# list function rendering the view in html and its dependencies 
+./update_field.py -l socialfarm:success socialfarm _design/business lists.facebook_list_businesses business/list/facebook_list_businesses.js
+./update_field.py -l socialfarm:success socialfarm _design/business common.html.facebook_list_businesses business/list/facebook_list_businesses.html 
+./update_field.py -l socialfarm:success socialfarm _design/business common.html.facebook_list_businesses_row business/list/facebook_list_businesses_row.html 
+
 
 # facebook
 ./update_field.py -l socialfarm:success socialfarm _design/business common.html.facebook business/facebook_show.html 
 ./update_field.py -l socialfarm:success socialfarm _design/business shows.facebook_show  business/facebook_show.js 
 
-# mustache 
-./update_field.py -l socialfarm:success socialfarm _design/business common.js.mustache mustache.js 
-./update_field.py -l socialfarm:success socialfarm _design/business common.html.mustache business/mustache_show.html 
-./update_field.py -l socialfarm:success socialfarm _design/business shows.mustache_show  business/mustache_show.js
+# Not used 
+#./update_field.py -l socialfarm:success socialfarm _design/business common.html.mustache business/mustache_show.html 
+#./update_field.py -l socialfarm:success socialfarm _design/business shows.mustache_show  business/mustache_show.js
 
 
 # business template database 

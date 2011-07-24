@@ -12,6 +12,8 @@ List businesses
 GET http://127.0.0.1:5984/socialfarm_public/_all_docs
 GET http://localhost:5984/socialfarm/_design/business/_view/list
 
+or formatted html : 
+GET http://localhost:5984/socialfarm/_design/business/_list/facebook_list_businesses/list
 
 View a list of all businesses.  The output has ids of the 
 business which is also the name of the database used for 
