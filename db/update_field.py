@@ -62,8 +62,8 @@ if __name__ == "__main__":
         print str(err) 
         _usage()
 
-    username = 'socialfarm'
-    password = 'success' 
+    username = None
+    password = None 
     url = 'http://localhost:5984/'
     for o, a in opts:
         if o in ("--login" , "-l") :
