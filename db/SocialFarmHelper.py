@@ -158,7 +158,7 @@ class BusinessDirector :
             'data_items' : data_items , 
             'state' : 'ready'
             } 
-        jobid = 'job-%s' % md5('%s-%f' % (customer, now)).hexdigest()
+        jobid = '%s.%d' % (customer, int(now) ) 
    
         for k in self.start_action['data_items']: 
             assert k in data_items 
@@ -192,7 +192,7 @@ class BusinessDirector :
             'skills_required' : activity['skills_required'],
             'choice' : None 
             }
-        taskid = 'task-%s' % md5( '%s-%s' % (jobid, activityid) ).hexdigest()         
+        taskid = '%s.task.%s' % (jobid, activityid)         
         return (taskid,  taskdef) 
 
 
