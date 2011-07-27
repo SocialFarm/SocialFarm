@@ -9,6 +9,7 @@ http://127.0.0.1:5984/testbus/_design/info/_view/list_tasks
 
 
 SHOWS:
+http://localhost:5984/socialfarm/_design/business/_show/basic_html/testbus
 http://localhost:5984/socialfarm/_design/business/_show/business_show/testbus
 http://localhost:5984/testbus/_design/info/_show/member_show/osteele
 
@@ -19,7 +20,7 @@ ERROR: http://localhost:5984/testbus/_design/info/_show/action_show/C
 
 
 LISTS:
-http://localhost:5984/socialfarm/_design/business/_list/business_list/list_businesses
+http://localhost:5984/socialfarm/_design/business/_list/basic_html/all
 http://localhost:5984/testbus/_design/info/_list/members_list/list_members
 http://localhost:5984/testbus2/_design/info/_list/actions_list/list_actions
 http://localhost:5984/testbus/_design/info/_list/jobs_list/list_jobs
