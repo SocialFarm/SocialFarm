@@ -9,7 +9,7 @@ install_apps :
 
 	# TRYING new naming convention 
 	# public database 
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business views.all.map  business/mapall.js	
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business views.all.map  business/map_all.js	
 
 	# list functions rendering the view in html and its dependencies 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.basic_html business/list_basic_html.js 
@@ -29,36 +29,38 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/scheduler views.pending_jobs_tasks.reduce scheduler/pending_jobs_tasks/reduce.js
 
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info views.get_start_action.map info/get_start_action/map.js 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info views.list_members.map info/list_members/map.js
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info views.list_actions.map info/list_actions/map.js 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info views.list_jobs.map info/list_jobs/map.js 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info views.list_tasks.map info/list_tasks/map.js
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info views.all_members.map info/members/map_all.js
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info views.all_actions.map info/actions/map_all.js 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info views.all_jobs.map info/jobs/map_all.js 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info views.all_tasks.map info/tasks/map_all.js
 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.members_list info/list_members/members_list.js
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.members_list info/list_members/members_list.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.members_list_row info/list_members/members_list_row.html
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.members_basic_html info/members/list_basic_html.js
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.members.list_basic_html info/members/list_basic.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.members.list_basic_html_row info/members/list_basic_row.html
 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.actions_list info/list_actions/actions_list.js
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.actions_list info/list_actions/actions_list.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.actions_list_row info/list_actions/actions_list_row.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.actions_basic_html info/actions/list_basic_html.js
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.actions.list_basic_html info/actions/list_basic.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.actions.list_basic_html_row info/actions/list_basic_row.html
 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.jobs_list info/list_jobs/jobs_list.js
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.jobs_list info/list_jobs/jobs_list.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.jobs_list_row info/list_jobs/jobs_list_row.html
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.jobs_basic_html info/jobs/list_basic_html.js
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.jobs.list_basic_html info/jobs/list_basic.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.jobs.list_basic_html_row info/jobs/list_basic_row.html
 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.tasks_list info/list_tasks/tasks_list.js
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.tasks_list info/list_tasks/tasks_list.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.tasks_list_row info/list_tasks/tasks_list_row.html
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.tasks_basic_html info/tasks/list_basic_html.js
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.tasks.list_basic_html info/tasks/list_basic.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.tasks.list_basic_html_row info/tasks/list_basic_row.html
 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.member_show info/show_member/member_show.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.member_show  info/show_member/member_show.js 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.members.show_basic_html info/members/show_basic.html  
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.member_basic_html info/members/show_basic_html.js
 
-	#./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.action_show info/show_action/action_show.html 
-	#./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.action_show  info/show_action/action_show.js 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.actions.show_basic_html info/actions/show_basic.html  
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.action_basic_html info/actions/show_basic_html.js
 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.job_show info/show_job_task/job_show.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.task_show info/show_job_task/task_show.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.job_task_show  info/show_job_task/job_task_show.js 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.jobs.show_basic_html info/jobs/show_basic.html  
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.job_basic_html info/jobs/show_basic_html.js
+
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.tasks.show_basic_html info/tasks/show_basic.html  
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.task_basic_html info/tasks/show_basic_html.js
 
 clean: 
 	./delete_database.py -l $(CREDENTIALS) testbus

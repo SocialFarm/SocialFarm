@@ -1,8 +1,8 @@
 function (head, req) {   
 
     var Mustache = require( "common/js/mustache" );
-    var page_template = this.common.html.actions_list ; 
-    var row_template = this.common.html.actions_list_row ; 
+    var page_template = this.common.html.jobs.list_basic_html ; 
+    var row_template = this.common.html.jobs.list_basic_html_row ; 
 
     // set the content header through the call back 
     start({"headers": {"Content-Type": "text/html"}});
