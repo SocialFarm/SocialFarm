@@ -34,7 +34,7 @@ class templatemapper:
                 template.append( Literal( path[prevend:start] ) )  
                 template.append( Variable( varname ) )
                 regex += re.escape( path[prevend:start] )  
-                regex += '(\w*)' 
+                regex += '([._\w]*)' 
                 prevend = end
         
         if prevend != len(path): 
@@ -92,6 +92,9 @@ if __name__ == '__main__':
     print t.replace( '/business/testbus/members' ) 
 
 
+    t = templatemapper( '/business/{bid}/job/{jid}' ,      '/{bid}/_design/info/_show/job_basic_html/{jid}' ) 
+
+    print t.replace( '/business/testbus/job/pope.1311187292' ) 
     
             
             
