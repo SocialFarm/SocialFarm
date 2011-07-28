@@ -4,20 +4,27 @@ from templatemapper import templatemapper
 
 import urllib2
 
-PORT = 80
+PORT = 8080
 
-#SocialFarmInterfaceWrapper
+
+""" scraps
+SocialFarmInterfaceWrapper
+'deletebusiness' : CodeWrapper('/deletebusiness/{id}', pythonobj , method ) 
+'allbusiness' : URLWrapper('/allbusiness/{startkey}/{count}', '/socialfarm/_all_docs/?start_key={startkey}&count={count}'), 
+"""
+
 class URLWrapper(object) :       
 
     def __init__(self, srctemplate, tgttemplate) : 
         self.template = templatemapper( srctemplate, tgttemplate )  
 
     def get(self, request):
-        request.send_response(200)
+        target = self.template.replace(request.path) 
+        url = urllib2.urlopen("http://localhost:5984/%s" % target )
+        page = url.read() if url.getcode() == 200 else "error"
+        request.send_response(url.getcode())
         request.send_header('Content-type', 'text/html')
         request.end_headers()
-        target = self.template.replace(request.path) 
-        page = urllib2.urlopen("http://localhost:5984/%s" % target ).read()
         request.wfile.write(page) 
 
 
@@ -25,23 +32,29 @@ class URLWrapper(object) :
         print "post"
 
 templates_wrappers = {
-'getbusiness' : URLWrapper('/getbusiness/{id}' , '/socialfarm/_design/business/_show/mustache_show/{id}'), 
+'businesses'    : URLWrapper('/businesses{}',                   '/socialfarm/_design/business/_list/basic_html/all{}'),
+'business'      : URLWrapper('/business/{bid}' ,                '/socialfarm/_design/business/_show/basic_html/{bid}'), 
+'members'       : URLWrapper('/business/{bid}/members' ,        '/{bid}/_design/info/_list/members_basic_html/all_members'), 
+'member'        : URLWrapper('/business/{bid}/member/{mid}' ,   '/{bid}/_design/info/_show/member_basic_html/{mid}'), 
+'actions'       : URLWrapper('/business/{bid}/actions' ,        '/{bid}/_design/info/_list/actions_basic_html/all_actions'), 
+'action'        : URLWrapper('/business/{bid}/action/{aid}' ,   '/{bid}/_design/info/_show/action_basic_html/{aid}'), 
+'jobs'          : URLWrapper('/business/{bid}/jobs' ,           '/{bid}/_design/info/_list/jobs_basic_html/all_jobs'), 
+'job'           : URLWrapper('/business/{bid}/job/{jid}' ,      '/{bid}/_design/info/_show/job_basic_html/{jid}'), 
+'tasks'         : URLWrapper('/business/{bid}/tasks' ,          '/{bid}/_design/info/_list/tasks_basic_html/all_tasks'), 
+'task'          : URLWrapper('/business/{bid}/task/{tid}' ,     '/{bid}/_design/info/_show/task_basic_html/{tid}'), 
 }
 
-""" list views which need to be wrapped
-'deletebusiness' : CodeWrapper('/deletebusiness/{id}', pythonobj , method ) 
-'allbusiness' : URLWrapper('/allbusiness/{startkey}/{count}', '/socialfarm/_all_docs/?start_key={startkey}&count={count}'), 
-"""
 
 
 
 
 class BaseHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path.split('/')[1] in templates_wrappers.keys(): 
-            templates_wrappers[self.path.split('/')[1]].get(self)
-           
-          
+        map_key = self.path.split('/')[1] if len(self.path.split('/')) < 4 else self.path.split('/')[3]
+        print map_key
+        if map_key in templates_wrappers.keys(): 
+            templates_wrappers[map_key].get(self)
+            
     def do_POST(self):
         print self.path.split("/")
 
