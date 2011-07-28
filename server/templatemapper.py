@@ -39,7 +39,7 @@ class templatemapper:
         
         if prevend != len(path): 
             template.append( Literal( path[prevend:len(path)] ) ) 
-            regex += re.escape( path[prevend:start] )       
+            regex += re.escape( path[prevend:len(path)] )       
         
         regex += '$' 
 
@@ -51,7 +51,7 @@ class templatemapper:
     def replace(self, url): 
         m = self.srcregex.match(url)
         if m is None:
-            raise Exception( '%s does not match pattern %s' % (url, self.src) ) 
+            raise Exception( '%s does not match pattern %s\nregexstr = %s ' % (url, self.src, self.srcregexstr) ) 
 
         # get the matches for each variable according to regex match
         i = 1
@@ -86,6 +86,11 @@ if __name__ == '__main__':
                         '/socialfarm/_all_docs/?start_key={startkey}&count={count}' ) 
 
     print t.replace( '/allbusiness/A/30' ) 
+
+    t = templatemapper( '/business/{bid}/members' ,  '/{bid}/_design/info/_list/members_basic_html/all_members' ) 
+
+    print t.replace( '/business/testbus/members' ) 
+
 
     
             
