@@ -1,5 +1,6 @@
 import unittest
-import urllib, httplib
+import httplib2, urllib2, urllib,  json
+
 
 server = '127.0.0.1:8080'
 bus = 'testbus'
@@ -8,7 +9,7 @@ action = 'C'
 job = 'pope.1311187292'
 task = 'pope.1311187292.task.D'
 
-pages = [
+gets = [
 'http://%s/businesses'              % (server),
 'http://%s/business/%s'             % (server, bus),
 'http://%s/business/%s/members'     % (server, bus),
@@ -20,71 +21,64 @@ pages = [
 # broken becuase of '.' in id
 #'http://%s/business/%s/job/%s'      % (server, bus, job),
 #'http://%s/business/%s/task/%s'     % (server, bus, task),
-]
-
-api_calls = [
 'http://%s/api/businesses'              % (server),
 'http://%s/api/business/%s'             % (server, bus),
 'http://%s/api/business/%s/members'     % (server, bus),
 'http://%s/api/business/%s/actions'     % (server, bus),
 'http://%s/api/business/%s/jobs'        % (server, bus),
 'http://%s/api/business/%s/tasks'       % (server, bus),
-'http://%s/api/business/%s/%s'   % (server, bus, member),
-'http://%s/api/business/%s/%s'   % (server, bus, action),
+#broken because of pattern
+#'http://%s/api/business/%s/%s'   % (server, bus, member),
+#'http://%s/api/business/%s/%s'   % (server, bus, action),
 ]
 
-puts = {
-'http://%s/socialfarm/b22222' % server: """{"_rev":"1-160fb33733e61d6f3d98da5a2798d8bd","type":"business","author":"vpathak","description":"this business aims to do nothing","list_of_partners":["iftode","vpathak","smaldone","osteele"],"started_since":"7-7-2011","list_of_roles":["role0"],"total_rating":0.0,"total_profit":0.1}"""
-}
+puts = [
+"""http://%s/api/business/b22222 ||| { 
+    "_rev":"1-160fb33733e61d6f3d98da5a2798d8bd",
+    "type":"business",
+    "author":"vpathak",
+    "description":"this business aims to do nothing",
+    "list_of_partners":["iftode","vpathak","smaldone","osteele"],
+    "started_since":"7-7-2011","list_of_roles":["role0"],
+    "total_rating":0.0,
+    "total_profit":0.1
+}""" % server
+]
 
-"""
-class TestGET(unittest.TestCase):
+
+class TestServer(unittest.TestCase):
     def setUp(self):
-        self.pages = pages
-        self.api_calls = api_calls
-
-    def test_api(self):
-        print "\ntesting api...\n"
-        for url in self.api_calls:
-            code = urllib.urlopen(url).getcode()
-            print "\t[%s] GET %s" % (code, url)
-            self.assertEqual(code, 200)
-        print "DONE"
-      
-    def test_templates(self):
-        print "\ntesting templates...\n"
-        for url in self.pages:
-            code = urllib.urlopen(url).getcode()
-            print "\t[%s] GET %s" % (code, url)
-            self.assertEqual(code, 200)
-        print "DONE"
-"""
-
-class TestPUT(unittest.TestCase):
-    def setUp(self):
+        self.gets = gets
         self.puts = puts
+
+    def test_gets(self):
+        print "\ntesting gets...\n"
+        for url in self.gets:
+            response, content = httplib2.Http().request(url, "GET")
+            print "\t[%s] GET %s" % (response['status'], url)
+            self.assertEqual(response['status'], '200')
+        print "DONE"
 
     def test_puts(self):
         print "\ntesting puts...\n"
         for p in self.puts:
-            opener = urllib2.build_opener(urllib2.HTTPHandler)
-            request = urllib2.Request(p.split('|||')[0], data=p.split('|||')[1])
-            request.add_header('Content-Type', 'application/json')
-            request.get_method = lambda: 'PUT'
-            url = opener.open(request)
-            print url
+            (url, data) = p.split('|||')
+            headers = { "content-type": "application/json" }
+            data = {'test':'0'}
+            data = urllib.urlencode(data)
+            response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
+
+            print response
+            print "\t[%s] GET %s" % (response['status'], url)
+            self.assertEqual(response['status'], '200')
         print "DONE"
-      
-  
+
+
 
 
 
 if __name__ == '__main__':
-    #unittest.main()
+    unittest.main()
     
-    connection =  httplib.HTTPConnection('127.0.0.1:8080')
-    body_content = puts['http://127.0.0.1:8080/socialfarm/b22222']
-    connection.request('PUT', '/socialfarm/b22222', body_content)
-    result = connection.getresponse()
-    print result.__dict__
+   
 
