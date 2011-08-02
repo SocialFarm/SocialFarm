@@ -44,13 +44,7 @@ class Adapter(BaseHTTPRequestHandler) :
     def do_PUT(self):
         url = 'http://%s:%s' % dst_server + patterns[path_to_key(self.path)].replace(self.path) 
         headers = { "content-type": "application/json" }
-
-        #this is where it is getting stuck
-        # maybe relevant? http://www.gossamer-threads.com/lists/python/python/847985
- 
-        print "right here..."
         data =  self.rfile.read((int(self.headers['content-length'])))
-
         response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
         self.write_response(response, content)
       

@@ -1,6 +1,7 @@
 import unittest
-import httplib2, urllib2, urllib,  json
-
+import httplib2, urllib2, urllib, json
+from couchdb import json as j
+from datetime import datetime
 
 server = '127.0.0.1:8080'
 bus = 'testbus'
@@ -32,46 +33,22 @@ gets = [
 #'http://%s/api/business/%s/%s'   % (server, bus, action),
 ]
 
-puts = [
-
-
-
-
+jobs = [
+'http://%s/api/testbus/pope.1311187292' % server, 
+# broken space in id
+#'http://%s/api/testbus/dalai lama.1311187292' % server,
 ]
 
-""" broken becuase of version conflic
-
-http://%s/api/testbus/d73889570eebd5ded5a223dd3819bdf6 ||| 
-{
-    "_rev":"1-e88fa41e5d5bde4c41ae6eedc189d7d7",
-    "skills_required":["s2"],
-    "name":null,
-    "state":"ready",
-    "jobid":"job-003",
-    "activityid":"B",
-    "prevtid":"3e722b1597f32eab203d82db332f75ae",
-    "address":"somerset, nj" ,
-    "type":"task"
-} % server
-
-http://%s/api/business/b22222 ||| { 
-    "_rev":"1-160fb33733e61d6f3d98da5a2798d8bd",
-    "type":"business",
-    "author":"vpathak",
-    "description":"this business aims to do nothing",
-    "list_of_partners":["iftode","vpathak","smaldone","osteele"],
-    "started_since":"7-7-2011","list_of_roles":["role0"],
-    "total_rating":0.0,
-    "total_profit":0.1
-} % server,
-
-"""
-
+bus = [
+'http://%s/api/business/testbus' % server, 
+'http://%s/api/business/testbus2' % server, 
+]
 
 class TestServer(unittest.TestCase):
     def setUp(self):
         self.gets = gets
-        self.puts = puts
+        self.jobs = jobs
+        self.bus = bus
 
     def test_gets(self):
         print "\ntesting gets...\n"
@@ -79,27 +56,32 @@ class TestServer(unittest.TestCase):
             response, content = httplib2.Http().request(url, "GET")
             print "\t[%s] GET %s" % (response['status'], url)
             self.assertEqual(response['status'], '200')
-        print "DONE"
 
     def test_puts(self):
-        print "\ntesting puts...\n"
-        for p in self.puts:
-            (url, data) = p.split('|||')
+        print "\ntesting PUT for jobs...\n"
+        for url in self.jobs:
+            data = urllib.urlopen(url).read()
             data = json.loads(data.strip())
-            data = urllib.urlencode(data)
-            headers = { "content-type": "application/json", 'content-length': str(len(data)) }
-       
+            data['price'] = float(data['price']) + .01
+            data = j.encode(data).encode('utf-8')
+            headers = { "content-type": "application/json", 'content-length': str(len(data))}
             response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
 
-            print response
             print "\t[%s] GET %s" % (response['status'], url)
-            self.assertEqual(response['status'], '200')
-        print "DONE"
+            self.assertEqual(response['status'], '201')
+        
+        print "\ntesting PUT for businesses...\n"
+        for url in self.bus:
+            data = urllib.urlopen(url).read()
+            data = json.loads(data.strip())
+            data['total_profit'] = float(data['total_profit']) + .01
+            data = j.encode(data).encode('utf-8')
+            headers = { "content-type": "application/json", 'content-length': str(len(data))}
+            response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
 
-
-
-
-
+            print "\t[%s] GET %s" % (response['status'], url)
+            self.assertEqual(response['status'], '201')
+   
 if __name__ == '__main__':
     unittest.main()
     
