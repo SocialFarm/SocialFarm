@@ -23,7 +23,7 @@ patterns = {
 'api.business.actions'   : templatemapper('/api/business/{bid}/actions' ,    '/{bid}/_design/info/_view/all_actions'), 
 'api.business.jobs'      : templatemapper('/api/business/{bid}/jobs' ,       '/{bid}/_design/info/_view/all_jobs'), 
 'api.business.tasks'     : templatemapper('/api/business/{bid}/tasks' ,      '/{bid}/_design/info/_view/all_tasks'), 
-#'api.business.id'       : templatemapper('/api/business/{bid}/{id}' ,       '/{bid}/{id}'), 
+'api.business.id'        : templatemapper('/api/{bid}/{id}' ,                '/{bid}/{id}'), 
 }
 
 reserved = [ 'api', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
@@ -32,9 +32,7 @@ reserved = [ 'api', 'businesses', 'business', 'members', 'member', 'actions', 'a
 def path_to_key(path):
     parts = filter(lambda x: x in reserved, path.split('/'))
     key = reduce(lambda x, y: '%s.%s' % (x, y), parts)
-    if key == 'api.business' and len(path.split('/')) == 4:
-        key == 'api.business.id'
-    return key
+    return key if key != 'api' else 'api.business.id'
 
 class Adapter(BaseHTTPRequestHandler) :  
      
@@ -49,12 +47,11 @@ class Adapter(BaseHTTPRequestHandler) :
 
         #this is where it is getting stuck
         # maybe relevant? http://www.gossamer-threads.com/lists/python/python/847985
+ 
         print "right here..."
-        data = self.rfile.read()
-        print data
-       
+        data =  self.rfile.read((int(self.headers['content-length'])))
+
         response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
-        print content
         self.write_response(response, content)
       
     def write_response(self, response, content):

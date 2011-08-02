@@ -33,7 +33,28 @@ gets = [
 ]
 
 puts = [
-"""http://%s/api/business/b22222 ||| { 
+
+
+
+
+]
+
+""" broken becuase of version conflic
+
+http://%s/api/testbus/d73889570eebd5ded5a223dd3819bdf6 ||| 
+{
+    "_rev":"1-e88fa41e5d5bde4c41ae6eedc189d7d7",
+    "skills_required":["s2"],
+    "name":null,
+    "state":"ready",
+    "jobid":"job-003",
+    "activityid":"B",
+    "prevtid":"3e722b1597f32eab203d82db332f75ae",
+    "address":"somerset, nj" ,
+    "type":"task"
+} % server
+
+http://%s/api/business/b22222 ||| { 
     "_rev":"1-160fb33733e61d6f3d98da5a2798d8bd",
     "type":"business",
     "author":"vpathak",
@@ -42,8 +63,9 @@ puts = [
     "started_since":"7-7-2011","list_of_roles":["role0"],
     "total_rating":0.0,
     "total_profit":0.1
-}""" % server
-]
+} % server,
+
+"""
 
 
 class TestServer(unittest.TestCase):
@@ -63,9 +85,10 @@ class TestServer(unittest.TestCase):
         print "\ntesting puts...\n"
         for p in self.puts:
             (url, data) = p.split('|||')
-            headers = { "content-type": "application/json" }
-            data = {'test':'0'}
+            data = json.loads(data.strip())
             data = urllib.urlencode(data)
+            headers = { "content-type": "application/json", 'content-length': str(len(data)) }
+       
             response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
 
             print response
