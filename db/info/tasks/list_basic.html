@@ -2,18 +2,27 @@
 <html> 
     <head> 
         <meta charset="utf-8">
-        <title>List of Tasks for a Business</title> 
+        <title>{{bid}} > tasks</title> 
         <meta name="description" content="...">
         <meta name="author" content="...">
+    	{{{ default_css }}}
     </head> 
     <body> 
-        <div id="rowinfo"> 
-          <h2> Showing {{numrows}} tasks, at offset {{offset}}. </h2> 
-        </div>
-        <div id="html_rows">
-          <p> {{{ html_rows }}}  <!-- dont escape html from business table -->
-          </p> 
-        </div>
+        <div id = "content">
+
+        {{{ navigation }}}
+
+            <div class = "primary_content">
+
+				<div id="rowinfo"> 
+					<h2> Showing {{numrows}} tasks, at offset {{offset}}. </h2> 
+				</div>
+
+                {{{ html_rows }}}
+
+            </div>
+
+        </div> 
     </body>
 </html> 
         

@@ -7,9 +7,12 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.js.mustache mustache.js 
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.js.mustache mustache.js 
 
-	# TRYING new naming convention 
 	# public database 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business views.all.map  business/map_all.js	
+
+	# common (same as info for now)
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.default_css info/common/default_css.html
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.navigation info/common/navigation.html
 
 	# list functions rendering the view in html and its dependencies 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.basic_html business/list_basic_html.js 
@@ -61,6 +64,16 @@ install_apps :
 
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.tasks.show_basic_html info/tasks/show_basic.html  
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.task_basic_html info/tasks/show_basic_html.js
+
+	#common
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.default_css info/common/default_css.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.navigation info/common/navigation.html  
+
+	#facebook 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.api info/facebook/api.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.canvas info/facebook/canvas.html  
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.facebook_canvas info/facebook/canvas.js
+
 
 clean: 
 	./delete_database.py -l $(CREDENTIALS) testbus
