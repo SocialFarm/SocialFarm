@@ -1,0 +1,25 @@
+
+Attachment create example: 
+--------------------------
+Note : the rev id may need to be changed to get this specific example 
+working 
+
+Command line usage to insert an attachment into the document with id A.  The 
+attachment is named API.txt 
+
+    curl -vX PUT http://127.0.0.1:5984/testbus/A/API.txt?rev=1-c8522708400eae078ddf949d0d34d594 --data-binary @API.txt -H "Content-Type: text/plain"
+
+Now we can see the attachment in the fld named _attachment 
+    curl -X GET http://127.0.0.1:5984/testbus/A
+{"_id":"A","_rev":"4-6dbbbe4318f6eaa6081d37ab22b0c277","skills_required":["s1"],"name":"A","data_items":["name","profession"],"successors":["B"],"type":"activity","predecessors":[],"_attachments":{"API.txt":{"content_type":"text/plain","revpos":4,"length":1293,"stub":true}}}
+
+The content of the attachment can be accessed directly with an 
+API call : 
+    curl -X GET http://127.0.0.1:5984/testbus/A/API.txt
+
+
+
+
+
+
+
