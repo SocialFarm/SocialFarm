@@ -1,0 +1,54 @@
+<!doctype html>
+<html> 
+    <head> 
+        <meta charset="utf-8">
+        <title>Join {{ _id }}</title> 
+        <meta name="description" content="...">
+        <meta name="author" content="...">
+
+		{{{ default_css }}}
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+        {{{ default_js }}}
+
+
+		<script>
+			$(document).ready(function() {
+				$("#join_business").click(function () { 
+					bid = $('#_id').text() ;
+					member = { "name": "testname" }
+					add_member_to_business(member, bid) ;
+				});
+			});
+		</script>
+    </head> 
+    <body> 
+        <div id = "content">
+
+            {{{ navigation }}}
+
+            <div class = "primary_content">
+            
+                <div id="_id">{{ _id }}</div>
+                <div id="description">Description : {{ description }}</div> 
+                <div id="author">Author : {{ author }}</div>
+                <div id="list_of_partners">List of Partners : {{ list_of_partners }}</div>
+                
+                <div class = "member_info">
+					<h2>Your initial member info will be:</h2>
+					<div id="member"></div>
+				</div>
+
+				<p class="button" id="join_business">Join {{_id}}</p>
+
+            </div>
+        </div> 
+
+        {{{ osn_async }}}
+
+    </body>
+</html> 
+
+
+

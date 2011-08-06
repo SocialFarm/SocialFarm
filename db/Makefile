@@ -4,8 +4,8 @@ all : install_apps test
 
 install_apps : 
 	# upload mustache.js - used by various show and lists below  
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.js.mustache common/mustache.js 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.js.mustache common/mustache.js 
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.js.mustache common/js/mustache.js 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.js.mustache common/js/mustache.js 
 
 	# public database 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business views.all.map  business/map_all.js	
@@ -26,6 +26,9 @@ install_apps :
 	# show functions for rendering resource (business json) to html by id
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.show_basic_html business/show_basic.html  
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.basic_html business/show_basic_html.js
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.js.socialfarm common/js/socialfarm.js
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.join_business_html business/facebook/join_business.html  
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.join_business business/facebook/join_business.js
 
 	# business template database - is replicated into new businesses in order to inherit apps
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/valid validate_doc_update validate_docs.js
@@ -70,9 +73,11 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.task_basic_html info/tasks/show_basic_html.js
 
 	#facebook 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.api info/facebook/api.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.canvas info/facebook/canvas.html  
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.facebook_canvas info/facebook/canvas.js
+	#./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.api info/facebook/api.html 
+	#./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.canvas info/facebook/canvas.html  
+	#./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info lists.facebook_canvas info/facebook/canvas.js
+
+
 
 
 clean: 

@@ -26,10 +26,12 @@ patterns = {
 'api.business.tasks'     : templatemapper('/api/business/{bid}/tasks' ,      '/{bid}/_design/info/_view/all_tasks'), 
 'api.business.id'        : templatemapper('/api/{bid}/{id}' ,                '/{bid}/{id}'), 
 
+'business.join'          : templatemapper('/business/{bid}/join',            '/socialfarm/_design/business/_show/join_business/{bid}'), 
+
 'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/basic_html/all{}'),
 }
 
-reserved = [ 'api', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
+reserved = [ 'api', 'join', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
 
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):
@@ -50,7 +52,14 @@ class Adapter(BaseHTTPRequestHandler) :
         data =  self.rfile.read((int(self.headers['content-length'])))
         response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
         self.write_response(response, content)
-      
+
+    def do_POST(self):
+        url = 'http://%s:%s' % dst_server + patterns[path_to_key(self.path)].replace(self.path) 
+        headers = { "content-type": "application/json" }
+        data =  self.rfile.read((int(self.headers['content-length'])))
+        response, content = httplib2.Http().request(url, "POST", body = data, headers = headers)
+        self.write_response(response, content)
+          
     def write_response(self, response, content):
    
         self.send_response(int(response['status']))
