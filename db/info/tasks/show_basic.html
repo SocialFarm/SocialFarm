@@ -5,19 +5,26 @@
         <title>Task | {{ _id }}</title> 
         <meta name="description" content="...">
         <meta name="author" content="...">
+        
+        {{{ default_css }}}
+
     </head> 
     <body> 
-        <div class = "task detail" id = "{{_id}}">
-            <p>
+        <div id = "content">
+
+            {{{ navigation }}}
+
+            <div class = "task detail" id = "{{_id}}">
                 <div id = "_id"> Task : {{_id}} </div> 
                 <div id = "name" > Name : {{name}} </div> 
                 <div id = "skills_required" > Skills Requred : {{skills_required}} </div> 
                 <div id = "state" > State : {{state}} </div> 
                 <div id = "jobid" > Job ID : {{jobid}} </div>
-                <div id = "activityid" > Activity : {{activityid}} </div>
-                <div id = "prevtid" > Previous Task ID : {{prevtid}} </div> 
+                <div id = "activityid" > Activity : <a href="/business/{{bid}}/action/{{activityid}}"> {{activityid}}</a></div>
+                <div id = "jobid" > Activity : <a href="/business/{{bid}}/job/{{jobid}}"> {{jobid}}</a></div>
+                <div id = "prevtid" > Previous Task ID : <a href="/business/{{bid}}/task/{{prevtid}}"> {{prevtid}}</a> </div> 
                 <div id = "address" > Address : {{address}} </div> 
-            </p>
+            </div>
         </div>
     </body>
 </html> 

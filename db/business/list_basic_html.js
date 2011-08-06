@@ -3,6 +3,7 @@ function (head, req) {
     var Mustache = require( "common/js/mustache" );
     var page_template = this.common.html.list_basic_html ; 
     var row_template = this.common.html.list_basic_html_row ; 
+    var default_css = this.common.html.default_css ; 
 
     // set the content header through the call back 
     start({"headers": {"Content-Type": "text/html"}});
@@ -14,6 +15,7 @@ function (head, req) {
     }
 
     doc = Object() ; 
+    doc.default_css = default_css
     doc.numrows = head.total_rows ;
     doc.offset = head.offset ; 
     doc.html_rows = html_rows ; 

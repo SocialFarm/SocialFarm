@@ -17,6 +17,7 @@ function (head, req) {
 
     html_rows = String() ; 
     while( (row = getRow()) ) { 
+        row.value.bid = nav.bid
         html_rows += Mustache.to_html( row_template, row.value );
         //log( " html : " + html_rows ) ; 
     }

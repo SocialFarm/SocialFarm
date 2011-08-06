@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
 import httplib2, urllib, json
@@ -25,7 +26,7 @@ patterns = {
 'api.business.tasks'     : templatemapper('/api/business/{bid}/tasks' ,      '/{bid}/_design/info/_view/all_tasks'), 
 'api.business.id'        : templatemapper('/api/{bid}/{id}' ,                '/{bid}/{id}'), 
 
-'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_show/basic_html/testbus{}'),
+'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/basic_html/all{}'),
 }
 
 reserved = [ 'api', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]

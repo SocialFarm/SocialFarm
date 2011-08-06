@@ -5,18 +5,26 @@
         <title>Action | {{_id}}</title> 
         <meta name="description" content="...">
         <meta name="author" content="...">
+
+        {{{ default_css }}}
+
     </head> 
     <body> 
-        <div class="action detail" id = "{{_id}}"> 
-            <p>
-                <div id = "_id"> Activity : {{_id}} </div> 
-                <div id = "name" > Name : {{name}} </div> 
-                <div id = "data_items" > Data Items : {{data_items}} </div> 
-                <div id = "predecessors" > Predecessors : {{predecessors}} </div> 
-                <div id = "skills_required" > Skills Required : {{skills_required}} </div> 
-                <div id = "successors" > Successors : {{successors}} </div> 
-            </p>
-        </div> 
+        <div id = "content">
+
+            {{{ navigation }}}
+
+            <div class="action detail" id = "{{_id}}"> 
+                <p>
+                    <div id = "_id"> Activity : {{_id}} </div> 
+                    <div id = "name" > Name : {{name}} </div> 
+                    <div id = "data_items" > Data Items : {{data_items}} </div> 
+                    <div id = "predecessors" > Predecessors : {{predecessors}} </div> 
+                    <div id = "skills_required" > Skills Required : {{skills_required}} </div> 
+                    <div id = "successors" > Successors : {{successors}} </div> 
+                </p>
+            </div> 
+        </div>
     </body>
 </html> 
         

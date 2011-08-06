@@ -5,16 +5,23 @@
         <title>Job | {{ _id }}</title> 
         <meta name="description" content="...">
         <meta name="author" content="...">
+        
+        {{{ default_css }}}
+
     </head> 
     <body> 
-        <div class = "job detail" id = "{{_id}}">
-            <p>
+        <div id = "content">
+
+            {{{ navigation }}}
+
+            <div class = "job detail" id = "{{_id}}">
                 <div id = "_id"> Job : {{_id}} </div> 
                 <div id = "customer" > Customer : {{customer}} </div> 
+                <div id = "data_items" > Data Items : {{data_items}} </div> 
                 <div id = "state" > State : {{state}} </div> 
-                <div id = "taskid" > Task ID : {{taskid}} </div> 
+                <div id = "total_rating" > Total Rating : {{total_rating}} </div> 
                 <div id = "price" > Price : {{price}} </div> 
-            </p>
+            </div>
         </div>
     </body>
 </html> 
