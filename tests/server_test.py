@@ -56,7 +56,7 @@ class TestServer(unittest.TestCase):
             response, content = httplib2.Http().request(url, "GET")
             print "\t[%s] GET %s" % (response['status'], url)
             self.assertEqual(response['status'], '200')
-
+        """
     def test_puts(self):
         print "\ntesting PUT for jobs...\n"
         for url in self.jobs:
@@ -69,7 +69,7 @@ class TestServer(unittest.TestCase):
 
             print "\t[%s] GET %s" % (response['status'], url)
             self.assertEqual(response['status'], '201')
-        
+    
         print "\ntesting PUT for businesses...\n"
         for url in self.bus:
             data = urllib.urlopen(url).read()
@@ -81,6 +81,26 @@ class TestServer(unittest.TestCase):
 
             print "\t[%s] GET %s" % (response['status'], url)
             self.assertEqual(response['status'], '201')
+        """
+
+    def test_posts(self):
+        print "\ntesting POST...\n"
+        for url in self.bus:
+            data = urllib.urlopen(url).read()
+            data = json.loads(data.strip())
+            for k in data.keys():
+                if k == 'description':
+                    data['description'] = 'todays business was created %s' % datetime.today()
+                elif k != '_id' and k != '_rev':
+                    del data[k]
+            data = j.encode(data).encode('utf-8')
+            print "POST data = %s" % data
+            headers = { "content-type": "application/x-www-form-urlencoded", 'content-length': str(len(data))}
+            response, content = httplib2.Http().request(url, "POST", body = data, headers = headers)
+            print "\t[%s] POST %s" % (response['status'], url)
+            self.assertEqual(response['status'], '201')
+    
+      
    
 if __name__ == '__main__':
     unittest.main()
