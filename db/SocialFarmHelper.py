@@ -30,8 +30,16 @@ class SocialFarm :
 
     def listids(self): 
         return [ row.key for row in self.db.view('_all_docs') ] 
-            
+
+    
+    def addPerson(self, pid, datadict = {} ): 
+        now = time.time() 
+        workerdef = { 'type' : 'person', 'added' : now } 
+        for k in datadict: 
+            workerdef[ k ] = datadict[ k ] 
+        self.db[ pid ] = workerdef 
         
+
     def getBusiness(self, businessname): 
         self.busdef = self.db[ businessname ] 
         self.__process_business(self.busdef) 
@@ -322,6 +330,11 @@ if __name__ == "__main__":
 
     print 'created social farm object' 
 
+    print 'added persons to social farm db ' 
+    sf.addPerson( 'osteele' ) 
+    sf.addPerson( 'vpathak' ) 
+
+
     print 'creating business testbus2' 
     busdef = {
         'author': 'vpathak',
@@ -341,8 +354,6 @@ if __name__ == "__main__":
         }
     sf.deleteBusiness( 'testbus2' ) 
     sf.createBusiness( 'testbus2' , busdef ) 
-
-    
 
 
     print 'creating business testbus' 
