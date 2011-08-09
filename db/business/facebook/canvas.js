@@ -2,27 +2,13 @@ function (head, req) {
 
     var Mustache = require( "common/js/mustache" );
     var page_template = this.facebook.html.canvas ; 
-	var row_template;
-    var navigation_template = this.common.html.navigation ;
+	var navigation_template = this.facebook.html.navigation ;
+	var row_template = this.common.html.list_basic_html_row ; 
     var default_css = this.common.html.default_css ;
-    var facebook_api = this.facebook.html.api ;
+    var osn_async = this.common.html.osn_async ;
 
-	
 	nav = Object() ;
-	// get the last arg from path corrosponging to the view ex: all_tasks, all_members, etc...
-	nav.bid = String(req['path']).split(',')[0] ;
-	var resource = String(req['path']).split(',')[String(req['path']).split(',').length - 1].split('_')[1] ;
-	if (resource == 'tasks') {
-		nav.tasks_class = 'active'
-		row_template = this.common.html.tasks.list_basic_html_row ; 
-	} 
-	/*
-	else if (resource == 'members') {
-		nav.tasks_class = 'active'
-		row_template = this.common.html.members.list_basic_html_row ; 
-	}
-	*/
-	
+
 	navigation = Mustache.to_html( navigation_template, nav )
 
     // set the content header through the call back 
@@ -30,8 +16,7 @@ function (head, req) {
 
     html_rows = String() ; 
     while( (row = getRow()) ) { 
-        html_rows += Mustache.to_html( row_template, row.value );
-        //log( " html : " + html_rows ) ; 
+        html_rows += Mustache.to_html( row_template, row.value ); 
     }
 
     doc = Object() ; 
@@ -40,7 +25,7 @@ function (head, req) {
     doc.numrows = head.total_rows ;
     doc.offset = head.offset ; 
     doc.html_rows = html_rows ; 
-    doc.facebook_api = facebook_api ;
+    doc.osn_async = osn_async ;
     send( Mustache.to_html( page_template, doc ) ) ;
 } 
 
