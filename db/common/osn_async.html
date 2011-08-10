@@ -1,29 +1,12 @@
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
 <script>
-
-	if (location.href != top.location.href) { 
-		console.log('iFrame Detected');
-		console.log('location: ' + location.href);
-
-		window.fbAsyncInit = function() {
-			FB.init({
-			appId  : '234690403213067',
-			status : true, // check login status
-			cookie : true, // enable cookies to allow the server to access the session
-			xfbml  : true  // parse XFBML
-			});
-		};
-
-		(function() {
-			var e = document.createElement('script');
-			e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-			e.async = true;
-			document.getElementById('fb-root').appendChild(e);
-		}());
-
-		FB.api('/me', function(response) {
-		console.log("logged in as: " + response.name);
-		});
-	}
-	console.log('location: ' + location.href);
-
+  FB.init({
+    appId  : '234690403213067',
+    status : true, // check login status
+    cookie : true, // enable cookies to allow the server to access the session
+    xfbml  : true, // parse XFBML
+    channelURL : 'http://WWW.MYDOMAIN.COM/channel.html', // channel.html file
+    oauth  : true // enable OAuth 2.0
+  });
 </script>

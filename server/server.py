@@ -26,45 +26,59 @@ patterns = {
 'business.join'          : templatemapper('/business/{bid}/join',            '/socialfarm/_design/business/_show/join_business/{bid}'), 
 
 'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/facebook_canvas/all{}'),
+
 }
 
-reserved = [ 'api', 'join', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
+static = {
+'static.facebook.channel'		 : '<script src="http://connect.facebook.net/en_US/all.js"></script>',
+}
+
+reserved = [ 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
 
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):
     parts = filter(lambda x: x in reserved, path.split('/'))
-    key = reduce(lambda x, y: '%s.%s' % (x, y), parts)
+    key = reduce(lambda x, y: '%s.%s' % (x, y) if x is not [] and y is not [] else '' , parts)
     return key if key != 'api' else 'api.business.id'
+
 
 class Adapter(BaseHTTPRequestHandler) :  
      
     def do_GET(self):
-        url = 'http://%s:%s' % dst_server + patterns[path_to_key(self.path)].replace(self.path) 
-        response, content = httplib2.Http().request(url, "GET")
-        self.write_response(response, content)
+		key = path_to_key(self.path)
+		if key not in static:
+			url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+			response, content = httplib2.Http().request(url, "GET")
+		else:
+			response = {'status': '200', 'content-type': 'text/html' }
+			content = static[key]
+
+		self.write_response(response, content)
 
     def do_PUT(self):
-        url = 'http://%s:%s' % dst_server + patterns[path_to_key(self.path)].replace(self.path) 
-        headers = { "content-type": "application/json" }
-        data =  self.rfile.read((int(self.headers['content-length'])))
-        response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
-        self.write_response(response, content)
+		key = path_to_key(self.path)
+		url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+		headers = { "content-type": "application/json" }
+		data =  self.rfile.read((int(self.headers['content-length'])))
+		response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
+		self.write_response(response, content)
 
     def do_POST(self):
-        url = 'http://%s:%s' % dst_server + patterns[path_to_key(self.path)].replace(self.path) 
-        headers = { "content-type": "application/json" }
-        data =  self.rfile.read((int(self.headers['content-length'])))
+		key = path_to_key(self.path)
+		url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+		headers = { "content-type": "application/json" }
+		data =  self.rfile.read((int(self.headers['content-length'])))
 
-        response, content = httplib2.Http().request(url, "GET")
+		response, content = httplib2.Http().request(url, "GET")
 
-        record = json.loads(content)
-        fields = json.loads(data)
+		record = json.loads(content)
+		fields = json.loads(data)
 
-        for k in fields.keys():
-            record[k] = fields[k] if record[k] != fields[k] else record[k]
-            
-        response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
-        self.write_response(response, content)
+		for k in fields.keys():
+			record[k] = fields[k] if record[k] != fields[k] else record[k]
+		
+		response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
+		self.write_response(response, content)
           
     def write_response(self, response, content):
         self.send_response(int(response['status']))
@@ -84,7 +98,7 @@ if __name__ == '__main__':
         print str(err) 
         _usage()
 
-    src_server = ('127.0.0.1', 8080)
+    src_server = ('', 80)
     dst_server = ('127.0.0.1', 5984)
 
     for o, a in opts:
