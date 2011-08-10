@@ -26,6 +26,7 @@ patterns = {
 'business.join'          : templatemapper('/business/{bid}/join',            '/socialfarm/_design/business/_show/join_business/{bid}'), 
 
 'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/facebook_canvas/all{}'),
+''        		 		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/facebook_canvas/all{}'),
 
 }
 
@@ -37,9 +38,9 @@ reserved = [ 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'busi
 
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):
-    parts = filter(lambda x: x in reserved, path.split('/'))
-    key = reduce(lambda x, y: '%s.%s' % (x, y) if x is not [] and y is not [] else '' , parts)
-    return key if key != 'api' else 'api.business.id'
+	parts = filter(lambda x: x in reserved, path.split('/'))
+	key = ".".join(parts)
+	return key if key != 'api' else 'api.business.id'
 
 
 class Adapter(BaseHTTPRequestHandler) :  
