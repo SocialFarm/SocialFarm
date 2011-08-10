@@ -1,12 +1,83 @@
 <div id="fb-root"></div>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-<script>
-  FB.init({
-    appId  : '234690403213067',
-    status : true, // check login status
-    cookie : true, // enable cookies to allow the server to access the session
-    xfbml  : true, // parse XFBML
-    channelURL : 'http://WWW.MYDOMAIN.COM/channel.html', // channel.html file
-    oauth  : true // enable OAuth 2.0
-  });
+<script type="text/javascript">
+	window.fbAsyncInit = function() {
+		FB.init({ appId: '234690403213067', 
+			status: true, 
+			cookie: true,
+			xfbml: true,
+			oauth: true});
+
+	   showLoader(true);
+	   
+	   function updateButton(response) {
+			
+			if (response.authResponse) {
+				
+			    //user is already logged in and connected
+			    FB.api('/me', function(info) {
+			        login(response, info);
+			    });
+			    
+			    $('button#login').onclick = function() {
+			        FB.logout(function(response) {
+			            logout(response);
+			        });
+			    };
+			} else {
+			    //user is not connected to your app or logged out
+			    $('button#login').text('Login');
+			    $('button#login').onclick = function() {
+			        showLoader(true);
+			        FB.login(function(response) {
+			            if (response.authResponse) {
+			                FB.api('/me', function(info) {
+			                    login(response, info);
+			                });	   
+			            } else {
+			                //user cancelled login or did not grant authorization
+			                showLoader(false);
+			            }
+			        }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
+			    }
+			}
+		}
+	
+		// run once with current status and whenever the status changes
+		FB.getLoginStatus(updateButton);
+		FB.Event.subscribe('auth.statusChange', updateButton);	
+	};
+	(function() {
+		var e = document.createElement('script'); e.async = true;
+		e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+		document.getElementById('fb-root').appendChild(e);
+	}());
+
+
+	function login(response, info){
+		if (response.authResponse) {
+			$('.user ul').prepend('<li><img src="https://graph.facebook.com/' + info.id + '/picture" alt="' + info.id + '">' + info.name + '</li>');
+
+			console.log(' Your Access Token: ' + response.authResponse.accessToken);
+
+			$('button#login').text('Logout');
+			showLoader(false);
+		}
+	}
+
+	function logout(response){
+		$('.user').html('');
+		console.log('logging out...');
+		showLoader(false);
+	}
+
+	function showLoader(status){
+		if (status)
+			document.getElementById('loader').style.display = 'block';
+		else
+			document.getElementById('loader').style.display = 'none';
+	}
+
 </script>
+
+
+

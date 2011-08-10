@@ -26,7 +26,7 @@ patterns = {
 'business.join'          : templatemapper('/business/{bid}/join',            '/socialfarm/_design/business/_show/join_business/{bid}'), 
 
 'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/facebook_canvas/all{}'),
-''        		 		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/facebook_canvas/all{}'),
+''        		 		 : templatemapper('/',          		     		 '/socialfarm/_design/business/_list/facebook_canvas/all{}'),
 
 }
 
