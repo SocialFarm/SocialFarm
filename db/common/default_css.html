@@ -7,12 +7,13 @@ h1, h2, h3, h4 {
     font-weight: normal;
     font-size: 1.5em;
 }
-
+div#header {
+    display: block;
+    height: 128px;
+}
 div#navigation {
     font-size: 1.5em;
 	display: block;
-	height: 32px;
-	margin-bottom: 32px;
 }
 	div#navigation ul {
 		margin: 0px;
@@ -23,19 +24,42 @@ div#navigation {
 			float: left;
 			margin-right: 16px;
 		} 
-		div#navigation ul li.active {
+
+  		div#navigation ul li.active {
 			font-weight: bold;
 		} 
-	div#navigation div.member_status {
-		margin-top: 32px;
-		position: absolute;
-	}
 
-div#user {
-	display: block;
-	height: 32px;
-	margin-bottom: 32px;
+div.user {
+    float: left;
+    margin-right: 16px;
 }
+
+div.user ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+div.user ul li {
+    list-style: none;
+    display: block;
+    margin-bottom: 8px;
+    height: 56px;
+}
+
+div.user ul li img{
+    float: left;
+    display: block;
+    margin-right: 16px;
+}
+
+
+div.user ul li span.user_name{
+    float: right;
+    display: block;
+}
+
+
+
 
 .business, .person, .action, .job, .task  {
     margin-bottom: 16px;

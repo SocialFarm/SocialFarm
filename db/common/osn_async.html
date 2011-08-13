@@ -1,5 +1,6 @@
 <div id="fb-root"></div>
 <script type="text/javascript">
+    var user = null;
 	window.fbAsyncInit = function() {
 		FB.init({ appId: '234690403213067', 
 			status: true, 
@@ -8,7 +9,7 @@
 			oauth: true});
 
 	   showLoader(true);
-	   
+
 	   function updateButton(response) {
 			
 			if (response.authResponse) {
@@ -17,28 +18,30 @@
 			    FB.api('/me', function(info) {
 			        login(response, info);
 			    });
+
+                $('button#login').text('Logout');
+                $('button#login').click(function() {
+                    FB.logout(function(response) { logout(response); });
+                });  
 			    
-			    $('button#login').onclick = function() {
-			        FB.logout(function(response) {
-			            logout(response);
-			        });
-			    };
 			} else {
 			    //user is not connected to your app or logged out
 			    $('button#login').text('Login');
-			    $('button#login').onclick = function() {
+			    $('button#login').click(function() {
 			        showLoader(true);
 			        FB.login(function(response) {
 			            if (response.authResponse) {
 			                FB.api('/me', function(info) {
 			                    login(response, info);
-			                });	   
+			                });
+
+                             
 			            } else {
 			                //user cancelled login or did not grant authorization
 			                showLoader(false);
 			            }
 			        }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
-			    }
+			    });
 			}
 		}
 	
@@ -52,21 +55,23 @@
 		document.getElementById('fb-root').appendChild(e);
 	}());
 
-
+    //login is getting called twice...
 	function login(response, info){
-		if (response.authResponse) {
-			$('.user ul').prepend('<li><img src="https://graph.facebook.com/' + info.id + '/picture" alt="' + info.id + '">' + info.name + '</li>');
-
+        
+		if (user == null && response.authResponse) {
+            user = info;
+			$('.user ul').prepend('<li id = "info" ><img src="https://graph.facebook.com/' + info.id + '/picture" alt="' + info.id + '"><span class="user_name">' + info.name + '</span></li>');
 			console.log(' Your Access Token: ' + response.authResponse.accessToken);
 
-			$('button#login').text('Logout');
 			showLoader(false);
-		}
+		} else {
+            console.log('2nd call');
+        }
 	}
 
 	function logout(response){
-		$('.user').html('');
-		console.log('logging out...');
+		$('.user li#info').remove();
+        user = null;
 		showLoader(false);
 	}
 
