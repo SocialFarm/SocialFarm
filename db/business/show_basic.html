@@ -7,11 +7,16 @@
         <meta name="author" content="...">
 
 		{{{ default_css }}}
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
     </head> 
     <body> 
+	
 	<div id = "content">
-
+		<div id="header">
 		{{{ navigation }}}
+		</div>
 
 		<div class = "primary_content">
 			<div id="_id">ID : {{ _id }}</div>
@@ -26,11 +31,11 @@
 			<div id="list_of_partners">List of Partners : {{ list_of_partners }}</div>
 		</div>
     
-    	<div class="join_business"><a href="/business/{{ _id }}/join">join {{ _id }}</a></div>
+    	<div class="join_business"><a href="/business/{{ _id }}/join">Join {{ _id }}</a></div>
 
 	</div> 
 
-	{{{ osn_async }}}
+	{{{ facebook_footer }}}
   
     </body>
 </html> 

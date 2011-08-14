@@ -5,7 +5,7 @@ function (head, req) {
 	var navigation_template = this.facebook.html.navigation ;
 	var row_template = this.common.html.list_basic_html_row ; 
     var default_css = this.common.html.default_css ;
-    var osn_async = this.common.html.osn_async ;
+    var facebook_footer = this.facebook.html.facebook_footer ;
 
 	nav = Object() ;
 
@@ -25,7 +25,7 @@ function (head, req) {
     doc.numrows = head.total_rows ;
     doc.offset = head.offset ; 
     doc.html_rows = html_rows ; 
-    doc.osn_async = osn_async ;
+    doc.facebook_footer = facebook_footer ;
     send( Mustache.to_html( page_template, doc ) ) ;
 } 
 

@@ -12,11 +12,7 @@ install_apps :
 
 	# common (same as info for now)
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.default_css common/default_css.html
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.navigation common/navigation.html
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.osn_async common/osn_async.html
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.default_css common/default_css.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.navigation common/navigation.html  
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.osn_async common/osn_async.html 
 
 	# list functions rendering the view in html and its dependencies 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.basic_html business/list_basic_html.js 
@@ -27,8 +23,7 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.show_basic_html business/show_basic.html  
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.basic_html business/show_basic_html.js
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.js.socialfarm common/js/socialfarm.js
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.join_business_html business/facebook/join_business.html  
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.join_business business/facebook/join_business.js
+
 
 	# business template database - is replicated into new businesses in order to inherit apps
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/valid validate_doc_update validate_docs.js
@@ -73,10 +68,16 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.task_basic_html info/tasks/show_basic_html.js
 
 	#facebook 
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.navigation business/facebook/navigation.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.api business/facebook/api.html 
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.canvas business/facebook/canvas.html  
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.facebook_canvas business/facebook/canvas.js
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.navigation facebook/navigation.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.canvas facebook/canvas.html
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.join_business_html facebook/join_business.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.facebook_footer facebook/facebook_footer.html
+
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.facebook_footer facebook/facebook_footer.html 
+
+
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.facebook_canvas facebook/canvas.js
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.join_business facebook/join_business.js
 
 
 
@@ -86,6 +87,7 @@ clean:
 	./delete_database.py -l $(CREDENTIALS) testbus2
 	./delete_database.py -l $(CREDENTIALS) socialfarm_business_template
 	./delete_database.py -l $(CREDENTIALS) socialfarm
+
 
 test: 
 	# create test businesses
