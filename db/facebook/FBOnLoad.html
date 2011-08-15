@@ -1,0 +1,25 @@
+<!-- currently included in facebook_footer-->
+<script type="text/javascript">
+	function FBOnLoad(){
+
+		var html = 	'<li id = "info" >' + 
+				 	'<img src="https://graph.facebook.com/' + user.id + '/picture" alt="' + user.id + '">' + 
+				   	'<span class="user_name">' + user.name + '</span>' + 
+					'</li>';
+
+		$('.user ul').prepend(html);
+		
+		console.log(' Your Access Token: ' + user.accessToken);
+		
+		//function build_nav(){
+		//$('div.navigation ul.my').prepend('<li id = "my_tasks" ><a href="/business/bid/tasks/' + user.id + '"> my tasks from bid</a></li>');
+		
+		if (SFOnLoad){ 
+			SFOnLoad();
+		}	
+	}
+
+</script>
+
+
+

@@ -8,22 +8,23 @@
 
 		{{{ default_css }}}
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-
         {{{ default_js }}}
 
+		{{{ FBOnLoad }}}
 
-		<script>
-			$(document).ready(function() {
+		<script type="text/javascript">
 			
+			$(document).ready(function() {
 				$("#join_business").click(function () { 
 					bid = $('#_id').text() ;
-					member = { "name": "testname" }
-					add_member_to_business(member, bid) ;
+					add_member_to_business(user, bid) ;
 				});
-
-				console.log(user);
 			});
+			function SFOnLoad(){
+				user.type = "person" ;
+				user.network = "facebook" ;
+				$('#member').prepend('<code>' + JSON.stringify(user) + '</code>');
+			}
 		</script>
     </head> 
     <body> 

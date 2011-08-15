@@ -5,6 +5,7 @@ function (head, req) {
 	var navigation_template = this.facebook.html.navigation ;
 	var row_template = this.common.html.list_basic_html_row ; 
     var default_css = this.common.html.default_css ;
+    var default_js = this.common.html.default_js ;
     var facebook_footer = this.facebook.html.facebook_footer ;
 
 	nav = Object() ;
@@ -22,6 +23,7 @@ function (head, req) {
     doc = Object() ; 
     doc.navigation = navigation ;
     doc.default_css = default_css ;
+    doc.default_js = default_js ;
     doc.numrows = head.total_rows ;
     doc.offset = head.offset ; 
     doc.html_rows = html_rows ; 

@@ -28,6 +28,7 @@ patterns = {
 'api.business.tasks'     : templatemapper('/api/business/{bid}/tasks' ,      '/{bid}/_design/info/_view/all_tasks'), 
 'api.business.id'        : templatemapper('/api/{bid}/{id}' ,                '/{bid}/{id}'), 
 
+'my_businessses'         : templatemapper('/my_businesses/{mid}/',           '/socialfarm/_design/business/_show/my_businesses/{mid}'), 
 'business.join'          : templatemapper('/business/{bid}/join',            '/socialfarm/_design/business/_show/join_business/{bid}'), 
 
 'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/facebook_canvas/all_businesses{}'),
@@ -35,11 +36,7 @@ patterns = {
 
 }
 
-static = {
-'static.facebook.channel'		 : '<script src="http://connect.facebook.net/en_US/all.js"></script>',
-}
-
-reserved = [ 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
+reserved = ['my_businessses', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
 
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):
@@ -52,13 +49,8 @@ class Adapter(BaseHTTPRequestHandler) :
      
     def do_GET(self):
         key = path_to_key(self.path)
-        if key not in static:
-            url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
-            response, content = httplib2.Http().request(url, "GET")
-        else:
-            response = {'status': '200', 'content-type': 'text/html' }
-            content = static[key]
-
+        url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+        response, content = httplib2.Http().request(url, "GET")
         self.write_response(response, content)
 
     def do_PUT(self):

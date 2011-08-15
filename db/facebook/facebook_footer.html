@@ -1,17 +1,14 @@
 <div id="fb-root"></div>
 <div id="debug"></div>
 <script type="text/javascript">
-	$('div.header').prepend('<div id="loader" style="display:none">Loading Gif</div>');
-
     var user = null;
+
 	window.fbAsyncInit = function() {
 		FB.init({ appId: '234690403213067', 
 			status: true, 
 			cookie: true,
 			xfbml: true,
 			oauth: true});
-
-	   showLoader(true);
 
 	   function updateButton(response) {
 			
@@ -31,7 +28,7 @@
 			    //user is not connected to your app or logged out
 			    $('button#login').text('Login');
 			    $('button#login').click(function() {
-			        showLoader(true);
+			        
 			        FB.login(function(response) {
 			            if (response.authResponse) {
 			                FB.api('/me', function(info) {
@@ -41,7 +38,7 @@
                              
 			            } else {
 			                //user cancelled login or did not grant authorization
-			                showLoader(false);
+			                
 			            }
 			        }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
 			    });
@@ -63,10 +60,8 @@
         
 		if (user == null && response.authResponse) {
             user = info;
-			$('.user ul').prepend('<li id = "info" ><img src="https://graph.facebook.com/' + info.id + '/picture" alt="' + info.id + '"><span class="user_name">' + info.name + '</span></li>');
-			console.log(' Your Access Token: ' + response.authResponse.accessToken);
-
-			showLoader(false);
+			user.accessToken = response.authResponse.accessToken ;
+			FBOnLoad();	
 		} else {
             console.log('2nd call');
         }
@@ -75,21 +70,34 @@
 	function logout(response){
 		$('.user li#info').remove();
         user = null;
-		showLoader(false);
 	}
+</script>
 
-	function showLoader(status){
-		if (status)
-			document.getElementById('loader').style.display = 'block';
-		else
-			document.getElementById('loader').style.display = 'none';
-	}
+<!-- need to rethink these script tag includes when we refactor for multiple OSN -->
+<script type="text/javascript">
+	function FBOnLoad(){
 
-	function build_nav(){
-		$('div.navigation ul.my').prepend('<li id = "my_tasks" ><a href="/business/bid/tasks/' + user.id + '"> my tasks from bid</a></li>');
+		var html = 	'<li id = "info" >' + 
+				 	'<img src="https://graph.facebook.com/' + user.id + '/picture" alt="' + user.id + '">' + 
+				   	'<span class="user_name">' + user.name + '</span>' + 
+					'</li>';
+
+		$('.user ul').prepend(html);
+		
+		console.log(' Your Access Token: ' + user.accessToken);
+		
+		//function build_nav(){
+		//$('div.navigation ul.my').prepend('<li id = "my_tasks" ><a href="/business/bid/tasks/' + user.id + '"> my tasks from bid</a></li>');
+		
+		if (SFOnLoad){ 
+			SFOnLoad();
+		}	
 	}
 
 </script>
+
+
+
 
 
 

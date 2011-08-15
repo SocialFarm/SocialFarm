@@ -13,6 +13,8 @@ install_apps :
 	# common (same as info for now)
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.default_css common/default_css.html
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.default_css common/default_css.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.default_js common/default_js.html
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.default_js common/default_js.html 
 
 	# list functions rendering the view in html and its dependencies 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.basic_html business/list_basic_html.js 
@@ -72,12 +74,19 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.canvas facebook/canvas.html
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.join_business_html facebook/join_business.html 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.facebook_footer facebook/facebook_footer.html
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.FBOnLoad facebook/FBOnLoad.html
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.facebook_canvas facebook/canvas.js
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.join_business facebook/join_business.js
 
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.facebook_footer facebook/facebook_footer.html 
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.navigation facebook/navigation.html 
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.facebook_footer facebook/facebook_footer.html
+
+    ./update_field.py -l $(CREDENTIALS) socialfarm _design/business views.my_businesses.map  business/map_my_businesses.js
+    ./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.my_businesses_html facebook/my_businesses.html 
+    ./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.my_businesses facebook/my_businesses.js
+
+    
 
 
 

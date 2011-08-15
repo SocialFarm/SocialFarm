@@ -36,8 +36,9 @@ class SocialFarm :
         now = time.time() 
         if overwrite : 
             del self.db[pid] 
-        else:
-            workerdef = self.db[ pid ]
+        #else:
+            #workerdef = self.db[ pid ]
+        workerdef = {}
         workerdef[ 'type' ] = 'person'
         workerdef[ 'added' ] = now  
         for k in datadict: 
