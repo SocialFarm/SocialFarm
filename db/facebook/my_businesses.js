@@ -11,6 +11,13 @@ function(doc, req) {
 	nav.business_class = 'active' ;
 
 	doc.navigation = Mustache.to_html( navigation_template, nav ) ;
+
+    var businesses = Array()
+    for (b in doc.businesses){
+        businesses.push({"name": doc.businesses[b]});
+    }
+        
+    doc.businesses = businesses
 	doc.default_css = default_css ;
     doc.default_js = default_js ;
 	doc.facebook_footer = facebook_footer ;

@@ -83,6 +83,9 @@
 					'</li>';
 
 		$('.user ul').prepend(html);
+
+		$('#navigation ul.my').prepend('<li id = "my_tasks" ><a href="/my_tasks/' + user.id + '">my tasks</a></li>');
+		$('#navigation ul.my').prepend('<li id = "my_businesses" ><a href="/my_businesses/' + user.id + '">my businesses</a></li>');
 		
 		console.log(' Your Access Token: ' + user.accessToken);
 		

@@ -22,6 +22,7 @@ patterns = {
 
 'api.businesses'         : templatemapper('/api/businesses{}',               '/socialfarm/_design/business/_view/all{}'),
 'api.business'           : templatemapper('/api/business/{bid}' ,            '/socialfarm/{bid}'),
+'api.person'             : templatemapper('/api/person/{mid}' ,              '/socialfarm/{mid}'),
 'api.business.members'   : templatemapper('/api/business/{bid}/members' ,    '/{bid}/_design/info/_view/all_members'), 
 'api.business.actions'   : templatemapper('/api/business/{bid}/actions' ,    '/{bid}/_design/info/_view/all_actions'), 
 'api.business.jobs'      : templatemapper('/api/business/{bid}/jobs' ,       '/{bid}/_design/info/_view/all_jobs'), 
@@ -36,7 +37,7 @@ patterns = {
 
 }
 
-reserved = ['my_businesses', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
+reserved = ['my_businesses', 'person', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
 
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):

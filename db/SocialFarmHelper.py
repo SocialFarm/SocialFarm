@@ -351,6 +351,7 @@ if __name__ == "__main__":
 
     print 'added persons to social farm db ' 
     sf.addPerson( 'osteele' ) 
+    sf.addPerson( '1479360134' ) 
     sf.addPerson( 'vpathak' ) 
 
 
@@ -397,16 +398,16 @@ if __name__ == "__main__":
     sf.deleteBusiness( 'testbus' ) 
     sf.createBusiness( 'testbus' , busdef ) 
 
-    
+
     bd = BusinessDirector( 'testbus' , username, password ) 
     bd.createJob( 'dalai lama' , 1.00 , {
-            'name' : 'vivek pathak' , 
-            'profession' : 'professor; technologist' 
-            } ) 
+	        'name' : 'vivek pathak' , 
+	        'profession' : 'professor; technologist' 
+	        } ) 
     bd.createJob( 'pope' , 1.10 , {
-            'name' : 'osteele' , 
-            'profession' : 'student; technologist' 
-            } ) 
+	        'name' : 'osteele' , 
+	        'profession' : 'student; technologist' 
+	        } ) 
     bd.addWorker('vpathak', ['s1','s3','s4'] , 'partner' ) 
     bd.addWorker('osteele', ['s1','s2','s4'] )    
 
