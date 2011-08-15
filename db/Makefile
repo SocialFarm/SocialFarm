@@ -82,11 +82,11 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.navigation facebook/navigation.html 
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.facebook_footer facebook/facebook_footer.html
 
-    ./update_field.py -l $(CREDENTIALS) socialfarm _design/business views.my_businesses.map  business/map_my_businesses.js
-    ./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.my_businesses_html facebook/my_businesses.html 
-    ./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.my_businesses facebook/my_businesses.js
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business views.my_businesses.map  facebook/map_my_businesses.js
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.my_businesses_html facebook/my_businesses.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.my_businesses facebook/my_businesses.js
 
-    
+
 
 
 

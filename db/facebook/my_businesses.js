@@ -1,6 +1,6 @@
 function(doc, req) { 
 	var Mustache = require( "common/js/mustache" );
-	var page_template = this.common.html.my_businesses_html ;  
+	var page_template = this.facebook.html.my_businesses_html ;  
 	var default_css = this.common.html.default_css ; 
     var default_js = this.common.html.default_js ; 
 	var navigation_template = this.facebook.html.navigation ;
