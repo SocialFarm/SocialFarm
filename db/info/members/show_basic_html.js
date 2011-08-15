@@ -1,18 +1,18 @@
 function(doc, req) { 
-    var Mustache = require( "common/js/mustache" );
-    var page_template = this.common.html.members.show_basic_html ;  
-    var default_css = this.common.html.default_css ; 
-    var navigation_template = this.common.html.navigation ;
+	var Mustache = require( "common/js/mustache" );
+	var page_template = this.common.html.members.show_basic_html ;  
+	var default_css = this.common.html.default_css ; 
+	var navigation_template = this.facebook.html.navigation ;
+	var facebook_footer = this.facebook.html.facebook_footer ;
 
-    nav = Object() ;
-    nav.members_class = 'active' ;
-    nav.bid = String(req['path']).split(',')[0] ;
+	nav = Object() ;
+	nav.bid = String(req['path']).split(',')[0] ;
+	nav.members_class = 'active' ;
 
-    doc.bid = nav.bid
-    doc.navigation = Mustache.to_html( navigation_template, nav ) ;
-    doc.default_css = default_css ;
-   
-    return Mustache.to_html( page_template, doc ) ; 
+	doc.navigation = Mustache.to_html( navigation_template, nav ) ;
+	doc.default_css = default_css ;
+	doc.facebook_footer = facebook_footer ;
+	return Mustache.to_html( page_template, doc ) ; 
 } 
 
 

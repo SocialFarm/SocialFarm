@@ -8,11 +8,15 @@
         
         {{{ default_css }}}
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
     </head> 
     <body> 
         <div id = "content">
 
-            {{{ navigation }}}
+			<div id="header">
+				{{{ navigation }}}
+			</div>
 
             <div class = "task detail" id = "{{_id}}">
                 <div id = "_id"> Task : {{_id}} </div> 
@@ -26,6 +30,7 @@
                 <div id = "address" > Address : {{address}} </div> 
             </div>
         </div>
+		{{{ facebook_footer }}}
     </body>
 </html> 
 

@@ -3,7 +3,7 @@
 
 function(doc) {
     if (doc.type == "task" ) { 
-        emit(doc._id, doc) 
+        emit(doc.worker, doc) 
     }
 }
 

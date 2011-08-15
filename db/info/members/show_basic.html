@@ -8,14 +8,18 @@
 
         {{{ default_css }}}
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
     </head> 
     <body> 
         <div id = "content">
 
-        {{{ navigation }}}
+        <div id="header">
+		{{{ navigation }}}
+		</div>
+
 
             <div class="person detail" id = "{{_id}}"> 
-                <p>
                     <div id = "_id"> Person : {{_id}} </div> 
                     <div id = "name" > Name : {{name}} </div> 
                     <div id = "looking_for_work" > Looking For Work : {{looking_for_work}} </div> 
@@ -23,9 +27,11 @@
                     <div id = "skills" > Skills : {{skills}} </div> 
                     <div id = "worker_since" > Worker Since : {{worker_since}} </div> 
                     <div id = "role" > Role : {{role}} </div>
-                </p>
             </div> 
         </div> 
+		
+		{{{ facebook_footer }}}
+
     </body>
 </html> 
 

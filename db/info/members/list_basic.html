@@ -5,26 +5,33 @@
         <title>{{bid}} > members</title> 
         <meta name="description" content="...">
         <meta name="author" content="...">
-    	{{{ default_css }}}
+        
+        {{{ default_css }}}
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
     </head> 
     <body> 
         <div id = "content">
 
-        {{{ navigation }}}
+		<div id = "header">
+            
+            {{{ navigation }}}
 
-            <div class = "primary_content">
+        </div>
 
-				<div id="rowinfo"> 
-					<h2> Showing {{numrows}} members, at offset {{offset}}. </h2> 
-				</div>
-
-                {{{ html_rows }}}
-
+            <div id="rowinfo"> 
+                <h2> Showing {{numrows}} members, at offset {{offset}}. </h2> 
             </div>
 
-        </div> 
+            <div id="html_rows">
+                {{{ html_rows }}}  
+            </div>
+        </div>
+        
+        {{{ facebook_footer }}}
+
     </body>
 </html> 
         
-
 

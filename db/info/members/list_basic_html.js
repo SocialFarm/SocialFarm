@@ -3,8 +3,9 @@ function (head, req) {
     var Mustache = require( "common/js/mustache" );
     var page_template = this.common.html.members.list_basic_html ; 
     var row_template = this.common.html.members.list_basic_html_row ; 
-	var navigation_template = this.common.html.navigation ;
-    var default_css = this.common.html.default_css ;
+	var navigation_template = this.facebook.html.navigation ;
+	var default_css = this.common.html.default_css ; 
+	var facebook_footer = this.facebook.html.facebook_footer ; 
 
 	nav = Object() ;
 	nav.bid = String(req['path']).split(',')[0] ;
@@ -24,6 +25,7 @@ function (head, req) {
 
     doc = Object() ;
 	doc.bid = nav.bid
+	doc.facebook_footer = facebook_footer
 	doc.navigation = navigation ;
     doc.default_css = default_css ; 
     doc.numrows = head.total_rows ;

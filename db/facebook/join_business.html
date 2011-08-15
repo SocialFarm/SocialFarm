@@ -15,11 +15,14 @@
 
 		<script>
 			$(document).ready(function() {
+			
 				$("#join_business").click(function () { 
 					bid = $('#_id').text() ;
 					member = { "name": "testname" }
 					add_member_to_business(member, bid) ;
 				});
+
+				console.log(user);
 			});
 		</script>
     </head> 

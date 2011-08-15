@@ -1,6 +1,8 @@
 <div id="fb-root"></div>
 <div id="debug"></div>
 <script type="text/javascript">
+	$('div.header').prepend('<div id="loader" style="display:none">Loading Gif</div>');
+
     var user = null;
 	window.fbAsyncInit = function() {
 		FB.init({ appId: '234690403213067', 
@@ -81,6 +83,10 @@
 			document.getElementById('loader').style.display = 'block';
 		else
 			document.getElementById('loader').style.display = 'none';
+	}
+
+	function build_nav(){
+		$('div.navigation ul.my').prepend('<li id = "my_tasks" ><a href="/business/bid/tasks/' + user.id + '"> my tasks from bid</a></li>');
 	}
 
 </script>

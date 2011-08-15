@@ -1,6 +1,6 @@
 CREDENTIALS = socialfarm:success
 
-all : install_apps test
+all : clean install_apps test
 
 install_apps : 
 	# upload mustache.js - used by various show and lists below  
@@ -8,7 +8,7 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.js.mustache common/js/mustache.js 
 
 	# public database 
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business views.all.map  business/map_all.js	
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business views.all_businesses.map  business/map_all.js	
 
 	# common (same as info for now)
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.default_css common/default_css.html
@@ -72,12 +72,13 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.canvas facebook/canvas.html
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.join_business_html facebook/join_business.html 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.facebook_footer facebook/facebook_footer.html
-
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.facebook_footer facebook/facebook_footer.html 
-
-
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.facebook_canvas facebook/canvas.js
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.join_business facebook/join_business.js
+
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.facebook_footer facebook/facebook_footer.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.navigation facebook/navigation.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.facebook_footer facebook/facebook_footer.html
+
 
 
 

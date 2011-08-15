@@ -6,14 +6,19 @@ import httplib2, urllib, json, sys, getopt
 patterns = {
 'businesses'             : templatemapper('/businesses{}',                   '/socialfarm/_design/business/_list/basic_html/all{}'),
 'business'               : templatemapper('/business/{bid}' ,                '/socialfarm/_design/business/_show/basic_html/{bid}'), 
+
 'business.members'       : templatemapper('/business/{bid}/members' ,        '/{bid}/_design/info/_list/members_basic_html/all_members'), 
 'business.member'        : templatemapper('/business/{bid}/member/{mid}' ,   '/{bid}/_design/info/_show/member_basic_html/{mid}'), 
+
 'business.actions'       : templatemapper('/business/{bid}/actions' ,        '/{bid}/_design/info/_list/actions_basic_html/all_actions'), 
 'business.action'        : templatemapper('/business/{bid}/action/{aid}' ,   '/{bid}/_design/info/_show/action_basic_html/{aid}'), 
+
 'business.jobs'          : templatemapper('/business/{bid}/jobs' ,           '/{bid}/_design/info/_list/jobs_basic_html/all_jobs'), 
 'business.job'           : templatemapper('/business/{bid}/job/{jid}' ,      '/{bid}/_design/info/_show/job_basic_html/{jid}'), 
+
 'business.tasks'         : templatemapper('/business/{bid}/tasks' ,          '/{bid}/_design/info/_list/tasks_basic_html/all_tasks'), 
 'business.task'          : templatemapper('/business/{bid}/task/{tid}' ,     '/{bid}/_design/info/_show/task_basic_html/{tid}'), 
+'business.tasks'         : templatemapper('/business/{bid}/tasks/{mid}',     '/{bid}/_design/info/_list/tasks_basic_html/all_tasks?key="{mid}"'),
 
 'api.businesses'         : templatemapper('/api/businesses{}',               '/socialfarm/_design/business/_view/all{}'),
 'api.business'           : templatemapper('/api/business/{bid}' ,            '/socialfarm/{bid}'),
@@ -25,8 +30,8 @@ patterns = {
 
 'business.join'          : templatemapper('/business/{bid}/join',            '/socialfarm/_design/business/_show/join_business/{bid}'), 
 
-'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/facebook_canvas/all{}'),
-''        		 		 : templatemapper('/',          		     		 '/socialfarm/_design/business/_list/facebook_canvas/all{}'),
+'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/facebook_canvas/all_businesses{}'),
+''        		 		 : templatemapper('/{}',          		     		 '/socialfarm/_design/business/_list/facebook_canvas/all_businesses{}'),
 
 }
 
@@ -46,41 +51,41 @@ def path_to_key(path):
 class Adapter(BaseHTTPRequestHandler) :  
      
     def do_GET(self):
-		key = path_to_key(self.path)
-		if key not in static:
-			url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
-			response, content = httplib2.Http().request(url, "GET")
-		else:
-			response = {'status': '200', 'content-type': 'text/html' }
-			content = static[key]
+        key = path_to_key(self.path)
+        if key not in static:
+            url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+            response, content = httplib2.Http().request(url, "GET")
+        else:
+            response = {'status': '200', 'content-type': 'text/html' }
+            content = static[key]
 
-		self.write_response(response, content)
+        self.write_response(response, content)
 
     def do_PUT(self):
-		key = path_to_key(self.path)
-		url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
-		headers = { "content-type": "application/json" }
-		data =  self.rfile.read((int(self.headers['content-length'])))
-		response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
-		self.write_response(response, content)
+        key = path_to_key(self.path)
+        url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+        headers = { "content-type": "application/json" }
+        data =  self.rfile.read((int(self.headers['content-length'])))
+        response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
+        self.write_response(response, content)
 
     def do_POST(self):
-		key = path_to_key(self.path)
-		url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
-		headers = { "content-type": "application/json" }
-		data =  self.rfile.read((int(self.headers['content-length'])))
+        key = path_to_key(self.path)
+        url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+        headers = { "content-type": "application/json" }
+        data =  self.rfile.read((int(self.headers['content-length'])))
 
-		response, content = httplib2.Http().request(url, "GET")
+        response, content = httplib2.Http().request(url, "GET")
 
-		record = json.loads(content)
-		fields = json.loads(data)
+        record = json.loads(content)
+        fields = json.loads(data)
 
-		for k in fields.keys():
-			record[k] = fields[k] if record[k] != fields[k] else record[k]
-		
-		response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
-		self.write_response(response, content)
-          
+        for k in fields.keys():
+            record[k] = fields[k] if record[k] != fields[k] else record[k]
+
+        response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
+        self.write_response(response, content)
+
     def write_response(self, response, content):
         self.send_response(int(response['status']))
         self.send_header('content-type', response['content-type'])
