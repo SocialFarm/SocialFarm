@@ -32,9 +32,14 @@ class SocialFarm :
         return [ row.key for row in self.db.view('_all_docs') ] 
 
     
-    def addPerson(self, pid, datadict = {} ): 
+    def addPerson(self, pid, datadict = {}, overwrite = False ): 
         now = time.time() 
-        workerdef = { 'type' : 'person', 'added' : now } 
+        if overwrite : 
+            del self.db[pid] 
+        else:
+            workerdef = self.db[ pid ]
+        workerdef[ 'type' ] = 'person'
+        workerdef[ 'added' ] = now  
         for k in datadict: 
             workerdef[ k ] = datadict[ k ] 
         self.db[ pid ] = workerdef 
@@ -141,6 +146,8 @@ class SocialFarm :
 class BusinessDirector : 
 
     def __init__(self, businessname, username, password, url ='http://localhost:5984/'): 
+        self.businessname = businessname
+        self.sf = SocialFarm(username, password) 
         self.server = Server(url)
         if username is not None and password is not None: 
             self.server.resource.credentials = (username, password) 
@@ -176,7 +183,7 @@ class BusinessDirector :
                                             data_items ) 
         self.db[ jobid ] = jobdef 
         self.db[ taskid ] = taskdef 
-
+        
 
 
     def __getTask(self, jobid, activity, data_items): 
@@ -222,10 +229,21 @@ class BusinessDirector :
             'working_since' : now 
             } 
         self.db[ name ] = workerdef 
-
         
+        persondef = self.sf.db[name] 
+        if 'businesses' not in persondef : 
+            persondef[ 'businesses' ] = [ self.businessname ] 
+        else :
+            persondef[ 'businesses' ].append( self.businessname ) 
+        self.sf.db[name] = persondef
+        
+
     def delWorker(self, name): 
         del self.db[ name ]
+        persondef = self.sf.db[name] 
+        persondef[ 'businesses' ].remove( self.businessname ) 
+        self.sf.db[name] = persondef
+        
 
 
 
