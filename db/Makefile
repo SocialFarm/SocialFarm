@@ -1,6 +1,6 @@
 CREDENTIALS = socialfarm:success
 
-all : clean install_apps test
+all : install_apps test
 
 install_apps : 
 	# upload mustache.js - used by various show and lists below  

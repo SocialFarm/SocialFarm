@@ -26,8 +26,9 @@ patterns = {
 'api.business.actions'   : templatemapper('/api/business/{bid}/actions' ,    '/{bid}/_design/info/_view/all_actions'), 
 'api.business.jobs'      : templatemapper('/api/business/{bid}/jobs' ,       '/{bid}/_design/info/_view/all_jobs'), 
 #'api.business.tasks'     : templatemapper('/api/business/{bid}/tasks' ,      '/{bid}/_design/info/_view/all_tasks'), 
-'api.business.tasks'     : templatemapper('/api/business/{bid}/tasks/{mid}', '/{bid}/_design/info/_view/all_tasks?key="{mid}"'),
-'api.business.id'        : templatemapper('/api/{bid}/{id}' ,                '/{bid}/{id}'), 
+'api.business.tasks'        : templatemapper('/api/business/{bid}/tasks/{mid}',                 '/{bid}/_design/info/_view/all_tasks?key="{mid}"'),
+'api.business.object'       : templatemapper('/api/business/{bid}/object/{id}' ,                '/{bid}/{id}'), 
+'api.business.object.doc'   : templatemapper('/api/business/{bid}/object/{id}/doc/{aid}' ,      '/{bid}/{id}/{aid}'), 
 
 'my_businesses'          : templatemapper('/my_businesses/{mid}',            '/socialfarm/_design/business/_show/my_businesses/{mid}'), 
 'my_tasks'               : templatemapper('/my_tasks/{mid}',                 '/socialfarm/_design/business/_show/my_tasks/{mid}'),
@@ -39,13 +40,14 @@ patterns = {
 
 }
 
-reserved = ['my_businesses', 'my_tasks', 'person', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
+reserved = ['my_businesses', 'object', 'doc', 'my_tasks', 'person', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
 
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):
-	parts = filter(lambda x: x in reserved, path.split('/'))
-	key = ".".join(parts)
-	return key if key != 'api' else 'api.business.id'
+    parts = filter(lambda x: x in reserved, path.split('/'))
+    key = ".".join(parts)
+    print key
+    return key if key != 'api' else 'api.business.id'
 
 
 class Adapter(BaseHTTPRequestHandler) :  

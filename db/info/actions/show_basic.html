@@ -8,7 +8,7 @@
 
         {{{ default_css }}}
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	    {{{ default_js }}}
 
     </head> 
     <body> 
@@ -26,6 +26,14 @@
                     <div id = "predecessors" > Predecessors : {{predecessors}} </div> 
                     <div id = "skills_required" > Skills Required : {{skills_required}} </div> 
                     <div id = "successors" > Successors : {{successors}} </div> 
+                    <div id = "_attachments" > 
+                        <ul>
+                            {{#docs}} 
+                                <li><a href="/api/{{bid}}/{{_id}}}/{{name}}">{{name}}</a></li>
+                            {{/docs}} 
+                        </ul>
+                    </div> 
+                        
             </div> 
         </div>
 

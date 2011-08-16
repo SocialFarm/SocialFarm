@@ -33,7 +33,6 @@
 			            if (response.authResponse) {
 			                FB.api('/me', function(info) {
 			                    login(response, info);
-                                add_person_to_socialfarm(user.id);
 			                });
 
                              
@@ -62,6 +61,7 @@
 		if (user == null && response.authResponse) {
             user = info;
 			user.accessToken = response.authResponse.accessToken ;
+            add_person_to_socialfarm(user.id);
 			FBOnLoad();	
 		} else {
             console.log('2nd call');
@@ -69,7 +69,8 @@
 	}
 
 	function logout(response){
-		$('.user li#info').remove();
+		$('.user ul').remove();
+        $('#navigation ul.my').remove();
         user = null;
 	}
 </script>
@@ -77,7 +78,7 @@
 <!-- need to rethink these script tag includes when we refactor for multiple OSN -->
 <script type="text/javascript">
 	function FBOnLoad(){
-
+        
 		var html = 	'<li id = "info" >' + 
 				 	'<img src="https://graph.facebook.com/' + user.id + '/picture" alt="' + user.id + '">' + 
 				   	'<span class="user_name">' + user.name + '</span>' + 
@@ -89,9 +90,6 @@
 		$('#navigation ul.my').prepend('<li id = "my_businesses" ><a href="/my_businesses/' + user.id + '">my businesses</a></li>');
 		
 		console.log(' Your Access Token: ' + user.accessToken);
-		
-		//function build_nav(){
-		//$('div.navigation ul.my').prepend('<li id = "my_tasks" ><a href="/business/bid/tasks/' + user.id + '"> my tasks from bid</a></li>');
 		
         if (typeof(SFOnLoad) != "undefined"){
 			SFOnLoad();

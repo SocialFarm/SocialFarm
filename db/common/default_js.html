@@ -50,7 +50,7 @@ function add_member_to_business(member, bid){
 
         $.ajax({
             type: "PUT",
-            url: "/api/" + bid + "/" + member.id,
+            url: "/api/business/" + bid + "/object/" + member.id,
             data: JSON.stringify(member),
             success: function(msg){
                 //add person to business (bid) db
