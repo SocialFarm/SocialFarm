@@ -14,7 +14,7 @@ function(doc, req) {
             
             docs.push({"name":a});
         }
-        doc.docs = docs;
+        doc._attachments = docs;
     }
 
     doc.bid = nav.bid ;

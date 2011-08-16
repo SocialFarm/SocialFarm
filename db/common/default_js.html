@@ -6,8 +6,10 @@
 */
 
 function get_my_tasks(id){
+    //hack for testing
     id = "osteele"
 
+    //asynchronously load tasks via api
     $.each( $('.business_tasks') , function(index, value) { 
         var business_tasks = this;
         $.getJSON("/api/business/" + this.id + "/tasks/" + id, function(tasks) {
@@ -22,6 +24,7 @@ function get_my_tasks(id){
 
 function add_person_to_socialfarm(id){
 
+    //add person to socialfarm db
     $.ajax({
         type: "PUT",
         url: "/api/person/" + id,
@@ -39,21 +42,23 @@ function add_member_to_business(member, bid){
 
         person.businesses.push(bid);
 
+        //update socialfarm db
         $.ajax({
                 type: "PUT",
                 url: "/api/person/" + member.id,
                 data: JSON.stringify(person),
                 success: function(msg){
-                    //updated person in socialfarm db
+                    //do nothing
                 }
         });
 
+        //update person in business (bid) db
         $.ajax({
             type: "PUT",
             url: "/api/business/" + bid + "/object/" + member.id,
             data: JSON.stringify(member),
             success: function(msg){
-                //add person to business (bid) db
+                //do nothing
             }
         });
     });   

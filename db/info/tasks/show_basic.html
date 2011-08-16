@@ -28,6 +28,13 @@
                 <div id = "jobid" > Activity : <a href="/business/{{bid}}/job/{{jobid}}"> {{jobid}}</a></div>
                 <div id = "prevtid" > Previous Task ID : <a href="/business/{{bid}}/task/{{prevtid}}"> {{prevtid}}</a> </div> 
                 <div id = "address" > Address : {{address}} </div> 
+                <div id = "_attachments" > 
+                        <ul>
+                            {{#_attachments}} 
+                                <li><a href="/api/business/{{bid}}/object/{{_id}}}/attachment/{{name}}">{{name}}</a></li>
+                            {{/_attachments}} 
+                        </ul>
+                    </div> 
             </div>
         </div>
 		{{{ facebook_footer }}}

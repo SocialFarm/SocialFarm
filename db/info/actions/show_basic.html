@@ -28,9 +28,9 @@
                     <div id = "successors" > Successors : {{successors}} </div> 
                     <div id = "_attachments" > 
                         <ul>
-                            {{#docs}} 
+                            {{#_attachments}} 
                                 <li><a href="/api/business/{{bid}}/object/{{_id}}}/attachment/{{name}}">{{name}}</a></li>
-                            {{/docs}} 
+                            {{/_attachments}} 
                         </ul>
                     </div> 
                         
