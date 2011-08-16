@@ -39,7 +39,7 @@ patterns = {
 
 }
 
-reserved = ['my_businesses', ',my_tasks', 'person', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
+reserved = ['my_businesses', 'my_tasks', 'person', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
 
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):
