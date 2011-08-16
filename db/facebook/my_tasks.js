@@ -19,7 +19,7 @@ function(doc, req) {
         
     doc.businesses = businesses
 	doc.default_css = default_css ;
-    doc.default_js = default_js ;
+    doc.default_js = default_js + '<script>' + this.common.js.socialfarm + '</script>' ;
 	doc.facebook_footer = facebook_footer ;
 	return Mustache.to_html( page_template, doc ) ; 
 } 

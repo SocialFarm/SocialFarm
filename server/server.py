@@ -18,7 +18,6 @@ patterns = {
 
 'business.tasks'         : templatemapper('/business/{bid}/tasks' ,          '/{bid}/_design/info/_list/tasks_basic_html/all_tasks'), 
 'business.task'          : templatemapper('/business/{bid}/task/{tid}' ,     '/{bid}/_design/info/_show/task_basic_html/{tid}'), 
-'business.tasks'         : templatemapper('/business/{bid}/tasks/{mid}',     '/{bid}/_design/info/_list/tasks_basic_html/all_tasks?key="{mid}"'),
 
 'api.businesses'         : templatemapper('/api/businesses{}',               '/socialfarm/_design/business/_view/all{}'),
 'api.business'           : templatemapper('/api/business/{bid}' ,            '/socialfarm/{bid}'),
@@ -26,7 +25,8 @@ patterns = {
 'api.business.members'   : templatemapper('/api/business/{bid}/members' ,    '/{bid}/_design/info/_view/all_members'), 
 'api.business.actions'   : templatemapper('/api/business/{bid}/actions' ,    '/{bid}/_design/info/_view/all_actions'), 
 'api.business.jobs'      : templatemapper('/api/business/{bid}/jobs' ,       '/{bid}/_design/info/_view/all_jobs'), 
-'api.business.tasks'     : templatemapper('/api/business/{bid}/tasks' ,      '/{bid}/_design/info/_view/all_tasks'), 
+#'api.business.tasks'     : templatemapper('/api/business/{bid}/tasks' ,      '/{bid}/_design/info/_view/all_tasks'), 
+'api.business.tasks'     : templatemapper('/api/business/{bid}/tasks/{mid}', '/{bid}/_design/info/_view/all_tasks?key="{mid}"'),
 'api.business.id'        : templatemapper('/api/{bid}/{id}' ,                '/{bid}/{id}'), 
 
 'my_businesses'          : templatemapper('/my_businesses/{mid}',            '/socialfarm/_design/business/_show/my_businesses/{mid}'), 

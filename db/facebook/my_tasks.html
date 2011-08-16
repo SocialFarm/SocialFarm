@@ -10,6 +10,20 @@
 
         {{{ default_js }}}
 
+        <script type="text/javascript">
+			
+			$(document).ready(function() {
+				$("#join_business").click(function () { 
+					bid = $('#_id').text() ;
+					add_member_to_business(user, bid) ;
+				});
+			});
+			function SFOnLoad(){
+				tasks = get_my_tasks(user.id);
+                console.log(tasks);
+			}
+		</script>
+
     </head> 
     <body> 
 	

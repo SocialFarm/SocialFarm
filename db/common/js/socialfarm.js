@@ -4,16 +4,19 @@
 */
 
 function get_my_tasks(id){
-
+     id = "osteele"
      $.getJSON("/api/person/" + id, function(person) {
         var data = Array();
     
         for (b in person.businesses){
-            $.getJSON("/api/" + person.businesses[b] + "/tasks/" + id, function(tasks) {
+            $.getJSON("/api/business/" + person.businesses[b] + "/tasks/" + id, function(tasks) {
                console.log(tasks);
+               data.push(tasks);
             });
         }
+        return data;
     });
+   return null;
 
 }
 
