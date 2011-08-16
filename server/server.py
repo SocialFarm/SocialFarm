@@ -30,7 +30,7 @@ patterns = {
 'api.business.id'        : templatemapper('/api/{bid}/{id}' ,                '/{bid}/{id}'), 
 
 'my_businesses'          : templatemapper('/my_businesses/{mid}',            '/socialfarm/_design/business/_show/my_businesses/{mid}'), 
-'my_tasks'               : templatemapper('/my_tasks/{mid}',                 '/socialfarm/_design/business/_show/my_businesses/{mid}'),
+'my_tasks'               : templatemapper('/my_tasks/{mid}',                 '/socialfarm/_design/business/_show/my_tasks/{mid}'),
 
 'business.join'          : templatemapper('/business/{bid}/join',            '/socialfarm/_design/business/_show/join_business/{bid}'), 
 
