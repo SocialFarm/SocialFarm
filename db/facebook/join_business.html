@@ -15,11 +15,11 @@
 		<script type="text/javascript">
 			
 			$(document).ready(function() {
-				$("#join_business").click(function () { 
-					bid = $('#_id').text() ;
-					add_member_to_business(user, bid) ;
-				});
+				$("#join_business").click(function(){
+                    add_user_to_business();
+                });
 			});
+
 			function SFOnLoad(){
 				user.type = "person" ;
 				user.network = "facebook" ;

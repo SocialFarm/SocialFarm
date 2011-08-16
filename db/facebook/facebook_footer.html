@@ -33,9 +33,7 @@
 			            if (response.authResponse) {
 			                FB.api('/me', function(info) {
 			                    login(response, info);
-			                });
-
-                             
+			                });    
 			            } else {
 			                //user cancelled login or did not grant authorization
 			                
@@ -61,10 +59,10 @@
 		if (user == null && response.authResponse) {
             user = info;
 			user.accessToken = response.authResponse.accessToken ;
-            add_person_to_socialfarm(user.id);
+            add_user_to_socialfarm();
 			FBOnLoad();	
 		} else {
-            console.log('2nd call');
+            //console.log('2nd call');
         }
 	}
 
@@ -88,8 +86,6 @@
 
 		$('#navigation ul.my').prepend('<li id = "my_tasks" ><a href="/my_tasks/' + user.id + '">my tasks</a></li>');
 		$('#navigation ul.my').prepend('<li id = "my_businesses" ><a href="/my_businesses/' + user.id + '">my businesses</a></li>');
-		
-		console.log(' Your Access Token: ' + user.accessToken);
 		
         if (typeof(SFOnLoad) != "undefined"){
 			SFOnLoad();

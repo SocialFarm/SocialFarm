@@ -5,63 +5,91 @@
 
 */
 
-function get_my_tasks(id){
-    //hack for testing
-    id = "osteele"
+function setHeader(xhr) {
+    if (user != null){
+        xhr.setRequestHeader('AccessToken', user.accessToken);
+    }
+}
+
+function get_json(url, success, failure){
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: success,
+        error: failure,
+        beforeSend: setHeader
+    });
+}
+
+function put_json(url, data, success, failure){
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        dataType: 'json',
+        data : data,
+        success: success,
+        error: failure,
+        beforeSend: setHeader
+    });
+}
+
+function load_my_tasks(){
+    //hack for testing should be user.id
+    id = 'osteele'; //user.id
+
+    var business_tasks;
+    var success = function(tasks) {
+        $.each(tasks.rows, function(task){
+            $(business_tasks).append('<li><a href="/business/' + business_tasks.id + '/task/' + this.id + '">' +  this.id + '</a></li>');
+        });
+    };
+    var failure = function(tasks) {};
 
     //asynchronously load tasks via api
     $.each( $('.business_tasks') , function(index, value) { 
-        var business_tasks = this;
-        $.getJSON("/api/business/" + this.id + "/tasks/" + id, function(tasks) {
-            $.each(tasks.rows, function(task){
-                $(business_tasks).append('<li><a href="/business/' + business_tasks.id + '/task/' + this.id + '">' +  this.id + '</a></li>');
-            });
-        });
+        business_tasks = this;
+        var url = "/api/business/" + this.id + "/tasks/" + id ;
+        get_json(url, success, failure);
     });
-
-   return null;
 }
 
-function add_person_to_socialfarm(id){
+function add_user_to_socialfarm(){
+
+    var url = "/api/person/" + user.id
+    var data = JSON.stringify({"type":"person", "businesses": Array()}) ;
+    var success = function(data){/*do nothing*/} ;
+    var failure = function(data){/*do nothing*/} ;
 
     //add person to socialfarm db
-    $.ajax({
-        type: "PUT",
-        url: "/api/person/" + id,
-        data: JSON.stringify({"type":"person", "businesses": Array()}),
-        success: function(msg){
-        //do nothing 
-        }
-    });
-
+    put_json(url, data, success, failure);
+  
 }
 
-function add_member_to_business(member, bid){
-    
-    $.getJSON("/api/person/" + member.id, function(person) {
+function add_user_to_business(bid){
+
+    var bid = $('#_id').text() ;
+    var url = "/api/person/" + user.id ;
+    var data;
+    var do_nothing = function(){};
+
+    var success = function(person) {
 
         person.businesses.push(bid);
 
-        //update socialfarm db
-        $.ajax({
-                type: "PUT",
-                url: "/api/person/" + member.id,
-                data: JSON.stringify(person),
-                success: function(msg){
-                    //do nothing
-                }
-        });
+        data = JSON.stringify(person) ;
 
         //update person in business (bid) db
-        $.ajax({
-            type: "PUT",
-            url: "/api/business/" + bid + "/object/" + member.id,
-            data: JSON.stringify(member),
-            success: function(msg){
-                //do nothing
-            }
-        });
-    });   
+        put_json(url, data, do_nothing, do_nothing) ;
+      
+        url =  "/api/business/" + bid + "/object/" + user.id
+        data = JSON.stringify(user) ;
+
+        //update person in business (bid) db
+        put_json(url, data, do_nothing, do_nothing) ;
+       
+    };
+    get_json(url, success, do_nothing);  
 }
 
 
