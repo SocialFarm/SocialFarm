@@ -14,7 +14,7 @@ function(doc, req) {
 
 	doc.navigation = Mustache.to_html( navigation_template, nav ) ;
 	doc.default_css = default_css ;
-    doc.default_js = default_js + '<script>' + this.common.js.socialfarm + '</script>' ;
+    doc.default_js = default_js ;
 	doc.facebook_footer = facebook_footer ;
 	//doc.FBOnLoad = FBOnLoad ;
 	return Mustache.to_html( page_template, doc ) ; 

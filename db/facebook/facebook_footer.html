@@ -33,6 +33,7 @@
 			            if (response.authResponse) {
 			                FB.api('/me', function(info) {
 			                    login(response, info);
+                                add_person_to_socialfarm(user.id);
 			                });
 
                              

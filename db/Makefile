@@ -24,7 +24,6 @@ install_apps :
 	# show functions for rendering resource (business json) to html by id
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.show_basic_html business/show_basic.html  
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.basic_html business/show_basic_html.js
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.js.socialfarm common/js/socialfarm.js
 
 
 	# business template database - is replicated into new businesses in order to inherit apps
@@ -74,7 +73,6 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.canvas facebook/canvas.html
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.join_business_html facebook/join_business.html 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.facebook_footer facebook/facebook_footer.html
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.FBOnLoad facebook/FBOnLoad.html
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.facebook_canvas facebook/canvas.js
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.join_business facebook/join_business.js
 

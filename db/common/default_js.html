@@ -1,2 +1,67 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+/*
+  socialfarm.js - Javascript wrapper for REST Interface to socialfarm.org 
+
+*/
+
+function get_my_tasks(id){
+    id = "osteele"
+
+    $.each( $('.business_tasks') , function(index, value) { 
+        var business_tasks = this;
+        $.getJSON("/api/business/" + this.id + "/tasks/" + id, function(tasks) {
+            $.each(tasks.rows, function(task){
+                $(business_tasks).append('<li><a href="/business/' + business_tasks.id + '/task/' + this.id + '">' +  this.id + '</a></li>');
+            });
+        });
+    });
+
+   return null;
+}
+
+function add_person_to_socialfarm(id){
+
+    $.ajax({
+        type: "PUT",
+        url: "/api/person/" + id,
+        data: JSON.stringify({"type":"person", "businesses": Array()}),
+        success: function(msg){
+        //do nothing 
+        }
+    });
+
+}
+
+function add_member_to_business(member, bid){
+    
+    $.getJSON("/api/person/" + member.id, function(person) {
+
+        person.businesses.push(bid);
+
+        $.ajax({
+                type: "PUT",
+                url: "/api/person/" + member.id,
+                data: JSON.stringify(person),
+                success: function(msg){
+                    //updated person in socialfarm db
+                }
+        });
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/" + bid + "/" + member.id,
+            data: JSON.stringify(member),
+            success: function(msg){
+                //add person to business (bid) db
+            }
+        });
+    });   
+}
+
+
+
+
+
+</script>
 
