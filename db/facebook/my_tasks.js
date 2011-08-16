@@ -7,24 +7,17 @@ function(doc, req) {
 	var facebook_footer = this.facebook.html.facebook_footer ;
 
 	nav = Object() ;
-	nav.bid = null ;
-	nav.tasks_class = 'active' ;
+	nav.bid = doc._id ;
+	nav.business_class = 'active' ;
 
 	doc.navigation = Mustache.to_html( navigation_template, nav ) ;
 
-    var my_tasks = Array()
-
+    var businesses = Array()
     for (b in doc.businesses){
-
-        $.getJSON("/" + doc.businesses[b] + "/_design/info/_list/tasks_basic_html/all_tasks?key=" + doc._id, function(tasks) {
-            my_tasks.push(tasks);
-        });
-   
-
-        
+        businesses.push({"name": doc.businesses[b]});
     }
         
-    doc.tasks = my_tasks
+    doc.businesses = businesses
 	doc.default_css = default_css ;
     doc.default_js = default_js ;
 	doc.facebook_footer = facebook_footer ;
