@@ -92,7 +92,7 @@
 		//function build_nav(){
 		//$('div.navigation ul.my').prepend('<li id = "my_tasks" ><a href="/business/bid/tasks/' + user.id + '"> my tasks from bid</a></li>');
 		
-		if (SFOnLoad){ 
+        if (typeof(SFOnLoad) != "undefined"){
 			SFOnLoad();
 		}	
 	}

@@ -86,6 +86,9 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.my_businesses_html facebook/my_businesses.html 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.my_businesses facebook/my_businesses.js
 
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.my_tasks_html facebook/my_tasks.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.my_tasks facebook/my_tasks.js
+
 
 
 
