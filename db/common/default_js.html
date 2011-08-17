@@ -1,9 +1,51 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript">
 /*
-  socialfarm.js - Javascript wrapper for REST Interface to socialfarm.org 
+  socialfarm.js - Javascript wrapper for REST Interface to socialfarm.org and other js that should probably go elsewhere
 
 */
+
+
+function build_task_json(){
+	var task = Object(); 
+	var data_items = Object(); 
+
+	$.each($('#task_form #data_items li'), function(item) { 
+		$.each(this.children, function (child) {
+			if (! $(this).is('label') && (! $(this).is('button')) ){
+				data_items[jQuery.trim(''+this.id)] = jQuery.trim(''+ this.value) ;
+			}
+		});
+	});
+
+	$.each($('#task_form #task_info li'), function(item) { 
+		$.each(this.children, function (child) {
+			if (! $(this).is('label') && (! $(this).is('button')) ){
+				task[jQuery.trim(''+this.id)] = jQuery.trim(''+ this.value) ;
+			}
+		});
+	});
+	task.data_items = data_items;
+	console.log(task);
+	return task;
+
+}
+
+function save_task(){
+	var task = build_task_json();
+	var url = $('task_form').attr("action");
+	var data = JSON.stringify(task);
+	post_json(url, data, null, null);
+}
+
+function forward_task(){
+	var task = build_task_json();
+	var url = $('task_form').attr("action");
+	task.state = 'finished';
+	var data = JSON.stringify(task);
+
+	post_json(url, data, null, null);
+}
 
 function setHeader(xhr) {
     if (user != null){
@@ -26,6 +68,18 @@ function put_json(url, data, success, failure){
     $.ajax({
         url: url,
         type: 'PUT',
+        dataType: 'json',
+        data : data,
+        success: success,
+        error: failure,
+        beforeSend: setHeader
+    });
+}
+
+function post_json(url, data, success, failure){
+    $.ajax({
+        url: url,
+        type: 'POST',
         dataType: 'json',
         data : data,
         success: success,

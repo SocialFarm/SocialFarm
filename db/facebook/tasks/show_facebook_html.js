@@ -1,10 +1,10 @@
 function(doc, req) { 
 	var Mustache = require( "common/js/mustache" );
-	var page_template = this.common.html.tasks.show_basic_html ;  
+	var page_template = this.facebook.html.tasks.show_facebook_html ;  
 	var navigation_template = this.facebook.html.navigation ;
     var dform = this.common.js.dform ;
 
-    doc.task = task
+    doc.task = JSON.stringify(doc);
 
 	nav = Object() ;
 	nav.bid = String(req['path']).split(',')[0] ;
@@ -13,10 +13,17 @@ function(doc, req) {
     if (doc._attachments){
         var docs = Array();
         for (a in doc._attachments){
-            
             docs.push({"name":a});
         }
         doc._attachments = docs;
+    }
+
+	if (doc.data_items){
+        var items = Array();
+        for (k in doc.data_items){
+            items.push({"key":k, "value": doc.data_items[k]});
+        }
+        doc.data_items = items;
     }
 
     doc.bid = nav.bid ;

@@ -1,6 +1,6 @@
 CREDENTIALS = socialfarm:success
 
-all : install_apps test
+all : clean install_apps test
 
 install_apps : 
 	# upload mustache.js - used by various show and lists below  
@@ -90,7 +90,7 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business facebook.html.my_tasks_html facebook/my_tasks.html 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business shows.my_tasks facebook/my_tasks.js
 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.tasks.show_facebook_html facebook/tasks/show_facebook_html.js
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info facebook.html.tasks.show_facebook_html facebook/tasks/show_facebook.html
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info shows.task_facebook_html facebook/tasks/show_facebook_html.js
 
 clean: 

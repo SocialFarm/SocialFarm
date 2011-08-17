@@ -3,8 +3,6 @@ function (head, req) {
     var Mustache = require( "common/js/mustache" );
     var page_template = this.common.html.list_basic_html ; 
     var row_template = this.common.html.list_basic_html_row ; 
-    var default_css = this.common.html.default_css ; 
-	var facebook_footer = this.facebook.html.facebook_footer ; 
 	var navigation_template = this.facebook.html.navigation ;
 
 	nav = Object() ;
@@ -21,9 +19,10 @@ function (head, req) {
     }
 
     doc = Object() ; 
-    doc.default_css = default_css
+    doc.default_css = this.common.html.default_css ; 
+    doc.default_js = this.common.html.default_js ; 
 	doc.navigation = navigation
-	doc.facebook_footer = facebook_footer
+	doc.facebook_footer = this.facebook.html.facebook_footer ; 
     doc.numrows = head.total_rows ;
     doc.offset = head.offset ; 
     doc.html_rows = html_rows ; 
