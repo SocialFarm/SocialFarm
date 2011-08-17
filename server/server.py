@@ -4,16 +4,16 @@ from templatemapper import templatemapper
 import httplib2, urllib, json, sys, getopt
 
 views = {
-'api.businesses'                    : templatemapper('/api/businesses{}',               '/socialfarm/_design/business/_view/all_businesses{}'),
-'api.business'                      : templatemapper('/api/business/{bid}' ,            '/socialfarm/{bid}'),
-'api.person'                        : templatemapper('/api/person/{mid}' ,              '/socialfarm/{mid}'),
-'api.business.members'              : templatemapper('/api/business/{bid}/members' ,    '/{bid}/_design/info/_view/all_members'), 
-'api.business.actions'              : templatemapper('/api/business/{bid}/actions' ,    '/{bid}/_design/info/_view/all_actions'), 
-'api.business.jobs'                 : templatemapper('/api/business/{bid}/jobs' ,       '/{bid}/_design/info/_view/all_jobs'), 
-#'api.business.tasks'               : templatemapper('/api/business/{bid}/tasks' ,      '/{bid}/_design/info/_view/all_tasks'), 
-'api.business.tasks'                : templatemapper('/api/business/{bid}/tasks/{mid}',                 '/{bid}/_design/info/_view/all_tasks?key="{mid}"'),
-'api.business.object'               : templatemapper('/api/business/{bid}/object/{id}' ,                '/{bid}/{id}'), 
-'api.business.object.attachment'    : templatemapper('/api/business/{bid}/object/{id}/attachment/{aid}' ,      '/{bid}/{id}/{aid}'), 
+'api.businesses'                    : templatemapper('/api/businesses{}',                                   '/socialfarm/_design/business/_view/all_businesses{}'),
+'api.business'                      : templatemapper('/api/business/{bid}' ,                                '/socialfarm/{bid}'),
+'api.person'                        : templatemapper('/api/person/{mid}' ,                                  '/socialfarm/{mid}'),
+'api.business.members'              : templatemapper('/api/business/{bid}/members' ,                        '/{bid}/_design/info/_view/all_members'), 
+'api.business.actions'              : templatemapper('/api/business/{bid}/actions' ,                        '/{bid}/_design/info/_view/all_actions'), 
+'api.business.jobs'                 : templatemapper('/api/business/{bid}/jobs' ,                           '/{bid}/_design/info/_view/all_jobs'), 
+#'api.business.tasks'               : templatemapper('/api/business/{bid}/tasks' ,                          '/{bid}/_design/info/_view/all_tasks'), 
+'api.business.tasks'                : templatemapper('/api/business/{bid}/tasks/{mid}',                     '/{bid}/_design/info/_view/all_tasks?key="{mid}"'),
+'api.business.object'               : templatemapper('/api/business/{bid}/object/{id}' ,                    '/{bid}/{id}'), 
+'api.business.object.attachment'    : templatemapper('/api/business/{bid}/object/{id}/attachment/{aid}' ,   '/{bid}/{id}/{aid}'), 
 }
 
 shows = {
@@ -41,7 +41,7 @@ lists = {
 }
 
 patterns = {
-''        		         : templatemapper('/{}',          		             '/socialfarm/_design/business/_list/basic_html/all{}'),
+''        		         : templatemapper('/{}',          		             '/socialfarm/_design/business/_list/basic_html/all_businesses{}'),
 }
 
 patterns.update(lists)
