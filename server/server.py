@@ -33,7 +33,7 @@ facebook = {
 }
 
 lists = {
-'businesses'             : templatemapper('/businesses{}',                   '/socialfarm/_design/business/_list/basic_html/all{}'),
+'businesses'             : templatemapper('/businesses{}',                   '/socialfarm/_design/business/_list/basic_html/all_businesses{}'),
 'business.members'       : templatemapper('/business/{bid}/members' ,        '/{bid}/_design/info/_list/members_basic_html/all_members'), 
 'business.actions'       : templatemapper('/business/{bid}/actions' ,        '/{bid}/_design/info/_list/actions_basic_html/all_actions'), 
 'business.jobs'          : templatemapper('/business/{bid}/jobs' ,           '/{bid}/_design/info/_list/jobs_basic_html/all_jobs'), 
