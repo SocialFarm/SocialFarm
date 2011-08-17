@@ -75,7 +75,7 @@ class Adapter(BaseHTTPRequestHandler) :
         self.write_response(response, content)
 
     def do_POST(self):
-		print "POST AT ", self.path
+        print "POST AT ", self.path
         key = path_to_key(self.path)
         url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
         headers = { "content-type": "application/json" }
