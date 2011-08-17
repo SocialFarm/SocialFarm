@@ -41,7 +41,7 @@ lists = {
 }
 
 patterns = {
-''        		         : templatemapper('/{}',          		             '/socialfarm/_design/business/_show/my_tasks/{}'),
+''        		         : templatemapper('/{}',          		             '/socialfarm/_design/business/_list/basic_html/all{}'),
 }
 
 patterns.update(lists)
