@@ -21,7 +21,7 @@ shows = {
 'business.member'        : templatemapper('/business/{bid}/member/{mid}' ,   '/{bid}/_design/info/_show/member_basic_html/{mid}'), 
 'business.action'        : templatemapper('/business/{bid}/action/{aid}' ,   '/{bid}/_design/info/_show/action_basic_html/{aid}'),
 'business.job'           : templatemapper('/business/{bid}/job/{jid}' ,      '/{bid}/_design/info/_show/job_basic_html/{jid}'),
-'business.task'          : templatemapper('/business/{bid}/task/{tid}' ,     '/{bid}/_design/info/_show/task_basic_html/{tid}')
+'business.task'          : templatemapper('/business/{bid}/task/{tid}' ,     '/{bid}/_design/info/_show/task_facebook_html/{tid}')
 }
 
 facebook = {
@@ -75,7 +75,7 @@ class Adapter(BaseHTTPRequestHandler) :
         self.write_response(response, content)
 
     def do_POST(self):
-        print "POST!!!"
+        print "POST!!!", self.path
         key = path_to_key(self.path)
         url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
 
