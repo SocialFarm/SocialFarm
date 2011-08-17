@@ -2,9 +2,8 @@ function(doc, req) {
 	var Mustache = require( "common/js/mustache" );
 	var page_template = this.facebook.html.tasks.show_facebook_html ;  
 	var navigation_template = this.facebook.html.navigation ;
-    var dform = this.common.js.dform ;
 
-    doc.task = JSON.stringify(doc);
+    //doc.task = JSON.stringify(doc);
 
 	nav = Object() ;
 	nav.bid = String(req['path']).split(',')[0] ;
@@ -28,7 +27,6 @@ function(doc, req) {
 
     doc.bid = nav.bid ;
 
-    doc.dform = '<script>' + dform + '</script>' ;
 	doc.navigation = Mustache.to_html( navigation_template, nav ) ;
 	doc.default_css = this.common.html.default_css ; 
     doc.default_js = this.common.html.default_js ; 

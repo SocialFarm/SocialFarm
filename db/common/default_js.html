@@ -33,17 +33,16 @@ function build_task_json(){
 
 function save_task(){
 	var task = build_task_json();
-	var url = $('task_form').attr("action");
+	var url = $('#task_form').attr("action")
 	var data = JSON.stringify(task);
 	post_json(url, data, null, null);
 }
 
 function forward_task(){
 	var task = build_task_json();
-	var url = $('task_form').attr("action");
+	var url = $('#task_form').attr("action");
 	task.state = 'finished';
 	var data = JSON.stringify(task);
-
 	post_json(url, data, null, null);
 }
 

@@ -5,8 +5,6 @@ all : clean install_apps test
 install_apps : 
 	# upload mustache.js - used by various show and lists below  
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.js.mustache common/js/mustache.js 
-	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.js.dform common/js/dform.js 
-	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.js.dform common/js/dform.js  
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.js.mustache common/js/mustache.js 
 
 	# public database 
