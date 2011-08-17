@@ -1,0 +1,53 @@
+<!doctype html>
+<html> 
+    <head> 
+        <meta charset="utf-8">
+        <title>Task | {{ _id }}</title> 
+        <meta name="description" content="...">
+        <meta name="author" content="...">
+        
+        {{{ default_css }}}
+
+        {{{ default_js }}}
+
+        {{{ dform }}}
+        
+        <script type="text/javascript">
+            function SFOnLoad(){
+                $("#form").buildForm({{task}});
+            }
+        </script>
+
+    </head> 
+    <body> 
+        <div id = "content">
+
+			<div id="header">
+				{{{ navigation }}}
+			</div>
+
+            <div class = "task detail" id = "{{_id}}">
+                <div id = "_id"> Task : {{_id}} </div> 
+                <div id = "name" > Name : {{name}} </div> 
+                <div id = "skills_required" > Skills Requred : {{skills_required}} </div> 
+                <div id = "state" > State : {{state}} </div> 
+                <div id = "jobid" > Job ID : {{jobid}} </div>
+                <div id = "activityid" > Activity : <a href="/business/{{bid}}/action/{{activityid}}"> {{activityid}}</a></div>
+                <div id = "jobid" > Activity : <a href="/business/{{bid}}/job/{{jobid}}"> {{jobid}}</a></div>
+                <div id = "prevtid" > Previous Task ID : <a href="/business/{{bid}}/task/{{prevtid}}"> {{prevtid}}</a> </div> 
+                <div id = "address" > Address : {{address}} </div> 
+                <div id = "_attachments" > 
+                        <ul>
+                            {{#_attachments}} 
+                                <li><a href="/api/business/{{bid}}/object/{{_id}}}/attachment/{{name}}">{{name}}</a></li>
+                            {{/_attachments}} 
+                        </ul>
+                    </div> 
+            </div>
+            <form id="form"></form>
+        </div>
+		{{{ facebook_footer }}}
+    </body>
+</html> 
+
+

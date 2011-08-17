@@ -3,22 +3,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
 import httplib2, urllib, json, sys, getopt
 
-patterns = {
-'businesses'             : templatemapper('/businesses{}',                   '/socialfarm/_design/business/_list/basic_html/all{}'),
-'business'               : templatemapper('/business/{bid}' ,                '/socialfarm/_design/business/_show/basic_html/{bid}'), 
-
-'business.members'       : templatemapper('/business/{bid}/members' ,        '/{bid}/_design/info/_list/members_basic_html/all_members'), 
-'business.member'        : templatemapper('/business/{bid}/member/{mid}' ,   '/{bid}/_design/info/_show/member_basic_html/{mid}'), 
-
-'business.actions'       : templatemapper('/business/{bid}/actions' ,        '/{bid}/_design/info/_list/actions_basic_html/all_actions'), 
-'business.action'        : templatemapper('/business/{bid}/action/{aid}' ,   '/{bid}/_design/info/_show/action_basic_html/{aid}'), 
-
-'business.jobs'          : templatemapper('/business/{bid}/jobs' ,           '/{bid}/_design/info/_list/jobs_basic_html/all_jobs'), 
-'business.job'           : templatemapper('/business/{bid}/job/{jid}' ,      '/{bid}/_design/info/_show/job_basic_html/{jid}'), 
-
-'business.tasks'         : templatemapper('/business/{bid}/tasks' ,          '/{bid}/_design/info/_list/tasks_basic_html/all_tasks'), 
-'business.task'          : templatemapper('/business/{bid}/task/{tid}' ,     '/{bid}/_design/info/_show/task_basic_html/{tid}'), 
-
+views = {
 'api.businesses'         : templatemapper('/api/businesses{}',               '/socialfarm/_design/business/_view/all{}'),
 'api.business'           : templatemapper('/api/business/{bid}' ,            '/socialfarm/{bid}'),
 'api.person'             : templatemapper('/api/person/{mid}' ,              '/socialfarm/{mid}'),
@@ -29,16 +14,40 @@ patterns = {
 'api.business.tasks'        : templatemapper('/api/business/{bid}/tasks/{mid}',                 '/{bid}/_design/info/_view/all_tasks?key="{mid}"'),
 'api.business.object'       : templatemapper('/api/business/{bid}/object/{id}' ,                '/{bid}/{id}'), 
 'api.business.object.attachment'   : templatemapper('/api/business/{bid}/object/{id}/attachment/{aid}' ,      '/{bid}/{id}/{aid}'), 
+}
 
-'my_businesses'          : templatemapper('/my_businesses/{mid}',            '/socialfarm/_design/business/_show/my_businesses/{mid}'), 
-'my_tasks'               : templatemapper('/my_tasks/{mid}',                 '/socialfarm/_design/business/_show/my_tasks/{mid}'),
+shows = {
+'business'               : templatemapper('/business/{bid}' ,                '/socialfarm/_design/business/_show/basic_html/{bid}'), 
+'business.member'        : templatemapper('/business/{bid}/member/{mid}' ,   '/{bid}/_design/info/_show/member_basic_html/{mid}'), 
+'business.action'        : templatemapper('/business/{bid}/action/{aid}' ,   '/{bid}/_design/info/_show/action_basic_html/{aid}'),
+'business.job'           : templatemapper('/business/{bid}/job/{jid}' ,      '/{bid}/_design/info/_show/job_basic_html/{jid}'),
+'business.task'          : templatemapper('/business/{bid}/task/{tid}' ,     '/{bid}/_design/info/_show/task_basic_html/{tid}')
+}
 
-'business.join'          : templatemapper('/business/{bid}/join',            '/socialfarm/_design/business/_show/join_business/{bid}'), 
-
-'facebook'        		 : templatemapper('/facebook/{}',          		     '/socialfarm/_design/business/_list/facebook_canvas/all_businesses{}'),
-''        		         : templatemapper('/{}',          		             '/socialfarm/_design/business/_list/facebook_canvas/all_businesses{}'),
+facebook = {
+'my_tasks'               : templatemapper('/my_tasks/{mid}',                        '/socialfarm/_design/business/_show/my_tasks/{mid}'),
+'my_tasks.business.task' : templatemapper('/my_tasks/business/{bid}/task/{tid}',    '/{bid}/_design/info/_show/task_facebook_html/{tid}'),
+'my_businesses'          : templatemapper('/my_businesses/{mid}',                   '/socialfarm/_design/business/_show/my_businesses/{mid}'), 
+'business.join'          : templatemapper('/business/{bid}/join',                   '/socialfarm/_design/business/_show/join_business/{bid}'), 
 
 }
+
+lists = {
+'businesses'             : templatemapper('/businesses{}',                   '/socialfarm/_design/business/_list/basic_html/all{}'),
+'business.members'       : templatemapper('/business/{bid}/members' ,        '/{bid}/_design/info/_list/members_basic_html/all_members'), 
+'business.actions'       : templatemapper('/business/{bid}/actions' ,        '/{bid}/_design/info/_list/actions_basic_html/all_actions'), 
+'business.jobs'          : templatemapper('/business/{bid}/jobs' ,           '/{bid}/_design/info/_list/jobs_basic_html/all_jobs'), 
+'business.tasks'         : templatemapper('/business/{bid}/tasks' ,          '/{bid}/_design/info/_list/tasks_basic_html/all_tasks'), 
+}
+
+patterns = {
+''        		         : templatemapper('/{}',          		             '/socialfarm/_design/business/_show/my_tasks/{mid}'),
+}
+
+patterns.update(lists)
+patterns.update(shows)
+patterns.update(views)
+patterns.update(facebook)
 
 reserved = ['my_businesses', 'object', 'attachment', 'my_tasks', 'person', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
 
