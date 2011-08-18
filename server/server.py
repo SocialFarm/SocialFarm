@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
-import httplib2, urllib, json, sys, getopt
+import httplib2, urllib, json, sys, getopt, os
 
 views = {
 'api.businesses'                    : templatemapper('/api/businesses{}',                                   '/socialfarm/_design/business/_view/all_businesses{}'),
@@ -51,26 +51,50 @@ patterns.update(facebook)
 
 reserved = ['my_businesses', 'object', 'attachment', 'my_tasks', 'person', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'actions', 'action', 'jobs', 'job', 'tasks', 'task' ]
 
+
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):
     parts = filter(lambda x: x in reserved, path.split('/'))
     key = ".".join(parts)
     return key
 
+def authenticate(request):
+    if 'AccessToken' in request.headers.keys():
+        print "Access Token: ", request.headers['AccessToken']
+    else:
+        print "Warning! No Access Token provided!"
 
+
+def serve_static(request):
+    path_to_file = os.path.join(SITE_ROOT, request.path[1:])
+    content_headers = {
+        'html': { 'status': '200', 'content-type': 'text/html; charset=utf-8' },
+        'css' : { 'status': '200', 'content-type': 'text/css; charset=utf-8' }, 
+        'js'  : { 'status': '200', 'content-type': 'application/x-javascript; charset=utf-8'} , 
+        'java': { 'status': '200', 'content-type': 'application/java-archive; charset=utf-8'} 
+    }
+    if os.path.exists( path_to_file ) and os.path.isfile( path_to_file ):
+        content = open(path_to_file, 'r').read()
+        response = content_headers[request.path.split('/')[2]]
+        response['content-length'] = str(len(content))
+        request.write_response(response, content)
+    
 class Adapter(BaseHTTPRequestHandler) :  
      
     def do_GET(self):
-        if 'AccessToken' in self.headers.keys():
-            print "Access Token: ", self.headers['AccessToken']
+        if self.path.split('/')[1] == 'static':
+            serve_static(self)
         else:
-            print "Warning! No Access Token provided!"
-        key = path_to_key(self.path)
-        url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
-        response, content = httplib2.Http().request(url, "GET")
-        self.write_response(response, content)
+            authenticate(self)
+            key = path_to_key(self.path)
+            url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+            response, content = httplib2.Http().request(url, "GET")
+            self.write_response(response, content)
 
     def do_PUT(self):
+        authenticate(self)
         key = path_to_key(self.path)
         url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
         headers = { "content-type": "application/json" }
@@ -79,6 +103,7 @@ class Adapter(BaseHTTPRequestHandler) :
         self.write_response(response, content)
 
     def do_POST(self):
+        authenticate(self)
         key = path_to_key(self.path)
         url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
 
