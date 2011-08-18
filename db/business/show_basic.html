@@ -19,20 +19,44 @@
 		</div>
 
 		<div class = "primary_content">
-			<div id="_id">ID : {{ _id }}</div>
-			<div id="description">Description : {{ description }}</div> 
-			<div id="activity_skills">Activity Skills : {{ activity_skills }}</div>
-			<div id="total_rating">Total Rating : {{ total_rating }}</div>
-			<div id="author">Author : {{ author }}</div>
-			<div id="started_since">Started Since : {{ started_since }}</div>
-			<div id="total_profit">Total Profit : {{ total_profit }}</div>
-			<div id="activity_dataitems">Activity Data Items : {{ activity_dataitems }}</div>
-			<div id="activity_graph">Activity Graph : {{ activity_graph }}</div>
-			<div id="list_of_partners">List of Partners : {{ list_of_partners }}</div>
-		</div>
-    
-    	<div class="join_business"><a href="/business/{{ _id }}/join">Join {{ _id }}</a></div>
-
+            <form id="business_form" onsubmit="return false;" action="/api/business/{{bid}}">
+				    <fieldset id="business_info">
+					    <legend>Business Information</legend>
+						    <ul>
+							    <li>
+								    <label for="_id">Business ID</label>
+								    <input type="text" name="_id" id="_id" value = "{{_id}}"readonly/>
+							    </li>
+                                <li>
+								    <label for="_rev">Revision</label>
+								    <input type="text" name="_rev" id="_rev" value = "{{_rev}}"readonly/>
+							    </li>
+                                <li>
+								    <label for="description">Description</label>
+								    <input type="text" name="description" id="description" value = "{{description}}"readonly/>
+							    </li>
+                                <li>
+								    <label for="author">Author</label>
+								    <input type="text" name="author" id="author" value = "{{author}}"readonly/>
+							    </li>
+                                <li>
+								    <label for="type">Type</label>
+								    <input type="text" name="type" id="type" value = "{{type}}"readonly/>
+							    </li>
+                                <li>
+								    <label for="started_since">Started Since</label>
+								    <input type="text" name="started_since" id="started_since" value = "{{started_since}}"readonly/>
+							    </li>
+                                <li>
+								    <label for="total_profit">Total Profit</label>
+								    <input type="text" name="total_profit" id="total_profit" value = "{{total_profit}}"readonly/>
+							    </li>
+                                
+						    </ul>
+				    </fieldset>
+            </form>
+    	    <div class="join_business"><a href="/business/{{ _id }}/join">Join {{ _id }}</a></div>
+        </div>
 	</div> 
 
 	{{{ facebook_footer }}}

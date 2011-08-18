@@ -61,6 +61,7 @@ def path_to_key(path):
 class Adapter(BaseHTTPRequestHandler) :  
      
     def do_GET(self):
+        print "Access Token: ", self.headers['AccessToken']
         key = path_to_key(self.path)
         url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
         response, content = httplib2.Http().request(url, "GET")
@@ -75,15 +76,13 @@ class Adapter(BaseHTTPRequestHandler) :
         self.write_response(response, content)
 
     def do_POST(self):
-        print "POST!!!", self.path
         key = path_to_key(self.path)
         url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
 
         headers = { "content-type": "application/json" }
         data =  self.rfile.read((int(self.headers['content-length'])))
-        print url
         response, content = httplib2.Http().request(url, "GET")
-        print content
+        
         record = json.loads(content)
         fields = json.loads(data)
 

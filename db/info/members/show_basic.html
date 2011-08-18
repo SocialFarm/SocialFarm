@@ -8,27 +8,50 @@
 
         {{{ default_css }}}
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-
+        {{{ default_js }}}
     </head> 
     <body> 
         <div id = "content">
 
         <div id="header">
-		{{{ navigation }}}
+		    {{{ navigation }}}
 		</div>
 
+        <div class = "primary_content">
+            <form id="member_form" onsubmit="return false;" action="/api/business/{{bid}}/member/{{_id}}">
+				    <fieldset id="member_info">
+					    <legend>Member Information</legend>
+						    <ul>
+							    <li>
+								    <label for="_id">Member ID</label>
+								    <input type="text" name="_id" id="_id" value = "{{_id}}"readonly/>
+							    </li>
+                                <li>
+								    <label for="_rev">Revision</label>
+								    <input type="text" name="_rev" id="_rev" value = "{{_rev}}"readonly/>
+							    </li>
+                                <li>
+								    <label for="name">Name</label>
+								    <input type="text" name="name" id="name" value = "{{name}}"readonly/>
+							    </li>
+                                 <li>
+								    <label for="role">Role</label>
+								    <input type="text" name="role" id="role" value = "{{role}}"readonly/>
+							    </li>
+                                 <li>
+								    <label for="worker_since">Worker Since</label>
+								    <input type="text" name="worker_since" id="worker_since" value = "{{worker_since}}"readonly/>
+							    </li>
+                                <li>
+								    <label for="type">Type</label>
+								    <input type="text" name="type" id="type" value = "{{type}}"readonly/>
+							    </li> 
+						    </ul>
+				    </fieldset>
+            </form>
+        </div>
+	</div> 
 
-            <div class="person detail" id = "{{_id}}"> 
-                    <div id = "_id"> Person : {{_id}} </div> 
-                    <div id = "name" > Name : {{name}} </div> 
-                    <div id = "looking_for_work" > Looking For Work : {{looking_for_work}} </div> 
-                    <div id = "ratings" > Ratings : {{ratings}} </div> 
-                    <div id = "skills" > Skills : {{skills}} </div> 
-                    <div id = "worker_since" > Worker Since : {{worker_since}} </div> 
-                    <div id = "role" > Role : {{role}} </div>
-            </div> 
-        </div> 
 		
 		{{{ facebook_footer }}}
 

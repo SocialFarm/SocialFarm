@@ -7,24 +7,55 @@
         <meta name="author" content="...">
         
         {{{ default_css }}}
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+        {{{ default_js }}}
+		
 
     </head> 
     <body> 
         <div id = "content">
 
+
            <div id="header">
 				{{{ navigation }}}
 			</div>
 
-            <div class = "job detail" id = "{{_id}}">
-                <div id = "_id"> Job : {{_id}} </div> 
-                <div id = "customer" > Customer : {{customer}} </div> 
-                <div id = "data_items" > Data Items : {{data_items}} </div> 
-                <div id = "state" > State : {{state}} </div> 
-                <div id = "total_rating" > Total Rating : {{total_rating}} </div> 
-                <div id = "price" > Price : {{price}} </div> 
-            </div>
+        <div class = "primary_content">
+            <form id="job_form" onsubmit="return false;" action="/api/business/{{bid}}/job/{{_id}}">
+		            <fieldset id="job_info">
+			            <legend>Job Information</legend>
+				            <ul>
+					            <li>
+						            <label for="_id">Job ID</label>
+						            <input type="text" name="_id" id="_id" value = "{{_id}}"readonly/>
+					            </li>
+                                <li>
+						            <label for="_rev">Revision</label>
+						            <input type="text" name="_rev" id="_rev" value = "{{_rev}}"readonly/>
+					            </li>
+                                <li>
+						            <label for="customer">Customer</label>
+						            <input type="text" name="customer" id="customer" value = "{{customer}}"readonly/>
+					            </li>
+                                 <li>
+						            <label for="price">Price</label>
+						            <input type="text" name="price" id="price" value = "{{price}}"readonly/>
+					            </li>
+                                <li>
+						            <label for="author">Author</label>
+						            <input type="text" name="author" id="author" value = "{{author}}"readonly/>
+					            </li>
+                                 <li>
+						            <label for="state">State</label>
+						            <input type="text" name="state" id="state" value = "{{state}}"readonly/>
+					            </li>
+                                <li>
+						            <label for="type">Type</label>
+						            <input type="text" name="type" id="type" value = "{{type}}"readonly/>
+					            </li>
+				            </ul>
+		            </fieldset>
+            </form>
         </div>
 		{{{ facebook_footer }}}
     </body>
