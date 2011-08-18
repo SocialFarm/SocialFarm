@@ -1,7 +1,7 @@
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript">
+
+
 /*
-  socialfarm.js - Javascript wrapper for REST Interface to socialfarm.org and other js that should probably go elsewhere
+  base.js - Javascript wrapper for REST Interface to socialfarm.org and other js that should probably go elsewhere
 
 */
 
@@ -144,10 +144,3 @@ function add_user_to_business(bid){
     };
     get_json(url, success, do_nothing);  
 }
-
-
-
-
-
-</script>
-

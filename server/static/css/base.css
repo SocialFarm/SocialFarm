@@ -1,4 +1,3 @@
-<style>
 body {
     font-size: 14px;
 }
@@ -72,9 +71,6 @@ ul.general {
 	left: 169px;
 }
 
-
-
-
 .business, .person, .action, .job, .task  {
     margin-bottom: 16px;
 }
@@ -110,9 +106,4 @@ form fieldset ul li label {
 	text-align:right;
 	font-weight:bold;
 }
-
-
-
 /* end form css */
-
-</style>
