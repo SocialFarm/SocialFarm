@@ -61,7 +61,10 @@ def path_to_key(path):
 class Adapter(BaseHTTPRequestHandler) :  
      
     def do_GET(self):
-        print "Access Token: ", self.headers['AccessToken']
+        if 'AccessToken' in self.headers.keys():
+            print "Access Token: ", self.headers['AccessToken']
+        else:
+            print "Warning! No Access Token provided!"
         key = path_to_key(self.path)
         url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
         response, content = httplib2.Http().request(url, "GET")
