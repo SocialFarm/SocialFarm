@@ -76,7 +76,8 @@ ul.general {
 }
 
 #content {
-    padding: 16px;
+    /* looks ugly in facebook iframe so none is applied
+        padding: 16px;*/
 }
 
 #rowinfo {
