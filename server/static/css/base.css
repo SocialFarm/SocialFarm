@@ -71,6 +71,10 @@ ul.general {
 	left: 168px;
 }
 
+#content {
+    padding: 16px;
+}
+
 .business, .person, .action, .job, .task  {
     margin-bottom: 16px;
 }
