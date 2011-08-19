@@ -45,6 +45,20 @@ window.fbAsyncInit = function() {
 	// run once with current status and whenever the status changes
 	FB.getLoginStatus(updateButton);
 	FB.Event.subscribe('auth.statusChange', updateButton);	
+    $('button#login').text('Login');
+		    $('button#login').click(function() {
+		        console.log('test');
+		        FB.login(function(response) {
+		            if (response.authResponse) {
+		                FB.api('/me', function(info) {
+		                    login(response, info);
+		                });    
+		            } else {
+		                //user cancelled login or did not grant authorization
+		                
+		            }
+		        }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
+		    });
 };
 (function() {
 	var e = document.createElement('script'); e.async = true;
