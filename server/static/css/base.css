@@ -8,6 +8,7 @@ h1, h2, h3, h4 {
 }
 
 h3 a {
+    display: block;
     font-size: 1.25em !important;
     margin-bottom: 8px;
 }
