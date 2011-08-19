@@ -8,7 +8,8 @@ h1, h2, h3, h4 {
 }
 
 h3 a {
-    font-size: 1.5em !important;
+    font-size: 1.25em !important;
+    margin-bottom: 8px;
 }
 
 code {
@@ -81,12 +82,16 @@ ul.general {
 }
 
 .summary {
-    margin-top: 4px;
-    margin-bottom: 4px;
+    display:block;
+    margin-bottom: 8px;
+}
+
+.options {
+    display:block;
 }
 
 .business, .person, .action, .job, .task  {
-    margin-bottom: 16px;
+    margin-bottom: 32px;
 }
 
 /* begin form css */
