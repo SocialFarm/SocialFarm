@@ -107,3 +107,10 @@ form fieldset ul li label {
 	font-weight:bold;
 }
 /* end form css */
+
+
+#workflow_wrapper{
+    display: block;
+    top: 12px;
+    float: left;
+}
