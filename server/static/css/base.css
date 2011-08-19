@@ -12,7 +12,7 @@ code {
 }
 div#header {
     display: block;
-    height: 128px;
+    height: 112px;
 }
 div#navigation {
     font-size: 1.5em;
@@ -25,7 +25,6 @@ div#navigation {
 		div#navigation ul li {
 			list-style: none;
 			float: left;
-			margin-right: 16px;
 		} 
 
   		div#navigation ul li.active {
@@ -45,7 +44,6 @@ div.user ul {
 div.user ul li {
     list-style: none;
     display: block;
-    margin-bottom: 8px;
     height: 56px;
 }
 
@@ -62,7 +60,6 @@ div.user ul li span.user_name{
 }
 
 ul.my {
-
 }
 
 ul.general {
@@ -73,6 +70,10 @@ ul.general {
 
 #content {
     padding: 16px;
+}
+
+#rowinfo {
+    margin-bottom: 8px;
 }
 
 .business, .person, .action, .job, .task  {
