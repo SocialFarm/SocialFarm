@@ -44,16 +44,11 @@ window.fbAsyncInit = function() {
                 
             }
         }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
-
     }
 
 	// run once with current status and whenever the status changes
 	FB.getLoginStatus(updateButton);
 	FB.Event.subscribe('auth.statusChange', updateButton);	
-    $('button#login').text('Login');
-    $('button#login').click(function() {
-        login_prompt();
-    });
 };
 (function() {
 	var e = document.createElement('script'); e.async = true;
@@ -78,6 +73,11 @@ function logout(response){
 	$('.user #info').remove();
     $('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
     user = null;
+
+    $('button#login').text('Login');
+    $('button#login').click(function() {
+        login_prompt()();
+    });
 }
 
 function FBOnLoad(){
