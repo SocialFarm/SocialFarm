@@ -27,7 +27,7 @@ window.fbAsyncInit = function() {
 		    //user is not connected to your app or logged out
 		    $('button#login').text('Login');
 		    $('button#login').click(function() {
-		        
+		        console.log('test');
 		        FB.login(function(response) {
 		            if (response.authResponse) {
 		                FB.api('/me', function(info) {
