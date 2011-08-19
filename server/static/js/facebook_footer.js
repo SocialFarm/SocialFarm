@@ -27,13 +27,13 @@ window.fbAsyncInit = function() {
 		    //user is not connected to your app or logged out
 		    $('button#login').text('Login');
 		    $('button#login').click(function() {
-                login_prompt(response);
+                login_prompt();
             });
 		        
 		}
 	}
 
-    function login_prompt(response){
+    function login_prompt(){
         FB.login(function(response) {
             if (response.authResponse) {
                 FB.api('/me', function(info) {
@@ -52,7 +52,7 @@ window.fbAsyncInit = function() {
 	FB.Event.subscribe('auth.statusChange', updateButton);	
     $('button#login').text('Login');
     $('button#login').click(function() {
-        login_prompt(response);
+        login_prompt();
     });
 };
 (function() {
