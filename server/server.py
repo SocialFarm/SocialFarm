@@ -104,16 +104,19 @@ class Adapter(BaseHTTPRequestHandler) :
 
     def do_POST(self):
         authenticate(self)
+
         print self.path
 
         key = path_to_key(self.path)
         url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
 
+        print url
+
         headers = { "content-type": "application/json" }
         data =  self.rfile.read((int(self.headers['content-length'])))
         response, content = httplib2.Http().request(url, "GET")
 
-   
+        print content
 
         record = json.loads(content)
         fields = json.loads(data)
