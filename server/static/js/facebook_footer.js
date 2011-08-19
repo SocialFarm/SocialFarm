@@ -67,7 +67,7 @@ function login(response, info){
 
 function logout(response){
 	$('.user #info').remove();
-    $('#navigation ul.my').remove();
+    $('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
     user = null;
 }
 
