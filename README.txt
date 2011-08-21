@@ -1,4 +1,5 @@
-Setting up socialfarm.org
+Setting up socialfarm.org and http://apps.facebook.com/social_farm/
+
 #########################
 
 There are 2 parts to socialfarm.org, the python web server (socialfarm/server/server.py) and a localhost instance of couchdb.
