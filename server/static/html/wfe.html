@@ -39,10 +39,26 @@
         </div>
 
         <div id ="workflow_wrapper">
-            <applet code = 'WorkFlowEditor' 
+            <!--applet code = 'WorkFlowEditor' 
                 archive = '/static/html/wfe.jar', 
                 width = 1020, 
-                height = 700 />
+                height = 700 /-->
+
+            <object classid="clsid:CAFEEFAC-0016-0000-FFFF-ABCDEFFEDCBA" 
+            type="application/x-java-applet"
+            archive="/static/html/wfe.jar" 
+            height="350" width="550" >
+            <param name="code" value="WorkFlowEditor" />
+            <!-- For Konqueror -->
+            <param name="archive" value="/static/html/wfe.jar" />
+            <param name="persistState" value="false" />
+            <center>
+            <p><strong>The Workflow Editor requires Java, which your browser does not appear to have.</strong></p>
+
+            <p><a href="http://www.java.com/en/download/index.jsp">Get the latest Java Plug-in.</a></p>
+            </center>
+            </object>
+
         </div>
   
     </div>
