@@ -73,11 +73,12 @@ def serve_static(request):
         'html': { 'status': '200', 'content-type': 'text/html; charset=utf-8' },
         'css' : { 'status': '200', 'content-type': 'text/css; charset=utf-8' }, 
         'js'  : { 'status': '200', 'content-type': 'application/x-javascript; charset=utf-8'} , 
-        'java': { 'status': '200', 'content-type': 'application/java-archive; charset=utf-8'} 
+        'jar':  { 'status': '200', 'content-type': 'application/java-archive; charset=utf-8'} 
     }
+    key = request.path.split('/')[-1].split('.')[-1]
     if os.path.exists( path_to_file ) and os.path.isfile( path_to_file ):
         content = open(path_to_file, 'r').read()
-        response = content_headers[request.path.split('/')[2]]
+        response = content_headers[key]
         response['content-length'] = str(len(content))
         request.write_response(response, content)
     
