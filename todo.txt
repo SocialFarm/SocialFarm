@@ -1,3 +1,21 @@
-canvas page
+
+task names should be md5s (hide the customer from worker) 
+
+template should handle ? 
 
 attachments 
+
+
+facebook - app page 
+
+           login button 
+
+           test invite people 
+
+test social news workflow with a few news items 
+
+
+
+            
+
+           
