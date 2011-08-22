@@ -101,3 +101,5 @@ clean:
 test: 
 	# create test businesses
 	./SocialFarmHelper.py socialfarm success
+	./SocialNews.py socialfarm success
+	./SocialPlumbing.py socialfarm success

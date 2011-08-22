@@ -17,14 +17,39 @@ if __name__ == "__main__":
         sf = SocialFarm(username, password, sys.argv[3] )
 
     print 'creating business social_news' 
+
+    members = {
+        "Ron_Burgundy" : {
+            "skills": ['writing', 'researching']
+        },
+        "Brian_Fantana" : {
+            "skills": ['writing']
+        },
+        "Veronica_Corningstone" : {
+            "skills": ['writing', 'editing', 'researching']
+        },
+        "Brick_Tamland" : {
+            "skills": []
+        },
+        "Champ_Kind" : {
+            "skills": ['writing', 'researching']
+        },
+        "Ed_Harkin" : {
+            "skills": ['editing']
+        },
+        "Garth_Holiday" : {
+            "skills": ['writing']
+        },
+    }
+
     busdef = {
-        'author': '1479360134',
-        'list_of_partners' : [ 'vpathak' , '1479360134' ] ,
+        'author': 'Ron_Burgundy',
+        'list_of_partners' : [p for p in members.keys() if 'editing' in members[p]['skills'] ] ,
         'activity_graph' : {'Research' : ['Write'] , 'Write' : ['Edit'], 'Edit' : [] } , 
         'activity_dataitems' : {
-            'Research' : [ 'name' , 'sources' ] , 
-            'Write' : [ 'name' , 'sources' , 'article' ] , 
-            'Edit' : [ 'name' , 'sources' , 'article'  ] , 
+            'Research' : [ 'title', 'request_description', 'primary_sources'] , 
+            'Write' : [ 'title', 'request_description',  'primary_sources' , 'article_content' ] , 
+            'Edit' : [ 'title', 'request_description',  'primary_sources' , 'article_content'  ] , 
             } , 
         'activity_skills' : { 
             'Research' : [ 'researching' ] , 
@@ -37,36 +62,25 @@ if __name__ == "__main__":
     sf.createBusiness( 'social_news' , busdef ) 
 
     
-    bd = BusinessDirector( 'social_news' , username, password ) 
+    bd = BusinessDirector('social_news' , username, password ) 
 
-    bd.createJob( 'customer_x' , 1.0 , {
-            'name' : '1479360134' , 
-            'profession' : 'student; technologist' 
-            } ) 
-    bd.addWorker('vpathak', ['researching','writing','editing'] , 'partner' ) 
-    bd.addWorker('1479360134', ['writing','researching'] )    
+    """ potenial primary source
+    http://www.nydailynews.com/lifestyle/pets/galleries/whos_the_cutest_in_the_animal_kingdom/whos_the_cutest_in_the_animal_kingdom.html
 
-    print 'calculating task offers' 
+    """
+    data_items = {
+        'title' : 'The Cutest Pets in San Diego' , 
+        'request_description' : 'Write us an aritcle about cute pets, we will pay you $1.',
+        "primary_sources" : "",
+    }
+
+    bd.createJob( 'Network_News' , 1 , data_items ) 
+
 
     
-    # at this stage a real business would allow workers to 
-    # accept the task.  the task would get the worker and 
-    # and state changed to running, and the worker would be 
-    # not looking for work for a while (until task completes). 
-    # here we just complete the task immediately 
-    for i in range(1,10): 
-        for (workerid, taskid) in bd.taskOffers() :
-            print 'offer' , workerid , taskid 
-            tdef = bd.db[ taskid ] 
-            tdef[ 'worker' ] = workerid
-            tdef[ 'state' ] = 'finished' 
-            bd.db[ taskid ] = tdef 
-    
-        print 'check completion, spawn new if needed'
-        try:
-            print 'new tasks : ' , repr( bd.handleCompletion() ) 
-        except couchdb.http.ResourceConflict : 
-            bd.db.commit() 
+    for m in members.keys():
+        sf.addPerson(m)
+        bd.addWorker(m,members[m]['skills']) 
 
 
 
