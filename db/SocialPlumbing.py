@@ -30,7 +30,7 @@ if __name__ == "__main__":
         'activity_graph' : {'Implement' : ['Publish'] , 'Publish' : [] } , 
         'activity_dataitems' : {
             'Implement' : [ 'title', 'request_description', 'feeds', 'pipe_url'] , 
-            'Publish' : [ 'title', 'request_description', 'feeds', 'pipe_url' ,
+            'Publish' : [ 'title', 'request_description', 'feeds', 'pipe_url'] ,
             } , 
         'activity_skills' : { 
             'Implement' : [ 'designing', 'researching' ] , 
@@ -48,6 +48,7 @@ if __name__ == "__main__":
         'title' : 'Apartment Near Something' , 
         'request_description' : 'I would like to be able to find apartments near something',
         "pipe_url" : "http://pipes.yahoo.com/pipes/pipe.info?_id=1mrlkB232xGjJDdwXqIxGw",
+        "feeds" : "",
     }
 
     bd.createJob( 'Confused_Plumber' , 0 , data_items ) 
