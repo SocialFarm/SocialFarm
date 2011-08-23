@@ -59,18 +59,7 @@ function login_prompt(){
     }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
 }
 
-
-window.fbAsyncInit = function() {
-	FB.init({ appId: '234690403213067', 
-		status: true, 
-		cookie: true,
-		xfbml: false,
-		oauth: true});
-
-    set_login_button();
-
-    function updateButton(response) {
-		
+function updateButton(response) {	
     if (response.authResponse) {
       //user is already logged in and connected
       FB.api('/me', function(response) {
@@ -94,18 +83,26 @@ window.fbAsyncInit = function() {
             }, {scope:'email'});  	
         });
     }
-  }
+}
 
-  // run once with current status and whenever the status changes
-  FB.getLoginStatus(updateButton);
-  FB.Event.subscribe('auth.statusChange', updateButton);	
+window.fbAsyncInit = function() {
+	FB.init({ appId: '234690403213067', 
+		status: true, 
+		cookie: true,
+		xfbml: false,
+		oauth: true});
+
+    set_login_button();
+
+    // run once with current status and whenever the status changes
+    FB.getLoginStatus(updateButton);
+    FB.Event.subscribe('auth.statusChange', updateButton);	
 };
 	
 (function() {
-  var e = document.createElement('script'); e.async = true;
-  e.src = document.location.protocol 
-    + '//connect.facebook.net/en_US/all.js';
-  document.getElementById('fb-root').appendChild(e);
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
 }());
 
 
