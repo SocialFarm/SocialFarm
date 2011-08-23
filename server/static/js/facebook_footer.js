@@ -66,7 +66,9 @@ window.fbAsyncInit = function() {
 		cookie: true,
 		xfbml: false,
 		oauth: true});
-    
+
+    set_login_button();
+
     function updateButton(response) {
 		
     if (response.authResponse) {
