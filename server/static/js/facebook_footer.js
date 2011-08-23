@@ -20,91 +20,6 @@ function set_logout_button(){
     });
 }
 
-function sf_login(){
-    LOG('sf_login');
-    login_prompt();
-    set_logout_button();
-   
-}
-
-function sf_logout(){
-    LOG('sf_logout');
-    $('.user #info').remove();
-    $('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
-    user = null;
-    set_login_button();
-}
-
-function login_prompt(){
-    FB.login(function(response) {
-        update(response);
-    }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
-}
-
-function update(response){
-    LOG('update called');
-    if (user == null && response.authResponse) {
-        FB.api('/me', function(info) {
-        user = info;
-        FBOnLoad();	
-    });    
-    } else {
-     //user cancelled login or did not grant authorization
-
-    }
-
-}
-
-window.fbAsyncInit = function() {
-	FB.init({ appId: '234690403213067', 
-		status: true, 
-		cookie: true,
-		xfbml: false,
-		oauth: true});
-    
-    function updateButton(response) {
-
-    var button = $('#login');
-		
-    if (response.authResponse) {
-      //user is already logged in and connected
-      var userInfo = $('.user #user-info');
-      FB.api('/me', function(response) {
-        FBOnLoad();
-        
-      });
-        set_logout_button();
-     
-    } else {
-        //user is not connected to your app or logged out
-        set_login_button();
-
-        button.onclick = function() {
-            FB.login(function(response) {
-                if (response.authResponse) {
-                    FB.api('/me', function(response) {
-                        FBOnLoad();
-                    });	   
-                } else {
-                    //user cancelled login or did not grant authorization
-                }
-            }, {scope:'email'});  	
-        }
-    }
-  }
-
-  // run once with current status and whenever the status changes
-  FB.getLoginStatus(updateButton);
-  FB.Event.subscribe('auth.statusChange', updateButton);	
-};
-	
-(function() {
-  var e = document.createElement('script'); e.async = true;
-  e.src = document.location.protocol 
-    + '//connect.facebook.net/en_US/all.js';
-  document.getElementById('fb-root').appendChild(e);
-}());
-
 function FBOnLoad(){
 
     var html = 	'<li id = "info" >' + 
@@ -122,6 +37,75 @@ function FBOnLoad(){
 	    SFOnLoad();
     }	
 }
+
+function sf_login(){
+    LOG('sf_login');
+    login_prompt();
+    set_logout_button();
+   
+}
+
+function sf_logout(){
+    LOG('sf_logout');
+    $('.user #info').remove();
+    $('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
+    user = null;
+    set_login_button();
+}
+
+function login_prompt(){
+    FB.login(function(response) {
+        updateButton(response);
+    }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
+}
+
+
+window.fbAsyncInit = function() {
+	FB.init({ appId: '234690403213067', 
+		status: true, 
+		cookie: true,
+		xfbml: false,
+		oauth: true});
+    
+    function updateButton(response) {
+		
+    if (response.authResponse) {
+      //user is already logged in and connected
+      FB.api('/me', function(response) {
+        FBOnLoad();
+      });
+        set_logout_button();
+     
+    } else {
+        //user is not connected to your app or logged out
+        set_login_button();
+
+        $('button#login').click(function() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    FB.api('/me', function(response) {
+                        FBOnLoad();
+                    });	   
+                } else {
+                    //user cancelled login or did not grant authorization
+                }
+            }, {scope:'email'});  	
+        });
+    }
+  }
+
+  // run once with current status and whenever the status changes
+  FB.getLoginStatus(updateButton);
+  FB.Event.subscribe('auth.statusChange', updateButton);	
+};
+	
+(function() {
+  var e = document.createElement('script'); e.async = true;
+  e.src = document.location.protocol 
+    + '//connect.facebook.net/en_US/all.js';
+  document.getElementById('fb-root').appendChild(e);
+}());
+
 
 
 
