@@ -38,9 +38,12 @@ function FBOnLoad(){
     }	
 }
 
-function sf_login(){
+function sf_login(response){
     LOG('sf_login');
-    login_prompt();
+    FB.api('/me', function(response) {
+        user = response;
+        FBOnLoad();
+    });
     set_logout_button();
    
 }
@@ -62,11 +65,7 @@ function login_prompt(){
 function updateButton(response) {	
     if (response.authResponse) {
       //user is already logged in and connected
-      FB.api('/me', function(response) {
-        FBOnLoad();
-      });
-        set_logout_button();
-     
+      sf_login(response);
     } else {
         //user is not connected to your app or logged out
         set_login_button();
@@ -74,9 +73,7 @@ function updateButton(response) {
         $('button#login').click(function() {
             FB.login(function(response) {
                 if (response.authResponse) {
-                    FB.api('/me', function(response) {
-                        FBOnLoad();
-                    });	   
+                    sf_login(response);	   
                 } else {
                     //user cancelled login or did not grant authorization
                 }
