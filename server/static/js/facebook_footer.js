@@ -22,7 +22,7 @@ function set_logout_button(){
 }
 
 function FBOnLoad(){
-    if (!menu)v{
+    if (!menu) {
         menu = true;
         var html = 	'<li id = "info" >' + 
 		         	'<img src="https://graph.facebook.com/' + user.id + '/picture" alt="' + user.id + '">' + 
