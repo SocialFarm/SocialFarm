@@ -6,14 +6,6 @@ function LOG(msg) {
     console.log(msg) ; 
 }
     
-(function() {
-    var e = document.createElement('script');
-    e.type = 'text/javascript';
-    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-    e.async = true;
-    document.getElementById('fb-root').appendChild(e);
-}());
-
 function set_login_button(){
     $('button#login').text('Login');
     $('button#login').click(function() {
@@ -43,21 +35,6 @@ function sf_logout(){
     set_login_button();
 }
 
-/*
-function sf_login(response, info){
-    
-	if (user == null && response.authResponse) {
-        user = info;
-		
-        add_user_to_socialfarm();
-		
-	} else {
-        //console.log('2nd call');
-    }
-}
-
-*/
-
 function login_prompt(){
     FB.login(function(response) {
         update(response);
@@ -66,7 +43,7 @@ function login_prompt(){
 
 function update(response){
     LOG('update called');
-    if (response.authResponse) {
+    if (user == null && response.authResponse) {
         FB.api('/me', function(info) {
         user = info;
         FBOnLoad();	
@@ -85,25 +62,55 @@ window.fbAsyncInit = function() {
 		xfbml: false,
 		oauth: true});
     
-    FB.getLoginStatus(update);
-    FB.Event.subscribe('auth.statusChange', update);
-    
-    if (user == null){
-        set_login_button();
+    function updateButton(response) {
+    var button = document.getElementById('login');
+		
+    if (response.authResponse) {
+      //user is already logged in and connected
+      var userInfo = document.getElementById('user-info');
+      FB.api('/me', function(response) {
+        userInfo.innerHTML = '<img src="https://graph.facebook.com/' 
+	  + response.id + '/picture">' + response.name;
+        button.innerHTML = 'Logout';
+      });
+      button.onclick = function() {
+        FB.logout(function(response) {
+          var userInfo = document.getElementById('user-info');
+          userInfo.innerHTML="";
+	});
+      };
+    } else {
+      //user is not connected to your app or logged out
+      button.innerHTML = 'Login';
+      button.onclick = function() {
+        FB.login(function(response) {
+	  if (response.authResponse) {
+            FB.api('/me', function(response) {
+	      var userInfo = document.getElementById('user-info');
+	      userInfo.innerHTML = 
+                '<img src="https://graph.facebook.com/' 
+	        + response.id + '/picture" style="margin-right:5px"/>' 
+	        + response.name;
+	    });	   
+          } else {
+            //user cancelled login or did not grant authorization
+          }
+        }, {scope:'email'});  	
+      }
     }
+  }
 
-	/* On login, make the button say logout */
-	FB.Event.subscribe('auth.login', function(response) {
-        sf_login();
-		set_logout_button(); 
-	});
-
-	/* opposite of above */ 
-	FB.Event.subscribe('auth.logout', function(response) {
-        sf_logout();
-        set_login_button(); 
-	});
+  // run once with current status and whenever the status changes
+  FB.getLoginStatus(updateButton);
+  FB.Event.subscribe('auth.statusChange', updateButton);	
 };
+	
+(function() {
+  var e = document.createElement('script'); e.async = true;
+  e.src = document.location.protocol 
+    + '//connect.facebook.net/en_US/all.js';
+  document.getElementById('fb-root').appendChild(e);
+}());
 
 function FBOnLoad(){
 
