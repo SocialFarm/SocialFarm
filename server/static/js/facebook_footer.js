@@ -10,16 +10,6 @@ function LOG(msg) {
 function set_login_button(){
     $('button#login').text('Login');
     $('button#login').click(function() {
-        FB.login(function(response) {
-            if (response.authResponse) {
-                FB.api('/me', function(response) {
-                    user = response;
-                    FBOnLoad();
-                });	   
-            } else {
-            //user cancelled login or did not grant authorization
-            }
-        }, {scope:'email'});  
         sf_login();
     });
 }
@@ -52,17 +42,34 @@ function FBOnLoad(){
     }
 }
 
+function get_facebook_user(){
+	FB.api('/me', function(response) {
+		user = response;
+		user.AccessToken = response.authResponse.accessToken;
+		FBOnLoad();
+	});	
+}
+
 function sf_login(){
     LOG('sf_login');
+	FB.login(function(response) {
+		if (response.authResponse) {
+      		get_facebook_user(); 
+		} else {
+		//user cancelled login or did not grant authorization
+		}
+	}, {scope:'email'});  
     set_logout_button();
 }
 
 function sf_logout(){
     LOG('sf_logout');
-    FB.logout();
-    $('.user #info').remove();
-    $('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
-    user = null;
+	if (user != null){
+    	FB.logout();
+		$('.user #info').remove();
+		$('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
+		user = null;
+	}
     set_login_button();
 }
 
@@ -79,10 +86,7 @@ window.fbAsyncInit = function() {
 	
     if (response.authResponse) {
       //user is already logged in and connected
-      FB.api('/me', function(response) {
-        user = response;
-        FBOnLoad();
-      });
+      get_facebook_user();
       set_logout_button();
     } else {
       //user is not connected to your app or logged out
