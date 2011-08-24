@@ -54,7 +54,8 @@ function sf_login(){
 	FB.login(function(response) {
 		if (response.authResponse) {
       		get_facebook_user();
-			user.AccessToken = response.authResponse.accessToken; 
+			if (user != null)
+				user.AccessToken = response.authResponse.accessToken; 
 		} else {
 		//user cancelled login or did not grant authorization
 		}
