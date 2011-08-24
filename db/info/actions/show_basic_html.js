@@ -7,7 +7,7 @@ function(doc, req) {
 	nav = Object() ;
 	nav.bid = String(req['path']).split(',')[0] ;
 	nav.actions_class = 'active' ;
-    nav.common = this.common.html.navigation;
+    nav.common = Mustache.to_html(this.common.html.navigation, nav );
 
     if (doc._attachments){
         var docs = Array();

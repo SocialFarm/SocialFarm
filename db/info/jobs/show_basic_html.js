@@ -6,7 +6,7 @@ function(doc, req) {
 	nav = Object() ;
 	nav.bid = String(req['path']).split(',')[0] ;
 	nav.jobs_class = 'active' ;
-    nav.common = this.common.html.navigation;
+    nav.common = Mustache.to_html(this.common.html.navigation, nav );
 
 	doc.navigation = Mustache.to_html( navigation_template, nav ) ;
 	doc.default_css = this.common.html.default_css ; 
