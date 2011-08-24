@@ -10,6 +10,16 @@ function LOG(msg) {
 function set_login_button(){
     $('button#login').text('Login');
     $('button#login').click(function() {
+        FB.login(function(response) {
+            if (response.authResponse) {
+                FB.api('/me', function(response) {
+                    user = response;
+                    FBOnLoad();
+                });	   
+            } else {
+            //user cancelled login or did not grant authorization
+            }
+        }, {scope:'email'});  
         sf_login();
     });
 }
@@ -43,12 +53,9 @@ function FBOnLoad(){
 
 function sf_login(){
     LOG('sf_login');
-    FB.api('/me', function(response) {
-        user = response;
-        FBOnLoad();
-    });
+ 
     set_logout_button();
-   
+  
 }
 
 function sf_logout(){
@@ -59,20 +66,6 @@ function sf_logout(){
     set_login_button();
 }
 
-function login_prompt(){
-    FB.login(updateButton(response), {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
-}
-
-function updateButton(response) {	
-    if (response.authResponse) {
-      //user is already logged in and connected
-      sf_login();
-    } else {
-        //user is not connected to your app or logged out
-        set_login_button();
-    }
-}
-
 window.fbAsyncInit = function() {
 	FB.init({ appId: '234690403213067', 
 		status: true, 
@@ -80,11 +73,27 @@ window.fbAsyncInit = function() {
 		xfbml: false,
 		oauth: true});
 
-    set_login_button();
+  function updateButton(response) {
+	
+    if (response.authResponse) {
+      //user is already logged in and connected
+ 
+      FB.api('/me', function(response) {
+        user = response;
+        FBOnLoad();
+      });
 
-    // run once with current status and whenever the status changes
-    FB.getLoginStatus(updateButton);
-    FB.Event.subscribe('auth.statusChange', updateButton);	
+      set_logout_button();
+
+    } else {
+      //user is not connected to your app or logged out
+      set_login_button();
+    }
+  }
+
+  // run once with current status and whenever the status changes
+  FB.getLoginStatus(updateButton);
+  FB.Event.subscribe('auth.statusChange', updateButton);	
 };
 	
 (function() {
