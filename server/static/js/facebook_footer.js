@@ -45,7 +45,6 @@ function FBOnLoad(){
 function get_facebook_user(){
 	FB.api('/me', function(response) {
 		user = response;
-		user.AccessToken = response.authResponse.accessToken;
 		FBOnLoad();
 	});	
 }
@@ -54,7 +53,8 @@ function sf_login(){
     LOG('sf_login');
 	FB.login(function(response) {
 		if (response.authResponse) {
-      		get_facebook_user(); 
+      		get_facebook_user();
+			user.AccessToken = response.authResponse.accessToken; 
 		} else {
 		//user cancelled login or did not grant authorization
 		}
