@@ -83,7 +83,7 @@ window.fbAsyncInit = function() {
 		xfbml: false,
 		oauth: true});
 
-    set_login_button();
+    //set_login_button();
 
   function updateButton(response) {
 	
