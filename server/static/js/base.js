@@ -1,5 +1,3 @@
-
-
 /*
   base.js - Javascript wrapper for REST Interface to socialfarm.org and other js that should probably go elsewhere
 
@@ -88,8 +86,7 @@ function post_json(url, data, success, failure){
 }
 
 function load_my_tasks(){
-    //hack for testing should be user.id
-    id = 'osteele'; //user.id
+    id = user.id
 
     var business_tasks;
     var success = function(tasks) {

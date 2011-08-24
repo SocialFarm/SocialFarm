@@ -15,6 +15,8 @@ install_apps :
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.default_css common/default_css.html 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.default_js common/default_js.html
 	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.default_js common/default_js.html 
+	./update_field.py -l $(CREDENTIALS) socialfarm _design/business common.html.navigation common/navigation.html
+	./update_field.py -l $(CREDENTIALS) socialfarm_business_template _design/info common.html.navigation common/navigation.html 
 
 	# list functions rendering the view in html and its dependencies 
 	./update_field.py -l $(CREDENTIALS) socialfarm _design/business lists.basic_html business/list_basic_html.js 

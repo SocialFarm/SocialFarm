@@ -6,6 +6,7 @@ function(doc, req) {
 	nav = Object() ;
 	nav.bid = String(req['path']).split(',')[0] ;
 	nav.tasks_class = 'active' ;
+    nav.common = this.common.html.navigation;
 
     if (doc._attachments){
         var docs = Array();

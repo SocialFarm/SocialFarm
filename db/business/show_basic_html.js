@@ -6,6 +6,7 @@ function(doc, req) {
 	nav = Object() ;
 	nav.bid = doc._id ;
 	nav.business_class = 'active' ;
+    nav.common = this.common.html.navigation;
 
 	doc.navigation = Mustache.to_html( navigation_template, nav ) ;
 	doc.default_css = this.common.html.default_css ; 
