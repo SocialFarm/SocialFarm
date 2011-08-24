@@ -51,16 +51,18 @@ function get_facebook_user(){
 
 function sf_login(){
     LOG('sf_login');
-	FB.login(function(response) {
-		if (response.authResponse) {
-      		get_facebook_user();
-			if (user != null)
-				user.AccessToken = response.authResponse.accessToken; 
-		} else {
-		//user cancelled login or did not grant authorization
-		}
-	}, {scope:'email'});  
-    set_logout_button();
+	if (user == null) {
+		FB.login(function(response) {
+			if (response.authResponse) {
+		  		get_facebook_user();
+				if (user != null)
+					user.AccessToken = response.authResponse.accessToken; 
+			} else {
+			//user cancelled login or did not grant authorization
+			}
+		}, {scope:'email'});  
+		set_logout_button();
+	}
 }
 
 function sf_logout(){
