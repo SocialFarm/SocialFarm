@@ -41,7 +41,7 @@ function FBOnLoad(){
     }
 }
 
-function sf_login(response){
+function sf_login(){
     LOG('sf_login');
     FB.api('/me', function(response) {
         user = response;
@@ -68,7 +68,7 @@ function login_prompt(){
 function updateButton(response) {	
     if (response.authResponse) {
       //user is already logged in and connected
-      sf_login(response);
+      sf_login();
     } else {
         //user is not connected to your app or logged out
         set_login_button();
