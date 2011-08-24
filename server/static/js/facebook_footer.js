@@ -53,13 +53,12 @@ function FBOnLoad(){
 
 function sf_login(){
     LOG('sf_login');
- 
     set_logout_button();
-  
 }
 
 function sf_logout(){
     LOG('sf_logout');
+    FB.logout();
     $('.user #info').remove();
     $('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
     user = null;
@@ -79,14 +78,11 @@ window.fbAsyncInit = function() {
 	
     if (response.authResponse) {
       //user is already logged in and connected
- 
       FB.api('/me', function(response) {
         user = response;
         FBOnLoad();
       });
-
       set_logout_button();
-
     } else {
       //user is not connected to your app or logged out
       set_login_button();
