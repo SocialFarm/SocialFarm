@@ -22,7 +22,7 @@ function set_logout_button(){
 }
 
 function FBOnLoad(){
-    if (!menu) {
+    if (!menu && user != null) {
         menu = true;
         var html = 	'<li id = "info" >' + 
 		         	'<img src="https://graph.facebook.com/' + user.id + '/picture" alt="' + user.id + '">' + 
@@ -60,9 +60,7 @@ function sf_logout(){
 }
 
 function login_prompt(){
-    FB.login(function(response) {
-        updateButton(response);
-    }, {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
+    FB.login(updateButton(response), {scope:'email,user_birthday,status_update,publish_stream,user_about_me'});  	
 }
 
 function updateButton(response) {	
@@ -72,16 +70,6 @@ function updateButton(response) {
     } else {
         //user is not connected to your app or logged out
         set_login_button();
-
-        $('button#login').click(function() {
-            FB.login(function(response) {
-                if (response.authResponse) {
-                    sf_login(response);	   
-                } else {
-                    //user cancelled login or did not grant authorization
-                }
-            }, {scope:'email'});  	
-        });
     }
 }
 
