@@ -1,21 +1,55 @@
 
+security check 
 
 attachments 
 
-facebook - app page 
+play with applet 
 
-           login button 
 
-           test invite people 
 
-test social news workflow with a few news items 
+
+----------------------------------
+
+app : 
+    test invite people 
+    test social news workflow with a few news items 
 
 
 server : 
-	 On exeption, send some kind of error code instead of silence 
+    On exeption, send some kind of error code instead of silence 
+
+
+Remove duplicate SocialFarmHelper.py (latest is in path : db)
+    import sys
+    sys.path.append("/home/me/mypy")
+
+
+javascript 
+    global var revisions = {} ; 
+    put/post_json( objidurl, data, successcb, failurecb )
+       if( ! rev[objidurl] ) { 
+          get_json( .... ) 
+       }
+    
+    get_json(...) { 
+       rev[...] = 
+    }     
 
 
 
-            
+    function userid() { 
+             if ( user ) 
+                return user
+             else 
+                user = getusr() 
+                return user 
+   } 
+
 
            
+user experience views
+     Business 
+         view : workflow, tasks, persons 
+         edit/delete : workflow, tasks, persons 
+
+      
