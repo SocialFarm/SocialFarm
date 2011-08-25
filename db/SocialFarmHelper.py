@@ -174,7 +174,7 @@ class BusinessDirector :
             'data_items' : data_items , 
             'state' : 'ready'
             } 
-        jobid = md5( '%s.%d' % (customer, int(now) ) ).hexdigest() 
+        jobid = "job." + md5( '%s.%d' % (customer, int(now) ) ).hexdigest() 
    
         for k in self.start_action['data_items']: 
             assert k in data_items 
@@ -208,7 +208,7 @@ class BusinessDirector :
             'skills_required' : activity['skills_required'],
             'choice' : None 
             }
-        taskid = '%s.task.%s' % (jobid, activityid)         
+        taskid = 'task.%s.%s' % (activityid, jobid)
         return (taskid,  taskdef) 
 
 
