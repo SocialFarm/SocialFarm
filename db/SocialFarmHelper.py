@@ -174,7 +174,7 @@ class BusinessDirector :
             'data_items' : data_items , 
             'state' : 'ready'
             } 
-        jobid = '%s.%d' % (customer, int(now) ) 
+        jobid = md5( '%s.%d' % (customer, int(now) ) ).hexdigest() 
    
         for k in self.start_action['data_items']: 
             assert k in data_items 

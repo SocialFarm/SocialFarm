@@ -1,6 +1,4 @@
 
-task names should be md5s (hide the customer from worker) 
-
 template should handle ? 
 
 attachments 
