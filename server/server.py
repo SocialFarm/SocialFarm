@@ -68,23 +68,27 @@ def authenticate(request):
 
 
 def serve_static(request):
-    path_to_file = os.path.join(SITE_ROOT, request.path[1:])
+    path = (request.path[1:]).split( '?' )[0]    # ignore cgi args for static file ; this is used by the applet to find out which business it belongs to  
+    path_to_file = os.path.join(SITE_ROOT, path )
     content_headers = {
         'html': { 'status': '200', 'content-type': 'text/html; charset=utf-8' },
         'css' : { 'status': '200', 'content-type': 'text/css; charset=utf-8' }, 
         'js'  : { 'status': '200', 'content-type': 'application/x-javascript; charset=utf-8'} , 
         'jar':  { 'status': '200', 'content-type': 'application/java-archive; charset=utf-8'} 
     }
-    key = request.path.split('/')[-1].split('.')[-1]
+    key = path.split('/')[-1].split('.')[-1]
     if os.path.exists( path_to_file ) and os.path.isfile( path_to_file ):
         content = open(path_to_file, 'r').read()
         response = content_headers[key]
         response['content-length'] = str(len(content))
         request.write_response(response, content)
     
+
+
 class Adapter(BaseHTTPRequestHandler) :  
      
     def do_GET(self):
+        # TODO : On exeption, send some kind of error code 
         if self.path.split('/')[1] == 'static':
             serve_static(self)
         else:

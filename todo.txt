@@ -1,8 +1,6 @@
 
-template should handle ? 
 
 attachments 
-
 
 facebook - app page 
 
@@ -11,6 +9,10 @@ facebook - app page
            test invite people 
 
 test social news workflow with a few news items 
+
+
+server : 
+	 On exeption, send some kind of error code instead of silence 
 
 
 
