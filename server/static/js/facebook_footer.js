@@ -79,8 +79,10 @@ window.fbAsyncInit = function() {
 	
     if (response.authResponse) {
       //user is already logged in and connected
-      get_facebook_user();
-      set_logout_button();
+        FB.api('/me', function(person) {
+            set_user(person);
+        });	
+        set_logout_button();
     } else {
       //user is not connected to your app or logged out
       set_login_button();
