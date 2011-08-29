@@ -21,10 +21,6 @@ class SocialFarm :
         self.server = Server(url)
         if username is not None and password is not None: 
             self.server.resource.credentials = (username, password) 
-        if SOCIALFARM_PUBLIC_DB not in self.server:
-            self.server.create(SOCIALFARM_PUBLIC_DB)
-        if SOCIALFARM_BUSINESS_TEMPLATE_DB not in self.server:
-            self.server.create(SOCIALFARM_BUSINESS_TEMPLATE_DB)
         self.db = self.server[SOCIALFARM_PUBLIC_DB] 
 
 
@@ -174,7 +170,7 @@ class BusinessDirector :
             'data_items' : data_items , 
             'state' : 'ready'
             } 
-        jobid = '%s.%d' % (customer, int(now) ) 
+        jobid = "job." + md5( '%s.%d' % (customer, int(now) ) ).hexdigest() 
    
         for k in self.start_action['data_items']: 
             assert k in data_items 
@@ -208,7 +204,7 @@ class BusinessDirector :
             'skills_required' : activity['skills_required'],
             'choice' : None 
             }
-        taskid = '%s.task.%s' % (jobid, activityid)         
+        taskid = 'task.%s.%s' % (activityid, jobid)
         return (taskid,  taskdef) 
 
 
