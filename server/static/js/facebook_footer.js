@@ -20,7 +20,7 @@ function set_logout_button(){
 }
 
 function FBOnLoad(){
-    if (!menu && get_user() != null) {
+    if (!menu) {
         add_user_to_socialfarm();
         menu = true;
         var html = 	'<li id = "info" >' + 
