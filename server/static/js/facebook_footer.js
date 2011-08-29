@@ -28,7 +28,7 @@ function FBOnLoad(){
 		           	'<span class="user_name">' + get_user().name + '</span>' + 
 			        '</li>';
 
-        $('.user_profile ul ul').prepend(html);
+        $('.user_profile ul').prepend(html);
 
         $('#user_navigation ul').prepend('<li id = "wfe"><a class="fbtab" href ="/static/html/wfe.html">Workflow Editor</a></li>');
         $('#user_navigation ul').prepend('<li id = "my_tasks" ><a class="fbtab" href="/my_tasks/' + get_user().id + '">My Tasks</a></li>');
