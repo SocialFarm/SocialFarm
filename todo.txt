@@ -5,24 +5,11 @@ attachments
 
 play with applet 
 
-
-
-
 ----------------------------------
 
 app : 
     test invite people 
     test social news workflow with a few news items 
-
-
-server : 
-    On exeption, send some kind of error code instead of silence 
-
-
-Remove duplicate SocialFarmHelper.py (latest is in path : db)
-    import sys
-    sys.path.append("/home/me/mypy")
-
 
 javascript 
     global var revisions = {} ; 

@@ -1,7 +1,6 @@
 //facebook_footer.js 
 //facebook js code for socialfarm.org
-var user = null;
-var menu = false;
+//relies on base.js
 
 function LOG(msg) { 
     console.log(msg) ; 
@@ -22,19 +21,19 @@ function set_logout_button(){
 }
 
 function FBOnLoad(){
-    if (!menu && user != null) {
+    if (!menu) {
         add_user_to_socialfarm();
         menu = true;
         var html = 	'<li id = "info" >' + 
-		         	'<img src="https://graph.facebook.com/' + user.id + '/picture" alt="' + user.id + '">' + 
-		           	'<span class="user_name">' + user.name + '</span>' + 
+		         	'<img src="https://graph.facebook.com/' + get_user().id + '/picture" alt="' + user.id + '">' + 
+		           	'<span class="user_name">' + get_user().name + '</span>' + 
 			        '</li>';
 
         $('.user ul').prepend(html);
 
         $('#navigation ul.my').prepend('<li id = "wfe"><a class="fbtab" href ="/static/html/wfe.html">Workflow Editor</a></li>');
-        $('#navigation ul.my').prepend('<li id = "my_tasks" ><a class="fbtab" href="/my_tasks/' + user.id + '">My Tasks</a></li>');
-        $('#navigation ul.my').prepend('<li id = "my_businesses" ><a class="fbtab" href="/my_businesses/' + user.id + '">My Businesses</a></li>');
+        $('#navigation ul.my').prepend('<li id = "my_tasks" ><a class="fbtab" href="/my_tasks/' + get_user().id + '">My Tasks</a></li>');
+        $('#navigation ul.my').prepend('<li id = "my_businesses" ><a class="fbtab" href="/my_businesses/' + get_user().id + '">My Businesses</a></li>');
  
         if (typeof(SFOnLoad) != "undefined"){
 	        SFOnLoad();
@@ -42,37 +41,30 @@ function FBOnLoad(){
     }
 }
 
-function get_facebook_user(){
-	FB.api('/me', function(response) {
-		user = response;
-		FBOnLoad();
-	});	
-}
-
 function sf_login(){
     LOG('sf_login');
-	if (user == null) {
-		FB.login(function(response) {
-			if (response.authResponse) {
-		  		get_facebook_user();
-				if (user != null)
-					user.AccessToken = response.authResponse.accessToken; 
-			} else {
-			//user cancelled login or did not grant authorization
-			}
-		}, {scope:'email'});  
-		set_logout_button();
-	}
+	FB.login(function(response) {
+		if (response.authResponse) {
+            FB.api('/me', function(person) {
+                set_user(person);
+            });	
+		    set_user_access_token(response.authResponse.accessToken); 
+            FBOnLoad();
+		} else {
+		//user cancelled login or did not grant authorization
+		}
+	}, {scope:'email'});  
+	set_logout_button();
 }
 
 function sf_logout(){
     LOG('sf_logout');
-	if (user != null){
-    	FB.logout();
-		$('.user #info').remove();
-		$('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
-		user = null;
-	}
+	FB.logout();
+
+	$('.user #info').remove();
+	$('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
+
+	set_user(null);
     set_login_button();
 }
 

@@ -3,9 +3,9 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
 import httplib2, urllib, json, sys, getopt, os
 
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+DEBUG = True
 
-#only use one version of social farm helper
-sys.path.append("../db/scripts/SocialFarmHelper.py")
 
 views = {
 'api.businesses'                    : templatemapper('/api/businesses{}',                                   '/socialfarm/_design/business/_view/all_businesses{}'),
@@ -55,9 +55,6 @@ patterns.update(facebook)
 
 reserved = ['my_businesses', 'object', 'attachment', 'my_tasks', 'person', 'api', 'join', 'static', 'businesses', 'business', 'members', 'member', 'activities', 'activity', 'jobs', 'job', 'tasks', 'task' ]
 
-
-SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
-
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):
     parts = filter(lambda x: x in reserved, path.split('/'))
@@ -69,7 +66,6 @@ def authenticate(request):
         print "Access Token: ", request.headers['AccessToken']
     else:
         print "Warning! No Access Token provided!"
-
 
 def serve_static(request):
     path_to_file = os.path.join(SITE_ROOT, request.path[1:])
@@ -85,47 +81,90 @@ def serve_static(request):
         response = content_headers[key]
         response['content-length'] = str(len(content))
         request.write_response(response, content)
+    else:
+        not_found(request, request.path)
+
+def not_found(request, path):
+    content = "404, invalid url: %s" % path
+    response = { 'status': '404', 'content-type': 'text/html; charset=utf-8' }
+    response['content-length'] = str(len(content))
+    request.write_response(response, content)
+
+
+def server_error(request, path):
+    content = "500, an error occured attempting to access: %s" % path
+    response = { 'status': '500', 'content-type': 'text/html; charset=utf-8' }
+    response['content-length'] = str(len(content))
+    request.write_response(response, content)
+
+def debug(msg):
+    if DEBUG:
+        print "DEBUG: %s" % msg
+        
     
 class Adapter(BaseHTTPRequestHandler) :  
      
     def do_GET(self):
-        if self.path.split('/')[1] == 'static':
-            serve_static(self)
-        else:
-            authenticate(self)
-            key = path_to_key(self.path)
-            url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
-            response, content = httplib2.Http().request(url, "GET")
-            self.write_response(response, content)
+        try:
+            if self.path.split('/')[1] == 'static':
+                serve_static(self)
+            else:
+                authenticate(self)
+                key = path_to_key(self.path)
+                if key in patterns:
+                    url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+                    response, content = httplib2.Http().request(url, "GET")
+                    self.write_response(response, content)
+                else:
+                    not_found(self, self.path)
+        except e:
+            debug(e)
+            server_error(self, self.path)
+            
+            
+            
 
     def do_PUT(self):
-        authenticate(self)
-        key = path_to_key(self.path)
-        url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
-        headers = { "content-type": "application/json" }
-        data =  self.rfile.read((int(self.headers['content-length'])))
-        response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
-        self.write_response(response, content)
+        try:
+            authenticate(self)
+            key = path_to_key(self.path)
+            if key in patterns:
+                url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+                headers = { "content-type": "application/json" }
+                data =  self.rfile.read((int(self.headers['content-length'])))
+                response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
+                self.write_response(response, content)
+            else:
+                not_found(self, self.path)
+        except e:
+            debug(e)
+            server_error(self, self.path)
 
     def do_POST(self):
-        authenticate(self)
+        try:
+            authenticate(self)
+            key = path_to_key(self.path)
+            if key in patterns:
+                url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
 
-        key = path_to_key(self.path)
-        url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+                headers = { "content-type": "application/json" }
+                data =  self.rfile.read((int(self.headers['content-length'])))
+                response, content = httplib2.Http().request(url, "GET")
+                
+                if self.path != '/':
+                    record = json.loads(content)
+                    fields = json.loads(data)
 
-        headers = { "content-type": "application/json" }
-        data =  self.rfile.read((int(self.headers['content-length'])))
-        response, content = httplib2.Http().request(url, "GET")
-        
-        if self.path != '/':
-            record = json.loads(content)
-            fields = json.loads(data)
+                    for k in fields.keys():
+                        record[k] = fields[k] if record[k] != fields[k] else record[k]
 
-            for k in fields.keys():
-                record[k] = fields[k] if record[k] != fields[k] else record[k]
-
-            response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
-        self.write_response(response, content)
+                    response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
+                self.write_response(response, content)
+            else:
+                not_found(self, self.path)
+        except e:
+            debug(e)
+            server_error(self, self.path)
 
     def write_response(self, response, content):
         self.send_response(int(response['status']))

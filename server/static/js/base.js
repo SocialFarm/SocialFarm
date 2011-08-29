@@ -3,6 +3,30 @@
 
 */
 
+var revision_cache = {}; 
+var do_nothing = function(){};
+var user = null;
+var menu = false;
+
+function get_user() { 
+    if (user != null){ 
+        return user
+    } else {
+        sf_login();
+    }
+} 
+
+function set_user(val) { 
+    user = val; 
+} 
+
+function set_user_access_token(token) { 
+    if (user != null){
+        user.AccessToken = token; 
+    } else {
+        sf_login();
+    }
+} 
 
 function build_task_json(){
 	var task = Object(); 
@@ -50,39 +74,51 @@ function setHeader(xhr) {
     }
 }
 
-function get_json(url, success, failure){
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'json',
-        success: success,
-        error: failure,
-        beforeSend: setHeader
-    });
+function get_json(url, successcb, failurecb){
+    if (! url in revision_cache) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response){ revision_cache[url] = reponse; successcb();},
+            error: failurecb,
+            beforeSend: setHeader
+        });
+    } else {
+        return revision_cache[url];
+    }   
 }
 
-function put_json(url, data, success, failure){
-    $.ajax({
-        url: url,
-        type: 'PUT',
-        dataType: 'json',
-        data : data,
-        success: success,
-        error: failure,
-        beforeSend: setHeader
-    });
+function put_json(url, data, successcb, failurecb){
+    if (url in revision_cache){
+        if (data != revision_cache[url]){
+            $.ajax({
+                url: url,
+                type: 'PUT',
+                dataType: 'json',
+                data : data,
+                success: function (response){ revision_cache[url] = data; successcb();},
+                error: failurecb,
+                beforeSend: setHeader
+            });
+        }
+    }
 }
 
-function post_json(url, data, success, failure){
-    $.ajax({
-        url: url,
-        type: 'POST',
-        dataType: 'json',
-        data : data,
-        success: success,
-        error: failure,
-        beforeSend: setHeader
-    });
+function post_json(url, data, successcb, failurecb){
+     if (url in revision_cache){
+        if (data != revision_cache[url]){
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data : data,
+                success: function (response){ revision_cache[url] = data; successcb();},
+                error: failurecb,
+                beforeSend: setHeader
+            });
+        }
+    }
 }
 
 function load_my_tasks(){
@@ -121,7 +157,6 @@ function add_user_to_business(bid){
     var bid = $('#_id').text() ;
     var url = "/api/person/" + user.id ;
     var data;
-    var do_nothing = function(){};
 
     var success = function(person) {
 

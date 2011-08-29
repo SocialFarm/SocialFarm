@@ -1,7 +1,22 @@
 #!/usr/bin/env python 
-import sys, couchdb, time, SocialFarmHelper
+import sys, os, couchdb, time
 from couchdb.client import Database, Server
+
+
+
+
+##### IMPORT SocialFarm Helper from DB #######
+path = os.path.dirname(os.path.abspath(__file__))
+path = path[:len(path) - len('server/')] + '/db/scripts/'
+print path
+if path not in sys.path:
+    sys.path.insert(0, path)
+
+import SocialFarmHelper
 from SocialFarmHelper import SocialFarm, BusinessDirector
+
+
+
 
 #number of seconds to sleep
 SLEEP = 300
