@@ -1,6 +1,7 @@
 body {
     font-size: 14px;
     width: 760px;
+    padding: 16px;
 }
 
 h1, h2, h3, h4 {
@@ -19,36 +20,36 @@ code {
 }
 div#header {
     display: block;
-    height: 112px;
+    height: 150px;
 }
-div#navigation {
+div#user_navigation {
     font-size: 1.5em;
 	display: block;
 }
-	div#navigation ul {
+	div#user_navigation ul {
 		margin: 0px;
 		padding: 0px;
 	}
-		div#navigation ul li {
+		div#user_navigation ul li {
 			list-style: none;
 			float: left;
 		} 
 
-  		div#navigation ul li.active {
+  		div#user_navigation ul li.active {
 			font-weight: bold;
 		} 
 
-div.user {
+div#user_profile {
     float: left;
     margin-right: 16px;
 }
 
-div.user ul {
+div#user_profile ul {
 	margin: 0px;
 	padding: 0px;
 }
 
-div.user ul li {
+div#user_profile ul li {
     list-style: none;
     display: block;
     height: 56px;
@@ -61,24 +62,21 @@ div.user ul li img{
 }
 
 
-div.user ul li span.user_name{
+div#user_profile ul li span.user_name{
     float: right;
     display: block;
+    margin-left: 16px;
 }
 
-ul.my {
+div#business_navigation{
+    position: absolute;
+    top: 128px;
+}
+div#business_navigation ul li {
+    float: left;
 }
 
-ul.general {
-	position: absolute;
-	top: 34px;
-	left: 168px;
-}
-
-#content {
-    /* looks ugly in facebook iframe so none is applied
-        padding: 16px;*/
-}
+#content {}
 
 #rowinfo {
     margin-bottom: 8px;
@@ -112,7 +110,6 @@ form {
 }
 form fieldset {
 	padding: 1em;
-	max-width: 512px;
 }
 
 form fieldset ul li {

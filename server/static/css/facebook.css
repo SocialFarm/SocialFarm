@@ -95,3 +95,8 @@ button {
     padding: 2px 18px;
 }
 
+fieldset {
+    background-color: #f7f7f7;
+    border: 1px solid #cccccc;
+    color: #333333;
+}
