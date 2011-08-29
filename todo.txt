@@ -11,29 +11,11 @@ app :
     test invite people 
     test social news workflow with a few news items 
 
-javascript 
-    global var revisions = {} ; 
-    put/post_json( objidurl, data, successcb, failurecb )
-       if( ! rev[objidurl] ) { 
-          get_json( .... ) 
-       }
-    
-    get_json(...) { 
-       rev[...] = 
-    }     
+
+javasscript:
+    refactor user related code
 
 
-
-    function userid() { 
-             if ( user ) 
-                return user
-             else 
-                user = getusr() 
-                return user 
-   } 
-
-
-           
 user experience views
      Business 
          view : workflow, tasks, persons 

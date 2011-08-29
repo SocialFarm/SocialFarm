@@ -26,6 +26,19 @@ function set_user_access_token(token) {
     }
 } 
 
+function build_user_form(){
+    var html = '';
+    if (get_user() != null){
+        html =  '<li><label for="_id">Member ID</label><input type="text" name="_id" id="_id" value = "' + user.id + '"readonly/></li>' +
+                '<li><label for="name">Name</label><input type="text" name="name" id="name" value = "' + user.name + '"readonly/></li>' +
+                '<li><label for="role">Role</label><input type="text" name="role" id="role" value = "worker" readonly/></li>' + 
+                '<li><label for="role">Network</label><input type="text" name="network" id="network" value = "Facebook" readonly/></li>' + 
+                '<li><label for="type">Type</label><input type="text" name="type" id="type" value = "person" readonly/></li>';
+        $('#member_form ul').append(html);
+
+    }
+}
+
 function build_task_json(){
 	var task = Object(); 
 	var data_items = Object(); 
@@ -120,57 +133,61 @@ function post_json(url, data, successcb, failurecb){
 }
 
 function load_my_tasks(){
-    id = user.id
+    if (user != null){
+        id = user.id
 
-    var business_tasks;
-    var success = function(tasks) {
-        $.each(tasks.rows, function(task){
-            $(business_tasks).append('<li><a href="/business/' + business_tasks.id + '/task/' + this.id + '">' +  this.id + '</a></li>');
+        var business_tasks;
+        var success = function(tasks) {
+            $.each(tasks.rows, function(task){
+                $(business_tasks).append('<li><a href="/business/' + business_tasks.id + '/task/' + this.id + '">' +  this.id + '</a></li>');
+            });
+        };
+        var failure = function(tasks) {};
+
+        //asynchronously load tasks via api
+        $.each( $('.business_tasks') , function(index, value) { 
+            business_tasks = this;
+            var url = "/api/business/" + this.id + "/tasks/" + id ;
+            get_json(url, success, failure);
         });
-    };
-    var failure = function(tasks) {};
-
-    //asynchronously load tasks via api
-    $.each( $('.business_tasks') , function(index, value) { 
-        business_tasks = this;
-        var url = "/api/business/" + this.id + "/tasks/" + id ;
-        get_json(url, success, failure);
-    });
+    }
 }
 
 function add_user_to_socialfarm(){
+    if (get_user() != null){
+        var url = "/api/person/" + get_user().id
+        var data = JSON.stringify({"type":"person", "businesses": Array()}) ;
 
-    var url = "/api/person/" + user.id
-    var data = JSON.stringify({"type":"person", "businesses": Array()}) ;
-    var success = function(data){/*do nothing*/} ;
-    var failure = function(data){/*do nothing*/} ;
-
-    //add person to socialfarm db
-    put_json(url, data, success, failure);
+        //add person to socialfarm db
+        put_json(url, data, do_nothing, do_nothing);
+    }
   
 }
 
 function add_user_to_business(bid){
+    if (user != null){
+        var bid = $('#_id').text() ;
+        var url = "/api/person/" + user.id ;
+        var data;
 
-    var bid = $('#_id').text() ;
-    var url = "/api/person/" + user.id ;
-    var data;
+        var success = function(person) {
 
-    var success = function(person) {
+            person.businesses.push(bid);
 
-        person.businesses.push(bid);
+            data = JSON.stringify(person) ;
 
-        data = JSON.stringify(person) ;
+            //update person in business (bid) db
+            put_json(url, data, do_nothing, do_nothing) ;
+          
+            url =  "/api/business/" + bid + "/object/" + user.id
+            data = JSON.stringify(user) ;
 
-        //update person in business (bid) db
-        put_json(url, data, do_nothing, do_nothing) ;
-      
-        url =  "/api/business/" + bid + "/object/" + user.id
-        data = JSON.stringify(user) ;
-
-        //update person in business (bid) db
-        put_json(url, data, do_nothing, do_nothing) ;
-       
-    };
-    get_json(url, success, do_nothing);  
+            //update person in business (bid) db
+            put_json(url, data, do_nothing, do_nothing) ;
+           
+        };
+        get_json(url, success, do_nothing);  
+    }
 }
+
+

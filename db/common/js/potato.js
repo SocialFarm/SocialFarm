@@ -10,6 +10,52 @@
 */
 var Mustache = require( "js/common/mustache" );
 
+function json_to_key_value(obj){
+    var items = Array();
+    for (k in obj){
+        items.push({"key":k, "value": obj[k]});
+    }
+    return items
+}
+
+
+/*
+
+we need to convert objects to mustache templatable lists, this is what I have so far
+var doc = {
+   "_id": "task.Research.job.719e6b5a825af4590ffc05b2f0ab1e62",
+   "_rev": "1-00025afaf8952f46ff098e18ec0f7cb4",
+   "skills_required": [
+       "researching"
+   ],
+   "activityid": "Research",
+   "successors": [
+       "Write"
+   ],
+   "worker": null,
+   "choice": null,
+   "data_items": {
+       "primary_sources": "",
+       "request_description": "Write us an aritcle about cute pets, we will pay you $1.",
+       "title": "The Cutest Pets in San Diego"
+   },
+   "type": "task",
+   "state": "ready",
+   "jobid": "job.719e6b5a825af4590ffc05b2f0ab1e62"
+};
+
+
+for (k in doc){
+    console.log("key: " + k + ", type: " + typeof k);
+    //type is always string, should I try and load an object? not sure how to evaluate object attributed which are themselves objects
+    JSON.load(k
+}
+
+
+
+
+*/
+
 var Potato = function() {
     var Renderer = function() {};
     Renderer.prototype = {
@@ -46,11 +92,8 @@ var Potato = function() {
             }
 
             if (doc.data_items){
-                var items = Array();
-                for (k in doc.data_items){
-                    items.push({"key":k, "value": doc.data_items[k]});
-                }
-                doc.data_items = items;
+                
+                doc.data_items = json_to_key_value(doc.data_items);
             }
 
 		    head = Object();

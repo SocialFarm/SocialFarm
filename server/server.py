@@ -117,7 +117,7 @@ class Adapter(BaseHTTPRequestHandler) :
                     self.write_response(response, content)
                 else:
                     not_found(self, self.path)
-        except e:
+        except Exception, e:
             debug(e)
             server_error(self, self.path)
             
@@ -136,7 +136,7 @@ class Adapter(BaseHTTPRequestHandler) :
                 self.write_response(response, content)
             else:
                 not_found(self, self.path)
-        except e:
+        except Exception, e:
             debug(e)
             server_error(self, self.path)
 
@@ -162,7 +162,7 @@ class Adapter(BaseHTTPRequestHandler) :
                 self.write_response(response, content)
             else:
                 not_found(self, self.path)
-        except e:
+        except Exception, e:
             debug(e)
             server_error(self, self.path)
 
