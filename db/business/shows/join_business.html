@@ -1,0 +1,32 @@
+
+<div class = "content">
+
+    <div id="_id">{{ _id }}</div>
+    <div id="description">Description : {{ description }}</div> 
+    <div id="author">Author : {{ author }}</div>
+    <div id="list_of_partners">List of Partners : {{ list_of_partners }}</div>
+
+    <div class = "member_info">
+        <h2>Your initial member info will be:</h2>
+        <div id="member"></div>
+    </div>
+
+    <button id="join_business">Join {{_id}}</button>
+ 
+
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+    $("#join_business").click(function(){
+        add_user_to_business();
+    });
+    });
+
+    function SFOnLoad(){
+    user.type = "person" ;
+    user.network = "facebook" ;
+    $('#member').prepend('<code>' + JSON.stringify(user) + '</code>');
+    }
+    </script>
+</div> 
+

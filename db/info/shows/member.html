@@ -1,0 +1,37 @@
+
+<div class = "content">
+    <form id="member_form" onsubmit="return false;" action="/api/business/{{bid}}/member/{{_id}}">
+		    <fieldset id="member_info">
+			    <legend>Member Information</legend>
+				    <ul>
+					    <li>
+						    <label for="_id">Member ID</label>
+						    <input type="text" name="_id" id="_id" value = "{{_id}}"readonly/>
+					    </li>
+                        <li>
+						    <label for="_rev">Revision</label>
+						    <input type="text" name="_rev" id="_rev" value = "{{_rev}}"readonly/>
+					    </li>
+                        <li>
+						    <label for="name">Name</label>
+						    <input type="text" name="name" id="name" value = "{{name}}"readonly/>
+					    </li>
+                         <li>
+						    <label for="role">Role</label>
+						    <input type="text" name="role" id="role" value = "{{role}}"readonly/>
+					    </li>
+                         <li>
+						    <label for="worker_since">Worker Since</label>
+						    <input type="text" name="worker_since" id="worker_since" value = "{{worker_since}}"readonly/>
+					    </li>
+                        <li>
+						    <label for="type">Type</label>
+						    <input type="text" name="type" id="type" value = "{{type}}"readonly/>
+					    </li> 
+				    </ul>
+		    </fieldset>
+    </form>
+</div>
+
+
+

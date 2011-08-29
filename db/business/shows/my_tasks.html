@@ -1,0 +1,18 @@
+
+<div class = "content">
+    <h2>Tasks:</h2>
+        <ul class ="my_tasks">
+        {{#businesses }}
+        <ul class="business_tasks" id="{{name}}"></ul>
+        {{/businesses }}
+    </ul>
+</div>
+
+<script type="text/javascript">
+    function SFOnLoad(){
+    load_my_tasks();
+    }
+</script>
+
+
+

@@ -1,0 +1,49 @@
+<!doctype html>
+<html> 
+    <head> 
+        <meta charset="utf-8">
+        <title>Workflow Editor</title> 
+        <meta name="description" content="...">
+        <meta name="author" content="...">
+
+        <link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/facebook.css" />
+</head>
+<body>
+
+     <div id = "content">
+
+        <div id = "header">
+
+            <div class = "user">
+                <ul>
+                    <li class = "auth"><button id="login">Login</button></li>
+                </ul>
+            </div>
+
+            <div id = "navigation">
+	            <ul class="my"></ul>
+                <ul class="general">
+                    <li id = "wfe"><a href ="/static/html/wfe.html">Workflow Editor</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div id ="workflow_wrapper">
+
+
+      <div style="text-align: center;">
+      <center> 
+    	<applet code = 'WorkFlowEditor' 
+    	archive = 'wfe.jar,commons-beanutils-1.8.3.jar,commons-collections-3.2.1.jar,commons-lang-2.4.jar,commons-logging-1.1.1.jar,ezmorph-1.0.5.jar,jgraphx-1.7.1.3.jar,json-lib-2.4-jdk15.jar', 
+    	width = 1020, 
+    	height = 700 />
+      </center> 
+      </div>
+    </div>
+    </div>
+     
+</body>
+</html> 

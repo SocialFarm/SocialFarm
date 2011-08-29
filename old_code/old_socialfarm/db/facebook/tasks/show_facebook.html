@@ -1,0 +1,97 @@
+<!doctype html>
+<html> 
+    <head> 
+        <meta charset="utf-8">
+        <title>Task | {{ _id }}</title> 
+        <meta name="description" content="...">
+        <meta name="author" content="...">
+        
+        {{{ default_css }}}
+
+        {{{ default_js }}}
+        
+        <script type="text/javascript">
+            function SFOnLoad(){
+				$('#save').click(function(){save_task();});
+				$('#forward').click(function(){forward_task();});
+            }
+        </script>
+
+    </head> 
+    <body> 
+        <div id = "content">
+
+			<div id="header">
+				{{{ navigation }}}
+			</div>
+
+			<h2>Business <span id="bid">{{bid}}</span></h2>
+
+            <h2>Task {{_id}}</h2>
+
+			<form id="task_form" onsubmit="return false;" action="/api/business/{{bid}}/object/{{_id}}">
+				<fieldset id="task_info">
+					<legend>General Information</legend>
+						<ul>
+							<li>
+								<label for="_id">Task ID</label>
+								<input type="text" name="_id" id="_id" value = "{{_id}}"readonly/>
+							</li>
+                            <li>
+								<label for="activityid">Activity ID</label>
+								<input type="text" name="activityid" id="activityid" value = "{{activityid}}"readonly/>
+							</li>
+                            <li>
+								<label for="jobid">Job ID</label>
+								<input type="text" name="jobid" id="jobid" value = "{{jobid}}"readonly/>
+							</li>
+							<li>
+								<label for="_rev">Revision</label>
+								<input type="text" name="_rev" id="_rev" value = "{{_rev}}"readonly/>
+							</li>
+                            <li>
+								<label for="type">Type</label>
+								<input type="text" name="type" id="type" value = "{{type}}"readonly/>
+							</li>
+                            <li>
+								<label for="state">State</label>
+								<input type="text" name="state" id="state" value = "{{state}}"readonly/>
+							</li>
+                            
+						</ul>
+				</fieldset>
+
+				<fieldset id="data_items">
+					<legend>Data Items</legend>
+						<ul>
+							{{#data_items}}
+								<li><label for="{{key}}">{{key}}</label>
+									<textarea name="{{key}}" id="{{key}}">
+										{{value}}
+									</textarea>
+								</li>
+							{{/data_items}}
+								<li>
+									<button id="save">Save</button>
+									<button id="forward">Forward</button>
+								</li>
+						</ul>
+				</fieldset>
+			</form>
+
+			<div id = "_attachments" > 
+				<ul>
+					{{#_attachments}} 
+						<li><a href="/api/business/{{bid}}/object/{{_id}}}/attachment/{{name}}">{{name}}</a></li>
+					{{/_attachments}} 
+				</ul>
+			</div> 
+           
+
+    
+        </div>
+		{{{ facebook_footer }}}
+    </body>
+</html> 
+
+
