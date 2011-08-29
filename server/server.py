@@ -3,12 +3,16 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
 import httplib2, urllib, json, sys, getopt, os
 
+
+#only use one version of social farm helper
+sys.path.append("../db/scripts/SocialFarmHelper.py")
+
 views = {
 'api.businesses'                    : templatemapper('/api/businesses{}',                                   '/socialfarm/_design/business/_view/all_businesses{}'),
 'api.business'                      : templatemapper('/api/business/{bid}' ,                                '/socialfarm/{bid}'),
 'api.person'                        : templatemapper('/api/person/{mid}' ,                                  '/socialfarm/{mid}'),
 'api.business.members'              : templatemapper('/api/business/{bid}/members' ,                        '/{bid}/_design/info/_view/all_members'), 
-'api.business.activities'           : templatemapper('/api/business/{bid}/activities' ,                      '/{bid}/_design/info/_view/all_activities'), 
+'api.business.activities'           : templatemapper('/api/business/{bid}/activities' ,                     '/{bid}/_design/info/_view/all_activities'), 
 'api.business.jobs'                 : templatemapper('/api/business/{bid}/jobs' ,                           '/{bid}/_design/info/_view/all_jobs'), 
 #'api.business.tasks'               : templatemapper('/api/business/{bid}/tasks' ,                          '/{bid}/_design/info/_view/all_tasks'), 
 'api.business.tasks'                : templatemapper('/api/business/{bid}/tasks/{mid}',                     '/{bid}/_design/info/_view/all_tasks?key="{mid}"'),
@@ -19,7 +23,7 @@ views = {
 shows = {
 'business'               : templatemapper('/business/{bid}' ,                '/socialfarm/_design/business/_show/business/{bid}'), 
 'business.member'        : templatemapper('/business/{bid}/member/{mid}' ,   '/{bid}/_design/info/_show/member/{mid}'), 
-'business.activity'      : templatemapper('/business/{bid}/activity/{aid}' ,   '/{bid}/_design/info/_show/activity/{aid}'),
+'business.activity'      : templatemapper('/business/{bid}/activity/{aid}' , '/{bid}/_design/info/_show/activity/{aid}'),
 'business.job'           : templatemapper('/business/{bid}/job/{jid}' ,      '/{bid}/_design/info/_show/job/{jid}'),
 'business.task'          : templatemapper('/business/{bid}/task/{tid}' ,     '/{bid}/_design/info/_show/task/{tid}')
 }
@@ -49,7 +53,7 @@ patterns.update(shows)
 patterns.update(views)
 patterns.update(facebook)
 
-reserved = ['my_businesses', 'object', 'attachment', 'my_tasks', 'person', 'api', 'join', 'static', 'channel', 'facebook', 'businesses', 'business', 'members', 'member', 'activities', 'activity', 'jobs', 'job', 'tasks', 'task' ]
+reserved = ['my_businesses', 'object', 'attachment', 'my_tasks', 'person', 'api', 'join', 'static', 'businesses', 'business', 'members', 'member', 'activities', 'activity', 'jobs', 'job', 'tasks', 'task' ]
 
 
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
