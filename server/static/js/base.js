@@ -8,12 +8,10 @@ var do_nothing = function(){};
 var user = null;
 var menu = false;
 
-function get_user() { 
-    if (user != null){ 
-        return user
-    } else {
-        sf_login();
-    }
+
+//needs to be fixed, currently returning a global var
+function get_user() {  
+    return user
 } 
 
 function set_user(val) { 
