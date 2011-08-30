@@ -102,9 +102,8 @@
                     //update person in business (bid) db
                     url = "/api/person/" + get_user().id ;
                     get_json(url, do_nothing, do_nothing); 
-                    person = revision_cache[url];
+                    person = Object(revision_cache[url]);
                     LOG(person);
-                    LOG(person['businesses']);
 
                     person['businesses'].push(bid)
                     data = JSON.stringify(person) ;
