@@ -47,21 +47,31 @@
 
     <button id="join_business">Join {{_id}}</button>
  
-
-
     <script type="text/javascript">
     $(document).ready(function() {
         $("#join_business").click(function(){
             join_business();
         });
     });
+
+    function AfterFacebookIsLoaded() {
+        render_member_info();
+    }
+    
+    function render_member_info(){
+        var html = '';
+        if (get_user() != null){
+            html =  '<li><label for="_id">Member ID</label><input type="text" name="_id" id="_id" value = "' + get_user().id + '"readonly/></li>' +
+                    '<li><label for="name">Name</label><input type="text" name="name" id="name" value = "' + get_user().name + '"readonly/></li>';
+            $('#member_info ul').prepend(html);
+        }
+    }
     
     function join_business(){
         var skills = $("input[name='skills']").serializeArray(); 
         var member = Object();
         var form;
 
-        
         if (skills.length == 0){
             warn("You must check at least on of the Member Skills listed below!");
             return;
@@ -79,53 +89,32 @@
             $.each(skills, function (item) {
                 member.skills.push(skills[item].value);
             });
-        }
-
-        /*  The code below is confusing and should be clarified.
+      
+            /*  The code below is confusing and should be clarified.
             Essentially to add a person to a busines, their record in socialfarm db must be updated
             and they must be added as a member to the business database they are joining.
             the first part is don via the get call at the bottom which retrieves the person object from
             socialfarm and adds the business to the list of businesses for this person,
             the success call back is then used to add the member object created from the form (and code above)
             to the business database
-        */
-        var bid = $('#_id').text() ;
-        var url = "/api/person/" + get_user().id ;
-        var data;
+            */
 
-        var success = function(person) {
+            var bid = $('#_id').text() ;
+            var url = "/api/person/" + get_user().id ;
+            var data;
 
+            var success = function(person) {
             person.businesses.push(bid);
-
             data = JSON.stringify(person) ;
-
             //update person in business (bid) db
             put_json(url, data, do_nothing, do_nothing) ;
-          
             url =  "/api/business/" + bid + "/object/" + get_user().id
             data = JSON.stringify(member) ;
-
             //update person in business (bid) db
             put_json(url, data, do_nothing, do_nothing) ;
-           
-        };
-        get_json(url, success, do_nothing);  
-    }
-           
-
-    function build_user_form(){
-        var html = '';
-        if (get_user() != null){
-            html =  '<li><label for="_id">Member ID</label><input type="text" name="_id" id="_id" value = "' + user.id + '"readonly/></li>' +
-                    '<li><label for="name">Name</label><input type="text" name="name" id="name" value = "' + user.name + '"readonly/></li>' +
-               
-            $('#member_info ul').prepend(html);
-
-        }
-    }
-
-    function SFOnLoad(){
-        build_user_form();
+            };
+            get_json(url, success, do_nothing); 
+         } 
     }
     </script>
 </div> 

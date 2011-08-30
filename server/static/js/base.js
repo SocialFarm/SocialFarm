@@ -16,7 +16,6 @@ function LOG(msg) {
         console.log(msg);
 }
 
-
 //needs to be fixed, currently returning a global var
 function get_user() {  
     return user
@@ -165,30 +164,6 @@ function add_user_to_socialfarm(){
   
 }
 
-function add_user_to_business(bid){
-    if (user != null){
-        var bid = $('#_id').text() ;
-        var url = "/api/person/" + user.id ;
-        var data;
 
-        var success = function(person) {
-
-            person.businesses.push(bid);
-
-            data = JSON.stringify(person) ;
-
-            //update person in business (bid) db
-            put_json(url, data, do_nothing, do_nothing) ;
-          
-            url =  "/api/business/" + bid + "/object/" + user.id
-            data = JSON.stringify(user) ;
-
-            //update person in business (bid) db
-            put_json(url, data, do_nothing, do_nothing) ;
-           
-        };
-        get_json(url, success, do_nothing);  
-    }
-}
 
 
