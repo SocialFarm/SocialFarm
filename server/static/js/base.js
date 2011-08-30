@@ -163,7 +163,10 @@ function load_my_tasks(){
 function add_user_to_socialfarm(){
     if (get_user() != null){
         var url = "/api/person/" + get_user().id
-        var data = JSON.stringify({"type":"person", "businesses": Array()}) ;
+        var person = Object();
+        person.type = 'person';
+        person.businesses =  Array()
+        var data = JSON.stringify(person) ;
 
         //add person to socialfarm db
         put_json(url, data, do_nothing, do_nothing);
