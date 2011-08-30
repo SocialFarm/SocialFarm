@@ -102,10 +102,10 @@
                     //update person in business (bid) db
                     url = "/api/person/" + get_user().id ;
                     get_json(url, do_nothing, do_nothing); 
-                    person = Object(revision_cache[url]);
+                    person = jQuery.parseJSON(revision_cache[url]);
                     LOG(person);
 
-                    person['businesses'].push(bid)
+                    person.businesses.push(bid)
                     data = JSON.stringify(person) ;
                     post_json(url, data, do_nothing, do_nothing) ;
 
