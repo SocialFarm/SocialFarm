@@ -107,7 +107,7 @@
                         type: 'GET',
                         dataType: 'json',
                         success: function (response){ person = jQuery.parseJSON(response); },
-                        error: failurecb,
+                        error: do_nothing,
                         beforeSend: setHeader
                     });
 
