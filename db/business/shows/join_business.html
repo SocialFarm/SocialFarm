@@ -63,6 +63,8 @@
 
         $(document).ready(function() {
             $("#join_business").click(function(){
+                
+                LOG('FIND THE FAIL!!!')
                 var skills = $("input[name='skills']").serializeArray(); 
                 var member = Object();
                 var form;
@@ -74,6 +76,7 @@
                     warn("You must be logged in to facebook to join a business!");
                     return;
                 } else {
+                    LOG('HERE?')
                     form = $("#member_form").serializeArray();
                     $.each(form, function (item) {
                         member[form[item].name] = form[item].value;
