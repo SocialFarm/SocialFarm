@@ -103,7 +103,7 @@ function get_json(url, successcb, failurecb){
         });
     } else {
         LOG('returning cached data...');
-        successcb(revision_cache[url]);
+        successcb();
     }   
 }
 
@@ -124,18 +124,18 @@ function put_json(url, data, successcb, failurecb){
 }
 
 function post_json(url, data, successcb, failurecb){
-     if (url in revision_cache){
-        if (data != revision_cache[url]){
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: 'json',
-                data : data,
-                success: function (response){ revision_cache[url] = data; successcb();},
-                error: failurecb,
-                beforeSend: setHeader
-            });
-        }
+    if (url in revision_cache && data == revision_cache[url]){
+        // trying to post the same object 
+    } else {
+        $.ajax({
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        data : data,
+        success: function (response){ revision_cache[url] = data; successcb();},
+        error: failurecb,
+        beforeSend: setHeader
+        });
     }
 }
 

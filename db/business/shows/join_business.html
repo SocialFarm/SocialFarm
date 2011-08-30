@@ -99,23 +99,21 @@
                     var url;
                     var data;
 
-                    var success = function(person) {
-                        LOG(person);
-
-                        //update person in business (bid) db
-                        person.businesses.push(bid);
-                        url = "/api/person/" + get_user().id ;
-                        data = JSON.stringify(person) ;
-                        put_json(url, data, do_nothing, do_nothing) ;
+                    //update person in business (bid) db
+                    url = "/api/person/" + get_user().id ;
+                    get_json(url, do_nothing, do_nothing); 
+                    revision_cache[url].businesses.push(bid);
+                    data = JSON.stringify(revision_cache[url].businesses) ;
+                    post_json(url, data, do_nothing, do_nothing) ;
 
 
-                        //update person in business (bid) db
-                        url =  "/api/business/" + bid + "/object/" + get_user().id
-                        data = JSON.stringify(member) ;
-                        put_json(url, data, do_nothing, do_nothing) ;
-                    };
+                    //update person in business (bid) db
+                    url =  "/api/business/" + bid + "/object/" + get_user().id
+                    data = JSON.stringify(member) ;
+                    put_json(url, data, do_nothing, do_nothing) ;
+            
 
-                    get_json(url, success, do_nothing); 
+                    
                  } 
             });
         });
