@@ -116,7 +116,11 @@ function put_json(url, data, successcb, failurecb){
             type: 'PUT',
             dataType: 'json',
             data : data,
-            success: function (response){ revision_cache[url] = data; successcb();},
+            success: function (response){ 
+                LOG("put response: "  + response);
+                revision_cache[url] = data; 
+                successcb();
+            },
             error: failurecb,
             beforeSend: setHeader
         });
