@@ -73,8 +73,8 @@ function sf_logout(){
     LOG('sf_logout');
 	if (get_user() != null){
     	FB.logout();
-		$('.user #info').remove();
-		$('#navigation ul.my #my_businesses, #my_tasks, #wfe').remove();
+		$('#user_profile ul #info').remove();
+		$('#user_navigation ul #my_businesses, #my_tasks, #wfe').remove();
 		set_user(null);
 	}
     set_login_button();

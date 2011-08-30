@@ -60,12 +60,9 @@
     }
     
     function render_member_info(){
-        var html = '';
-        if (get_user() != null){
-            html =  '<li><label for="_id">Member ID</label><input type="text" name="_id" id="_id" value = "' + get_user().id + '"readonly/></li>' +
+        var html =  '<li><label for="_id">Member ID</label><input type="text" name="_id" id="_id" value = "' + get_user().id + '"readonly/></li>' +
                     '<li><label for="name">Name</label><input type="text" name="name" id="name" value = "' + get_user().name + '"readonly/></li>';
-            $('.member_info ul').prepend(html);
-        }
+        $('.member_info ul').prepend(html);
     }
     
     function join_business(){
