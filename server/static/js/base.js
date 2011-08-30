@@ -38,7 +38,7 @@ function warn(msg){
     $('#alert').focus();
 }
 
-function build_form_li(label, for_attr, name_attr, type_attr, value_attr){
+function build_readonly_li(label, for_attr, name_attr, type_attr, value_attr){
     return '<li>' +
            '<label for="' + for_attr + '">' + label + '</label>' +
            '<input type="' + type_attr + '" name="' + name_attr + '" id="' + for_attr + '" value = "' + value_attr + '"readonly/>' + 
