@@ -41,7 +41,8 @@ function warn(msg){
 function build_form_li(label, for_attr, name_attr, type_attr, value_attr){
     return '<li>' +
            '<label for="' + for_attr + '">' + label + '</label>' +
-           '<input type="' + type_attr + '" name="' + name_attr + '" id="' + for_attr + '" value = "' + value_attr + '"readonly/></li>';
+           '<input type="' + type_attr + '" name="' + name_attr + '" id="' + for_attr + '" value = "' + value_attr + '"readonly/>' + 
+           '</li>';
 }
 
 function build_task_json(){
