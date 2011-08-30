@@ -47,6 +47,9 @@ function get_facebook_user(){
 
         if(typeof AfterFacebookIsLoaded == 'function') {
             AfterFacebookIsLoaded();
+            
+            //to make sure this is only ever called once
+            window['AfterFacebookIsLoaded']= null;
         }
 
 	});	
