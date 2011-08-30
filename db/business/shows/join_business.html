@@ -50,7 +50,8 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $("#join_business").click(function(){
-            join_business();
+            LOG('clicked join business');
+            submit_join_business();
         });
     });
 
@@ -66,7 +67,7 @@
         );
     }
     
-    function join_business(){
+    function submit_join_business(){
         var skills = $("input[name='skills']").serializeArray(); 
         var member = Object();
         var form;
