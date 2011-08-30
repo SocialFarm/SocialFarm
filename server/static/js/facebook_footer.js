@@ -36,13 +36,14 @@ function render_header(){
 function get_facebook_user(){
 	FB.api('/me', function(response) {
 		set_user(response);
-        render_header();
-
         /*  this allows for clientside code which is only called when the user is logged in
             simply define the function in a script tag, and call other functions from it
         */
 
         if(typeof AfterFacebookIsLoaded == 'function') {
+
+            render_header();
+
             AfterFacebookIsLoaded();
             
             //to make sure this is only ever called once
