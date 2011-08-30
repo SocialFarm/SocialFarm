@@ -64,6 +64,10 @@
         
         if (skills.length == 0){
             warn("You must check at least on of the Member Skills listed below!");
+            return;
+        } else if (get_user() == null){
+            warn("You must be logged in to facebook to join a business!");
+            return;
         } else {
             form = $("#member_form").serializeArray();
             $.each(form, function (item) {
@@ -77,7 +81,37 @@
             });
         }
 
-        LOG(member.skills);
+        /*  The code below is confusing and should be clarified.
+            Essentially to add a person to a busines, their record in socialfarm db must be updated
+            and they must be added as a member to the business database they are joining.
+            the first part is don via the get call at the bottom which retrieves the person object from
+            socialfarm and adds the business to the list of businesses for this person,
+            the success call back is then used to add the member object created from the form (and code above)
+            to the business database
+        */
+        var bid = $('#_id').text() ;
+        var url = "/api/person/" + get_user().id ;
+        var data;
+
+        var success = function(person) {
+
+            person.businesses.push(bid);
+
+            data = JSON.stringify(person) ;
+
+            //update person in business (bid) db
+            put_json(url, data, do_nothing, do_nothing) ;
+          
+            url =  "/api/business/" + bid + "/object/" + get_user().id
+            data = JSON.stringify(member) ;
+
+            //update person in business (bid) db
+            put_json(url, data, do_nothing, do_nothing) ;
+           
+        };
+        get_json(url, success, do_nothing);  
+    }
+}
             
     }
 
@@ -87,7 +121,7 @@
             html =  '<li><label for="_id">Member ID</label><input type="text" name="_id" id="_id" value = "' + user.id + '"readonly/></li>' +
                     '<li><label for="name">Name</label><input type="text" name="name" id="name" value = "' + user.name + '"readonly/></li>' +
                
-            $('#member_form ul').prepend(html);
+            $('#member_info ul').prepend(html);
 
         }
     }
