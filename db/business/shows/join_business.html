@@ -96,18 +96,23 @@
                     */
 
                     var bid = $('#_id').text() ;
-                    var url = "/api/person/" + get_user().id ;
+                    var url;
                     var data;
 
                     var success = function(person) {
-                    person.businesses.push(bid);
-                    data = JSON.stringify(person) ;
-                    //update person in business (bid) db
-                    put_json(url, data, do_nothing, do_nothing) ;
-                    url =  "/api/business/" + bid + "/object/" + get_user().id
-                    data = JSON.stringify(member) ;
-                    //update person in business (bid) db
-                    put_json(url, data, do_nothing, do_nothing) ;
+                        LOG(person);
+
+                        //update person in business (bid) db
+                        person.businesses.push(bid);
+                        url = "/api/person/" + get_user().id ;
+                        data = JSON.stringify(person) ;
+                        put_json(url, data, do_nothing, do_nothing) ;
+
+
+                        //update person in business (bid) db
+                        url =  "/api/business/" + bid + "/object/" + get_user().id
+                        data = JSON.stringify(member) ;
+                        put_json(url, data, do_nothing, do_nothing) ;
                     };
 
                     get_json(url, success, do_nothing); 
