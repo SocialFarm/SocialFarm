@@ -106,26 +106,21 @@
                         url: url,
                         type: 'GET',
                         dataType: 'json',
-                        success: function (response){ person = jQuery.parseJSON(response); },
+                        success: function (response){ 
+                            person = jQuery.parseJSON(response); 
+                            person.businesses.push(bid)
+                            data = JSON.stringify(person) ;
+                            put_json(url, data, do_nothing, do_nothing)
+                        },
                         error: do_nothing,
                         beforeSend: setHeader
                     });
-
-                   
-                    LOG(person);
-
-                    person.businesses.push(bid)
-                    data = JSON.stringify(person) ;
-                    put_json(url, data, do_nothing, do_nothing) ;
-
 
                     //update person in business (bid) db
                     url =  "/api/business/" + bid + "/object/" + get_user().id
                     data = JSON.stringify(member) ;
                     put_json(url, data, do_nothing, do_nothing) ;
-            
-
-                    
+           
                  } 
             });
         });
