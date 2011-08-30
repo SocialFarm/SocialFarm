@@ -101,6 +101,8 @@
 
                     //update person in business (bid) db
                     url = "/api/person/" + get_user().id ;
+
+                    delete revision_cache[url];
                     get_json(url, do_nothing, do_nothing); 
                     person = jQuery.parseJSON(revision_cache[url]);
                     LOG(person);
