@@ -20,20 +20,17 @@ function set_logout_button(){
 }
 
 function render_header(){
-    if (!menu && get_user() != null) {
-        add_user_to_socialfarm();
-        menu = true;
-        var html = 	'<li id = "info" >' + 
-		         	'<img src="https://graph.facebook.com/' + get_user().id + '/picture" alt="' + get_user().id + '">' + 
-		           	'<span class="user_name">' + get_user().name + '</span>' + 
-			        '</li>';
+    add_user_to_socialfarm();
+    var html = 	'<li id = "info" >' + 
+             	'<img src="https://graph.facebook.com/' + get_user().id + '/picture" alt="' + get_user().id + '">' + 
+               	'<span class="user_name">' + get_user().name + '</span>' + 
+	            '</li>';
 
-        $('#user_profile ul').prepend(html);
+    $('#user_profile ul').prepend(html);
 
-        $('#user_navigation ul').prepend('<li id = "wfe"><a class="fbtab" href ="/static/html/wfe.html">Workflow Editor</a></li>');
-        $('#user_navigation ul').prepend('<li id = "my_tasks" ><a class="fbtab" href="/my_tasks/' + get_user().id + '">My Tasks</a></li>');
-        $('#user_navigation ul').prepend('<li id = "my_businesses" ><a class="fbtab" href="/my_businesses/' + get_user().id + '">My Businesses</a></li>');
-    }
+    $('#user_navigation ul').prepend('<li id = "wfe"><a class="fbtab" href ="/static/html/wfe.html">Workflow Editor</a></li>');
+    $('#user_navigation ul').prepend('<li id = "my_tasks" ><a class="fbtab" href="/my_tasks/' + get_user().id + '">My Tasks</a></li>');
+    $('#user_navigation ul').prepend('<li id = "my_businesses" ><a class="fbtab" href="/my_businesses/' + get_user().id + '">My Businesses</a></li>');
 }
 
 function get_facebook_user(){
@@ -49,7 +46,7 @@ function get_facebook_user(){
             AfterFacebookIsLoaded();
             
             //to make sure this is only ever called once
-            window['AfterFacebookIsLoaded']= null;
+            window['AfterFacebookIsLoaded'] = null;
         }
 
 	});	

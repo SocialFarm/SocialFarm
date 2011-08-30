@@ -7,7 +7,6 @@
 var revision_cache = {}; 
 var do_nothing = function(){};
 var user = null;
-var CALLONCE = true;
 var DEBUG = true;
 
 
