@@ -4,10 +4,10 @@ body {
     padding: 16px;
 }
 
-h1, h2, h3, h4 {
-    font-weight: normal;
-    
-}
+h1 { font-size: 1.75em; margin-bottom: 16px;}
+h2 { font-size: 1.5em; margin-bottom: 8px;}
+h3 { font-size: 1.25em; margin-bottom: 4px;}
+h4 { font-size: 1.05em; margin-bottom: 4px;}
 
 h3 a {
     display: block;
@@ -125,11 +125,28 @@ form fieldset ul li label {
 	text-align:right;
 	font-weight:bold;
 }
+
+
 /* end form css */
+
+
 
 
 #workflow_wrapper{
     display: block;
     top: 12px;
     float: left;
+}
+
+#member_skills, #business_summary, #member_info{
+    margin-bottom: 16px;
+}
+
+#alert {
+    padding: 8px;
+
+}
+
+#alert_content {
+    margin-bottom: 4px;
 }

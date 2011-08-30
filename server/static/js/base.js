@@ -3,10 +3,18 @@
 
 */
 
+
 var revision_cache = {}; 
 var do_nothing = function(){};
 var user = null;
 var menu = false;
+var DEBUG = true;
+
+
+function LOG(msg) { 
+    if (DEBUG) 
+        console.log(msg);
+}
 
 
 //needs to be fixed, currently returning a global var
@@ -26,17 +34,10 @@ function set_user_access_token(token) {
     }
 } 
 
-function build_user_form(){
-    var html = '';
-    if (get_user() != null){
-        html =  '<li><label for="_id">Member ID</label><input type="text" name="_id" id="_id" value = "' + user.id + '"readonly/></li>' +
-                '<li><label for="name">Name</label><input type="text" name="name" id="name" value = "' + user.name + '"readonly/></li>' +
-                '<li><label for="role">Role</label><input type="text" name="role" id="role" value = "worker" readonly/></li>' + 
-                '<li><label for="role">Network</label><input type="text" name="network" id="network" value = "Facebook" readonly/></li>' + 
-                '<li><label for="type">Type</label><input type="text" name="type" id="type" value = "person" readonly/></li>';
-        $('#member_form ul').append(html);
-
-    }
+function warn(msg){ 
+    $('#alert_content').text(msg);
+    $('#alert').show();
+    $('#alert').focus();
 }
 
 function build_task_json(){
@@ -59,7 +60,7 @@ function build_task_json(){
 		});
 	});
 	task.data_items = data_items;
-	console.log(task);
+	LOG(task);
 	return task;
 
 }

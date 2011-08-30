@@ -8,6 +8,7 @@
     Usefull for debugging:
         JSON.stringify(data)
 */
+
 var Mustache = require( "js/common/mustache" );
 
 function json_to_key_value(obj){
@@ -18,43 +19,13 @@ function json_to_key_value(obj){
     return items
 }
 
-
-/*
-
-we need to convert objects to mustache templatable lists, this is what I have so far
-var doc = {
-   "_id": "task.Research.job.719e6b5a825af4590ffc05b2f0ab1e62",
-   "_rev": "1-00025afaf8952f46ff098e18ec0f7cb4",
-   "skills_required": [
-       "researching"
-   ],
-   "activityid": "Research",
-   "successors": [
-       "Write"
-   ],
-   "worker": null,
-   "choice": null,
-   "data_items": {
-       "primary_sources": "",
-       "request_description": "Write us an aritcle about cute pets, we will pay you $1.",
-       "title": "The Cutest Pets in San Diego"
-   },
-   "type": "task",
-   "state": "ready",
-   "jobid": "job.719e6b5a825af4590ffc05b2f0ab1e62"
-};
-
-
-for (k in doc){
-    console.log("key: " + k + ", type: " + typeof k);
-    //type is always string, should I try and load an object? not sure how to evaluate object attributed which are themselves objects
-    JSON.load(k
+function mustachify_obj(obj){
+    for (k in obj){
+        if (typeof obj[k] === 'object'){
+            obj[k] = json_to_key_value(obj[k]);
+        }
+    }
 }
-
-
-
-
-*/
 
 var Potato = function() {
     var Renderer = function() {};
@@ -66,6 +37,19 @@ var Potato = function() {
 	
 		    nav = Object();
 
+            //set bid for ease of use
+            if (doc.type == 'business'){
+		        nav.bid = doc._id;
+                doc.bid = doc._id;
+            } else {
+                nav.bid = path[0];
+                doc.bid = path[0];
+            }
+            
+
+            mustachify_obj(doc);
+    
+            /*
             if (show == 'my_businesses' || show == 'my_tasks'){
                 var businesses = Array()
                 for (b in doc.businesses){
@@ -75,11 +59,7 @@ var Potato = function() {
                 doc.businesses = businesses
             }
 
-            if (doc.type == 'business'){
-		        nav.bid = doc._id;
-            } else {
-                nav.bid = path[0];
-            }
+           
 
 		    nav[doc.type] = 'active';
 
@@ -94,7 +74,7 @@ var Potato = function() {
             if (doc.data_items){
                 
                 doc.data_items = json_to_key_value(doc.data_items);
-            }
+            }*/
 
 		    head = Object();
 		    head.user_navigation = Mustache.to_html(html.common.user_navigation, nav);
