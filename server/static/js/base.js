@@ -102,23 +102,24 @@ function get_json(url, successcb, failurecb){
             beforeSend: setHeader
         });
     } else {
-        return revision_cache[url];
+        LOG('returning cached data...');
+        successcb(revision_cache[url]);
     }   
 }
 
 function put_json(url, data, successcb, failurecb){
-    if (url in revision_cache){
-        if (data != revision_cache[url]){
-            $.ajax({
-                url: url,
-                type: 'PUT',
-                dataType: 'json',
-                data : data,
-                success: function (response){ revision_cache[url] = data; successcb();},
-                error: failurecb,
-                beforeSend: setHeader
-            });
-        }
+        if (url in revision_cache && data == revision_cache[url]){
+            // trying to put the same object 
+        } else {
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            dataType: 'json',
+            data : data,
+            success: function (response){ revision_cache[url] = data; successcb();},
+            error: failurecb,
+            beforeSend: setHeader
+        });
     }
 }
 

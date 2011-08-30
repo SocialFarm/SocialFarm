@@ -75,7 +75,6 @@
                     warn("You must be logged in to facebook to join a business!");
                     return;
                 } else {
-                    LOG('HERE?')
                     form = $("#member_form").serializeArray();
                     $.each(form, function (item) {
                         member[form[item].name] = form[item].value;
@@ -87,7 +86,6 @@
                         member.skills.push(skills[item].value);
                     });
 
-                    LOG('OR HERE?')
                     /*  The code below is confusing and should be clarified.
                     Essentially to add a person to a busines, their record in socialfarm db must be updated
                     and they must be added as a member to the business database they are joining.
@@ -111,7 +109,6 @@
                     //update person in business (bid) db
                     put_json(url, data, do_nothing, do_nothing) ;
                     };
-                    LOG('Before  get json?')
 
                     get_json(url, success, do_nothing); 
                  } 
