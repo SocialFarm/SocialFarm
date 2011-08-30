@@ -98,13 +98,20 @@
                     var bid = $('#_id').text() ;
                     var url;
                     var data;
-
+                    var person;
                     //update person in business (bid) db
                     url = "/api/person/" + get_user().id ;
 
-                    delete revision_cache[url];
-                    get_json(url, do_nothing, do_nothing); 
-                    person = jQuery.parseJSON(revision_cache[url]);
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (response){ person = jQuery.parseJSON(response); },
+                        error: failurecb,
+                        beforeSend: setHeader
+                    });
+
+                   
                     LOG(person);
 
                     person.businesses.push(bid)
