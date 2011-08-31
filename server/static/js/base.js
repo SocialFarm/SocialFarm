@@ -107,7 +107,7 @@ function get_json(url, successcb, failurecb){
         });
     } else {
         LOG('returning cached data...');
-        successcb();
+        successcb(revision_cache[url]);
     }   
 }
 
