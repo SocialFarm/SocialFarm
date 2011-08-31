@@ -99,22 +99,15 @@
                     var url;
                     var data;
                     //update person in business (bid) db
-                    url = "/api/person/" + get_user().id ;
-                    
-                    //puts need to append revison id to object before caching
-                    $.ajax({
-                        url: url,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (response){ 
-                            response.businesses.push(bid)
-                            LOG('response: ' + response);
-                            data = JSON.stringify(response) ;
-                            put_json(url, data, do_nothing, do_nothing)
-                        },
-                        error: do_nothing,
-                        beforeSend: setHeader
-                    });
+                    person_url = "/api/person/" + get_user().id ;
+                     
+                    get_json(url, do_nothing, do_nothing);
+
+                    LOG(revision_cache[url]);
+        
+                    revision_cache[url].businesses.push(bid)
+
+                    put_json(url, revision_cache[url], do_nothing);
 
                     //update person in business (bid) db
                     url =  "/api/business/" + bid + "/object/" + get_user().id
