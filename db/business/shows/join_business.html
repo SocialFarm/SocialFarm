@@ -107,11 +107,10 @@
                         //LOG('revision_cache[url] : ' + revision_cache[person_url]);
 
                         //LOG('person : ' + person);
-
-                        person.businesses.push(bid)
-                    
-
-                        put_json(person_url, JSON.stringify(person), do_nothing);
+                        if (! bid in person.businesses)
+                            person.businesses.push(bid){
+                            put_json(person_url, JSON.stringify(person), do_nothing);
+                        }
                     }
 
                     get_json(person_url, update_person, do_nothing);
