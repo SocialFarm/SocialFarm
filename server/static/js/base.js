@@ -114,6 +114,7 @@ function get_json(url, successcb, failurecb){
 function put_json(url, data, successcb, failurecb){
         if (url in revision_cache && data == revision_cache[url]){
             // trying to put the same object 
+            LOG('trying to put the same object...');
         } else {
         $.ajax({
             url: url,
@@ -135,6 +136,7 @@ function put_json(url, data, successcb, failurecb){
 function post_json(url, data, successcb, failurecb){
     if (url in revision_cache && data == revision_cache[url]){
         // trying to post the same object 
+        LOG('trying to post the same object...');
     } else {
         $.ajax({
         url: url,

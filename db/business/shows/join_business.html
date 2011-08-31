@@ -120,9 +120,10 @@
 
                     //update person in business (bid) db
                     url =  "/api/business/" + bid + "/object/" + get_user().id
-                    LOG('revision_cache[url] : ' + revision_cache[url]);
+                    
                     data = JSON.stringify(member) ;
                     get_json(url, do_nothing, do_nothing);
+                    LOG('revision_cache[url] : ' + revision_cache[url]);
                     put_json(url, data, do_nothing, do_nothing) ;
            
                  } 
