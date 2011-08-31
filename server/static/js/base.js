@@ -97,7 +97,11 @@ function get_json(url, successcb, failurecb){
             url: url,
             type: 'GET',
             dataType: 'json',
-            success: function (response){ revision_cache[url] = response; successcb();},
+            success: function (response){ 
+                LOG('GET response: ' + response);
+                revision_cache[url] = response; 
+                successcb(); 
+            },
             error: failurecb,
             beforeSend: setHeader
         });
@@ -116,7 +120,12 @@ function put_json(url, data, successcb, failurecb){
             type: 'PUT',
             dataType: 'json',
             data : data,
-            success: successcb(),
+            success: function (response){ 
+                LOG('PUT response: ' + response);
+                //should update cache rev
+                //revision_cache[url] = response; 
+                successcb(); 
+            },
             error: failurecb,
             beforeSend: setHeader
         });
@@ -132,7 +141,12 @@ function post_json(url, data, successcb, failurecb){
         type: 'POST',
         dataType: 'json',
         data : data,
-        success: function (response){ revision_cache[url] = data; successcb();},
+        success: function (response){ 
+                LOG('POST response: ' + response);
+                //should update cache rev
+                //revision_cache[url] = response; 
+                successcb(); 
+            },
         error: failurecb,
         beforeSend: setHeader
         });
