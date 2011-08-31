@@ -103,11 +103,13 @@
                      
                     get_json(url, do_nothing, do_nothing);
 
-                    LOG(revision_cache[url]);
-        
-                    revision_cache[url].businesses.push(bid)
+                    person = revision_cache[url]
+                    LOG(person);
+                    person = jQuery.parseJSON(revision_cache[url]);
+                    LOG(person);
+                    person.businesses.push(bid)
 
-                    put_json(url, revision_cache[url], do_nothing);
+                    put_json(url, JSON.stringify(person), do_nothing);
 
                     //update person in business (bid) db
                     url =  "/api/business/" + bid + "/object/" + get_user().id
