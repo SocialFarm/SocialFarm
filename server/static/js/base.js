@@ -98,7 +98,7 @@ function get_json(url, successcb, failurecb){
             type: 'GET',
             dataType: 'json',
             success: function (response){ 
-                LOG('GET response: ' + JSON.stringify(response);
+                LOG('GET response: ' + JSON.stringify(response));
                 revision_cache[url] = response; 
                 successcb(); 
             },
