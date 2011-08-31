@@ -112,7 +112,7 @@
 
                         person.businesses.push(bid)
 
-                        put_json(url, JSON.stringify(person), do_nothing);
+                        put_json(person_url, JSON.stringify(person), do_nothing);
                     }
 
                     get_json(person_url, update_person, do_nothing);
@@ -121,6 +121,7 @@
 
                     //update person in business (bid) db
                     url =  "/api/business/" + bid + "/object/" + get_user().id
+                    LOG('revision_cache[url] : ' + revision_cache[url]);
                     data = JSON.stringify(member) ;
                     put_json(url, data, do_nothing, do_nothing) ;
            
