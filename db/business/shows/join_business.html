@@ -104,13 +104,12 @@
 
                     var update_person = function(person){
 
-                        LOG('revision_cache[url] : ' + revision_cache[person_url]);
+                        //LOG('revision_cache[url] : ' + revision_cache[person_url]);
 
-                        //person = jQuery.parseJSON( revision_cache[person_url] ); 
-
-                        LOG('person : ' + person);
+                        //LOG('person : ' + person);
 
                         person.businesses.push(bid)
+                    
 
                         put_json(person_url, JSON.stringify(person), do_nothing);
                     }
@@ -123,6 +122,7 @@
                     url =  "/api/business/" + bid + "/object/" + get_user().id
                     LOG('revision_cache[url] : ' + revision_cache[url]);
                     data = JSON.stringify(member) ;
+                    get_json(url, do_nothing, do_nothing);
                     put_json(url, data, do_nothing, do_nothing) ;
            
                  } 
