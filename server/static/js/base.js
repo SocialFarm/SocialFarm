@@ -92,7 +92,7 @@ function setHeader(xhr) {
 }
 
 function get_json(url, successcb, failurecb){
-    if (! url in revision_cache) {
+    //if (! url in revision_cache) {
         $.ajax({
             url: url,
             type: 'GET',
@@ -105,10 +105,10 @@ function get_json(url, successcb, failurecb){
             error: failurecb,
             beforeSend: setHeader
         });
-    } else {
+    /*} else {
         LOG('returning cached data...');
         successcb();
-    }   
+    }   */
 }
 
 function put_json(url, data, successcb, failurecb){
