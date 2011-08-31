@@ -178,21 +178,30 @@ function load_my_tasks(){
 
 function add_user_to_socialfarm(){
     if (get_user() != null){
+
         var url = "/api/person/" + get_user().id
+     
+        var failure = function(){
+            var person = Object();
+            person.type = 'person';
+            person.businesses =  Array()
 
-        var person = Object();
-        person.type = 'person';
-        person.businesses =  Array()
+            var data = JSON.stringify(person) ;
 
-        var data = JSON.stringify(person) ;
+            //add person to socialfarm db
+            /*
+            var update_id = function (response){
+                LOG('add user response: ' + response);
+                revision_cache[url].rev = response.rev;
+            };*/
+            put_json(url, data, do_nothing, do_nothing);
+        }
+    
+        var success = function(response){
+            LOG('person is already in the datebase: ' + JSON.stringify(response));
+        }
 
-        //add person to socialfarm db
-
-        var update_id = function (response){
-            LOG('add user response: ' + response);
-            revision_cache[ur].rev = response.rev;
-        };
-        put_json(url, data, do_nothing, do_nothing);
+        get_json(url, success, failure);
     }
   
 }
