@@ -118,7 +118,8 @@ function put_json(url, data, successcb, failurecb){
             data : data,
             success: function (response){ 
                 LOG("put response: "  + JSON.stringify(response));
-                revision_cache[url].rev = data.rev; 
+                resp = jQuery.parseJSON( response );
+                revision_cache[url].rev = resp.rev; 
                 successcb();
             },
             error: failurecb,

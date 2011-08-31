@@ -108,6 +108,7 @@
                         dataType: 'json',
                         success: function (response){ 
                             response.businesses.push(bid)
+                            LOG('response: ' + response);
                             data = JSON.stringify(response) ;
                             put_json(url, data, do_nothing, do_nothing)
                         },
