@@ -102,11 +102,11 @@
                     person_url = "/api/person/" + get_user().id ;
 
 
-                    var update_person = function(){
+                    var update_person = function(person){
 
                         LOG('revision_cache[url] : ' + revision_cache[url]);
 
-                        person = jQuery.parseJSON( revision_cache[url] ); 
+                        //person = jQuery.parseJSON( revision_cache[url] ); 
 
                         LOG('person : ' + person);
 
@@ -114,6 +114,7 @@
 
                         put_json(url, JSON.stringify(person), do_nothing);
                     }
+
                     get_json(person_url, update_person, do_nothing);
 
                    

@@ -100,7 +100,7 @@ function get_json(url, successcb, failurecb){
             success: function (response){ 
                 LOG('GET response: ' + JSON.stringify(response));
                 revision_cache[url] = JSON.stringify(response); 
-                successcb(); 
+                successcb(person); 
             },
             error: failurecb,
             beforeSend: setHeader
