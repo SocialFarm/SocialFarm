@@ -100,15 +100,21 @@
                     var data;
                     //update person in business (bid) db
                     person_url = "/api/person/" + get_user().id ;
-                    get_json(person_url, do_nothing, do_nothing);
 
-                    person = revision_cache[url]
-                    LOG(person);
-                    person = jQuery.parseJSON(revision_cache[url]);
-                    LOG(person);
-                    person.businesses.push(bid)
 
-                    put_json(url, JSON.stringify(person), do_nothing);
+                    var update_person = function(){
+
+                        person = revision_cache[url]
+                        LOG(person);
+                        person = jQuery.parseJSON(revision_cache[url]);
+                        LOG(person);
+                        person.businesses.push(bid)
+
+                        put_json(url, JSON.stringify(person), do_nothing);
+                    }
+                    get_json(person_url, update_person, do_nothing);
+
+                   
 
                     //update person in business (bid) db
                     url =  "/api/business/" + bid + "/object/" + get_user().id

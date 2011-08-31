@@ -98,7 +98,7 @@ function get_json(url, successcb, failurecb){
             type: 'GET',
             dataType: 'json',
             success: function (response){ 
-                LOG('GET response: ' + response);
+                LOG('GET response: ' + JSON.stringify(response);
                 revision_cache[url] = response; 
                 successcb(); 
             },
@@ -121,7 +121,7 @@ function put_json(url, data, successcb, failurecb){
             dataType: 'json',
             data : data,
             success: function (response){ 
-                LOG('PUT response: ' + response);
+                LOG('PUT response: ' + JSON.stringify(response));
                 //should update cache rev
                 //revision_cache[url] = response; 
                 successcb(); 
@@ -142,7 +142,7 @@ function post_json(url, data, successcb, failurecb){
         dataType: 'json',
         data : data,
         success: function (response){ 
-                LOG('POST response: ' + response);
+                LOG('POST response: ' + JSON.stringify(response));
                 //should update cache rev
                 //revision_cache[url] = response; 
                 successcb(); 
