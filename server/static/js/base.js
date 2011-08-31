@@ -179,8 +179,8 @@ function load_my_tasks(){
 function add_user_to_socialfarm(){
     if (get_user() != null){
 
-        var url = "/api/person/" + get_user().id
-     
+        var url = "/api/person/" + get_user().id ;
+
         var failure = function(){
             var person = Object();
             person.type = 'person';
