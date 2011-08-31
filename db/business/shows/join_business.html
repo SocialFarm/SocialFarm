@@ -108,7 +108,7 @@
 
                         //LOG('person : ' + person);
                         if (! $.inArray(bid, person.businesses)){
-                            person.businesses.push(bid){
+                            person.businesses.push(bid);
                             put_json(person_url, JSON.stringify(person), do_nothing);
                         }
                     }
