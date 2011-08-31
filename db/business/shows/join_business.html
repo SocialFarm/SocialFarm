@@ -106,8 +106,6 @@
 
                         person = revision_cache[url]
                         LOG(person);
-                        person = jQuery.parseJSON(revision_cache[url]);
-                        LOG(person);
                         person.businesses.push(bid)
 
                         put_json(url, JSON.stringify(person), do_nothing);
