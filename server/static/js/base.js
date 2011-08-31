@@ -118,7 +118,7 @@ function put_json(url, data, successcb, failurecb){
             data : data,
             success: function (response){ 
                 LOG("put response: "  + JSON.stringify(response));
-                revision_cache[url] = data; 
+                revision_cache[url].rev = data.rev; 
                 successcb();
             },
             error: failurecb,
@@ -175,6 +175,11 @@ function add_user_to_socialfarm(){
         var data = JSON.stringify(person) ;
 
         //add person to socialfarm db
+
+        var update_id = function (response){
+            LOG('add user response: ' + response);
+            revision_cache[ur].rev = response.rev;
+        };
         put_json(url, data, do_nothing, do_nothing);
     }
   
