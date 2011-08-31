@@ -107,7 +107,7 @@
                         //LOG('revision_cache[url] : ' + revision_cache[person_url]);
 
                         //LOG('person : ' + person);
-                        if (! bid in person.businesses)
+                        if (! $.inArray(bid, person.businesses)){
                             person.businesses.push(bid){
                             put_json(person_url, JSON.stringify(person), do_nothing);
                         }
