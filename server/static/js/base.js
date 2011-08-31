@@ -92,6 +92,7 @@ function setHeader(xhr) {
 }
 
 function get_json(url, successcb, failurecb){
+    //caching not working >:(
     //if (! url in revision_cache) {
         $.ajax({
             url: url,
