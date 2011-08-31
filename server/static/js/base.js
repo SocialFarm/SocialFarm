@@ -117,7 +117,7 @@ function put_json(url, data, successcb, failurecb){
             dataType: 'json',
             data : data,
             success: function (response){ 
-                LOG("put response: "  + response);
+                LOG("put response: "  + JSON.stringify(response));
                 revision_cache[url] = data; 
                 successcb();
             },
