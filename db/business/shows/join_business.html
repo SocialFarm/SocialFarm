@@ -100,8 +100,7 @@
                     var data;
                     //update person in business (bid) db
                     person_url = "/api/person/" + get_user().id ;
-                     
-                    get_json(url, do_nothing, do_nothing);
+                    get_json(person_url, do_nothing, do_nothing);
 
                     person = revision_cache[url]
                     LOG(person);
