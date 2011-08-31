@@ -104,8 +104,12 @@
 
                     var update_person = function(){
 
-                        person = revision_cache[url]
-                        LOG(person);
+                        LOG('revision_cache[url] : ' + revision_cache[url]);
+
+                        person = jQuery.parseJSON( revision_cache[url] ); 
+
+                        LOG('person : ' + person);
+
                         person.businesses.push(bid)
 
                         put_json(url, JSON.stringify(person), do_nothing);
