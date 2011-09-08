@@ -60,7 +60,8 @@ function sf_login(){
 		FB.login(function(response) {
 			if (response.authResponse) {
 		  		get_facebook_user();
-                user.AccessToken = response.authResponse.accessToken;	 
+                LOG('AUTH TOKEN: ' + response.authResponse.accessToken);
+                user.AccessToken = response.authResponse.accessToken;	
 			} else {
 			//user cancelled login or did not grant authorization
 			}
@@ -87,17 +88,19 @@ window.fbAsyncInit = function() {
 		xfbml: false,
 		oauth: true});
 
-  function updateButton(response) {
-	
-    if (response.authResponse) {
-      //user is already logged in and connected
-      get_facebook_user();
-      set_logout_button();
-    } else {
-      //user is not connected to your app or logged out
-      set_login_button();
+    function updateButton(response) {
+
+        if (response.authResponse) {
+            //user is already logged in and connected
+            get_facebook_user();
+            LOG('AUTH TOKEN: ' + response.authResponse.accessToken);
+            user.AccessToken = response.authResponse.accessToken;	
+            set_logout_button();
+        } else {
+            //user is not connected to your app or logged out
+            set_login_button();
+        }
     }
-  }
 
   // run once with current status and whenever the status changes
   FB.getLoginStatus(updateButton);
