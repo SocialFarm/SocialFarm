@@ -20,7 +20,6 @@ function set_logout_button(){
 }
 
 function render_header(){
-    add_user_to_socialfarm();
     var html = 	'<li id = "info" >' + 
              	'<img src="https://graph.facebook.com/' + get_user().id + '/picture" alt="' + get_user().id + '">' + 
                	'<span class="user_name">' + get_user().name + '</span>' + 
@@ -44,6 +43,7 @@ function get_facebook_user(){
         if(typeof AfterFacebookIsLoaded == 'function') {
 
             render_header();
+            add_user_to_socialfarm();
 
             AfterFacebookIsLoaded();
             
@@ -60,7 +60,7 @@ function sf_login(){
 		FB.login(function(response) {
 			if (response.authResponse) {
 		  		get_facebook_user();
-                set_user_access_token(response.authResponse.accessToken);	 
+                user.AccessToken = response.authResponse.accessToken;	 
 			} else {
 			//user cancelled login or did not grant authorization
 			}

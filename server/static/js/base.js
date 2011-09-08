@@ -24,14 +24,6 @@ function set_user(val) {
     user = val; 
 } 
 
-function set_user_access_token(token) { 
-    if (user != null){
-        user.AccessToken = token; 
-    } else {
-        sf_login();
-    }
-} 
-
 function warn(msg){ 
     $('#alert_content').text(msg);
     $('#alert').show();
