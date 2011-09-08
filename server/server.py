@@ -48,7 +48,7 @@ def authenticate(request):
     if 'AccessToken' in request.headers.keys():
         print "Access Token: ", request.headers['AccessToken']
     else:
-        print "Warning! No Access Token provided!"
+        print "Warning! No Access Token provided for ", request.path
 
 def serve_static(request):
     path_to_file = os.path.join(SITE_ROOT, request.path[1:])
