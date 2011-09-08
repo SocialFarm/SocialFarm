@@ -21,4 +21,7 @@ user experience views
          view : workflow, tasks, persons 
          edit/delete : workflow, tasks, persons 
 
-      
+
+template mapper has trouble with these two, my guess is that it is related to the face they are the same minus the /{mid}:
+'api.business.tasks'                : templatemapper('/api/business/{bid}/tasks' ,                          '/{bid}/_design/info/_view/all_tasks'), 
+'api.business.tasks'                : templatemapper('/api/business/{bid}/tasks/{mid}',                     '/{bid}/_design/info/_view/all_tasks

@@ -36,6 +36,7 @@ var Potato = function() {
 		    var content = html[show];
 	
 		    nav = Object();
+            nav[doc.type] = 'active';
 
             //set bid for ease of use
             if (doc.type == 'business'){
@@ -47,7 +48,7 @@ var Potato = function() {
             }
             
 
-            mustachify_obj(doc);
+            mustachify_obj(doc);   
     
             /*
             if (show == 'my_businesses' || show == 'my_tasks'){
@@ -59,9 +60,7 @@ var Potato = function() {
                 doc.businesses = businesses
             }
 
-           
-
-		    nav[doc.type] = 'active';
+		    ;
 
             if (doc._attachments){
                 var docs = Array();
@@ -104,6 +103,7 @@ var Potato = function() {
 
 		    //no business nav so nav is empty for now
         	nav = Object();
+            nav.bid = path[0];
 		    nav.user_navigation = Mustache.to_html(html.common.user_navigation, nav);
 
 		    header = Mustache.to_html(html.common.header, nav);		
@@ -111,6 +111,7 @@ var Potato = function() {
 
 		    html_rows = String() ; 
 		    while( (row = getRow()) ) { 
+                row.bid = path[0];
 		        html_rows += Mustache.to_html( content_row, row.value );
 		    }
             
