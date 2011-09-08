@@ -32,9 +32,10 @@ function render_header(){
     $('#user_navigation ul').prepend('<li id = "my_businesses" ><a class="fbtab" href="/my_businesses/' + get_user().id + '">My Businesses</a></li>');
 }
 
-function get_facebook_user(){
-	FB.api('/me', function(response) {
-		set_user(response);
+function get_facebook_user(response){
+	FB.api('/me', function(data) {
+		set_user(data);
+        set_auth_token(response);
 
         /*  this allows for clientside code which is only called when the user is logged in
             simply define the function in a script tag, and call other functions from it
@@ -54,14 +55,18 @@ function get_facebook_user(){
 	});	
 }
 
+function set_auth_token(response){
+    LOG('AUTH TOKEN: ' + response.authResponse.accessToken);
+    user.AccessToken = response.authResponse.accessToken;	
+}
+
 function sf_login(){
     LOG('sf_login');
 	if (get_user() == null) {
 		FB.login(function(response) {
 			if (response.authResponse) {
-		  		get_facebook_user();
-                LOG('AUTH TOKEN: ' + response.authResponse.accessToken);
-                user.AccessToken = response.authResponse.accessToken;	
+		  		get_facebook_user(response);
+              
 			} else {
 			//user cancelled login or did not grant authorization
 			}
@@ -92,9 +97,7 @@ window.fbAsyncInit = function() {
 
         if (response.authResponse) {
             //user is already logged in and connected
-            get_facebook_user();
-            LOG('AUTH TOKEN: ' + response.authResponse.accessToken);
-            user.AccessToken = response.authResponse.accessToken;	
+            get_facebook_user(response);
             set_logout_button();
         } else {
             //user is not connected to your app or logged out
