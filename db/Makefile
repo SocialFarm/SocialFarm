@@ -65,13 +65,11 @@ install_info :
 	$(UPDATE_INFO) 		shows.activity 				        info/shows/activity.js
 	$(UPDATE_INFO) 		shows.job 					        info/shows/job.js
 	$(UPDATE_INFO) 		shows.task					        info/shows/task.js
-	$(UPDATE_INFO) 		shows.edit_task 			        info/shows/edit_task.js
 
 	$(UPDATE_INFO) 		html.member 				        info/shows/member.html  
 	$(UPDATE_INFO) 		html.activity 				        info/shows/activity.html  
 	$(UPDATE_INFO) 		html.job 					        info/shows/job.html  
 	$(UPDATE_INFO) 		html.task	 				        info/shows/task.html  
-	$(UPDATE_INFO) 		html.edit_tasks 			        info/shows/edit_task.html
 
 	#lists
 	$(UPDATE_INFO) 		lists.members 		                info/lists/members.js

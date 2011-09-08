@@ -42,20 +42,26 @@
 							</textarea>
 						</li>
 					{{/data_items}}
-						<li>
-							<button id="save">Save</button>
-							<button id="forward">Forward</button>
-						</li>
 				</ul>
 		</fieldset>
+        <fieldset id="attachments">
+            <legend>Attachments</legend>
+                <ul>
+                    {{#_attachments}} 
+                    <li><a href="/api/business/{{bid}}/object/{{_id}}}/attachment/{{key}}">{{key}}</a></li>
+                    {{/_attachments}} 
+                </ul>
+        </fieldset>
+        <fieldset id="actions">
+            <legend>Actions</legend>
+                <ul>
+                    <li>
+                        <button id="save">Save</button>
+                        <button id="forward">Forward</button>
+                    </li>
+                </ul>
+        </fieldset>
 	</form>
-	<div id = "_attachments" > 
-		<ul>
-			{{#_attachments}} 
-				<li><a href="/api/business/{{bid}}/object/{{_id}}}/attachment/{{name}}">{{name}}</a></li>
-			{{/_attachments}} 
-		</ul>
-	</div> 
 	<script type="text/javascript">
 		function SFOnLoad(){
 			$('#save').click(function(){save_task();});
