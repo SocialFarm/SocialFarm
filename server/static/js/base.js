@@ -92,7 +92,7 @@ function render_member_info(){
 
 function setHeader(xhr) {
     if (user != null){
-        xhr.setRequestHeader('AccessToken', user.accessToken);
+        xhr.setRequestHeader('AccessToken', user.AccessToken);
     }
 }
 
@@ -196,7 +196,7 @@ function add_user_to_socialfarm(){
             var data = JSON.stringify(person) ;
 
             //add person to socialfarm db
-            /*
+            /* code snippet for caching, which is currently disabled
             var update_id = function (response){
                 LOG('add user response: ' + response);
                 revision_cache[url].rev = response.rev;
