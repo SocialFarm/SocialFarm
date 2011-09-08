@@ -45,6 +45,7 @@ function build_readonly_li(label, for_attr, name_attr, type_attr, value_attr){
            '</li>';
 }
 
+
 function build_task_json(){
 	var task = Object(); 
 	var data_items = Object(); 
@@ -83,6 +84,18 @@ function forward_task(){
 	task.state = 'finished';
 	var data = JSON.stringify(task);
 	post_json(url, data, null, null);
+}
+
+//this function is called once after facebook user is logged in
+function AfterFacebookIsLoaded() {
+    render_member_info();
+}
+
+function render_member_info(){
+    $('.member_info ul').prepend(
+        build_readonly_li('Member ID' , '_id','_id', 'text', get_user().id) + 
+        build_readonly_li('Name' , 'name', 'name', 'text', get_user().name)
+    );
 }
 
 function setHeader(xhr) {

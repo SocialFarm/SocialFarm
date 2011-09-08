@@ -49,18 +49,6 @@
  
     <script type="text/javascript">
 
-        //this function is called once after facebook user is logged in
-        function AfterFacebookIsLoaded() {
-            render_member_info();
-        }
-        
-        function render_member_info(){
-            $('.member_info ul').prepend(
-                build_readonly_li('Member ID' , '_id','_id', 'text', get_user().id) + 
-                build_readonly_li('Name' , 'name', 'name', 'text', get_user().name)
-            );
-        }
-
         $(document).ready(function() {
             $("#join_business").click(function(){
                 
@@ -129,9 +117,6 @@
                         warn("You are already a member of this business!");
                     }
                     get_json(url, success, failure);
-                    
-                    
-           
                  } 
             });
         });
