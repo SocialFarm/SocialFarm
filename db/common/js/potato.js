@@ -47,37 +47,15 @@ var Potato = function() {
                 doc.bid = path[0];
             }
             
-
             mustachify_obj(doc);   
     
-            /*
-            if (show == 'my_businesses' || show == 'my_tasks'){
-                var businesses = Array()
-                for (b in doc.businesses){
-                    businesses.push({"name": doc.businesses[b]});
-                }
-
-                doc.businesses = businesses
-            }
-
-		    ;
-
-            if (doc._attachments){
-                var docs = Array();
-                for (a in doc._attachments){
-                    docs.push({"name":a});
-                }
-                doc._attachments = docs;
-            }
-
-            if (doc.data_items){
-                
-                doc.data_items = json_to_key_value(doc.data_items);
-            }*/
-
 		    head = Object();
 		    head.user_navigation = Mustache.to_html(html.common.user_navigation, nav);
 		    head.business_navigation = Mustache.to_html(html.common.business_navigation, nav);
+        
+            if (show == 'my_businesses' || show == 'my_tasks'){
+                head.business_navigation = null;
+            }
 
 		    header = Mustache.to_html(html.common.header, head);		
 
@@ -111,7 +89,7 @@ var Potato = function() {
 
 		    html_rows = String() ; 
 		    while( (row = getRow()) ) { 
-                row.bid = path[0];
+                row.value.bid = path[0];
 		        html_rows += Mustache.to_html( content_row, row.value );
 		    }
             
