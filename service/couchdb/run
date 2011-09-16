@@ -1,0 +1,6 @@
+#!/bin/bash 
+
+# couchdb needs home to be set to run 
+export HOME=/tmp/
+exec /usr/local/src/build-couchdb/build/bin/couchdb 2>&1 >>couchdb.log 
+
