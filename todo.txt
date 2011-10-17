@@ -1,4 +1,27 @@
 
+
+2011/10/17
+
+Notes from Shelly Fraley meeting
+
+1.  How does the social farm design / user experience mesh with facebook's 
+design and user experience. What are facebook app users expecting from our 
+app.
+
+2. Find and example app.
+
+
+3. Send invite and change dns of social farm.org
+
+4. News page design / idea (also needed for talk) 
+
+
+
+
+
+
+
+
 security check 
 
 attachments 
