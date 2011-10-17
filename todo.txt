@@ -1,9 +1,12 @@
 
+Public source release: 
+---------------------------------
+Developer introduction document
 
-2011/10/17
 
 Notes from Shelly Fraley meeting
-
+2011/10/17
+-------------------------------------
 1.  How does the social farm design / user experience mesh with facebook's 
 design and user experience. What are facebook app users expecting from our 
 app.
