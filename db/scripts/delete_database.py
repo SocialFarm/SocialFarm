@@ -2,8 +2,7 @@
 
 # clear couchdb for make 
 
-import sys 
-import getopt
+import os, sys, getopt
 from pprint import pprint 
 from couchdb.client import Database, Server 
 
@@ -23,8 +22,6 @@ if __name__ == "__main__":
         print str(err) 
         _usage()
 
-    username = 'socialfarm'
-    password = 'success' 
     url = 'http://localhost:5984/'
     for o, a in opts:
         if o in ("--login" , "-l") :
@@ -34,6 +31,13 @@ if __name__ == "__main__":
         if o in ("--help" , "-h" ) :
             _usage() 
     
+    if 'SF_CRED' in os.environ.keys():
+        username = os.environ['SF_USERNAME']
+        password = os.environ['SF_PASSWORD']
+    else:
+        if username == None or password == None:
+            raise Exception("Invalid CREDENTIALS!")
+
 
     server = Server(url)
     if username: 
@@ -43,6 +47,5 @@ if __name__ == "__main__":
         del server[args[0]]
   
  
-
 
 

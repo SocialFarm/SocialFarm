@@ -1,8 +1,6 @@
-Setting up socialfarm.org and http://apps.facebook.com/social_farm/
 
-#########################
 
-There are 2 parts to socialfarm.org:
+There are 2 parts to setting up socialfarm.org and http://apps.facebook.com/social_farm/ :
 
 1. SocialFarm Server 
    This python web server is available at socialfarm/server/server.py.  
@@ -71,11 +69,11 @@ Development and Debugging Reminders:
 -----------------------------------
 
 If you are editing documents which are stored in CouchDB you must remake the db to 
-view changes. port forwarding is handy here, as you can make local edits and then 
+view changes. Port forwarding is handy here, as you can make local edits and then 
 simply remake the db to see the changes in production.
 
 If you are editing anything in the server directory you must make sure the ec2 machine 
-is up to date, I usually commit local changes and then 'svn up' on the ec2 machine, 
+is up to date, I usually commit local changes and then update the local repository on the ec2 machine, 
 but this is not the only (or best) way.
 
 [todo ?] : we can possibly write a small rsync script to sycnhronize the server code with 

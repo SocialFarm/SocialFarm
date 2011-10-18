@@ -1,4 +1,15 @@
-CREDENTIALS 	= socialfarm:success
+
+if test "$(SF_USERNAME)" = ""; then \
+    echo "SF_USERNAME is undefined"; \
+    exit 1; \
+fi
+
+if test "$(SF_PASSWORD)" = ""; then \
+    echo "SF_PASSWORD is undefined"; \
+    exit 1; \
+fi
+
+CREDENTIALS 	= $SF_USERNAME:$SF_PASSWORD
 
 UPDATE_BUSINESS = ./scripts/update_field.py socialfarm                    _design/business
 UPDATE_INFO 	= ./scripts/update_field.py socialfarm_business_template  _design/info
@@ -106,6 +117,5 @@ clean:
 
 
 install_social_news: 
-	./scripts/SocialFarmHelper.py socialfarm success
-	./scripts/SocialNews.py socialfarm success
-
+	./scripts/SocialFarmHelper.py $(SF_USERNAME) $(SF_PASSWORD)
+	./scripts/SocialNews.py $(SF_USERNAME) $(SF_PASSWORD)
