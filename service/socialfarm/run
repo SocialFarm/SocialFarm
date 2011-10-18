@@ -1,4 +1,4 @@
 #!/bin/bash 
 
-exec /usr/bin/python /root/socialfarm/server/server.py 2>&1 >>server.log 
+exec /usr/bin/python /root/SocialFarm/server/server.py 2>&1 >>server.log 
 
