@@ -83,6 +83,7 @@ var Potato = function() {
         	nav = Object();
             nav.bid = path[0];
 		    nav.user_navigation = Mustache.to_html(html.common.user_navigation, nav);
+ 			nav.business_navigation = Mustache.to_html(html.common.business_navigation, nav);
 
 		    header = Mustache.to_html(html.common.header, nav);		
 		    start({"headers": {"Content-Type": "text/html"}});
