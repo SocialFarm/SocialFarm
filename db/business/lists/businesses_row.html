@@ -7,6 +7,11 @@
         <li class = "description" > Description : {{description}} </li> 
         <li class = "list_of_partners" > List of Partners : {{list_of_partners}} </li> 
         <li class = "started_since" > Started Since : {{started_since}} </li> 
+		<li class = "activity_skills" > Activity Skills :
+		{{#activity_skills}}
+			<a href="/business/{{bid}}/activity/{{key}}">{{key}}</a>,&nbsp
+		{{/activity_skills}}
+ 		</li> 
         <li class = "total_profit" > Total Profit : {{total_profit}} </li> 
     </ul>
     

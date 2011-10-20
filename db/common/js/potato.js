@@ -46,8 +46,20 @@ var Potato = function() {
                 nav.bid = path[0];
                 doc.bid = path[0];
             }
+
+			if (doc.started_since != null){
+				var date = new Date();
+				date.setTime(doc.started_since*1000);
+				doc.started_since = date.toUTCString();
+			}
+			if (doc.working_since != null){
+				var date = new Date();
+				date.setTime(doc.working_since*1000);
+				doc.working_since = date.toUTCString();
+			}
             
-            mustachify_obj(doc);   
+            mustachify_obj(doc); 
+			  
     
 		    head = Object();
 		    head.user_navigation = Mustache.to_html(html.common.user_navigation, nav);
@@ -85,12 +97,32 @@ var Potato = function() {
 		    nav.user_navigation = Mustache.to_html(html.common.user_navigation, nav);
  			nav.business_navigation = Mustache.to_html(html.common.business_navigation, nav);
 
+			if (nav.bid == 'socialfarm'){
+                nav.business_navigation = null;
+            }
+
 		    header = Mustache.to_html(html.common.header, nav);		
 		    start({"headers": {"Content-Type": "text/html"}});
 
 		    html_rows = String() ; 
 		    while( (row = getRow()) ) { 
                 row.value.bid = path[0];
+				if (row.value.started_since != null){
+					var date = new Date();
+					date.setTime(row.value.started_since*1000);
+					row.value.started_since = date.toUTCString();
+				}
+				if (row.value.working_since != null){
+					var date = new Date();
+					date.setTime(row.value.working_since*1000);
+					row.value.working_since = date.toUTCString();
+				}
+				if (row.value.activity_skills != null){
+					row.value.activity_skills = json_to_key_value(row.value.activity_skills);
+				}
+				if (row.value.data_items != null){
+					row.value.data_items = json_to_key_value(row.value.data_items);
+				}
 		        html_rows += Mustache.to_html( content_row, row.value );
 		    }
             
