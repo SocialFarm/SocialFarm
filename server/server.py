@@ -81,7 +81,7 @@ def server_error(request, path):
     request.write_response(response, content)
 
 def serve_favicon(request):
-    path_to_file = os.path.join(SITE_ROOT, request.path[1:])
+    path_to_file = os.path.join(SITE_ROOT, "static/images/favicon.ico")
     content = open(path_to_file, 'r').read()
     response = { 'status': '200', 'content-type': 'image/x-icon' }
     response['content-length'] = str(len(content))
