@@ -7,6 +7,8 @@ play with applet
 
 get a proper bug/feature list going, possibly on github...
 
+design of social farm is available
+
 ----------------------------------
 
 app : 
