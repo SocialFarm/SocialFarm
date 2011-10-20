@@ -80,6 +80,12 @@ def server_error(request, path):
     response['content-length'] = str(len(content))
     request.write_response(response, content)
 
+def serve_favicon(request):
+    content = open("static/images/favicon.ico", 'r').read()
+    response = { 'status': '200', 'content-type': 'image/x-icon' }
+    response['content-length'] = str(len(content))
+    request.write_response(response, content)
+
 def debug(msg):
     if DEBUG:
         print "DEBUG: %s" % msg
@@ -89,7 +95,9 @@ class Adapter(BaseHTTPRequestHandler) :
      
     def do_GET(self):
         try:
-            if self.path.split('/')[1] == 'static':
+            if self.path == '/favicon.ico':
+                serve_favicon(self)
+            elif self.path.split('/')[1] == 'static':
                 serve_static(self)
             else:
                 authenticate(self)
