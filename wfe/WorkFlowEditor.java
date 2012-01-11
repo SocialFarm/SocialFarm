@@ -98,17 +98,17 @@ public class WorkFlowEditor extends JApplet
    private JMenuItem aboutMenuItem; 
 
 
-	public void init()
-	{
-		setName(appname);
+   public void init()
+   {
+      setName(appname);
 
       graph.setResetViewOnRootChange(false);
 
       graphComponent.setToolTips(true); 
 
-		parent = graph.getDefaultParent();
+      parent = graph.getDefaultParent();
 
-		getContentPane().add(graphComponent);
+      getContentPane().add(graphComponent);
 
       graphComponent.getGraphControl().addMouseListener( 
          new MouseAdapter() {
@@ -122,7 +122,7 @@ public class WorkFlowEditor extends JApplet
             }
          } ) ; 
 
-
+      System.out.println( "Initializing menus" ) ; 
           // file menu 
       fileMenu.setMnemonic(KeyEvent.VK_F);
       fileMenu.getAccessibleContext().setAccessibleDescription("Menu handling save/restore/export of Workflows");
@@ -219,7 +219,7 @@ public class WorkFlowEditor extends JApplet
       menuBar.add(helpMenu);
       
       setJMenuBar(menuBar);
-	}
+   }
 
 
 
@@ -234,6 +234,7 @@ public class WorkFlowEditor extends JApplet
    private void doOrganicGraphLayout() { 
       mxOrganicLayout layout = new mxOrganicLayout(graph);
       layout.setNodeDistributionCostFactor(layout.getNodeDistributionCostFactor() * 15);
+      System.out.println( "parent = " + parent ) ; 
       layout.execute(parent) ;
    }
 
@@ -396,7 +397,7 @@ public class WorkFlowEditor extends JApplet
 
 
 
-	public static void main(String[] args)	{
+   public static void main(String[] args){
       JFrame frame = new JFrame("Work Flow Applet Demo");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       frame.setSize(900, 600) ;
@@ -406,6 +407,6 @@ public class WorkFlowEditor extends JApplet
       wfe.setSize(frame.getSize());
       wfe.init() ; 
       frame.setVisible(true);  
-	}
+   }
 
 }

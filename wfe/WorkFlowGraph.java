@@ -25,11 +25,13 @@ public class WorkFlowGraph extends mxGraph
    { 
       wfe = editor ;
       allowDanglingEdges = false; 
+      setHtmlLabels(true) ; 
       stylesheet = getStylesheet() ; 
       Map<String,Object> style = stylesheet.getDefaultVertexStyle() ; 
       style.put(mxConstants.STYLE_ROUNDED, true ) ;
       style.put(mxConstants.STYLE_FONTCOLOR, "#ff4400");
       stylesheet.setDefaultVertexStyle(style) ;
+      setAutoSizeCells(true);
            // TODO , key board events 
            // http://forum.jgraph.com/questions/986/how-to-start-a-chain-reaction-that-deletes-not-only-the-cell-the-user-wants-to-delete-but-all-the-cells-that-cell-is-pointing-to-as-well-and-the-cells-those-are-pointing-toand-so-on?page=1#1124 
    }
@@ -47,8 +49,16 @@ public class WorkFlowGraph extends mxGraph
    public String convertValueToString(Object _cell) {
       if (_cell instanceof mxCell ) {  
          mxCell cell = (mxCell ) _cell ; 
-         if ( cell.isVertex() && cell.getValue() instanceof Activity ) 
-            return ((Activity) cell.getValue()).getName() ; 
+         if ( cell.isVertex() && cell.getValue() instanceof Activity ){
+            String cellhtml =  ((Activity) cell.getValue()).getHTML() ;
+            Activity act = (Activity) cell.getValue() ; 
+            mxGeometry geo = model.getGeometry(cell);
+            mxRectangle bounds = new mxRectangle (
+               geo.getX() , geo.getY() , act.getWidth(), act.getHeight() 
+               ) ; 
+            super.resizeCell( cell, bounds ) ;
+            return cellhtml;
+         }
       }
       return super.convertValueToString(_cell);
    }
@@ -62,8 +72,10 @@ public class WorkFlowGraph extends mxGraph
                                           "Empty activity name not allowed",
                                           "Error",
                                           JOptionPane.ERROR_MESSAGE);
-         else
-            ((Activity) cell).setName(newValue.toString()) ;
+         else {
+            System.out.println( "added bold"  ) ;   // todo : check why it doesnt reach here
+            ((Activity) cell).setName("<h1>" + newValue.toString() + "</h1>") ;
+         }
       } 
       else
          super.cellLabelChanged(cell, newValue, autoSize);
@@ -101,7 +113,10 @@ public class WorkFlowGraph extends mxGraph
    {
       if( isDuplicateVertex( value.getName() ) ) 
          return error( "vertex " +  value.getName() + " already exists" ) ; 
-      return (mxCell) super.insertVertex(parent, id, value, x, y, width, height) ;
+      mxCell added = (mxCell) super.insertVertex(parent, id, value, x, y, width, height) ;
+      //JOptionPane.showMessageDialog(wfe, "about to change cell size ");
+      //super.updateCellSize(added);
+      return added; 
    }
    
 

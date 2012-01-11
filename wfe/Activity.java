@@ -33,6 +33,7 @@ import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxUtils;
 import com.mxgraph.view.mxGraph;
 
+import java.io.* ;
 
 
 
@@ -50,14 +51,79 @@ public class Activity extends mxCell implements Serializable
 
    private Set<String> permissions = new HashSet<String> () ; 
 
-	public Activity(String name)
-	{
+   final int MIN_HEIGHT = 3; 
+   
+   final int MIN_WIDTH = 9; 
+
+   int height = MIN_HEIGHT ;  
+   
+   int width = MIN_WIDTH; 
+
+   public int getWidth() { 
+           //System.out.println( "width is " + width ) ; 
+      return 8 * width + 4; 
+   }
+
+   public int getHeight() { 
+           //System.out.println( "height is " + height ) ; 
+      return 13 * height + 4; 
+   }
+
+   public Activity(String name)
+   {
       super(name); 
       setName(name) ; 
    }
 
+   
+   public String getHTMLListFragment(String nameoflist, Set<String> list) { 
+      if( list.size() == 0 ) 
+         return "" ; 
+
+      StringBuffer b = new StringBuffer() ;
+      b.append( "<P align=\"left\"><I>");
+      b.append( nameoflist ) ; 
+      b.append( ":</I><BR></P>" ) ; 
+      height++ ;
+
+      for( String attr : list ) { 
+         b.append( attr ) ; 
+         b.append( "<BR>" ) ;
+         width = Math.max( width, attr.length() ) ;
+         height++ ; 
+      }
+
+      return b.toString() ; 
+   }
+      
+
+   public String getHTML( ) { 
+           // calculate height and width in number of chars for 
+           // resize 
+      height = MIN_HEIGHT ;     
+      width = MIN_WIDTH; 
+
+           // html code for formatted task info
+      StringBuffer b = new StringBuffer( ) ; 
+      b.append( "<P><B>" ) ; 
+      b.append( name ) ; 
+      width = Math.max( width, name.length() ) ; 
+      b.append( "</B></P><HR width=100%>" ) ; 
+      height ++ ; 
+
+      b.append( getHTMLListFragment( "Data" , attributes ) ) ; 
+      b.append( getHTMLListFragment( "Skills" , skills ) ) ; 
+      b.append( getHTMLListFragment( "Permissions" , permissions ) ) ;         
+           //System.out.println( "Got the string:" + b.toString() ) ;
+           //System.out.println( "Got dimensions : " + width + " , " + height ) ; 
+      return b.toString() ; 
+   }
+
+
+
+
    public String getName() { 
-      return name; 
+      return name;
    } 
 
    public void setName(String _name) { 
@@ -122,15 +188,6 @@ public class Activity extends mxCell implements Serializable
             Activity.this.attributes = attributes ; 
             Activity.this.skills = skills ; 
             Activity.this.permissions = permissions ; 
-                 /* 
-            for( String attr : attributes ) 
-               if( ! Activity.this.attributes.contains(attr) ) 
-                  addAttribute(attr); 
-            for( String s : skills ) 
-               Activity.this.skills.add( s ) ; 
-            for( String s : permissions ) 
-               Activity.this.permissions.add( s ) ;             
-                 */  
                  //System.out.println( "Save clicked" ) ; 
                  
             dispose(); 
@@ -206,6 +263,8 @@ public class Activity extends mxCell implements Serializable
             JLabel label = new JLabel(additem.getText());
             attribspanel.add(label);
             parent.pack(); 
+               // clear text box for next time around
+	    additem.setText(""); 
          }
       }
 
@@ -244,20 +303,12 @@ public class Activity extends mxCell implements Serializable
 
 
 
-
-/* 
-   public void addAttribute(String attrib, Set<String> permitted_roles) {
-      if ( attributes.contains( attrib ) ) 
-         return ; 
-      Element ta =  doc.createElement( "TaskAttibute" ) ;    
-      ta.setAttribute( "AttributeName" , attrib ) ; 
-      attributes.add( attrib ) ; 
-      if ( permitted_roles != null ) {
-         ta.setAttribute( "Permissions" , permitted_roles.toString()  ) ; 
-         accessors.put( attrib, new HashSet<String> (permitted_roles) ) ; 
-      }
-   }
-
- */
-
+// TODO image on vertex : 
 // http://www.jgraph.org/forum/viewtopic.php?f=13&t=4123 
+
+
+// misc 
+      //StringWriter sw = new StringWriter();
+      //new Throwable("").printStackTrace();
+      //System.out.println(  sw.toString() ) ; 
+      //return getHTMLTask() ; 

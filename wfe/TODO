@@ -1,14 +1,39 @@
+
+* Added information; need to resize the vertex to show
+task attributes
+http://forum.jgraph.com/questions/2341/reszie-parent-including-child
+
+
+* Better jdb to test where to make the resize changes - and also
+debug the recursive call issue if any
+http://java.sun.com/developer/onlineTraining/Programming/JDCBook/running.html
+
+
+
+
+* Better information on vertices, eg activity names. 
+looks like use the html option to write out the activity name in bold, 
+have an hr and write fields in smaller font below.  
+the following seems to have a good example: 
+http://forum.jgraph.com/questions/735/how-to-fill-a-vertex-with-a-pattern
+
+
+
    
 
-export to socialfarm 
-	download.java.net/javadesktop/javahelp/jhug.pdf
+* export and import to socialfarm 
 	http://json-lib.sourceforge.net/usage.html
         keep the graph representation in the WorkFlowGraph 
-        by catching actions in the overridden area 
+        by catching actions in the overridden area   ---- what is this? 9/14
 
-help file 
 
-applet 
+
+* help file creation 
+	download.java.net/javadesktop/javahelp/jhug.pdf
+
+
+
+* applet 
 
 
  
