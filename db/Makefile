@@ -1,24 +1,32 @@
+ifneq ($(SF_USERNAME),)
+ifneq ($(SF_PASSWORD),)
+	CREDENTIALS = -l $(SF_USERNAME):$(SF_PASSWORD) 
+endif
+endif
 
-if test "$(SF_USERNAME)" = ""; then \
-    echo "SF_USERNAME is undefined"; \
-    exit 1; \
-fi
 
-if test "$(SF_PASSWORD)" = ""; then \
-    echo "SF_PASSWORD is undefined"; \
-    exit 1; \
-fi
+#####
+## !!! WARNING 
+## notice that expansion of these variables can cause bugs because
+## if terminating space is absent, two args will be combined: eg: 
+## _design/business><html.common.user_navigation 
+#####
 
-CREDENTIALS 	= $SF_USERNAME:$SF_PASSWORD
 
-UPDATE_BUSINESS = ./scripts/update_field.py socialfarm                    _design/business
-UPDATE_INFO 	= ./scripts/update_field.py socialfarm_business_template  _design/info
-UPDATE_SCHED    = ./scripts/update_field.py socialfarm_business_template  _design/scheduler
-UPDATE_VALID    = ./scripts/update_field.py socialfarm_business_template  _design/valid
+UPDATE_BUSINESS = ./scripts/update_field.py $(CREDENTIALS) socialfarm                    _design/business   
+UPDATE_INFO 	= ./scripts/update_field.py $(CREDENTIALS) socialfarm_business_template  _design/info   
+UPDATE_SCHED    = ./scripts/update_field.py $(CREDENTIALS) socialfarm_business_template  _design/scheduler   
+UPDATE_VALID    = ./scripts/update_field.py $(CREDENTIALS) socialfarm_business_template  _design/valid   
+
 
 all : clean install_common install_business install_info install_scheduler install_social_news
+	@echo Done
+
 
 install_common :
+ifeq ($(CREDENTIALS),) 
+	$(error shell variables SF_USERNAME and/or SF_PASSWORD undefined)		
+endif
 	$(UPDATE_INFO)		js.common.mustache 		            common/js/mustache.js 
 	$(UPDATE_INFO)		js.common.potato 	                common/js/potato.js 
 	$(UPDATE_INFO)		html.common.base 		            common/html/base.html
@@ -41,12 +49,11 @@ install_common :
 	$(UPDATE_BUSINESS) 	html.common.footer 		            common/html/footer.html
 
 install_business :
-	#views
+#views
 	$(UPDATE_BUSINESS) 	views.all_businesses.map  	        business/views/all_businesses.js
 	$(UPDATE_BUSINESS) 	views.my_tasks.map  	            business/views/my_businesses.js	
 	$(UPDATE_BUSINESS) 	views.my_businesses.map             business/views/my_businesses.js
-
-	#shows
+#shows
 	$(UPDATE_BUSINESS) 	shows.business 			            business/shows/business.js 
 	$(UPDATE_BUSINESS) 	shows.join_business 	            business/shows/join_business.js
 	$(UPDATE_BUSINESS) 	shows.my_businesses 	            business/shows/my_businesses.js
@@ -56,22 +63,21 @@ install_business :
 	$(UPDATE_BUSINESS) 	html.join_business 		            business/shows/join_business.html 
 	$(UPDATE_BUSINESS) 	html.my_businesses 		            business/shows/my_businesses.html 
 	$(UPDATE_BUSINESS) 	html.my_tasks 			            business/shows/my_tasks.html 
-
-	#lists
+#lists
 	$(UPDATE_BUSINESS) 	lists.businesses 		            business/lists/businesses.js 
 
 	$(UPDATE_BUSINESS) 	html.businesses			            business/lists/businesses.html 
 	$(UPDATE_BUSINESS) 	html.businesses_row 	            business/lists/businesses_row.html 
 
+
 install_info :
-	#views 
+#views 
 	$(UPDATE_INFO) 		views.get_start_action.map 	        info/views/get_start_action.js 
 	$(UPDATE_INFO) 		views.all_members.map 			    info/views/all_members.js
 	$(UPDATE_INFO) 		views.all_activities.map 		    info/views/all_activities.js 
 	$(UPDATE_INFO) 		views.all_jobs.map 				    info/views/all_jobs.js 
 	$(UPDATE_INFO) 		views.all_tasks.map 			    info/views/all_tasks.js
-
-	#shows
+#shows
 	$(UPDATE_INFO) 		shows.member 				        info/shows/member.js
 	$(UPDATE_INFO) 		shows.activity 				        info/shows/activity.js
 	$(UPDATE_INFO) 		shows.job 					        info/shows/job.js
@@ -81,8 +87,7 @@ install_info :
 	$(UPDATE_INFO) 		html.activity 				        info/shows/activity.html  
 	$(UPDATE_INFO) 		html.job 					        info/shows/job.html  
 	$(UPDATE_INFO) 		html.task	 				        info/shows/task.html  
-
-	#lists
+#lists
 	$(UPDATE_INFO) 		lists.members 		                info/lists/members.js
 	$(UPDATE_INFO) 		lists.activities 	                info/lists/activities.js
 	$(UPDATE_INFO) 		lists.jobs 			                info/lists/jobs.js
@@ -99,7 +104,8 @@ install_info :
 
 	$(UPDATE_INFO) 		html.members 		                info/lists/members.html 
 	$(UPDATE_INFO) 		html.members_row 	                info/lists/members_row.html
-	
+
+
 install_scheduler : 
 	$(UPDATE_SCHED)	    views.offer_tasks.map 				scheduler/offer_tasks/map.js
 	$(UPDATE_SCHED)	 	views.offer_tasks.reduce 			scheduler/offer_tasks/reduce.js
@@ -107,13 +113,17 @@ install_scheduler :
 	$(UPDATE_SCHED)	 	views.pending_jobs_tasks.reduce 	scheduler/pending_jobs_tasks/reduce.js
 	$(UPDATE_VALID)	    validate_doc_update 				validate_docs.js
 
+
 clean: 
-	./scripts/delete_database.py testbus
-	./scripts/delete_database.py testbus2
-	./scripts/delete_database.py social_news
-	./scripts/delete_database.py social_plumbing
-	./scripts/delete_database.py socialfarm_business_template
-	./scripts/delete_database.py socialfarm
+ifeq ($(CREDENTIALS),) 
+	$(error shell variables SF_USERNAME and/or SF_PASSWORD undefined)		
+endif
+	./scripts/delete_database.py $(CREDENTIALS) testbus
+	./scripts/delete_database.py $(CREDENTIALS) testbus2
+	./scripts/delete_database.py $(CREDENTIALS) social_news
+	./scripts/delete_database.py $(CREDENTIALS) social_plumbing
+	./scripts/delete_database.py $(CREDENTIALS) socialfarm_business_template
+	./scripts/delete_database.py $(CREDENTIALS) socialfarm
 
 
 install_social_news: 
