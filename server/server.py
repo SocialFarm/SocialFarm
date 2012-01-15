@@ -3,6 +3,18 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
 import httplib2, urllib, json, sys, getopt, os
 
+
+import logging
+logger = logging.getLogger("socialfarmserver")
+logger.setLevel(logging.DEBUG)
+ch = logging.FileHandler("socialfarmserver.log")
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+ch.setFormatter(formatter)
+logger.addHandler(ch)
+
+
+
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 DEBUG = True
 
@@ -96,6 +108,11 @@ class Adapter(BaseHTTPRequestHandler) :
      
     def do_GET(self):
         try:
+            # TODO : 
+            # Instead of using various overrides, it might make sense to have 
+            # path mapping on a specific suburl : eg http://socialfarm.org/server/... 
+            # and let everything else be served from a given static path given 
+            # to the server as a command line argument 
             if self.path == '/favicon.ico':
                 serve_favicon(self)
             elif self.path.split('/')[1] == 'static':
@@ -105,6 +122,8 @@ class Adapter(BaseHTTPRequestHandler) :
                 key = path_to_key(self.path)
                 if key in patterns:
                     url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
+                    print '%s -> %s' % (self.path, url) 
+                    logger.info( '%s -> %s' % (self.path, url) ) 
                     response, content = httplib2.Http().request(url, "GET")
                     self.write_response(response, content)
                 else:
@@ -164,11 +183,18 @@ class Adapter(BaseHTTPRequestHandler) :
         self.end_headers()
         self.wfile.write(content)
 
+
+
+
+
 def _usage() :
     print 'Usage : %s --help' % sys.argv[0] 
     print 'Usage : %s [-s <host:port>] [-d <host:port>]' % sys.argv[0]
     sys.exit(-1) 
       
+
+
+
 if __name__ == '__main__':
     try:
         opts, args = getopt.getopt(sys.argv[1:] , 's:d:h' , ["source" , "destination" , "help"])
