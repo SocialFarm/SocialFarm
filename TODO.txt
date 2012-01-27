@@ -9,6 +9,10 @@ get a proper bug/feature list going, possibly on github...
 
 design of social farm is available
 
+multiple people working on same task
+	scheduler update 
+	ui update : http://opencoweb.org/ 
+
 ----------------------------------
 
 app : 
