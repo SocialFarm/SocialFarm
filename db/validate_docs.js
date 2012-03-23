@@ -1,3 +1,17 @@
+
+/**
+ * Purpose of this function is to validate changes to various type of 
+ * objects in the social farm database.  It is currently used only 
+ * for validating updates to business databases - this is done by 
+ * populating this in the business_template database which is used
+ * as source for creating new databases  
+ *
+ * Idea for refactoring - perhaps the validation should be closer to 
+ * the business and objects.  As it is done now, gives a top down approach 
+ * for validation.  Whenever a new fld is added to say activity or task or 
+ * job or person, this file will always change - creating a maintainenace
+ * problem 
+ * */
 function( newdoc, olddoc, uxt ) 
 { 
     function belongs( myitem, listofitems ) { 
