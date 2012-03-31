@@ -19,7 +19,7 @@ SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 DEBUG = True
 
 patterns = {
-''        		         : templatemapper('/{}',          		             '/socialfarm/_design/business/_list/businesses/all_businesses{}'),
+''        		         : templatemapper('/',          		             '/socialfarm/_design/business/_list/businesses/all_businesses'),
 #shows
 'my_tasks'               : templatemapper('/my_tasks/{mid}',                        '/socialfarm/_design/business/_show/my_tasks/{mid}'),
 'my_businesses'          : templatemapper('/my_businesses/{mid}',                   '/socialfarm/_design/business/_show/my_businesses/{mid}'), 
@@ -108,26 +108,26 @@ class Adapter(BaseHTTPRequestHandler) :
      
     def do_GET(self):
         try:
-            # TODO : 
-            # Instead of using various overrides, it might make sense to have 
-            # path mapping on a specific suburl : eg http://socialfarm.org/server/... 
-            # and let everything else be served from a given static path given 
-            # to the server as a command line argument 
-            if self.path == '/favicon.ico':
-                serve_favicon(self)
-            elif self.path.split('/')[1] == 'static':
+            if self.path.split('/')[1] == 'static':
                 serve_static(self)
             else:
                 authenticate(self)
                 key = path_to_key(self.path)
-                if key in patterns:
+                # perhaps the second part of the and is sufficient. 
+                # TODO, remove first part of condition 
+                if key in patterns and patterns[key].matches(self.path) :  
                     url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
                     print '%s -> %s' % (self.path, url) 
                     logger.info( '%s -> %s' % (self.path, url) ) 
                     response, content = httplib2.Http().request(url, "GET")
                     self.write_response(response, content)
                 else:
-                    not_found(self, self.path)
+                    # Unknown pattern, just forward to couchdb directly 
+                    #not_found(self, self.path)
+                    logger.info( 'no pattern match on %s' % self.path ) 
+                    response, content = httplib2.Http().request('http://localhost:5984' + self.path, "GET")
+                    self.write_response(response, content)
+                    
         except Exception, e:
             debug(e)
             server_error(self, self.path)

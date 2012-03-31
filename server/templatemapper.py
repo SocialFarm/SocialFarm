@@ -82,6 +82,14 @@ class templatemapper:
 
 
 if __name__ == '__main__':
+    import sys 
+    t = templatemapper('/', '/socialfarm/_design/business/_list/businesses/all_businesses') 
+    print t.replace( '/' ) 
+    if t.matches( '/favicon.ico' ) : 
+        print t.replace( '/favicon.ico' ) 
+
+    
+
     t = templatemapper( '/allbusiness/{startkey}/{count}' , 
                         '/socialfarm/_all_docs/?start_key={startkey}&count={count}' ) 
 
