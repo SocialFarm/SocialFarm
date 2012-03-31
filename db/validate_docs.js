@@ -1,19 +1,26 @@
 
 /**
  * Purpose of this function is to validate changes to various type of 
- * objects in the social farm database.  It is currently used only 
+ * objects in the social farm business databases.  It is currently used only 
  * for validating updates to business databases - this is done by 
  * populating this in the business_template database which is used
  * as source for creating new databases  
  *
- * Idea for refactoring - perhaps the validation should be closer to 
- * the business and objects.  As it is done now, gives a top down approach 
+ * TODO / NOTES 
+ *
+ * Idea for refactoring (code directory organization) 
+ * 1 Perhaps the validation should be closer to 
+ * the business and objects.  
+ *
+ * 2 As it is done now, gives a top down approach 
  * for validation.  Whenever a new fld is added to say activity or task or 
  * job or person, this file will always change - creating a maintainenace
- * problem 
- * */
+ * problem (but can couchdb support multiple valids? Check) 
+ */  
+
 function( newdoc, olddoc, uxt ) 
 { 
+    // helper functions 
     function belongs( myitem, listofitems ) { 
         if( listofitems.indexOf(myitem) < 0 ) 
             return false; 
@@ -31,6 +38,7 @@ function( newdoc, olddoc, uxt )
     }
 
     
+    // actual validation begins here  
     require( "type" ) ;
 
     if( ! belongs( newdoc.type , [ "activity" , "job" , "task" , "person" ] ) ) 

@@ -104,6 +104,12 @@ install_info :
 
 	$(UPDATE_INFO) 		html.members 		                info/lists/members.html 
 	$(UPDATE_INFO) 		html.members_row 	                info/lists/members_row.html
+# css file attachments
+	./scripts/attachments.py socialfarm_business_template _design/info facebook.css info/css/facebook.css
+	./scripts/attachments.py socialfarm_business_template _design/info base.css info/css/base.css
+	./scripts/attachments.py socialfarm_business_template _design/info reset.css info/css/reset.css
+
+
 
 
 install_scheduler : 
