@@ -12,6 +12,9 @@ There are 2 parts to setting up socialfarm.org and http://apps.facebook.com/soci
 
    [todo] security 
 
+   [todo] we plan to delete server code for rewriting urls, this code
+          code doent buy anything, but adds a alayer or complexity
+
 2. Couchdb  
    This is a localhost instance of couchdb storing underlying socialfarm data. 
    This couchdb is expected to be available only on the localhost as security 
