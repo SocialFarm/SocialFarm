@@ -2,6 +2,7 @@
 security check 
 
 attachments 
+   (Note : Done on html, todo for js and task attachment) 
 
 play with applet 
 
