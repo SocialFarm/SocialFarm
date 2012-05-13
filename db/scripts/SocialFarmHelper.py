@@ -17,7 +17,7 @@ from couchdb.client import Database, Server
 
 class SocialFarm : 
     
-    def __init__(self, username, password, url ='http://localhost:5984/'): 
+    def __init__(self, username = None, password = None, url ='http://localhost:5984/'): 
         self.server = Server(url)
         if username is not None and password is not None: 
             self.server.resource.credentials = (username, password) 
@@ -80,9 +80,8 @@ class SocialFarm :
         busdef[ 'total_rating' ] = 0 
         busdef[ 'total_profit' ] = 0
 
-        self.__process_business(busdef) 
+        (successors, predecessors, alltasks) = self.__process_business(busdef) 
         self.db[ businessname ] = busdef  
-        self.busdef = busdef 
         
         # created new database for business info 
         busdb = self.server.create(businessname)
@@ -93,21 +92,38 @@ class SocialFarm :
 
         # write activity documents that are used as template for 
         # tasks within jobs 
-        for task in self.alltasks: 
+        for task in alltasks: 
             activitydef = {} 
             activitydef[ 'type' ] = 'activity' 
             activitydef[ 'name' ] = task 
-            activitydef[ 'data_items'] = self.busdef['activity_dataitems'][task]
-            activitydef[ 'predecessors' ] = self.predecessors[task] 
-            activitydef[ 'successors' ] = self.successors[task] 
-            activitydef[ 'skills_required' ] = self.busdef[ 'activity_skills' ][task] 
+            activitydef[ 'data_items'] = busdef['activity_dataitems'][task]
+            activitydef[ 'predecessors' ] = predecessors[task] 
+            activitydef[ 'successors' ] = successors[task] 
+            activitydef[ 'skills_required' ] = busdef[ 'activity_skills' ][task] 
             busdb[ task ] = activitydef
 
+        # create new job template to be used as template for 
+        # creating new jobs.  this record should have exactly 
+        # those data items that have to be filled in by the customer for 
+        # starting the job
+        jobtemplate = {} 
+        jobtemplate[ 'type' ] = 'template'
+        data_items = {}  
+        for task in alltasks: 
+            if len(predecessors[task]) == 0:
+                for di in busdef['activity_dataitems'][task]:
+                    data_items[di] = '' 
+        jobtemplate[ 'data_items' ] = data_items
+        #print 'template added ' , repr(jobtemplate) 
+        busdb[ 'job_template' ] = jobtemplate
+                
 
 
         
 
     def __process_business(self, busdef) :
+        ''' Extract the activity graph provided with the business definition, and 
+        return the maps successors and predecessorts anf the list of alltasks '''
         alltasks = [] 
         successors = {} 
         predecessors = {} 
@@ -131,9 +147,7 @@ class SocialFarm :
                 numstart += 1 
         assert( numstart == 1 )
  
-        self.successors = successors
-        self.predecessors = predecessors
-        self.alltasks = alltasks 
+        return (successors, predecessors, alltasks) 
 
         
 
@@ -142,7 +156,7 @@ class SocialFarm :
 
 class BusinessDirector : 
 
-    def __init__(self, businessname, username, password, url ='http://localhost:5984/'): 
+    def __init__(self, businessname, username=None, password=None, url ='http://localhost:5984/'): 
         self.businessname = businessname
         self.sf = SocialFarm(username, password) 
         self.server = Server(url)
@@ -180,6 +194,7 @@ class BusinessDirector :
                                             data_items ) 
         self.db[ jobid ] = jobdef 
         self.db[ taskid ] = taskdef 
+        return jobid
         
 
 

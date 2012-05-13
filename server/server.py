@@ -14,6 +14,10 @@ ch.setFormatter(formatter)
 logger.addHandler(ch)
 
 
+sys.path.append(os.path.realpath( "%s/../db/scripts/" % os.path.dirname(os.path.realpath(__file__)))) 
+from SocialFarmHelper import BusinessDirector
+
+
 
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 DEBUG = True
@@ -139,10 +143,23 @@ class Adapter(BaseHTTPRequestHandler) :
         try:
             authenticate(self)
             key = path_to_key(self.path)
-            if key in patterns:
+            headers = { "content-type": "application/json" }
+            data =  self.rfile.read((int(self.headers['content-length'])))
+
+            debug('PUT : path = %s key = %s data = %s' % (self.path, key, data ) )
+
+            # special processing for create job
+            if self.path.split('/')[2] == 'create_job':
+                fields = json.loads(data)
+                business_name = self.path.split('/')[1]
+                bd = BusinessDirector(business_name) 
+                jobid = bd.createJob( fields['customer'] , 
+                                      fields['price'], 
+                                      fields['data_items'] ) 
+                debug('created job %s with fields %s' % (jobid, repr(fields)) )
+                
+            elif key in patterns:
                 url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
-                headers = { "content-type": "application/json" }
-                data =  self.rfile.read((int(self.headers['content-length'])))
                 response, content = httplib2.Http().request(url, "PUT", body = data, headers = headers)
                 self.write_response(response, content)
             else:
@@ -150,6 +167,8 @@ class Adapter(BaseHTTPRequestHandler) :
         except Exception, e:
             debug(e)
             server_error(self, self.path)
+
+
 
     def do_POST(self):
         try:
@@ -202,7 +221,7 @@ if __name__ == '__main__':
         print str(err) 
         _usage()
 
-    src_server = ('', 80)
+    src_server = ('', 55999)
     dst_server = ('127.0.0.1', 5984)
 
     for o, a in opts:

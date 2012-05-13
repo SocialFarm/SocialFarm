@@ -45,6 +45,9 @@ Begin db/business/shows/businesses.html
     </form>
     <div class="view_workflow"><a href="/static/html/wfe.html?business={{ _id }}">View Workflow</a></div>
     <div class="join_business"><a href="/business/{{ _id }}/join">Join {{ _id }}</a></div>
+<!-- TODO : this create job link should go elsewhere -->
+    <div class="join_business"><a href ="/{{ _id }}/_design/info/_show/create_job/job_template">Create Job</a> </div>
+
 </div>
 <!-- 
 End db/business/shows/businesses.html 

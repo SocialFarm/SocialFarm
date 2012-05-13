@@ -5,6 +5,11 @@
     the process of rendering shows and lists, reducing the number of edits required
     for major changes.
 
+    Called by a number of js from within couchdb.  This code takes in the html provided
+    to the rendering functions (the html was stored in various shows and lists in couchdb) 
+    and the fields of the document are expanded through templating.  For usage example 
+    do grep -R Potato * from db directory 
+
     Usefull for debugging:
         JSON.stringify(data)
 */
@@ -121,6 +126,9 @@ var Potato = function() {
 					row.value.activity_skills = json_to_key_value(row.value.activity_skills);
 				}
 				if (row.value.data_items != null){
+                    // data_items shows objects in activities and strings in jobs because of different data structure 
+                    // activities should not be shown or their data_items should have the same data structure 
+                    // log( "row.value.data_items=" + row.value.data_items + JSON.stringify(row.value.data_items));
 					row.value.data_items = json_to_key_value(row.value.data_items);
 				}
 		        html_rows += Mustache.to_html( content_row, row.value );
