@@ -1,0 +1,14 @@
+server.py 
+   server as an http proxy to the local couchdb server that 
+   holds various socialfarm data structures.  the server  
+   is responsible for 
+   a. authentication of accesses and limiting access to couch urls 
+      in order to maintain integrity of data 
+   b. url rewriting (but this is planned to go away in future) 
+   c. doing advanced computation for requests that can not be done 
+      within couch db directly
+
+   server can be serving at a given port eg: 
+      ./server.py -s localhost:55999 
+
+

@@ -1,0 +1,116 @@
+<!-- 
+Begin db/info/shows/create_job.html
+ -->
+<div  class = "content">
+    <form id="job_info" onsubmit="return false;" action="/api/business/{{bid}}/job/{{_id}}">
+            <fieldset class="job_form">
+	            <legend>Create Job</legend>
+		            <ul>
+			            <!--li>
+				            <label for="_id">Job ID</label>
+				            <input type="text" name="_id" id="_id" value = "{{_id}}"/>
+			            </li-->
+                        <!--li>
+				            <label for="_rev">Revision</label>
+				            <input type="text" name="_rev" id="_rev" value = "{{_rev}}"readonly/>
+			            </li-->
+                        <li>
+				            <label for="customer">Customer</label>
+				            <input type="text" name="customer" id="customer" value = "{{customer}}"/>
+			            </li>
+                         <li>
+				            <label for="price">Price</label>
+				            <input type="text" name="price" id="price" value = "{{price}}"/>
+			            </li>
+                         <li>
+				            <label for="state">State</label>
+				            <input type="text" name="state" id="state" value = "{{state}}"/>
+			            </li>
+						 <li>
+				            <label for="started_since">Started Since</label>
+				            <input type="text" name="started_since" id="started_since" value = "{{started_since}}"/>
+			            </li>
+						<!--li>
+							<label for="data_items">Data Items</label>
+							<input type="text" name="data_items" id="data_items" value = "{{#data_items}}{{key}}, {{/data_items}}"readonly/>
+						</li--> 
+                        <li>
+				            <label for="type">Type</label>
+				            <input type="text" name="type" id="type" value = "{{type}}"readonly/>
+			            </li>
+		            </ul>
+            </fieldset>
+</form>
+
+ <form id="data_items" onsubmit="return false;" action="/api/business/{{bid}}/job/{{_id}}">
+		<fieldset class="data_items">
+			   <legend>Data Items</legend>
+			   <ul>
+                    {{#data_items}}
+                    <li>
+                        <label for="{{key}}">{{key}}</label>
+                        <input type="text" name="{{key}}" id="{{key}}" value = "{{value}}" />
+                    </li>
+                    {{/data_items}}
+                    </ul>
+            </fieldset>    
+		<button id="save_job">Save Job</button>
+</form>
+ 
+    <script type="text/javascript"> 
+        $(document).ready(function() {
+            $("#save_job").click(function(){
+		var member = Object();
+                var data_items = $('#data_items').serializeArray();
+		var form;
+                var send = 1;
+                form = $("#job_info").serializeArray();
+		LOG(form);
+                    $.each(form, function (item) {
+                        if( form[item].value == null || form[item].value == "")
+                           { 
+                                send = 0;
+                                alert ( form[item].name + "field empty");
+                                return false ;
+                           }
+                        member[form[item].name] = form[item].value;
+		 	});
+		var items = Object();
+		$.each(data_items, function (item) {
+                       if( data_items[item].value = null || data_items[item].value == "") 
+                         {
+                               send = 0;
+                               alert ( data_items[item].name + "field empty");
+                                return false ;
+                         }
+                       items[data_items[item].name] = data_items[item].value;
+                    });
+	
+                member.data_items = items;
+//		LOG(member);
+                var data;
+                var url = "/{{bid}}/create_job";
+                data = JSON.stringify(member) ;
+                var failure = function(){
+                       LOG( " Enable to add a new job " ) ;
+                       warn( "Enable to add a new job");
+                   }	
+                var success = function(){
+                    alert("Successfully created job !!");
+                    window.location= "/business/{{bid}}/jobs" ;
+                }
+                if (send == 1)
+		{
+                  put_json( url, data, success, failure );
+                }
+                else
+                {
+                  return false;
+                }  
+           });
+        });
+    </script> 
+</div>
+<!-- 
+End db/info/shows/create_job.html
+ -->
