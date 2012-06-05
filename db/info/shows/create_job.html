@@ -22,7 +22,7 @@ Begin db/info/shows/create_job.html
 				            <label for="price">Price</label>
 				            <input type="text" name="price" id="price" value = "{{price}}"/>
 			            </li>
-                         <li>
+                         <!--li>
 				            <label for="state">State</label>
 				            <input type="text" name="state" id="state" value = "{{state}}"/>
 			            </li>
@@ -30,7 +30,7 @@ Begin db/info/shows/create_job.html
 				            <label for="started_since">Started Since</label>
 				            <input type="text" name="started_since" id="started_since" value = "{{started_since}}"/>
 			            </li>
-						<!--li>
+						<li>
 							<label for="data_items">Data Items</label>
 							<input type="text" name="data_items" id="data_items" value = "{{#data_items}}{{key}}, {{/data_items}}"readonly/>
 						</li--> 
@@ -63,26 +63,13 @@ Begin db/info/shows/create_job.html
 		var member = Object();
                 var data_items = $('#data_items').serializeArray();
 		var form;
-                var send = 1;
                 form = $("#job_info").serializeArray();
 		LOG(form);
                     $.each(form, function (item) {
-                        if( form[item].value == null || form[item].value == "")
-                           { 
-                                send = 0;
-                                alert ( form[item].name + "field empty");
-                                return false ;
-                           }
                         member[form[item].name] = form[item].value;
 		 	});
 		var items = Object();
 		$.each(data_items, function (item) {
-                       if( data_items[item].value = null || data_items[item].value == "") 
-                         {
-                               send = 0;
-                               alert ( data_items[item].name + "field empty");
-                                return false ;
-                         }
                        items[data_items[item].name] = data_items[item].value;
                     });
 	
@@ -99,14 +86,7 @@ Begin db/info/shows/create_job.html
                     alert("Successfully created job !!");
                     window.location= "/business/{{bid}}/jobs" ;
                 }
-                if (send == 1)
-		{
-                  put_json( url, data, success, failure );
-                }
-                else
-                {
-                  return false;
-                }  
+                put_json( url, data, success, failure );
            });
         });
     </script> 
