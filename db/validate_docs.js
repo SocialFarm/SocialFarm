@@ -66,5 +66,24 @@ function( newdoc, olddoc, uxt )
                     throw ( {forbidden : "removing data item key : " + k + " is not allowed " } ) ; 
             }
         }
-    } 
+    }
+
+     if(newdoc.type == 'job')
+    {
+    
+        require("customer");
+        require("price");
+        if ( !belongs( newdoc.state , [ "ready" , "running", "finished" , "error" ] ) )
+            throw ( {forbidden : "state not allowed : " +  newdoc.state } ) ; 
+        
+        var numericExpression = /^[0-9/.]+$/;
+        var str= newdoc.price.toString();
+        if( ! str.match(numericExpression) )
+            throw ( {forbidden : "Invalid Price : " +  newdoc.price } ) ;
+
+        var alphaExp = /^[a-zA-Z0-9\s_]+$/;
+        str = newdoc.customer.toString() ;
+        if( ! str.match(alphaExp) )
+            throw ( {forbidden : "Invalid customer name : " +  newdoc.customer } ) ;
+    }
 } 
