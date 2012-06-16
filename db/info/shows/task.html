@@ -19,11 +19,11 @@ Begin db/info/shows/task.html
 						<input type="text" name="jobid" id="jobid" value = "{{jobid}}"readonly/>
 					</li>
 					
-					<!--li>
-						<label for="_rev">Revision</label>
-						<input type="text" name="_rev" id="_rev" value = "{{_rev}}"readonly/>
+					<li>
+						<!--label for="_rev">Revision</label-->
+						<input type="hidden" name="_rev" id="_rev" value = "{{_rev}}"readonly/>
 					</li>
-                    <li>
+                    <!--li>
 						<label for="type">Type</label>
 						<input type="text" name="type" id="type" value = "{{type}}"readonly/>
 					</li -->
@@ -65,11 +65,13 @@ Begin db/info/shows/task.html
                 </ul>
         </fieldset>
 	</form>
+<!-- save button will update the changes made to task fields -->
+<!-- forward button will change the state of task to finished -->
 	<script type="text/javascript">
-		function SFOnLoad(){
+        $(document).ready(function() {
 			$('#save').click(function(){save_task();});
 			$('#forward').click(function(){forward_task();});
-		}
+		})
 	</script>
 </div>
 <!-- 

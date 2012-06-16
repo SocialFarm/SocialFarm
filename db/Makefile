@@ -110,9 +110,12 @@ install_info :
 	./scripts/attachments.py socialfarm_business_template _design/info facebook.css info/css/facebook.css
 	./scripts/attachments.py socialfarm_business_template _design/info base.css info/css/base.css
 	./scripts/attachments.py socialfarm_business_template _design/info reset.css info/css/reset.css
-
-
-
+	./scripts/attachments.py socialfarm_business_template _design/info style.css info/css/style.css
+	./scripts/attachments.py socialfarm_business_template _design/info logo.png info/images/logo.png
+	./scripts/attachments.py socialfarm_business_template _design/info image.jpg info/images/image.jpg
+	./scripts/attachments.py socialfarm_business_template _design/info close.jpg info/images/close.jpg
+	./scripts/attachments.py socialfarm_business_template _design/info graybar_top.png info/images/graybar_top.png
+	./scripts/attachments.py socialfarm_business_template _design/info graybar_bottom.png info/images/graybar_bottom.png
 
 install_scheduler : 
 	$(UPDATE_SCHED)	    views.offer_tasks.map 				scheduler/offer_tasks/map.js

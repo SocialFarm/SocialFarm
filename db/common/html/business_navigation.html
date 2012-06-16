@@ -1,25 +1,21 @@
 <!-- 
-Begin db/common/html/business_navigation.html
- -->
-<div id = "business_navigation">
-	<ul class="general">
-		<li class = "business {{business}}">
-			<a class = "fbtab" href ="/business/{{bid}}">{{bid}}</a>
-		</li>
-		<li class = "members {{member}}">
-			<a class = "fbtab" href ="/business/{{bid}}/members">members</a>
-		</li>
-		<li class = "actions {{activity}}">
-			<a class = "fbtab" href ="/business/{{bid}}/activities">activities</a>
-		</li>
-			<li class = "jobs {{job}}">
-		<a class = "fbtab" href ="/business/{{bid}}/jobs">jobs</a>
-			</li>
-		<li class = "tasks {{task}}">
-			<a class = "fbtab" href ="/business/{{bid}}/tasks">tasks</a>
-		</li>
-	</ul>
-</div>
-<!-- 
 End db/common/html/business_navigation.html
  -->
+<div class="top">
+    <div class="topleft"></div>
+        <div class="logo"><a href="/"></a></div>
+        <div class="navigation">
+            <ul>
+                <li><a href="/business/{{bid}}">{{bid}}</a></li>
+                <li><a href="/business/{{bid}}/members">Members</a></li>
+                <!--li><a href="/business/{{bid}}/activities">Activities</a></li-->
+                <li><a href="/business/{{bid}}/jobs">Jobs</a></li>
+                <li><a href="/business/{{bid}}/tasks">Tasks</a></li>
+                <li class="last"><a href="/">Home</a></li>
+            </ul>
+        </div>
+
+    <div class="topright"></div>
+</div>
+<div class="clr"></div>
+
