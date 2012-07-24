@@ -4,6 +4,7 @@ from templatemapper import templatemapper
 import httplib2, urllib, json, sys, getopt, os
 
 
+
 import logging
 logger = logging.getLogger("socialfarmserver")
 logger.setLevel(logging.DEBUG)
@@ -54,11 +55,27 @@ patterns = {
 
 reserved = ['my_businesses', 'object', 'attachment', 'my_tasks', 'person', 'api', 'join', 'static', 'businesses', 'business', 'members', 'member', 'activities', 'activity', 'jobs', 'job', 'tasks', 'task' ]
 
+
+
+
+def clean_cgi_args(pathstr) : 
+    ''' path strings may contain cgi args which are not supported by 
+    the social farm server.  these cgi args should be cleaned out ''' 
+    offset = pathstr.find( "?" ) 
+    if offset > 0 : 
+        return pathstr[0:offset] 
+    else : 
+        return pathstr 
+    
+    
+
+
 #function strips a path to a dotted string of the reserved words it contained
-def path_to_key(path):
+def path_to_key(path):    
     parts = filter(lambda x: x in reserved, path.split('/'))
     key = ".".join(parts)
     return key
+
 
 def authenticate(request):
     if 'AccessToken' in request.headers.keys():
@@ -103,15 +120,21 @@ def serve_favicon(request):
     response['content-length'] = str(len(content))
     request.write_response(response, content)
 
+
+
 def debug(msg):
+    logger.debug( msg) 
     if DEBUG:
         print "DEBUG: %s" % msg
         
+
+
     
 class Adapter(BaseHTTPRequestHandler) :  
      
     def do_GET(self):
         try:
+            self.path = clean_cgi_args(self.path)
             if self.path.split('/')[1] == 'static':
                 serve_static(self)
             else:
@@ -141,6 +164,7 @@ class Adapter(BaseHTTPRequestHandler) :
 
     def do_PUT(self):
         try:
+            self.path = clean_cgi_args(self.path)
             authenticate(self)
             key = path_to_key(self.path)
             headers = { "content-type": "application/json" }
@@ -172,6 +196,11 @@ class Adapter(BaseHTTPRequestHandler) :
 
     def do_POST(self):
         try:
+            
+            #debug( "keys = " + repr(self.headers.keys()) ) 
+            #for k in self.headers.keys(): 
+            #    debug( "%s = %s" % (k, self.headers[k]) ) 
+            self.path = clean_cgi_args(self.path)
             authenticate(self)
             key = path_to_key(self.path)
             if key in patterns:
@@ -195,6 +224,8 @@ class Adapter(BaseHTTPRequestHandler) :
         except Exception, e:
             debug(e)
             server_error(self, self.path)
+
+
 
     def write_response(self, response, content):
         self.send_response(int(response['status']))
