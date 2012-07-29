@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
+from authenticator import Authenticator 
 import httplib2, urllib, json, sys, getopt, os
 import cgi
 
@@ -80,14 +81,7 @@ def path_to_key(path):
 
 
 
-def authenticate(request):
-    if DEBUG && 'accesstoken' not in request.headers.keys():
-        print "Warning! No Access Token provided for ", request.path
-    elif DEBUG && 'fbid' not in request.headers.keys():
-        print "Warning! No Facebook User ID provided for ", request.path
-    elif DEBUG :
-        print "Access Token: ", request.headers['accesstoken']
-        print "FBID: ", request.headers['fbid']
+
 
 
 
@@ -142,6 +136,20 @@ def debug(msg):
 class Adapter(BaseHTTPRequestHandler) :  
 
 
+    def __authenticate(self, request):
+        token = request.headers.get( 'accesstoken' ) 
+        fbid = request.headers.get( 'fbid' ) 
+        debug( "Access Token: %s" % repr(token) ) 
+        debug( "FBID: %s" % repr(fbid) ) 
+        if Authenticator().canAccess( request.path, fbid, token) is True : 
+            debug( "access ok : " + request.path ) 
+            return True
+        else:
+            debug( "YAAAY no access : " + request.path ) 
+            return False 
+
+
+
     def __show_headers (self) : 
         #if DEBUG : 
         #    debug( "keys = " + repr(self.headers.keys()) ) 
@@ -149,6 +157,8 @@ class Adapter(BaseHTTPRequestHandler) :
         #        debug( "%s = %s" % (k, self.headers[k]) ) 
         pass 
             
+
+
      
     def do_GET(self):
         try:
@@ -156,8 +166,7 @@ class Adapter(BaseHTTPRequestHandler) :
             self.path = clean_cgi_args(self.path)
             if self.path.split('/')[1] == 'static':
                 serve_static(self)
-            else:
-                authenticate(self)
+            elif self.__authenticate(self) :
                 key = path_to_key(self.path)
                 # perhaps the second part of the and is sufficient. 
                 # TODO, remove first part of condition 
@@ -173,6 +182,9 @@ class Adapter(BaseHTTPRequestHandler) :
                     logger.info( 'no pattern match on %s' % self.path ) 
                     response, content = httplib2.Http().request('http://localhost:5984' + self.path, "GET")
                     self.write_response(response, content)
+            else: 
+                self.send_error(403, "Forbidden " + self.path) 
+
                     
         except Exception, e:
             debug(e)
@@ -185,7 +197,10 @@ class Adapter(BaseHTTPRequestHandler) :
         try:
             self.__show_headers() 
             self.path = clean_cgi_args(self.path)
-            authenticate(self)
+            if not self.__authenticate(self): 
+                self.send_error(403, "Forbidden " + self.path)
+                return 
+
             key = path_to_key(self.path)
             headers = { "content-type": "application/json" }
             data =  self.rfile.read((int(self.headers['content-length'])))
@@ -214,11 +229,16 @@ class Adapter(BaseHTTPRequestHandler) :
 
 
 
+
+
     def do_POST(self):
         try:
             self.__show_headers() 
             self.path = clean_cgi_args(self.path)
-            authenticate(self)
+            if not self.__authenticate(self): 
+                self.send_error(403, "Forbidden " + self.path)
+                return 
+
             key = path_to_key(self.path)
             if key in patterns:
                 url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
