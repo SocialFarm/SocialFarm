@@ -56,10 +56,17 @@ function get_facebook_user(response){
 	});	
 }
 
+
+
 function set_auth_token(response){
-    LOG('AUTH TOKEN: ' + response.authResponse.accessToken);
-    user.AccessToken = response.authResponse.accessToken;	
+    user.AccessToken = response.authResponse.accessToken;
+	user.FBID = response.authResponse.userID;
+    LOG('Facebook User ID : ' + response.authResponse.userID);    
+    LOG('Facebook Access Token : ' + response.authResponse.accessToken);
 }
+
+
+
 
 function sf_login(){
     LOG('sf_login');

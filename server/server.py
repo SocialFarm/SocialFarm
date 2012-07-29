@@ -2,6 +2,7 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
 import httplib2, urllib, json, sys, getopt, os
+import cgi
 
 
 
@@ -77,11 +78,19 @@ def path_to_key(path):
     return key
 
 
+
+
 def authenticate(request):
-    if 'AccessToken' in request.headers.keys():
-        print "Access Token: ", request.headers['AccessToken']
-    else:
+    if DEBUG && 'accesstoken' not in request.headers.keys():
         print "Warning! No Access Token provided for ", request.path
+    elif DEBUG && 'fbid' not in request.headers.keys():
+        print "Warning! No Facebook User ID provided for ", request.path
+    elif DEBUG :
+        print "Access Token: ", request.headers['accesstoken']
+        print "FBID: ", request.headers['fbid']
+
+
+
 
 def serve_static(request):
     path_to_file = os.path.join(SITE_ROOT, request.path[1:])
@@ -131,9 +140,19 @@ def debug(msg):
 
     
 class Adapter(BaseHTTPRequestHandler) :  
+
+
+    def __show_headers (self) : 
+        #if DEBUG : 
+        #    debug( "keys = " + repr(self.headers.keys()) ) 
+        #    for k in self.headers.keys(): 
+        #        debug( "%s = %s" % (k, self.headers[k]) ) 
+        pass 
+            
      
     def do_GET(self):
         try:
+            self.__show_headers() 
             self.path = clean_cgi_args(self.path)
             if self.path.split('/')[1] == 'static':
                 serve_static(self)
@@ -164,6 +183,7 @@ class Adapter(BaseHTTPRequestHandler) :
 
     def do_PUT(self):
         try:
+            self.__show_headers() 
             self.path = clean_cgi_args(self.path)
             authenticate(self)
             key = path_to_key(self.path)
@@ -196,10 +216,7 @@ class Adapter(BaseHTTPRequestHandler) :
 
     def do_POST(self):
         try:
-            
-            #debug( "keys = " + repr(self.headers.keys()) ) 
-            #for k in self.headers.keys(): 
-            #    debug( "%s = %s" % (k, self.headers[k]) ) 
+            self.__show_headers() 
             self.path = clean_cgi_args(self.path)
             authenticate(self)
             key = path_to_key(self.path)
