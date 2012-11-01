@@ -1,0 +1,15 @@
+
+#map_canvas {
+  height: 100%;
+  width: 100%;
+}
+
+@media print {
+  html, body {
+    height: auto;
+  }
+
+  #map_canvas {
+    height: 650px;
+  }
+}
