@@ -55,6 +55,7 @@ Begin db/business/shows/businesses.html
                     <button type="button" onclick = "window.location='/static/html/wfe.html?business={{ _id }}'">View workflow </button>
                     <button type="button" onclick = "window.location='/business/{{ _id }}/join'">Join </button>
                     <button type="button" onclick = "window.location= '/{{ _id }}/_design/info/_show/create_job/job_template'">Create Job</button>
+                    <button type="button" onclick="resources()" >Resources</button>
                     </div>
            </div>
 </div>
@@ -63,4 +64,22 @@ Begin db/business/shows/businesses.html
 <!-- 
 End db/business/shows/businesses.html 
 -->
-
+<script type="text/javascript">
+i//    $("#resources").click(function(){
+    function resources(){
+        if (get_user() == null)
+        {
+            warn("You must logged in to facebook !");
+            return ;
+        }
+        var url =  "/api/business/{{bid}}/object/" + get_user().id ;
+        var success = function(){
+            window.location = "/business/{{bid}}/member/" + get_user().id ;
+        }
+        var failure = function(){
+            warn("You mest be a part of business to edit/view resources ");
+            return ;
+        }
+        get_json(url,success,failure);
+    }
+</script>

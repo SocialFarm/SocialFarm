@@ -58,11 +58,13 @@ install_business :
 	$(UPDATE_BUSINESS) 	shows.join_business 	            business/shows/join_business.js
 	$(UPDATE_BUSINESS) 	shows.my_businesses 	            business/shows/my_businesses.js
 	$(UPDATE_BUSINESS) 	shows.my_tasks 			            business/shows/my_tasks.js
+	$(UPDATE_BUSINESS)  shows.member						business/shows/member.js
 
 	$(UPDATE_BUSINESS) 	html.business 			            business/shows/business.html  
 	$(UPDATE_BUSINESS) 	html.join_business 		            business/shows/join_business.html 
 	$(UPDATE_BUSINESS) 	html.my_businesses 		            business/shows/my_businesses.html 
 	$(UPDATE_BUSINESS) 	html.my_tasks 			            business/shows/my_tasks.html 
+	$(UPDATE_BUSINESS)	html.member							business/shows/member.html
 #lists
 	$(UPDATE_BUSINESS) 	lists.businesses 		            business/lists/businesses.js 
 
@@ -111,6 +113,7 @@ install_info :
 	./scripts/attachments.py socialfarm_business_template _design/info base.css info/css/base.css
 	./scripts/attachments.py socialfarm_business_template _design/info reset.css info/css/reset.css
 	./scripts/attachments.py socialfarm_business_template _design/info style.css info/css/style.css
+	./scripts/attachments.py socialfarm_business_template _design/info map.css info/css/map.css
 	./scripts/attachments.py socialfarm_business_template _design/info logo.png info/images/logo.png
 	./scripts/attachments.py socialfarm_business_template _design/info image.jpg info/images/image.jpg
 	./scripts/attachments.py socialfarm_business_template _design/info close.jpg info/images/close.jpg
@@ -135,8 +138,10 @@ endif
 	./scripts/delete_database.py $(CREDENTIALS) social_plumbing
 	./scripts/delete_database.py $(CREDENTIALS) socialfarm_business_template
 	./scripts/delete_database.py $(CREDENTIALS) socialfarm
+	./scripts/delete_database.py $(CREDENTIALS) socail_ride
 
 
 install_social_news: 
 	./scripts/SocialFarmHelper.py $(SF_USERNAME) $(SF_PASSWORD)
 	./scripts/SocialNews.py $(SF_USERNAME) $(SF_PASSWORD)
+	./scripts/SocialRide.py $(SF_USERNAME) $(SF_PASSWORD)

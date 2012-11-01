@@ -30,7 +30,7 @@ Begin db/business/shows/join_business.html
                         <li><label for="role">Role</label><input type="text" name="role" id="role" value = "worker" readonly/></li>
                         <li><label for="network">Network</label><input type="text" name="network" id="network" value = "Facebook" readonly/></li>
                         <li><label for="type">Type</label><input type="text" name="type" id="type" value = "person" readonly/></li>
-                    </ul>
+                   	</ul>
 		    </fieldset>
 
             <fieldset class="member_skills">
@@ -49,7 +49,7 @@ Begin db/business/shows/join_business.html
 
     <button id="join_business">Join {{_id}}</button>
  
-    <script type="text/javascript">
+<script type="text/javascript">
 
         $(document).ready(function() {
             $("#join_business").click(function(){
@@ -104,15 +104,34 @@ Begin db/business/shows/join_business.html
                     }
 
                     get_json(person_url, update_person, do_nothing);
-
-                   
+	            temp_url="/socialfarm/"+bid;
+                    var add_info = Object();
+                    var temp = function( ret )
+                    {
+                        for(var i=0 ; i < ret['additional_info'].length ; i++ )
+                        {
+                        var key = ret['additional_info'][i];
+                        add_info[key] = "";
+                        }
+                        member.additional_info = add_info;
+                        data = JSON.stringify(member) ;
+                    }
+                    get_json(temp_url,temp,do_nothing);
 
                     //update person in business (bid) db
                     url =  "/api/business/" + bid + "/object/" + get_user().id
                     
                     data = JSON.stringify(member) ;
+                    LOG(data);
+                    var join_success = function(){
+                        alert("Congratulations ! You are now part of {{bid}}");
+                        window.location="/socialfarm/_design/business/_show/member/" + get_user().id ;
+                    }
+                    var join_failure = function(){
+                        alert("Sorry, your request to join {{bid}} is not successful");
+                    }
                     var failure = function(){
-                        put_json(url, data, do_nothing, do_nothing) ;
+                        put_json(url, data, join_success, join_failure) ;
                     }
                     var success = function(){
                         LOG('Already a member!');
@@ -127,4 +146,7 @@ Begin db/business/shows/join_business.html
 <!-- 
 End db/business/shows/join_business.html
  -->
-
+</div> 
+<!-- 
+End db/business/shows/join_business.html
+ -->

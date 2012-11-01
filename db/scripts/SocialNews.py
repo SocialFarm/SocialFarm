@@ -55,7 +55,8 @@ if __name__ == "__main__":
             'Research' : [ 'researching' ] , 
             'Write' : [ 'writing' ] , 
             'Edit' : [ 'editing' ] , 
-            } , 
+            } ,
+		'additional_info' : 'NULL',
         'description' : 'social_news is a virtual new business designed to showcase the social farm platform.' 
         }
     sf.deleteBusiness( 'social_news' ) 

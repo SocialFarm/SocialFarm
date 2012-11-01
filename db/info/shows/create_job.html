@@ -56,41 +56,248 @@ Begin db/info/shows/create_job.html
             </fieldset>    
 		<button id="save_job">Save Job</button>
 </form>
- 
-    <script type="text/javascript"> 
+</div>
+
+<div id = "submit" class= "fberrorbox" style="postion: absolute; display:none;"> 
+    <button id = "submit_button" onclick=submitJob()>Submit Job</button> 
+</div>
+
+<div id="map_canvas" style="height:400px;width:500px;overflow: auto;"></div> 
+
+    <script type="text/javascript">
+
+        var startLocation;
+        var finalLocation;
+        var member = Object();
+        var sourceGeoLocation = {} ;
+        var destinationGeoLocation = {};
+
         $(document).ready(function() {
             $("#save_job").click(function(){
-		var member = Object();
-                var data_items = $('#data_items').serializeArray();
-		var form;
-                form = $("#job_info").serializeArray();
-		LOG(form);
-                    $.each(form, function (item) {
-                        member[form[item].name] = form[item].value;
+            submit();
+            var data_items = $('#data_items').serializeArray();
+		    var form;
+            form = $("#job_info").serializeArray();
+		    LOG(form);
+            $.each(form, function (item) {
+                member[form[item].name] = form[item].value;
 		 	});
-		var items = Object();
-		$.each(data_items, function (item) {
+		    var items = Object();
+		    $.each(data_items, function (item) {
                        items[data_items[item].name] = data_items[item].value;
-                    });
-	
-                member.data_items = items;
-//		LOG(member);
-                var data;
-                var url = "/{{bid}}/create_job";
-                data = JSON.stringify(member) ;
-                var failure = function(){
-                       LOG( " Enable to add a new job " ) ;
-                       warn( "Enable to add a new job");
-                   }	
-                var success = function(){
-                    alert("Successfully created job !!");
-                    window.location= "/business/{{bid}}/jobs" ;
-                }
-                put_json( url, data, success, failure );
+                });
+             
+            member.data_items = items;
+            LOG(member.data_items);
+            if ("{{bid}}" == "social_ride")
+            {
+                LOG(member.data_items.Destination);
+                codeAddress(member.data_items.Destination,"destination");
+                codeAddress(member.data_items.pickUp,"source");
+            }
+            else
+                sendJobToDb();
            });
         });
+        var geocoder;
+        var map;
+        var loc;
+        function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(12.9715987,77.59456269 );
+        var mapOptions = {
+          zoom: 8,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        }
+ 
+        function codeAddress(address,type) {
+        
+            initialize();
+	        LOG(address);
+            geocoder.geocode( { 'address': address}, function(results, status) {
+	        LOG(results);
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                loc = results[0].formatted_address ;
+                LOG(loc);
+            //Putting the below code for testing purpose as I am not able display map on HTML page
+            ///Start///
+            if(type == "source")
+                    {
+                        startLocation =  results[0].formatted_address ; 
+                        sourceGeoLocation = results[0].geometry.location ;
+                        member.data_items.pickUp = startLocation ;
+                        member.data_items['geoLocationSource'] = sourceGeoLocation ;
+                        LOG(member);
+                        LOG(startLocation);
+                        LOG(sourceGeoLocation);
+                    }
+                    else 
+                    {
+                        finalLocation =  results[0].formatted_address ;
+                        destinationGeoLocation = results[0].geometry.location ;
+                        member.data_items.Destination = finalLocation;
+                        member.data_items['geoLocationDest'] = destinationGeoLocation ;
+                        LOG(finalLocation);
+                        LOG(destinationGeoLocation);
+                    }
+            ///End///
+	        for(var i=0 ; i < results.length ; i++ )
+            {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[i].geometry.location
+                });
+                marker.setTitle(results[i].formatted_address);
+                attachMessage(results[i].formatted_address ,results[i].geometry.location, marker );
+            }
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+            });
+        }
+
+        function attachMessage(address,geoLocation,marker)
+        {
+            var infowindow = new google.maps.InfoWindow(
+                { content: address,
+                  size: new google.maps.Size(50,50)
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.open(map,marker);
+                    if(type == "source")
+                    {
+                        startLocation = address; 
+                        sourceGeoLocation = geoLocation;
+                        LOG(startLocation);
+                        LOG(sourceGeoLocation);
+                    }
+                    else 
+                    {
+                        finalLocation = address ;
+                        destinationGeoLocation = geoLocation ;
+                        LOG(finalLocation);
+                        LOG(destinationGeoLocation);
+                    }
+                 });
+        }
+
+        function submitJob(){
+            if("{{bid}}"=="social_ride")
+            {
+                if(validateSocailRideJob()=="true")
+                    sendJobToDb();
+            }
+            else
+                sendJobToDb();
+        }
+
+        function validateSocailRideJob(){
+            if (startLocation.length==0 || finalLocation.lenght==0)
+            {
+                alert('Select both Pick-up and Destination before submitting job');
+                return 'false';
+            }
+            else
+            {
+                var sourceGeoKeyStr = encodeGeoPosition(sourceGeoLocation);
+                var destinationGeoKeyStr = encodeGeoPosition(destinationGeoLocation);
+                LOG("Source : " + startLocation+" :  " + sourceGeoLocation);
+		LOG("Destinatio : "+finalLocation +": " + destinationGeoLocation);
+		member.data_items['sourceGeoKeyStr']=sourceGeoKeyStr;
+                member.data_items['destinationGeoKeyStr']=destinationGeoKeyStr;
+		LOG(member);
+                return 'true';
+             }
+        }
+
+        function sendJobToDb(){
+             var data;
+             var url = "/{{bid}}/create_job";
+             data = JSON.stringify(member) ;
+	     LOG(data);
+             var failure = function(){
+                LOG( " Enable to add a new job " ) ;
+                warn( "Enable to add a new job");
+             }	
+             var success = function(){
+                 //alert("Successfully created job !!");
+                 //window.location= "/business/{{bid}}/jobs" ;
+             }
+            put_json( url, data, success, failure );
+        }
+       
+    function encodeGeoPosition(doc) {
+   
+    // each deg is 111km ~= 10^2 km
+    // 1km = 0.01 deg 
+    // 10m = 0.0001 deg
+    // var RESOLUTION = 0.0001; // used to lead to 46 bytes key 
+    var DEPTH = 24 ;  
+    var MIGRATING = 1;  // temp while we have v2 clients 
+
+    function getkeys(depth, max, min, value) {
+        var result = new Array();
+        for( var i = 0; i < depth; i++ ) {   // while( (max - min) > delta ) { 
+            mid = ( min + max ) / 2.0 ; 
+            // log( "max, min, value = " + max + " " + min + " " + value ) ; 
+            if( value <= mid ) { 
+                result.push( -1 ) ; 
+                max = mid ; 
+            }
+            else if( value > mid ) {
+                result.push( +1 ) ; 
+                min = mid ; 
+            }
+        }
+        // log( " computed " + result ) ; 
+        return result ;   
+    }
+
+
+    function getchoice(value, posvalue, negvalue, zerovalue) { 
+        if( value < 0 ) 
+            return negvalue; 
+        if( value > 0 )
+            return posvalue; 
+        else
+            return zerovalue;
+    } 
+
+    if( MIGRATING > 0 || doc.type == "profile" ) {
+        var latkeys = getkeys( DEPTH, 90.0, -90.0, doc.Ya ) ; 
+        var lonkeys = getkeys( DEPTH, 180, -180, doc.Xa ) ; 
+        // log( "length of keys = " + latkeys.length + " , " + lonkeys.length ) ; 
+
+        var maxlen = latkeys.length <  lonkeys.length ? 
+             lonkeys.length : latkeys.length ; 
+        var kdkeys = new Array() ; 
+        for( var i = 0; i < maxlen; i++ ) { 
+            var value = 0; 
+            if( latkeys.length ) 
+                value = latkeys.shift() ; 
+            kdkeys.push( getchoice( value, 'n' , 's' , '_' ) ) ; 
+
+            value = 0; 
+            if( lonkeys.length ) 
+                value = lonkeys.shift() ; 
+            kdkeys.push( getchoice( value, 'e' , 'w' , '_' ) ) ; 
+        }
+
+        var str = "" ;
+        while( ch = kdkeys.shift() ) 
+            str += ch ;  
+
+        LOG(str);
+        return str;
+    }
+
+}
+ 
     </script> 
-</div>
 <!-- 
 End db/info/shows/create_job.html
  -->

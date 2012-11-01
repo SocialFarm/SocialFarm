@@ -7,7 +7,7 @@ import urllib2
 import cgi 
 import cgitb
 cgitb.enable()
-# cgitb.enable(display=0, logdir="/tmp")
+cgitb.enable(display=0, logdir="/tmp")
 
 
 
@@ -18,15 +18,13 @@ cgitb.enable()
  
 
 form = cgi.FieldStorage() 
-couchurl = first_name = form.getvalue('curl')
+url = form.getvalue('url')
 
-
-
-couchurl = 'http://127.0.0.1:5984/social_news/_design/info/_list/members/all_members' 
+couchurl = 'http://127.0.0.1:5984' + url
 
 print "Content-Type: text/html"     # HTML is following
 print                               # blank line, end of headers
 
 fd = urllib2.urlopen(couchurl)
-print fd.read() 
+print fd.read()
 

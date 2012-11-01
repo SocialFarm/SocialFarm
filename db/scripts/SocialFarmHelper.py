@@ -72,7 +72,8 @@ class SocialFarm :
                    'activity_graph' , 
                    'activity_dataitems' , 
                    'activity_skills' , 
-                   'description' ] : 
+                   'description',
+                   'additional_info'] : 
             assert k in busdef
 
         busdef[ 'type' ] = 'business' 
@@ -379,7 +380,8 @@ if __name__ == "__main__":
             'A' : [ 's1' ] , 
             'B' : [ 's3' ] , 
             'C' : [ 's1' ] 
-            } , 
+            } ,
+		'additional_info' : 'NULL',
         'description' : 'This business is a test ' 
         }
     sf.deleteBusiness( 'testbus2' ) 
@@ -403,6 +405,7 @@ if __name__ == "__main__":
             'C' : [ 's4' ] , 
             'D' : [ 's2' ] 
             } , 
+		'additional_info' : 'NULL',
         'description' : 'This business will find out your true reputation for a small fee!' 
         }
     sf.deleteBusiness( 'testbus' ) 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
-import httplib2, urllib, json, sys, getopt, os
+import httplib2, urllib, json, sys, getopt, os,urllib,urllib2
 
 
 import logging
@@ -13,7 +13,7 @@ formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(messag
 ch.setFormatter(formatter)
 logger.addHandler(ch)
 
-
+#import SocialRide
 sys.path.append(os.path.realpath( "%s/../db/scripts/" % os.path.dirname(os.path.realpath(__file__)))) 
 from SocialFarmHelper import BusinessDirector
 
@@ -53,6 +53,9 @@ patterns = {
 }
 
 reserved = ['my_businesses', 'object', 'attachment', 'my_tasks', 'person', 'api', 'join', 'static', 'businesses', 'business', 'members', 'member', 'activities', 'activity', 'jobs', 'job', 'tasks', 'task' ]
+
+###########################################################################
+
 
 #function strips a path to a dotted string of the reserved words it contained
 def path_to_key(path):
@@ -107,7 +110,6 @@ def debug(msg):
     if DEBUG:
         print "DEBUG: %s" % msg
         
-    
 class Adapter(BaseHTTPRequestHandler) :  
      
     def do_GET(self):
@@ -152,6 +154,7 @@ class Adapter(BaseHTTPRequestHandler) :
             if self.path.split('/')[2] == 'create_job':
                 fields = json.loads(data)
                 business_name = self.path.split('/')[1]
+
                 bd = BusinessDirector(business_name) 
                 jobid = bd.createJob( fields['customer'] , 
                                       fields['price'], 
@@ -180,7 +183,7 @@ class Adapter(BaseHTTPRequestHandler) :
                 headers = { "content-type": "application/json" }
                 data =  self.rfile.read((int(self.headers['content-length'])))
                 response, content = httplib2.Http().request(url, "GET")
-                
+                debug('Prerak PUT : url = %s key = %s data = %s' % (url, key, data ) )
                 if self.path != '/':
                     record = json.loads(content)
                     fields = json.loads(data)
@@ -221,7 +224,7 @@ if __name__ == '__main__':
         print str(err) 
         _usage()
 
-    src_server = ('', 55999)
+    src_server = ('', 80)
     dst_server = ('127.0.0.1', 5984)
 
     for o, a in opts:
