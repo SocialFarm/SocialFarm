@@ -11,4 +11,10 @@ server.py
    server can be serving at a given port eg: 
       ./server.py -s localhost:55999 
 
+   for running it as a public http server on port 80
+       sudo ./server.py -s 0.0.0.0:80
 
+
+
+what fb sends from app 
+"POST /?fb_source=bookmark_apps&ref=bookmarks&count=0&fb_bmpos=2_0 HTTP/1.1" 

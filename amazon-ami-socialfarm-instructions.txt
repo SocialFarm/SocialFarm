@@ -1,0 +1,18 @@
+
+start with ubuntu ami
+
+sudo apt-get install couchdb
+sudo apt-get install git
+sudo apt-get install python-couchdb
+sudo apt-get install make
+git clone git://github.com/SocialFarm/SocialFarm.git
+sudo /etc/init.d/couchdb start
+
+// create user name within couchdb 
+// set username and pwd in 
+// shell variables SF_USERNAME and SF_PASSWORD 
+
+cd SocialFarm/db 
+make 
+
+

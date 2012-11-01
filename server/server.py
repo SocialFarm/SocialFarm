@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from templatemapper import templatemapper
+<<<<<<< HEAD
 import httplib2, urllib, json, sys, getopt, os,urllib,urllib2
+=======
+from authenticator import Authenticator 
+import httplib2, urllib, json, sys, getopt, os
+import cgi
+
+>>>>>>> 5c0811ab94899f5691a625630e88ff43430dc233
 
 
 import logging
@@ -54,20 +61,38 @@ patterns = {
 
 reserved = ['my_businesses', 'object', 'attachment', 'my_tasks', 'person', 'api', 'join', 'static', 'businesses', 'business', 'members', 'member', 'activities', 'activity', 'jobs', 'job', 'tasks', 'task' ]
 
+<<<<<<< HEAD
 ###########################################################################
+=======
+
+
+
+def clean_cgi_args(pathstr) : 
+    ''' path strings may contain cgi args which are not supported by 
+    the social farm server.  these cgi args should be cleaned out ''' 
+    offset = pathstr.find( "?" ) 
+    if offset > 0 : 
+        return pathstr[0:offset] 
+    else : 
+        return pathstr 
+    
+    
+>>>>>>> 5c0811ab94899f5691a625630e88ff43430dc233
 
 
 #function strips a path to a dotted string of the reserved words it contained
-def path_to_key(path):
+def path_to_key(path):    
     parts = filter(lambda x: x in reserved, path.split('/'))
     key = ".".join(parts)
     return key
 
-def authenticate(request):
-    if 'AccessToken' in request.headers.keys():
-        print "Access Token: ", request.headers['AccessToken']
-    else:
-        print "Warning! No Access Token provided for ", request.path
+
+
+
+
+
+
+
 
 def serve_static(request):
     path_to_file = os.path.join(SITE_ROOT, request.path[1:])
@@ -106,18 +131,53 @@ def serve_favicon(request):
     response['content-length'] = str(len(content))
     request.write_response(response, content)
 
+
+
 def debug(msg):
+    logger.debug( msg) 
     if DEBUG:
         print "DEBUG: %s" % msg
         
+<<<<<<< HEAD
+=======
+
+
+    
+>>>>>>> 5c0811ab94899f5691a625630e88ff43430dc233
 class Adapter(BaseHTTPRequestHandler) :  
+
+
+    def __authenticate(self, request):
+        token = request.headers.get( 'accesstoken' ) 
+        fbid = request.headers.get( 'fbid' ) 
+        debug( "Access Token: %s" % repr(token) ) 
+        debug( "FBID: %s" % repr(fbid) ) 
+        if Authenticator().canAccess( request.path, fbid, token) is True : 
+            debug( "access ok : " + request.path ) 
+            return True
+        else:
+            debug( "YAAAY no access : " + request.path ) 
+            return False 
+
+
+
+    def __show_headers (self) : 
+        #if DEBUG : 
+        #    debug( "keys = " + repr(self.headers.keys()) ) 
+        #    for k in self.headers.keys(): 
+        #        debug( "%s = %s" % (k, self.headers[k]) ) 
+        pass 
+            
+
+
      
     def do_GET(self):
         try:
+            self.__show_headers() 
+            self.path = clean_cgi_args(self.path)
             if self.path.split('/')[1] == 'static':
                 serve_static(self)
-            else:
-                authenticate(self)
+            elif self.__authenticate(self) :
                 key = path_to_key(self.path)
                 # perhaps the second part of the and is sufficient. 
                 # TODO, remove first part of condition 
@@ -133,6 +193,9 @@ class Adapter(BaseHTTPRequestHandler) :
                     logger.info( 'no pattern match on %s' % self.path ) 
                     response, content = httplib2.Http().request('http://localhost:5984' + self.path, "GET")
                     self.write_response(response, content)
+            else: 
+                self.send_error(403, "Forbidden " + self.path) 
+
                     
         except Exception, e:
             debug(e)
@@ -143,7 +206,12 @@ class Adapter(BaseHTTPRequestHandler) :
 
     def do_PUT(self):
         try:
-            authenticate(self)
+            self.__show_headers() 
+            self.path = clean_cgi_args(self.path)
+            if not self.__authenticate(self): 
+                self.send_error(403, "Forbidden " + self.path)
+                return 
+
             key = path_to_key(self.path)
             headers = { "content-type": "application/json" }
             data =  self.rfile.read((int(self.headers['content-length'])))
@@ -173,9 +241,16 @@ class Adapter(BaseHTTPRequestHandler) :
 
 
 
+
+
     def do_POST(self):
         try:
-            authenticate(self)
+            self.__show_headers() 
+            self.path = clean_cgi_args(self.path)
+            if not self.__authenticate(self): 
+                self.send_error(403, "Forbidden " + self.path)
+                return 
+
             key = path_to_key(self.path)
             if key in patterns:
                 url = 'http://%s:%s' % dst_server + patterns[key].replace(self.path) 
@@ -198,6 +273,8 @@ class Adapter(BaseHTTPRequestHandler) :
         except Exception, e:
             debug(e)
             server_error(self, self.path)
+
+
 
     def write_response(self, response, content):
         self.send_response(int(response['status']))

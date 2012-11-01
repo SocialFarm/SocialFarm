@@ -96,11 +96,16 @@ function render_member_info(){
     );
 }
 
+
+
 function setHeader(xhr) {
     if (user != null){
-        xhr.setRequestHeader('AccessToken', user.AccessToken);
+        xhr.setRequestHeader('accesstoken', user.AccessToken);
+        xhr.setRequestHeader('fbid', user.FBID);        
     }
 }
+
+
 
 function get_json(url, successcb, failurecb){
     //caching not working >:(
