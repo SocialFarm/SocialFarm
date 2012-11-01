@@ -30,12 +30,6 @@ function warn(msg){
     $('#alert').focus();
 }
 
-function submit()
-{
-    $('#submit').show();
-    $('#submit').focus();
-}
-
 function build_readonly_li(label, for_attr, name_attr, type_attr, value_attr){
     return '<li>' +
            '<label for="' + for_attr + '">' + label + '</label>' +
