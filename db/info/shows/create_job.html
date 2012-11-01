@@ -74,7 +74,7 @@ Begin db/info/shows/create_job.html
 
         $(document).ready(function() {
             $("#save_job").click(function(){
-            submit();
+            $("#submit").show();
             var data_items = $('#data_items').serializeArray();
 		    var form;
             form = $("#job_info").serializeArray();
@@ -224,8 +224,8 @@ Begin db/info/shows/create_job.html
                 warn( "Enable to add a new job");
              }	
              var success = function(){
-                 //alert("Successfully created job !!");
-                 //window.location= "/business/{{bid}}/jobs" ;
+                 alert("Successfully created job !!");
+                 window.location= "/business/{{bid}}/jobs" ;
              }
             put_json( url, data, success, failure );
         }
