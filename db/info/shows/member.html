@@ -22,10 +22,10 @@ Begin db/info/shows/member.html
 						    <label for="role">Role</label>
 						    <input type="text" name="role" id="role" value = "{{role}}"readonly/>
 					    </li>
-                         <!--li>
+                         <li>
 						    <label for="working_since">Working Since</label>
 						    <input type="text" name="working_since" id="working_since" value = "{{working_since}}"/>
-					    </li-->
+					    </li>
                         <li>
 						    <!--label for="type">Type</label-->
 						    <input type="hidden" name="type" id="type" value = "{{type}}"readonly/>
@@ -80,7 +80,7 @@ Begin db/info/shows/member.html
             url =  "/api/business/{{bid}}/object/{{_id}}";
             var success = function(){
                 alert("Update is Successfull !1 ");
-                window.location = "/socialfarm/_design/business/_show/member/{{_id}}";
+                window.location ="/business/{{bid}}";
             }
             
             var failure = function(){
@@ -90,6 +90,10 @@ Begin db/info/shows/member.html
             post_json(url,data,success,failure);
             
         });
+	    $("#cancel").click(function(){
+            window.location = "/business/{{bid}}";
+        });
+
     });
 </script>
 <!-- 

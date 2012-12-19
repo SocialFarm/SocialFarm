@@ -30,16 +30,27 @@ Begin db/info/shows/job.html
 				            <label for="started_since">Started Since</label>
 				            <input type="text" name="started_since" id="started_since" value = "{{started_since}}"readonly/>
 			            </li>
-						<li>
+						<!--li>
 							<label for="data_items">Data Items</label>
 							<input type="text" name="data_items" id="data_items" value = "{{#data_items}}{{key}}, {{/data_items}}"readonly/>
 						</li>
-                        <!--li>
+                        <li>
 				            <label for="type">Type</label>
 				            <input type="text" name="type" id="type" value = "{{type}}"readonly/>
 			            </li-->
 		            </ul>
             </fieldset>
+
+            <fieldset id="data_items">
+                        <legend>Data Items</legend>
+                                <ul>
+                                        {{#data_items}}
+                                                <li><label for="{{key}}">{{key}}</label>
+                                                        <textarea name="{{key}}" id="{{key}}" align="left">{{value}}</textarea>
+                                                </li>
+                                        {{/data_items}}
+                                </ul>
+             </fieldset>
     </form>
 </div>
 <!-- 
