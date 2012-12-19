@@ -71,7 +71,9 @@ Begin db/business/shows/join_business.html
                     });
 
                     member.skills = [];
-
+                    member.looking_for_work="yes";
+                    var d = new Date();
+                    member.working_since= d.valueOf();
                     $.each(skills, function (item) {
                         member.skills.push(skills[item].value);
                     });
@@ -104,7 +106,7 @@ Begin db/business/shows/join_business.html
                     }
 
                     get_json(person_url, update_person, do_nothing);
-	            temp_url="/socialfarm/"+bid;
+	                temp_url="/socialfarm/"+bid;
                     var add_info = Object();
                     var temp = function( ret )
                     {
@@ -125,7 +127,7 @@ Begin db/business/shows/join_business.html
                     LOG(data);
                     var join_success = function(){
                         alert("Congratulations ! You are now part of {{bid}}");
-                        window.location="/socialfarm/_design/business/_show/member/" + get_user().id ;
+                        window.location="/business/{{bid}}/member/" + get_user().id ;
                     }
                     var join_failure = function(){
                         alert("Sorry, your request to join {{bid}} is not successful");
