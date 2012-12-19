@@ -35,8 +35,8 @@ Begin db/info/shows/create_job.html
 							<input type="text" name="data_items" id="data_items" value = "{{#data_items}}{{key}}, {{/data_items}}"readonly/>
 						</li--> 
                         <li>
-				            <label for="type">Type</label>
-				            <input type="text" name="type" id="type" value = "{{type}}"readonly/>
+				            <!--label for="type">Type</label-->
+				            <input type="hidden" name="type" id="type" value = "{{type}}"readonly/>
 			            </li>
 		            </ul>
             </fieldset>
@@ -71,12 +71,13 @@ Begin db/info/shows/create_job.html
         var member = Object();
         var sourceGeoLocation = {} ;
         var destinationGeoLocation = {};
+	var cost = 0;
 
         $(document).ready(function() {
             $("#save_job").click(function(){
             $("#submit").show();
             var data_items = $('#data_items').serializeArray();
-		    var form;
+		var form;
             form = $("#job_info").serializeArray();
 		    LOG(form);
             $.each(form, function (item) {
@@ -88,10 +89,10 @@ Begin db/info/shows/create_job.html
                 });
              
             member.data_items = items;
-            LOG(member.data_items);
+            //LOG(member.data_items);
             if ("{{bid}}" == "social_ride")
             {
-                LOG(member.data_items.Destination);
+                //LOG(member.data_items.Destination);
                 codeAddress(member.data_items.Destination,"destination");
                 codeAddress(member.data_items.pickUp,"source");
             }
@@ -116,9 +117,9 @@ Begin db/info/shows/create_job.html
         function codeAddress(address,type) {
         
             initialize();
-	        LOG(address);
+	        //LOG(address);
             geocoder.geocode( { 'address': address}, function(results, status) {
-	        LOG(results);
+	        //LOG(results);
             if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
                 loc = results[0].formatted_address ;
@@ -131,7 +132,6 @@ Begin db/info/shows/create_job.html
                         sourceGeoLocation = results[0].geometry.location ;
                         member.data_items.pickUp = startLocation ;
                         member.data_items['geoLocationSource'] = sourceGeoLocation ;
-                        LOG(member);
                         LOG(startLocation);
                         LOG(sourceGeoLocation);
                     }
@@ -144,15 +144,19 @@ Begin db/info/shows/create_job.html
                         LOG(finalLocation);
                         LOG(destinationGeoLocation);
                     }
+	        if (startLocation!=null && finalLocation!=null)
+               calculateRouteCost(sourceGeoLocation,destinationGeoLocation); 
             ///End///
 	        for(var i=0 ; i < results.length ; i++ )
             {
                 var marker = new google.maps.Marker({
                     map: map,
-                    position: results[i].geometry.location
+                    position: results[i].geometry.location,
+		    draggable: true,
+		    title: type
                 });
                 marker.setTitle(results[i].formatted_address);
-                attachMessage(results[i].formatted_address ,results[i].geometry.location, marker );
+                attachMessage(results[i].formatted_address ,results[i].geometry.location, marker,type );
             }
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
@@ -160,7 +164,7 @@ Begin db/info/shows/create_job.html
             });
         }
 
-        function attachMessage(address,geoLocation,marker)
+        function attachMessage(address,geoLocation,marker,type)
         {
             var infowindow = new google.maps.InfoWindow(
                 { content: address,
@@ -174,13 +178,14 @@ Begin db/info/shows/create_job.html
                         sourceGeoLocation = geoLocation;
                         LOG(startLocation);
                         LOG(sourceGeoLocation);
+			calculateRouteCost(sourceGeoLocation,destinationGeoLocation);
                     }
                     else 
                     {
                         finalLocation = address ;
                         destinationGeoLocation = geoLocation ;
                         LOG(finalLocation);
-                        LOG(destinationGeoLocation);
+			calculateRouteCost(sourceGeoLocation,destinationGeoLocation);
                     }
                  });
         }
@@ -203,13 +208,21 @@ Begin db/info/shows/create_job.html
             }
             else
             {
+                member.data_items.Destination = finalLocation;
+                member.data_items['geoLocationDest'] = destinationGeoLocation.toString() ;
+
+                member.data_items.pickUp = startLocation ;
+                member.data_items['geoLocationSource'] = sourceGeoLocation.toString() ;
+                
                 var sourceGeoKeyStr = encodeGeoPosition(sourceGeoLocation);
                 var destinationGeoKeyStr = encodeGeoPosition(destinationGeoLocation);
                 LOG("Source : " + startLocation+" :  " + sourceGeoLocation);
-		LOG("Destinatio : "+finalLocation +": " + destinationGeoLocation);
+                LOG("Destinatio : "+finalLocation +" : " + destinationGeoLocation);
+//		calculateRouteCost(sourceGeoLocation,destinationGeoLocation);
+		member.price = document.getElementById('price').value ;
 		member.data_items['sourceGeoKeyStr']=sourceGeoKeyStr;
                 member.data_items['destinationGeoKeyStr']=destinationGeoKeyStr;
-		LOG(member);
+	        LOG(member);
                 return 'true';
              }
         }
@@ -218,7 +231,7 @@ Begin db/info/shows/create_job.html
              var data;
              var url = "/{{bid}}/create_job";
              data = JSON.stringify(member) ;
-	     LOG(data);
+	         LOG(data);
              var failure = function(){
                 LOG( " Enable to add a new job " ) ;
                 warn( "Enable to add a new job");
@@ -268,8 +281,8 @@ Begin db/info/shows/create_job.html
     } 
 
     if( MIGRATING > 0 || doc.type == "profile" ) {
-        var latkeys = getkeys( DEPTH, 90.0, -90.0, doc.Ya ) ; 
-        var lonkeys = getkeys( DEPTH, 180, -180, doc.Xa ) ; 
+        var latkeys = getkeys( DEPTH, 90.0, -90.0, doc.lat() ) ; 
+        var lonkeys = getkeys( DEPTH, 180, -180, doc.lng() ) ; 
         // log( "length of keys = " + latkeys.length + " , " + lonkeys.length ) ; 
 
         var maxlen = latkeys.length <  lonkeys.length ? 
@@ -296,8 +309,37 @@ Begin db/info/shows/create_job.html
     }
 
 }
- 
-    </script> 
+    function calculateRouteCost ( start , end )
+    {
+        var directionService ;
+        var distance;
+        directionService = new google.maps.DirectionsService();
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+        
+        directionService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                LOG(response.routes[0]);
+                distance = response.routes[0].legs[0].distance.value;
+		LOG(distance);
+		cost = ( distance * 0.5 ) / 1000 ;
+		LOG("COST : "+cost);
+		document.getElementById('price').value = cost ;
+            }
+        });
+    }
+  </script>
+
+<script type="text/javascript">
+	var d = new Date();
+	var dat = d.getDate()+"-"+d.getMonth()+"-"+d.getFullYear();
+	var time = d.getHours()+" : "+d.getMinutes();
+	document.getElementById('Date').value = dat;
+	document.getElementById('Time').value = time;
+</script> 
 <!-- 
 End db/info/shows/create_job.html
  -->
