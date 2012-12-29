@@ -73,7 +73,7 @@ Begin db/business/shows/join_business.html
                     member.skills = [];
                     member.looking_for_work="yes";
                     var d = new Date();
-                    member.working_since= d.valueOf();
+                    member.working_since= d.valueOf()/1000;  // db stores seconds
                     $.each(skills, function (item) {
                         member.skills.push(skills[item].value);
                     });
