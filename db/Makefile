@@ -119,6 +119,13 @@ install_info :
 	./scripts/attachments.py socialfarm_business_template _design/info close.jpg info/images/close.jpg
 	./scripts/attachments.py socialfarm_business_template _design/info graybar_top.png info/images/graybar_top.png
 	./scripts/attachments.py socialfarm_business_template _design/info graybar_bottom.png info/images/graybar_bottom.png
+	./scripts/attachments.py socialfarm_business_template _design/info customized.css common/html/customized.css
+	./scripts/attachments.py socialfarm_business_template _design/info customized.js common/js/customized.js
+	./scripts/attachments.py socialfarm_business_template _design/info customized.html common/html/customized.html
+
+#edit business specific attachments
+##FIX ME ##
+	./scripts/attachments.py	social_ride _design/info    customized.js   scripts/customized_socailride.js
 
 install_scheduler : 
 	$(UPDATE_SCHED)	    views.offer_tasks.map 				scheduler/offer_tasks/map.js

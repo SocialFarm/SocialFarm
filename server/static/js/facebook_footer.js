@@ -48,7 +48,7 @@ function get_facebook_user(response){
  
 
             AfterFacebookIsLoaded();
-            
+            AfterFBIsLoaded();            
             //to make sure this is only ever called once
             window['AfterFacebookIsLoaded'] = null;
         }
