@@ -1,0 +1,4 @@
+function AfterFBIsLoaded()
+{
+  return ;
+}
