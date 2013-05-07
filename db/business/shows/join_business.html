@@ -89,11 +89,24 @@ Begin db/business/shows/join_business.html
 
                     var bid = $('#_id').text() ;
                     var url;
-                    var data;
+                    var data,loc;
                     //update person in business (bid) db
                     person_url = "/api/person/" + get_user().id ;
+                    //TODO:: The below part can be moved to customized scripts
+                    if ("{{bid}}" == "social_ride")
+                    {
+                        if (navigator.geolocation)
+                        {
+                            navigator.geolocation.getCurrentPosition(getPosition);
+                        }
+                        else{console.log("Geolocation is not supported by this browser.");}
+                        function getPosition(position)
+                        {
+                            loc = encodePosition(position);
+                        }
+                    }
 
-
+						
                     var update_person = function(person){
 
                         //LOG('revision_cache[url] : ' + revision_cache[person_url]);
@@ -112,8 +125,13 @@ Begin db/business/shows/join_business.html
                     {
                         for(var i=0 ; i < ret['additional_info'].length ; i++ )
                         {
-                        var key = ret['additional_info'][i];
-                        add_info[key] = "";
+						var key = ret['additional_info'][i];
+						if(key == "location")
+						{
+							    add_info[key] = loc;
+					    }
+                        else
+                            add_info[key] = "";
                         }
                         member.additional_info = add_info;
                         data = JSON.stringify(member) ;
@@ -124,10 +142,9 @@ Begin db/business/shows/join_business.html
                     url =  "/api/business/" + bid + "/object/" + get_user().id
                     
                     data = JSON.stringify(member) ;
-                    LOG(data);
                     var join_success = function(){
-                        alert("Congratulations ! You are now part of {{bid}}");
-                        window.location="/business/{{bid}}/member/" + get_user().id ;
+                        //alert("Congratulations ! You are now part of {{bid}}");
+                        //window.location="/business/{{bid}}/member/" + get_user().id ;
                     }
                     var join_failure = function(){
                         alert("Sorry, your request to join {{bid}} is not successful");
