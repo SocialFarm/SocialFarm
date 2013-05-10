@@ -2,6 +2,9 @@
 
 # Update a single field in the couchdb 
 # Can be used to upload design document components 
+# Author : vpathak 
+# Copyright 2009-2013
+# License : Apache (see in repository at https://github.com/SocialFarm/SocialFarm/blob/master/LICENSE.txt)
 
 import os, sys, getopt
 from pprint import pprint 
