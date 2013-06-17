@@ -19,7 +19,7 @@ UPDATE_SCHED    = ./scripts/update_field.py $(CREDENTIALS) socialfarm_business_t
 UPDATE_VALID    = ./scripts/update_field.py $(CREDENTIALS) socialfarm_business_template  _design/valid   
 
 
-all : clean install_common install_business install_info install_scheduler install_social_news
+all : clean install_common install_business install_info install_scheduler install_social_news install_social_ride
 	@echo Done
 
 
@@ -138,10 +138,14 @@ endif
 	./scripts/delete_database.py $(CREDENTIALS) social_plumbing
 	./scripts/delete_database.py $(CREDENTIALS) socialfarm_business_template
 	./scripts/delete_database.py $(CREDENTIALS) socialfarm
-	./scripts/delete_database.py $(CREDENTIALS) socail_ride
+	./scripts/delete_database.py $(CREDENTIALS) social_ride
 
 
 install_social_news: 
 	./scripts/SocialFarmHelper.py $(SF_USERNAME) $(SF_PASSWORD)
 	./scripts/SocialNews.py $(SF_USERNAME) $(SF_PASSWORD)
+
+install_social_ride:
 	./scripts/SocialRide.py $(SF_USERNAME) $(SF_PASSWORD)
+	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.nearby_jobs.map socialride/nearby_jobs/map.js 
+        
