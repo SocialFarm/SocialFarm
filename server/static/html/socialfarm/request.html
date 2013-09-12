@@ -5,6 +5,12 @@
 	<title>Social Ride - Request Ride </title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 </head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/base.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUcTvML7PuCUAqSU8RzF-OLtu5EvDqY9Q&sensor=false"></script>
+<script type="text/javascript" src="../../js/maps.js"></script>
+
+
 <body>
 	
 <!-- Logo + Navigation -->
@@ -37,7 +43,7 @@
 <!-- Main Content -->
 <div class="accText">Request Ride </div>
 <!-- Main Content -->
-
+<form id="request_form" onsubmit="return false;">
 	<table width="100%" border="0" cellpadding="0" cellspacing="10" class="accountTable">
           <tr>
 	    <td><label>Name </label></td>
@@ -57,7 +63,7 @@
       </tr>
 	  <tr>
             <td><label>Sex</label></td>
-            <td><select id="sex" name="country">
+            <td><select id="sex" name="sex">
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="both">Don't mind</option>
@@ -65,7 +71,7 @@
 	  </tr>
       <tr>
             <td><label>Smoking</label></td>
-            <td><select id="smoking" name="country">
+            <td><select id="smoking" name="smoking">
                 <option value="no">No</option>
                 <option value="yes">Yes</option>
                 <option value="both">Don't mind</option>
@@ -74,6 +80,25 @@
 	  <tr>
             <td colspan="4"><button id="request_ride">Send Request</button></td>
 	  </tr>
+</form>
 </table>
 </body>
+<script type="text/javascript">
+
+        $(document).ready(function() {
+            $("#request_ride").click(function(){
+            var form;
+            var key;
+            form = $("#request_form").serializeArray();
+            console.log(form);
+            console.log(form[1].value);
+            var success =  function(key)
+            {
+                console.log("key "+key);
+            }
+            generateGeoPositionKey(form[1].value,success);
+//TODO prerak add functionality to use the source key to display jobs using the nearby views
+    });
+});
+</script>
 </html>
