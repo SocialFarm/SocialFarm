@@ -89,6 +89,7 @@
   function readform(){
     init_map();
     form_data = read_html_form_data("request_form");
+    console.log("Form data:" + JSON.stringify(form_data));
     map_address_on_map(form_data['source'],source,change_location,failure);
   }
 </script>

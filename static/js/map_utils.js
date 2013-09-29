@@ -1,17 +1,16 @@
 // This file contains utility function for social ride
 
-var map;
+var map = null;
 
 function read_html_form_data(form_id) {
-  var form ;
-  var member = Object();
-  form = $("#"+form_id).serializeArray();
-
-  $.each(form, function (item) {
-      console.log("ITEM  " + form[item].name);
-      member[form[item].name] = form[item].value;
-      });
-  return member;
+    var form ;
+    var member = Object();
+    form = $("#"+form_id).serializeArray();
+    
+    $.each(form, function (item) {
+                    member[form[item].name] = form[item].value;
+                    });
+    return member;
 }
 
 //Init google maps
@@ -34,14 +33,15 @@ function map_address_on_map( address, type, success, failure)
   var geolocation;
   geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
+    console.log("Results:" + JSON.stringify(results));
       map.setCenter(results[0].geometry.location);
-      loc = results[0].formatted_address ;
       for(var i=0 ; i < results.length ; i++ ) {
+        var myLatlng = new google.maps.LatLng(results[i].geometry.location.lng(),results[i].geometry.location.lat());
         var marker = new google.maps.Marker({
           map: map,
           //TODO :: get images for source and destination.
           //icon: image
-          position: results[i].geometry.location,
+          position: myLatlng,
           draggable: true,
           title: type
         });
