@@ -1,0 +1,94 @@
+* { padding:0; margin:0; outline:0; }
+body { background:#fff; font-family: Arial, sans-serif;	font-size:12px;	line-height:15px; color:#000000;	margin:0 auto; width:760px; padding-top:15px; }
+input, textarea, select, textbox { font-family: Arial, sans-serif; font-size:11px; }
+a img { border:0; }
+a { color:#3b5998; text-decoration: underline; cursor:pointer; }
+a:hover { color:#3b5998; text-decoration: none; }
+
+.left, .alignleft { float:left; display:inline;text-align:justify; }
+.right, .alignright { float:right; display:inline;text-align:justify; }
+
+.top{ height:71px; background-color:#3b5998;}
+.topleft{background:url(../images/left.png) no-repeat top left; height:71px; width:10px; float:left;}
+.topright {background:url(../images/right.png) no-repeat top right; height:71px; width:10px; float:right;}
+
+.logo { font-size:0; line-height:0; width:210px; height:37px; float:left; padding-left:14px;}
+.logo a{ display:block; height:53px; background:url(images/logo.png) no-repeat center; margin-top:8px;}
+
+.blackbar { width:760px; margin:0 auto;background-color:#000000;height:40px;color:#ffffff; font-weight:bold;}
+.blackbarleft{background:url(../images/blackbar_left.png) no-repeat top left; height:71px; width:11px; float:left;}
+.blackbarright {background:url(../images/blackbar_right.png) no-repeat top right; height:40px; width:11px; float:right;}
+
+.topheading{ height:65px;}
+.text-left {margin:14px 8px 14px 20px;float:left; font-size:13px;}
+.text-right {margin:14px 40px 14px 306px;float:left;font-size:13px;}
+.clr{clear:both;}
+
+.fblike{ background:url('../images/like.jpg'); float:left; width:47px; height:24px; margin-top:6px;}
+.fbicon{ background:url('../images/fb.jpg'); float:left; width:12px; height:12px; margin-top:12px; margin-left:5px;}
+.fbtext{float:left;margin-top:10px; margin-left:5px;}
+
+.navigation { float:left; margin-top:32px; margin-left:64px;}
+.navigation ul{ list-style-type: none; line-height:14px; }
+.navigation ul li{ float:left; display:inline; border-right:solid 1px #fff; padding-right:12px; margin-right:12px; }
+.navigation ul li.last{ margin-right:0; border:0; padding-right:0;padding-right:24px; }
+.navigation ul li a{ color:#fff; text-decoration: none; font-weight:bold;}
+.navigation ul li a:hover,
+.navigation ul li a.active { color:#fff; }
+
+#header { height:34px; border-top:solid 1px #fff; border-bottom:solid 1px #fff;}
+
+#footer { height:51px; white-space:nowrap; line-height:50px; color:#686868; }
+#footer a{ color:#b82422; text-decoration: none; font-weight:bold; font-size:11px;}
+#footer a:hover{ color:#b82422; }
+
+.main { width:757px; background-color:#e2dcd2;}
+.maintop{background:url(../images/graybar_top.png) no-repeat top; height:10px; width:757px;margin-top:5px;}
+.mainbottom{background:url(../images/graybar_bottom.png) no-repeat; height:10px; width:757px;}
+
+.col {float:left; display:inline; width:270px; margin:18px 0px 25px 15px; color:#000; font-weight:bold; font-size:24px; /*height:30px; line-height:30px;*/}
+.col-right {float:right; margin:9px 15px 25px 0px; color:#000000; font-size:13px; font-weight:bold;}
+.col-right span{ font-size:11px; margin-right:13px; margin-top:12px; line-height:12px;}
+#mainbar{background-color:#487db4;width:730px; margin:0 auto 0px auto; height:30px;}
+#mainbar_bottom{background-color:#487db4;width:730px; margin:26px auto 0px auto; height:30px;}
+.contenthead{color:#fff;margin:7px 0px 0px 10px;text-transform:uppercase;float:left; font-size:12px; font-weight:bold;}
+
+.maincontent{background-color:#ffffff; width:730px; margin:0px auto 0px auto; height:auto;}
+.maincontent1{background-color:#ffffff;width:730px; margin:0px auto 0px auto; height:auto;}
+
+.opp-left-col{width:450px;float:left;margin:10px 10px 0px 10px;}
+.opp-right-col{float:right; width:220px;margin:10px;}
+.opptextblack{float:left;color:#000000;font-size:20px;margin-top:20px;font-weight:bold;padding-left:5px;margin-bottom:3px;}
+.opptextblue{float:left;color:#3b5998;font-size:12px;font-weight:bold;padding-left:5px;padding-bottom:25px;}
+.opptextblue1{float:left;color:#3b5998;font-size:14px;font-weight:bold;}
+
+hr {border: none;border-top: dashed 1px #3b5998;color: #3b5998;background-color: #ffffff;margin:12px 0px; width:450px;}
+.close{float:right;margin:8px 10px 8px 10px;}
+.close img{cursor:pointer;}
+
+.textbox{height:26px; line-height:26px; border:0px;width: 205px; font-size:12px; font-family:verdana;}
+
+.buttonStyle { padding:11px 6px 11px 14px;}
+.buttonalign{float:left;margin:4px;}
+
+/* My Account page style starts from here for Content Area */
+
+.accText{ font-size:24px; font-weight:bold; margin:33px 0 40px 17px;}
+
+.accountTable { margin:10px 15px 26px 10px; }
+.accountTable input { border: 1px solid #d5d5d5; background-color: #fafafa; height:32px; width:217px; font-size:12px; color:#806666; padding-left:11px; font-weight:bold; margin:0; line-height:32px;}
+.accountTable select.states { border: 1px solid #d5d5d5; background-color: #fafafa; height:21px; width:217px;font-size:12px; color:#806666; padding-left:5px; font-weight:bold; }
+.accountTable input.text_width{width:280px;}
+.accountTable select { border: 1px solid #d5d5d5; background-color: #fafafa; width:280px; height:21px;font-size:12px; color:#806666; padding-left:5px; font-weight:bold;}
+.accountTable tr { height:40px; }
+.accountTable tr.instructions  { height:15px !important; }
+.accountTable td label{ text-align:right; float:right; margin-right:10px; font-size:12px; }
+
+input.btnsbmt{ border:none; width:165px; height:24px; margin-top:12px; margin-left:50px; }
+input.smalltxtBox{width:127px;}
+.star {color:#c7ca00;}
+.comments{ margin-left:13px; color:#816681; font-size:11px;}
+
+/* My Account page style end here for Content Area */
+
+

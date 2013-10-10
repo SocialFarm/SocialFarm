@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
     
 
-    url = 'http://localhost:5984/'
+    url = 'http://socialfarm.iriscouch.com'
     for o, a in opts:
         if o in ("--login" , "-l") :
             username, password = a.split(':') 

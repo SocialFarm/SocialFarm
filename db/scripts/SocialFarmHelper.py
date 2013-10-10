@@ -17,7 +17,7 @@ from couchdb.client import Database, Server
 
 class SocialFarm : 
     
-    def __init__(self, username = None, password = None, url ='http://localhost:5984/'): 
+    def __init__(self, username = None, password = None, url ='http://socialfarm.iriscouch.com'): 
         self.server = Server(url)
         if username is not None and password is not None: 
             self.server.resource.credentials = (username, password) 
@@ -157,7 +157,7 @@ class SocialFarm :
 
 class BusinessDirector : 
 
-    def __init__(self, businessname, username=None, password=None, url ='http://localhost:5984/'): 
+    def __init__(self, businessname, username=None, password=None, url ='http://socialfarm.iriscouch.com'): 
         self.businessname = businessname
         self.sf = SocialFarm(username, password) 
         self.server = Server(url)

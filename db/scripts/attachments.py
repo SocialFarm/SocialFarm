@@ -28,7 +28,7 @@ if __name__ == "__main__":
    
     # TODO : This code is common with the update field script.  move to common script? 
     
-    url = 'http://localhost:5984/'
+    url = 'http://socialfarm.iriscouch.com'
     for o, a in opts:
         if o in ("--login" , "-l") :
             username, password = a.split(':') 

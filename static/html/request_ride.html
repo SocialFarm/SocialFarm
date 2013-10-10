@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http//www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Social Ride - Request Ride </title>
+</head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAUcTvML7PuCUAqSU8RzF-OLtu5EvDqY9Q&sensor=false"></script>
+<script type="text/javascript" src="./js/map_utils.js"></script>
+
+<body>
+
+<div id = "header">
+    <button class = "uiButton" id="login">Login</button><br>
+</div>
+<br>	
+
+<div class="request">Request Ride </div>
+
+<div id="userinfo">
+</div>
+<!-- Main Content -->
+<form id="request_form" onsubmit="return false;">
+	<table width="100%" border="0" cellpadding="0" cellspacing="10" >
+          <!--tr>
+	    <td><label>Name </label></td>
+            <td><input type="text" id="name" name="name" value=""/></td>
+	  </tr-->
+      <tr>
+            <td><label>source </label></td>
+            <td><input type="text" id="source" name="source"  value=""/></td>
+	  </tr>
+	  <tr>
+            <td><label>destination</label></td>
+            <td><input type="text" id="destination" name="destination"  value=""/></td>
+	  </tr>
+      <tr>
+            <td><label>language</label></td>
+            <td><input type="text" id="language" name="language"  value=""/></td>
+      </tr>
+      <tr>
+            <td><label>Date</label></td>
+            <td><input type="text" id="date" name="date" value=""/></td>
+      </tr>
+      <tr>
+            <td><label>Time</label></td>    
+            <td><input type="text" id="time" name="time" value=""/></td>
+      </tr>
+	  <tr>
+            <td><label>Sex</label></td>
+            <td><select id="sex" name="sex">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="both">Don't mind</option>
+              </select></td>
+	  </tr>
+      <tr>
+            <td><label>Smoking</label></td>
+            <td><select id="smoking" name="smoking">
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+                <option value="both">Don't mind</option>
+              </select></td>
+      </tr>
+	  <tr>
+            <td colspan="4"><button onclick="readform()" id="request_ride">Send Request</button></td>
+	  </tr>
+</form>
+</table>
+</body>
+
+<div id="map_canvas" style="height:400px;width:500px;overflow: auto;"></div>
+
+<!--TODO :: Add javascript code to read the form data 
+             Add a map after someone presses the submit button
+             Attach the FB API
+             Add validation for data and time.
+             Add js code to store the doc to couchdb -->
+
+<script type="text/javascript">
+  var form_data ;
+  var change_location = function(address){
+    console.log("Address " + address);
+  }
+  var failure = function(){
+    alert("FAILED");
+  }
+
+  function readform(){
+    init_map();
+    form_data = read_html_form_data("request_form");
+    console.log("Form data:" + JSON.stringify(form_data));
+    map_address_on_map(form_data['source'],source,change_location,failure);
+  }
+</script>
+
+<div id="fb-root">
+	<script type="text/javascript" src="./js/facebook.js"></script>
+</div>
+
+</html>
