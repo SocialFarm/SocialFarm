@@ -16,7 +16,7 @@ function read_html_form_data(form_id) {
 //Init google maps
 function init_map() {
    
-    geocoder = new google.maps.Geocoder();
+    //geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(12.9715987,77.59456269 );
     var mapOptions = {
         zoom: 8,
@@ -30,18 +30,18 @@ function init_map() {
 // type= source/address
 function map_address_on_map( address, type, success, failure)
 {
-  var geolocation;
+  //init_map();
+  geocoder = new google.maps.Geocoder();
+  var geolocation = {};
   geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
-    console.log("Results:" + JSON.stringify(results));
       map.setCenter(results[0].geometry.location);
       for(var i=0 ; i < results.length ; i++ ) {
-        var myLatlng = new google.maps.LatLng(results[i].geometry.location.lng(),results[i].geometry.location.lat());
         var marker = new google.maps.Marker({
           map: map,
           //TODO :: get images for source and destination.
           //icon: image
-          position: myLatlng,
+          position: results[i].geometry.location,
           draggable: true,
           title: type
         });
@@ -51,7 +51,7 @@ function map_address_on_map( address, type, success, failure)
       //set initial position in DB
       geolocation['address'] = results[0].formatted_address ;
       geolocation['latlong'] = results[0].geometry.location ;
-      success(address);
+      success(results[0].formatted_address ,results[0].geometry.location,type);
     }else {
       alert('Geocode was not successful for the following reason: ' + status);
       failure(address);
@@ -140,3 +140,48 @@ function encodeGeoPosition(doc) {
         return str;
     }
 }
+/*
+function put_json(url, data, successcb, failurecb){
+        if (url in revision_cache && data == revision_cache[url]){
+            // trying to put the same object 
+            LOG('trying to put the same object...');
+        } else {
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            dataType: 'json',
+            data : data,
+            success: function (response){ 
+                LOG('PUT response: ' + JSON.stringify(response));
+                //should update cache rev
+                //revision_cache[url] = response; 
+                successcb(); 
+            },
+            error: failurecb,
+            beforeSend: setHeader
+        });
+    }
+}
+*/
+function get_json(url, successcb, failurecb){
+    //caching not working >:(
+    //if (! url in revision_cache) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response){
+                LOG('GET response: ' + JSON.stringify(response));
+                //revision_cache[url] = JSON.stringify(response);
+                successcb(response);
+            },
+            error: failurecb
+            //beforeSend: setHeader
+        });
+    /*
+    } else {
+        LOG('returning cached data...');
+        successcb(revision_cache[url]);
+    }   */
+}
+
