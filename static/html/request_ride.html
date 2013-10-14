@@ -6,7 +6,7 @@
 </head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAUcTvML7PuCUAqSU8RzF-OLtu5EvDqY9Q&sensor=false"></script>
-<script type="text/javascript" src="./js/map_utils.js"></script>
+<script type="text/javascript" src="map_utils.js"></script>
 
 <body>
 
@@ -63,24 +63,43 @@
               </select></td>
       </tr>
 	  <tr>
-            <td colspan="4"><button onclick="readform()" id="request_ride">Send Request</button></td>
+            <td colspan="4"><button onclick="readform()" id="request_ride">Create Request</button></td>
 	  </tr>
 </form>
 </table>
 </body>
 
+<div id = "submit" style="postion: absolute; display:none;">
+  <button id = "submit_button" onclick=submit_request()>Submit Request</button>
+</div>
+
 <div id="map_canvas" style="height:400px;width:500px;overflow: auto;"></div>
 
-<!--TODO :: Add javascript code to read the form data 
-             Add a map after someone presses the submit button
-             Attach the FB API
+<!--TODO :: Add javascript code to read the form data (Done)
+             Add a map after someone presses the submit button(done)
+             Attach the FB API(Done)
              Add validation for data and time.
              Add js code to store the doc to couchdb -->
 
 <script type="text/javascript">
   var form_data ;
-  var change_location = function(address){
-    console.log("Address " + address);
+  var request;
+
+  var change_location = function(address,geolocation,type){
+//    console.log("Address " + address, "  geolocation " + geolocation + " type  " + type);
+
+    if(type == "source")
+    {
+      form_data['source_address'] = address;
+      form_data['source_location']= geolocation;
+      form_data['source_geocode'] = encodeGeoPosition(geolocation);
+    }
+    else {
+      form_data['dest_address'] = address;
+      form_data['dest_location']= geolocation;
+      form_data['dest_geocode'] = encodeGeoPosition(geolocation);
+    }
+
   }
   var failure = function(){
     alert("FAILED");
@@ -88,14 +107,30 @@
 
   function readform(){
     init_map();
+    $("#request_ride").hide();
+    $("#submit").show();
     form_data = read_html_form_data("request_form");
     console.log("Form data:" + JSON.stringify(form_data));
-    map_address_on_map(form_data['source'],source,change_location,failure);
+    map_address_on_map(form_data['source'],'source',change_location,failure);
+    map_address_on_map(form_data['destination'],'destination',change_location,failure);
   }
+
+  function success(data) {
+    console.log(data);
+  }
+  
+  function submit_request() {
+    //console.log("Form "+JSON.stringify(form_data));
+    //var url = "http://socialfarm.iriscouch.com/_uuids?callback=?";
+    var url = "http://localhost:5984/_uuids?callback=?";
+    get_json(url,success,failure);
+    //TODO Add code to put the data to couchdb using the uuid reveived in previous step
+  }
+
 </script>
 
 <div id="fb-root">
-	<script type="text/javascript" src="./js/facebook.js"></script>
+	<script type="text/javascript" src="facebook.js"></script>
 </div>
 
 </html>
