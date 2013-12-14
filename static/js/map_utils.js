@@ -140,12 +140,19 @@ function encodeGeoPosition(doc) {
         return str;
     }
 }
-/*
+
+function setHeader(xhr) {
+    if (user != null){
+        xhr.setRequestHeader('accesstoken', user.AccessToken);
+        xhr.setRequestHeader('fbid', user.FBID);
+    }
+}
+
 function put_json(url, data, successcb, failurecb){
-        if (url in revision_cache && data == revision_cache[url]){
+        //if (url in revision_cache && data == revision_cache[url]){
             // trying to put the same object 
-            LOG('trying to put the same object...');
-        } else {
+        //    LOG('trying to put the same object...');
+        //} else {
         $.ajax({
             url: url,
             type: 'PUT',
@@ -160,9 +167,9 @@ function put_json(url, data, successcb, failurecb){
             error: failurecb,
             beforeSend: setHeader
         });
-    }
+    //}
 }
-*/
+
 function get_json(url, successcb, failurecb){
     //caching not working >:(
     //if (! url in revision_cache) {
