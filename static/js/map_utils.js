@@ -192,3 +192,32 @@ function get_json(url, successcb, failurecb){
     }   */
 }
 
+function do_nothing()
+{}
+function add_user_to_socialride() {
+  var userInfo = get_user();
+  if (userInfo != null){
+    var url = "http://socialfarm.org/couchdb/social_ride/user1."+ get_user().id ;
+
+    var failure = function(){
+    var person = Object();
+    person.type = 'person';
+    person.name = userInfo.name;
+    person.id = userInfo.id;
+    person.gender = userInfo.gender;
+
+    var data = JSON.stringify(person) ;
+    //add person to socialfarm db
+   /* code snippet for caching, which is currently disabled
+      var update_id = function (response){
+      LOG('add user response: ' + response);
+      revision_cache[url].rev = response.rev;
+       };*/
+     put_json(url, data, do_nothing, do_nothing);
+  }}
+     var success = function(response){
+         LOG('person is already in the datebase: ' + JSON.stringify(response));
+    }
+     get_json(url, success, failure);
+    }
+
