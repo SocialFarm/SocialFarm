@@ -43,7 +43,7 @@ function get_facebook_user(response){
 	FB.api('/me', function(data) {
 		set_user(data);
         set_auth_token(response);
-        //add_user_to_socialfarm();
+        add_user_to_socialride();
         /*  this allows for clientside code which is only called when the user is logged in
             simply define the function in a script tag, and call other functions from it
         */
@@ -72,7 +72,6 @@ function sf_login(){
 		FB.login(function(response) {
 			if (response.authResponse) {
 		  		get_facebook_user(response);
-              
 			} else {
 			//user cancelled login or did not grant authorization
 			}
