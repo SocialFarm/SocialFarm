@@ -41,7 +41,7 @@ function( newdoc, olddoc, uxt )
     // actual validation begins here  
     require( "type" ) ;
 
-    if( ! belongs( newdoc.type , [ "activity" , "job" , "template" , "task" , "person" ] ) ) 
+    if( ! belongs( newdoc.type , [ "activity" , "job" , "template" , "task" , "person" ,"ride" ] ) ) 
         throw ( {forbidden : "type not allowed : " +  newdoc.type } ) ; 
   
 
