@@ -144,4 +144,7 @@ endif
 install_social_news: 
 	./scripts/SocialFarmHelper.py $(SF_USERNAME) $(SF_PASSWORD)
 	./scripts/SocialNews.py $(SF_USERNAME) $(SF_PASSWORD)
+install_social_ride:
 	./scripts/SocialRide.py $(SF_USERNAME) $(SF_PASSWORD)
+	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.nearby_jobs.map socialride/nearby_jobs/map.js
+
