@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http//www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>Social Ride - JOBS </title>
+</head>
+<body>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="map_utils.js"></script>
+
+
+<body> 
+<div id = "html_rows">
+</div>
+</body>
+
+<script type="text/javascript">
+var success = function(data){
+    $(data.rows).each(function (i, row) {
+            $(row).each(function (j, col) {
+                    var html = '<div id="job">     Job: ' + col.id +
+                            '<div id="customer">   Customer : ' + col.value.customer + '</div>' +
+                            '<div id = "state" >     State : ' + col.value.state + '</div>' +
+                            '<div id = "price" >     Price : ' + col.value.price + '</div>' +
+                            '<div id = "pickUp">     Pick Up: ' + col.value.source_address + '</div>' +
+                            '<div id = "Destination"> Destination: ' + col.value.dest_address+'</div>' +
+                            '<br/>'+
+                            '</div>';
+                    $('#html_rows').append($(html));
+            });
+    });
+}
+var key = "";
+function GetURLParameter(sParam)
+  {
+      var sPageURL = window.location.search.substring(1);
+      var sURLVariables = sPageURL.split('&');
+      for (var i = 0; i < sURLVariables.length; i++) 
+      {
+          var sParameterName = sURLVariables[i].split('=');
+          if (sParameterName[0] == sParam) 
+          { 
+              key = sParameterName[1];
+          }
+      }
+    console.log("KEY :: " + key);
+    var url = " http://socialfarm.org/couchdb/social_ride/_design/info/_view/nearby_jobs?key=%22"+key+"%22";
+    get_json(url,success,do_nothing); 
+  }
+GetURLParameter("key")
+</script>
