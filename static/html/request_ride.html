@@ -84,7 +84,7 @@
 <script type="text/javascript">
   var form_data ;
   var request;
-
+  var job;
   var change_location = function(address,geolocation,type){
 //    console.log("Address " + address, "  geolocation " + geolocation + " type  " + type);
 
@@ -104,7 +104,22 @@
   var failure = function(){
     alert("FAILED");
   }
+
+  function load_user_info(){
+    //Void funtion
+  }
+  function update_user_info(data)
+  {
+    var url = "http://socialfarm.org/couchdb/social_ride/user."+ get_user().id ;
+    data.requested_rides.push(job);
+    console.log(JSON.stringify(data));
+    put_json(url,JSON.stringify(data),do_nothing,failure);
+  }
+
   var success = function(){
+    //add the ride to ride list
+    var url = "http://socialfarm.org/couchdb/social_ride/user."+ get_user().id ;
+    get_json(url,update_user_info,failure);
     alert("Success !!");
   }
 
@@ -126,6 +141,7 @@
     console.log(data);
     var url = "http://socialfarm.org/couchdb/social_ride/job."+data.uuids[0];
     //console.log(url +" -d "+ JSON.stringify(form_data));
+    job = "job."+data.uuids[0];
     put_json(url, JSON.stringify(form_data),success,failure);
   }
   
