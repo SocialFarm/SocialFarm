@@ -19,7 +19,7 @@ UPDATE_SCHED    = ./scripts/update_field.py $(CREDENTIALS) socialfarm_business_t
 UPDATE_VALID    = ./scripts/update_field.py $(CREDENTIALS) socialfarm_business_template  _design/valid   
 
 
-all : clean install_common install_business install_info install_scheduler install_social_news
+all : clean install_common install_business install_info install_scheduler install_social_news install_social_ride
 	@echo Done
 
 
