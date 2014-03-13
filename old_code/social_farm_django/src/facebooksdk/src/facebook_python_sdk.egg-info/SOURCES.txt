@@ -1,5 +1,0 @@
-src/facebook.py
-src/facebook_python_sdk.egg-info/PKG-INFO
-src/facebook_python_sdk.egg-info/SOURCES.txt
-src/facebook_python_sdk.egg-info/dependency_links.txt
-src/facebook_python_sdk.egg-info/top_level.txt
