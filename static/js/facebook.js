@@ -30,6 +30,7 @@ function set_logout_button(){
 
 function AfterFacebookIsLoaded() {
 		render_member_info();
+    load_user_info();
 }
 
 //fix me :: put the correct html code to get proper indentation on html page
