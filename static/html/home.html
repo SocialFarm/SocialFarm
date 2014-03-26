@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http//www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Social Ride - Create Ride </title>
+</head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="map_utils.js"></script>
+
+<body>
+
+<div id = "header">
+    <button class = "uiButton" id="login">Login</button><br>
+</div>
+<br>	
+
+<div id="userinfo">
+</div>
+
+<div id="user_details">
+  <h3> User Details </h3>
+  <ul>
+  </ul>
+</div>
+
+<div id="requested_rides">
+  <h3> Requested Ride </h3>
+</div>
+
+</body>
+
+<div id = "submit" style="postion: absolute; display:none;">
+  <button id = "submit_button" onclick=submit_request()>Create Ride</button>
+</div>
+
+<div id="map_canvas" style="height:400px;width:500px;overflow: auto;"></div>
+
+<script type="text/javascript">
+  var failure = function(){
+    alert("FAILED");
+  }
+  var success = function(){
+    alert("SUCCESS!!");
+  }
+
+  function fill_user_info(data) {
+    $('#user_details ul').append(
+      build_readonly_li('Member ID' , '_id','_id', 'text', data.id) + 
+      build_readonly_li('Sex' , 'sex', 'sex', 'text', data.gender)
+    );
+  fill_requested_rides(data);
+  }
+
+  function fill_requested_rides(data) {
+    console.log("temp "+data.requested_rides.length);
+    var html = "";
+    for(i=0;i<data.requested_rides.length;i++) {
+      console.log("Array "+data.requested_rides[i]);
+      html = html + '<div id=" ' + data.requested_rides[i] +'"> <a href="http://socialfarm.org/socialride/job.html?jobId=' + data.requested_rides[i] + '">'+
+                    data.requested_rides[i] + '</a> </div>' ;
+      console.log(html);
+    }
+    $('#requested_rides').append($(html));
+  }
+ 
+ function load_user_info() {
+    var url = "http://socialfarm.org/couchdb/social_ride/user."+ get_user().id ;
+    get_json(url,fill_user_info,failure);
+    //TODO Add code to put the data to couchdb using the uuid reveived in previous step
+  }
+
+</script>
+
+<div id="fb-root">
+	<script type="text/javascript" src="facebook.js"></script>
+</div>
+
+</html>
