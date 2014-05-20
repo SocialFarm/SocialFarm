@@ -2,38 +2,109 @@
 <html xmlns="http//www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	
+	<link rel = "stylesheet" type="text/css" href= "css/reset.css">
+	<link rel = "stylesheet" type="text/css" href= "css/style.css">
+	
 	<title>Social Ride - Create Ride </title>
 </head>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="map_utils.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="map_utils.js"></script>
 
+	
 <body>
+	<!--Container for our main-->
+	<div id="container">
+			
+		<div id = "header">
+			<h1> Social Ride</h1> 	
+			<button class = "uiButton" id="login">Login</button><br>
+		</div><!--end of header-->
+				
+		<div id="user_details">
+		
+			<!--It should not be hard-coded, PHP or Jquery needed-->
+			<img src= "images/Avatar.png" alt= "Upicture" class="UpictureImage">	
+				<br />
+				<h3> User Details </h3>
+				<div class="info">
+					<ul class="name_gender">
+						<li>Name: </li>
+						<li>Sex: </li>
+					</ul>
+					<ul class="spoken_cars">
+						<li>Spoken: </li>
+						<li>Cars: </li>
+					</ul>
+					<ul class="smoking_likes">
+						<li>I'm:  </li>
+						<li>I'like: </li>
+					</ul>
+				</div>
+		</div><!-- end of userinfo-->
+		
+		<aside>
+			<ul>
+			<li><img src ="images/road_sign.png" alt= "banner2" class= "ban2"></li>
+			<li><img src="images/car.png" alt="banner1" class="ban1"></li>
+			</ul>
+		</aside><!--end of aside-->		
+			<div id= "content">
+				
+				<div id= "requested_rides">
+						<h3>Request Rides</h3>
+						<ul>
 
-<div id = "header">
-    <button class = "uiButton" id="login">Login</button><br>
-</div>
-<br>	
-
-<div id="userinfo">
-</div>
-
-<div id="user_details">
-  <h3> User Details </h3>
-  <ul>
-  </ul>
-</div>
-
-<div id="requested_rides">
-  <h3> Requested Ride </h3>
-</div>
-
+							<li id="date">Date <span> | </span></li>
+							<li>Source - Destination <span> | </span></li>
+							<li>Luggage <span> | </span></li>
+							<li>Stopovers <span> | </span></li>
+							<li>Friends <span> | </span></li>
+						</ul>
+					
+						<!--<div id="past_request">
+							<h4>past</h4>
+						</div>end  past request-->
+					
+					</div><!--end requested_rides-->
+					
+					<div id= "offered_rides">
+						
+						<h3>offered rides</h3>
+							<ul>
+								<li id="date">Date <span> | </span></li>
+								<li>Source - Destination <span> | </span></li>
+								<li>Luggage <span> | </span></li>
+								<li>Stopovers <span> | </span></li>
+								<li>Friends <span> | </span></li>
+							</ul>
+								
+						<!--<div id="past_offered">
+							<h4>Past</h4>
+						</div>end of past offered rides-->
+						
+					</div> <!--end offered_rides-->
+			</div><!--end content-->
+					
+				<button id = "submit_button" onclick=submit_request()>Create Ride</button><!--end button-->
+		
+		<footer>
+			
+			<ul id= "footer_nav">
+				<li><a href = ""><img src="images/about_icon.png" class="about"><h4>About us</h4></a></li>	
+				<li><a href = ""><img src="images/setting_icon.png" class="settings"><h4>Setting</h4></a></li>
+				<li><a href = ""><img src="images/mail_icon.png" class="contact"><h4>Contact us</h4></a></li>
+			</ul>
+			
+		</footer><!--end of footer-->
+	</div><!--end of container-->	
 </body>
-
-<div id = "submit" style="postion: absolute; display:none;">
+	
+	<div id = "submit" style="postion: absolute; display:none;">
   <button id = "submit_button" onclick=submit_request()>Create Ride</button>
-</div>
-
-<div id="map_canvas" style="height:400px;width:500px;overflow: auto;"></div>
+	</div>
+	
+	<div id="map_canvas_home" style="height:400px;width:500px;overflow: auto;"></div>
 
 <script type="text/javascript">
   var failure = function(){
