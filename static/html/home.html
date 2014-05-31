@@ -28,64 +28,214 @@
 				<br />
 				<h3> User Details </h3>
 				<div class="info">
-					<ul class="name_gender">
-						<li>Name: </li>
-						<li>Sex: </li>
-					</ul>
-					<ul class="spoken_cars">
-						<li>Spoken: </li>
-						<li>Cars: </li>
-					</ul>
-					<ul class="smoking_likes">
-						<li>I'm:  </li>
-						<li>I'like: </li>
+					<ul>
+						<li id="name">Name: </li>
+						<li id="gender">Sex: </li>
+						<li id="language_spoken">Language Spoken: </li>
+						<li id="cars">Cars: </li>
+						<li id="smoke">I smoke: </li>
 					</ul>
 				</div>
-		</div><!-- end of userinfo-->
+		</div><!-- end user_details---->
 		
 		<aside>
+			<div>
+				<form id="road_sign" onsubmit="return false;">
+					<table class="create_rides" width="100%" border="0" cellpadding="0" cellspacing="10" >
+						<tr>
+							
+							<td><input class="textbox1" type="text" id="km" name="km" value=""/></td>
+							<td><label class="km">km </label></td>
+						</tr>
+						<tr>
+							<td><input class="textbox1" type="text" id="hours" name="hours" value=""/></td>
+							<td><label class="hours">Hours </label></td>
+						</tr>
+						<tr>
+							<!---Kindly check if the third input text in chrome is showing up Thankl you :)--->
+							<td><input class="textbox1" type="text" id="companion" name="companion" value="" /></td>
+							<td><label class="companion">Companion </label></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+				
 			<ul>
-			<li><img src ="images/road_sign.png" alt= "banner2" class= "ban2"></li>
+			<li><img src ="images/sign.png" alt= "banner2" class= "ban2"></li>
 			<li><img src="images/car.png" alt="banner1" class="ban1"></li>
 			</ul>
-		</aside><!--end of aside-->		
-			<div id= "content">
+		</aside><!--end of aside-->
+			
+			<div id= "content">		
 				
 				<div id= "requested_rides">
 						<h3>Request Rides</h3>
-						<ul>
+						<table id="tab_request">
+							<tr class="tab_heading">
+								<th>Date </th>
+								<th>Source - Destination </th>
+								<th>Luggage </th>
+								<th>Stopovers </th>
+								<th>Friends </th>
+							</tr>	
+							<br />
+							<tr id="data_sample">
+								<td class="when">30/5/14</td>
+								<td class="sd"><span>New York - Pacadema CA </span></td>
+								<td class="lug">120</td>
+								<td class="stopver">4(2h)</td>
+								<td class="friends">2</td>
+							
+							</tr>
+							<br />
+							<tr id="data_sample">
+								<td class="when">30/5/14</td>
+								<td class="sd"><span>New York - Pacadema CA </span></td>
+								<td class="lug">120</td>
+								<td class="stopver">4(2h)</td>
+								<td class="friends">2</td>
+							
+							</tr>
+							<tr id="data_sample">
+								<td class="when">30/5/14</td>
+								<td class="sd"><span>New York - Pacadema CA </span></td>
+								<td class="lug">120</td>
+								<td class="stopver">4(3h)</td>
+								<td class="friends">2</td>
+							</tr>
+							<tr id="data_sample">
+								<td class="when">30/5/14</td>
+								<td class="sd"><span>New York - Pacadema CA </span></td>
+								<td class="lug">120</td>
+								<td class="stopver">4(20min)</td>
+								<td class="friends">2</td>
+							</tr>
+							
+						</table>
+					
+						<table id="tab_past_req">
+							<tr class="tab_past_head">
+								<th>Past Request</th>
+								<th> </th>
+								<th> </th>
+								<th> </th>
+								<th> </th>
+							<tr>
+							<br />
+							<tr id="data_sample_past_req">
+								<td class="when_past_req">30/5/14</td>
+								<td class="sd_past_req"><span>New York - Pacadema CA </span></td>
+								<td class="lug_past_req">120</td>
+								<td class="stopver_past_req">4(2h)</td>
+								<td class="friends_past_req">2</td>
+							</tr>
+							<br />
+							<tr id="data_sample_past_req">
+								<td class="when_past_req">30/5/14</td>
+								<td class="sd_past_req"><span>New York - Pacadema CA </span></td>
+								<td class="lug_past_req">120</td>
+								<td class="stopver_past_req">4(2h)</td>
+								<td class="friends_past_req">2</td>
+							</tr>
+							<br />
+							<tr id="data_sample_past_req">
+								<td class="when_past_req">30/5/14</td>
+								<td class="sd_past_req"><span>New York - Pacadema CA </span></td>
+								<td class="lug_past_req">120</td>
+								<td class="stopver_past_req">4(2h)</td>
+								<td class="friends_past_req">2</td>
+							</tr>
+							<br />
+						</table>
+					
+				</div><!--end requested_rides-->
+					
+				<div id= "offered_rides">
+						<h3>Offered Rides</h3>
+						<table id="tab_offer">
+							<tr class="heading_offer">
+								<th>Date </th>
+								<th>Source - Destination </th>
+								<th>Luggage </th>
+								<th>Stopovers </th>
+								<th>Friends </th>
+							</tr>	
+							<br />
+							<tr id="sample_offer">
+								<td class="when_offer">30/5/14</td>
+								<td class="sd_offer"><span>New York - Pacadema CA </span></td>
+								<td class="lug_offer">120</td>
+								<td class="stopver_offer">4(3min)</td>
+								<td class="friends_offer">2</td>
+							
+							</tr>
+							<br />
+							<tr id="sample_offer">
+								<td class="when_offer">30/5/14</td>
+								<td class="sd_offer"><span>New York - Pacadema CA </span></td>
+								<td class="lug_offer">120</td>
+								<td class="stopver_offer">4(2h)</td>
+								<td class="friends_offer">2</td>
+							
+							</tr>
+							<tr id="sample_offer">
+								<td class="when_offer">30/5/14</td>
+								<td class="sd_offer"><span>New York - Pacadema CA </span></td>
+								<td class="lug_offer">120</td>
+								<td class="stopver_offer">4(3h)</td>
+								<td class="friends_offer">2</td>
+							</tr>
+							<tr id="sample_offer">
+								<td class="when_offer">30/5/14</td>
+								<td class="sd_offer"><span>New York - Pacadema CA </span></td>
+								<td class="lug_offer">120</td>
+								<td class="stopver_offer">4(3h)</td>
+								<td class="friends_offer">2</td>
+							</tr>
+							
+						</table>
+					
+						<table id="past_offer">
+							<tr class="past_head_offer">
+								<th>Past Request</th>
+								<th> </th>
+								<th> </th>
+								<th> </th>
+								<th> </th>
+							<tr>
+							<br />
+							<tr id="sample_past_offer">
+								<td class="when_past_offer">30/5/14</td>
+								<td class="sd_past_offer"><span>New York - Pacadema CA </span></td>
+								<td class="lug_past_offer">120</td>
+								<td class="stopver_past_offer">4(1h)</td>
+								<td class="friends_past_offer">2</td>
+							</tr>
+							<br />
+							<tr id="sample_past_offer">
+								<td class="when_past_offer">30/5/14</td>
+								<td class="sd_past_offer"><span>New York - Pacadema CA </span></td>
+								<td class="lug_past_offer">120</td>
+								<td class="stopver_past_offer">4(1h)</td>
+								<td class="friends_past_offer">2</td>
+							</tr>
+							<br />
+							<tr id="sample_past_offer">
+								<td class="when_past_offer">30/5/14</td>
+								<td class="sd_past_offer"><span>New York - Pacadema CA </span></td>
+								<td class="lug_past_offer">120</td>
+								<td class="stopver_past_offer">4(30mins)</td>
+								<td class="friends_past_offer">2</td>
+							</tr>
+							<br />
+						</table>
+					
+				</div><!--end requested_rides-->
+			
 
-							<li id="date">Date <span> | </span></li>
-							<li>Source - Destination <span> | </span></li>
-							<li>Luggage <span> | </span></li>
-							<li>Stopovers <span> | </span></li>
-							<li>Friends <span> | </span></li>
-						</ul>
-					
-						<!--<div id="past_request">
-							<h4>past</h4>
-						</div>end  past request-->
-					
-					</div><!--end requested_rides-->
-					
-					<div id= "offered_rides">
-						
-						<h3>offered rides</h3>
-							<ul>
-								<li id="date">Date <span> | </span></li>
-								<li>Source - Destination <span> | </span></li>
-								<li>Luggage <span> | </span></li>
-								<li>Stopovers <span> | </span></li>
-								<li>Friends <span> | </span></li>
-							</ul>
-								
-						<!--<div id="past_offered">
-							<h4>Past</h4>
-						</div>end of past offered rides-->
-						
-					</div> <!--end offered_rides-->
+			
 			</div><!--end content-->
-					
+				
 				<button id = "submit_button" onclick=submit_request()>Create Ride</button><!--end button-->
 		
 		<footer>

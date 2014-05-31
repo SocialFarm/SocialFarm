@@ -68,25 +68,67 @@ html, body{
 aside{
     width:500px;
     height:200px;
-    float:right;   
+    float:right;
 }
-
+#road_sign{
+    margin-left:325px;
+    margin-top:5px;
+    
+}
+td .textbox1{ 
+    height: 15px; 
+    width: 80px;
+    position:absolute;
+    float:right;
+    text-transform:capitalize;
+    background-color: transparent;  
+    border-style: solid;  
+    border-width: 0px 0px 1px 0px;  
+    border-color: black;
+    margin-left:-10px;
+    margin-top:130px; 
+    color:#da002e;
+    text-align:center;
+    
+}
+.km{
+    position:absolute;
+    margin-left:75px;
+    margin-top:135px;
+	font-family:"helveticaNeueLT Std Cn";
+    
+    
+}
+.hours{
+    position:relative;
+    margin-left:75px;
+    top:150px;
+	font-family:"helveticaNeueLT Std Cn";
+    
+}
+.companion{
+    position:relative;
+    margin-left:75px;
+    top:150px;
+	font-family:"helveticaNeueLT Std Cn";
+    
+}
 .ban1{
-    display:block;
-    margin-top:-200px;
-    float:left;
+    margin-top:-500px;
+    width:455px;
 }
 /*overlapping images the car and the road sign*/
 .ban2{
-    display:block;
-    margin-top:80px;
     float:right;
+    width:215px;
+    margin-top:30px;
     
 }
+
 #user_details{
     top: 100px;
     float: left;
-    margin-top:20px;
+    margin-top:10px;
     margin-left:20px;
     width:150px;
     z-index:1;
@@ -101,30 +143,36 @@ aside{
     margin-top:120px;
     text-align:center;
     margin-left:5px;
-    font-size:
 
 }
-.name_gender{
+.info ul{
+    position:absolute;
+    margin-top:-100px;
+    
+}
+#name{
 	font-family: "Calibri Light";
     border-bottom: 1px solid #999999;
     width:200px;
     margin-left:215px;
-    margin-top:-100px;
-
 }
-.spoken_cars{
+#gender, #language_spoken, #cars, #smoke{
+    font-family: "Calibri Light";
+    border-bottom: 1px solid #999999;
+    width:200px;
+    margin-left:215px;
+    margin-top:-100px;
+    
+}
+#smoke{
     font-family: "Calibri Light";
     border-bottom: 1px solid #999999;
     width:200px;
     margin-left:215px;
     margin-top:10px;
-    
+
 }
-.smoking_likes{
-    font-family: "Calibri Light";
-    margin-left:215px;
-    margin-top:10px;
-}
+
 #user_details li{
     margin-top: 10px;
     
@@ -147,6 +195,7 @@ aside{
 	text-decoration:none;
 	text-shadow:0px 1px 0px #3d768a;   
     margin:5px 0px 5px 850px;
+    
 }
 
 
@@ -158,134 +207,242 @@ aside{
 }
 
 #requested_rides{
-   border-bottom:1px solid #2388ad;
-   width: 450px;
+   width: 490px;
    margin-top: 15px;
    float:left; 
 }
-#requested_rides ul{
-   border-top:1px solid black;
 
-}
 #requested_rides h3{
-    position: static;
-    margin-bottom: 25px;
+    margin-bottom: -15px;
     font-family: "AvantGarde-Book Bold";
     border-bottom: dotted;
     border-width:1.5px;  
-    width: 150px;
+    width: 123px;
 }
-
-#requested_rides #date{
-   margin-left: 20px;
-    
-}
-#requested_rides ul .request_border1{
-    position:relative;
-    width: 415px;
-    right: 435px;
-}
-#requested_rides ul .request_border2{
-    position:relative;
-    width: 415px;
-    top:20px;
-    right: 435px;
-}
-
-#requested_rides li{
-   float:left;
+#tab_request{
    font-size: 11.5px;
    font-family: "Calibri";
-   color:#7a7a7a;
-   margin-top:5px;
-   margin-left: 20px;
-   margin-right:5px;
-      
+   color:#7a7a7a; 
+   margin-bottom:20px; 
 }
-#requested_rides #past_request .request_border3{
-    position:relative;
-    width: 415px;
-    top:205px;
-    right: 435px;
+.tab_heading th{
+   border-top:1px solid black;
+   border-bottom:1px solid black; 
+   padding-top:3px;
+   padding-bottom:3px; 
 }
-#requested_rides #past_request .request_border4{
-    position:relative;
-    width: 415px;
-    top:222px;
-    right: 435px;
-}
-#past_request h4{
-    float:right;
-    margin-top: 250px;
-    margin-right: 400px;
+#data_sample td{
+    padding-top:10px;
+    padding-bottom:10px;
     
+}
+#data_sample{
+    width:490px;
+    color:black;
+    font-size:14px;  
+    font-family: "Calibri light";
+    border-bottom:1px solid #b8b8b8;
+}
+.when{
+    padding-left:10px;
+
+}
+.sd span{
+   color:#2388ad; 
+   border-bottom:1px dashed;
+   font-weight:bold; 
    
+    
+}
+.lug{
+    padding-left:20px;
+    
+    
+}
+.stopver{
+   padding-left:30px; 
+    
+}
+.friends{
+   padding-left:20px; 
+    
+}
+#tab_past_req{
+    margin-top:-40px;
+    
+}
+.tab_past_head th{
+   text-transform: uppercase;
+   font-family:"Calibri";
+   font-weight:bolder; 
+   color:#3e92b3; 
+   border-top:1px solid #3e92b3;
+   border-bottom:1px solid #3e92b3; 
+   padding-top:3px;
+   padding-bottom:3px;  
+    
 }
 
+#data_sample_past_req td{
+    padding-top:10px;
+    padding-bottom:10px;
+
+}
+#data_sample_past_req{
+    width:490px;
+    color:black;
+    font-size:14px;  
+    font-family: "Calibri light";
+    border-bottom:1px solid #b8b8b8;
+}
+.when_past_req{
+    padding-left:10px;  
+    color:#7a7a7a;
+
+}
+.sd_past_req span{
+   color:#2388ad; 
+   border-bottom:1px dashed; 
+ 
+    
+}
+.lug_past_req{
+    color:#7a7a7a;
+    padding-left:10px;
+    
+    
+}
+.stopver_past_req{
+   color:#7a7a7a;
+   padding-left:30px; 
+   padding-right:10px;  
+    
+}
+.friends_past_req{
+   padding-left:10px; 
+   padding-right:15px; 
+   color:#7a7a7a;
+}
+/*************************/
+/******Offered rides******/
+/*************************/
 #offered_rides{
-   border-bottom:1px solid #2388ad;
    width: 450px;
    margin-top: 15px;
    float:right; 
 
 }
-#offered_rides ul{
-   border-top:1px solid black;
-    
-}
+
 #offered_rides h3{
-    position: static;
-    margin-bottom: 25px;
+    margin-bottom: -15px;
     font-family: "AvantGarde-Book Bold";
     border-bottom: dotted;
-    border-width:1.5px;   
-    width: 150px;
+    border-width:1.5px;  
+    width: 123px;
 }
-
-#offered_rides #date{
-   margin-left: 20px;
-    
-}
-#offered_rides ul .offered_border1{
-    position:relative;
-    width: 415px;
-    right: 55px;
-}
-#offered_rides ul .offered_border2{
-    position:relative;
-    width: 415px;
-    top:3px;
-    right: -5px;
-}
-
-#offered_rides li{
-   float:left;
+#tab_offer{
    font-size: 11.5px;
    font-family: "Calibri";
-   color:#7a7a7a;
-   margin-top:5px;
-   margin-left: 20px;
-   margin-right:5px;
-      
+   color:#7a7a7a; 
+   margin-bottom:20px; 
 }
-#offered_rides #past_offered .offered_border3{
-    position:relative;
-    width: 415px;
-    top:189px;
-    right: 5px;
+.heading_offer th{
+   border-top:1px solid black;
+   border-bottom:1px solid black; 
+   padding-top:3px;
+   padding-bottom:3px; 
 }
-#offered_rides #past_offered .offered_border4{
-    position:relative;
-    width: 415px;
-    top:205px;
-    right: 5px;
-}
-#past_offered h4{
-    float:right;
-    margin-top: 250px;
-    margin-right: 400px;
+#sample_offer td{
+    padding-top:10px;
+    padding-bottom:10px;
     
+}
+#sample_offer{
+    width:490px;
+    color:black;
+    font-size:14px;  
+    font-family: "Calibri light";
+    border-bottom:1px solid #b8b8b8;
+}
+.when_offer{
+    padding-left:10px;
+
+}
+.sd_offer span{
+   color:#2388ad; 
+   border-bottom:1px dashed;
+   font-weight:bold; 
    
+    
+}
+.lug_offer{
+    padding-left:20px;
+    
+    
+}
+.stopver_offer{
+   padding-left:30px; 
+    
+}
+.friends_offer{
+   padding-left:20px; 
+    
+}
+#past_offer{
+    margin-top:-40px;
+    
+}
+.past_head_offer th{
+   text-transform: uppercase;
+   font-family:"Calibri";
+   font-weight:bolder; 
+   color:#3e92b3; 
+   border-top:1px solid #3e92b3;
+   border-bottom:1px solid #3e92b3; 
+   padding-top:3px;
+   padding-bottom:3px;  
+    
+}
+
+#sample_past_offer td{
+    padding-top:10px;
+    padding-bottom:10px;
+
+}
+#sample_past_offer{
+    width:490px;
+    color:black;
+    font-size:14px;  
+    font-family: "Calibri light";
+    border-bottom:1px solid #b8b8b8;
+}
+.when_past_offer{
+    padding-left:10px;  
+    color:#7a7a7a;
+
+}
+.sd_past_offer span{
+   color:#2388ad; 
+   border-bottom:1px dashed; 
+ 
+    
+}
+.lug_past_offer{
+    color:#7a7a7a;
+    padding-left:10px;
+    
+    
+}
+.stopver_past_offer{
+   color:#7a7a7a;
+   padding-left:30px; 
+   padding-right:10px;  
+    
+}
+.friends_past_offer{
+   padding-left:10px; 
+   padding-right:15px; 
+   color:#7a7a7a;
 }
 footer{
     position:relative;
@@ -364,7 +521,7 @@ table{
     
     
 }
-td label{
+td .label_form{
     position: absolute;
     padding-bottom:5px;
     color: white;
