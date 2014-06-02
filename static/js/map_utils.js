@@ -198,7 +198,7 @@ function do_nothing()
 function add_user_to_socialride() {
   var userInfo = get_user();
   if (userInfo != null){
-    var url = "http://socialfarm.org/couchdb/social_ride/user1."+ get_user().id ;
+    var url = "http://socialfarm.org/couchdb/social_ride/user."+ get_user().id ;
 
     var failure = function(){
     var person = Object();
