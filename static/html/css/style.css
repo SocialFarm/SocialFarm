@@ -33,7 +33,7 @@ h4{
 
 /*Main CSS*/
 
-html, body{
+html{
 	background-color:white;
     height: 100%;
 }
@@ -498,20 +498,22 @@ footer img{
 .request{
     color:#136786;
     text-align: center;
+    font-size:18px;
     font-family: "AvantGarde-Book Bold";
     border-bottom:1px dashed;
-    margin-left:785px;
-    width:130px;
+    margin-left:740px;
+    width:140px;
     
 }
 #request_form{
 	font-family: "Calibri Light";
-    margin-left:675px;
-    margin-top:5px;
+    margin-left:645px;
+    margin-top:30px;
+    margin-bottom:50px;
     background-image: url(../images/border_background.png);
     border-radius:10px;
-    width: 350px;
-    height: 335px;
+    width: 340px;
+    height: 345px;
 }
 table{
     width:100%; 
@@ -609,12 +611,11 @@ td .label_form{
 	
 	border:2px solid #2388ad;
     position:absolute;
-    left:px;
-    top:75px;
-    height:400px;
+    top:105px;
     width:500px;
     overflow: auto;
     margin-left:250px;
+
 }
 #map_canvas_home{
 	display:none;
