@@ -500,13 +500,13 @@ footer img{
     text-align: center;
     font-family: "AvantGarde-Book Bold";
     border-bottom:1px dashed;
-    margin-left:435px;
+    margin-left:785px;
     width:130px;
     
 }
 #request_form{
 	font-family: "Calibri Light";
-    margin-left:325px;
+    margin-left:675px;
     margin-top:5px;
     background-image: url(../images/border_background.png);
     border-radius:10px;
@@ -609,22 +609,13 @@ td .label_form{
 	
 	border:2px solid #2388ad;
     position:absolute;
-    left:165px;
-    top:450px;
+    left:px;
+    top:75px;
     height:400px;
     width:500px;
     overflow: auto;
     margin-left:250px;
 }
 #map_canvas_home{
-	/*border:2px solid #2388ad;
-    position:absolute;
-    left:150px;
-    top:810px;
-    height:400px;
-    width:500px;
-    overflow: auto;
-    margin-left:250px;*/
 	display:none;
 }
-
