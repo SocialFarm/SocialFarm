@@ -145,7 +145,7 @@ td .textbox1{
     margin-left:5px;
 
 }
-.info ul{
+.info ul, .interest ul{
     position:absolute;
     margin-top:-100px;
     
@@ -156,7 +156,7 @@ td .textbox1{
     width:200px;
     margin-left:215px;
 }
-#gender, #language_spoken, #cars, #smoke{
+#gender, #language_spoken, #cars, #smoke, #likes{
     font-family: "Calibri Light";
     border-bottom: 1px solid #999999;
     width:200px;
@@ -164,7 +164,7 @@ td .textbox1{
     margin-top:-100px;
     
 }
-#smoke{
+#smoke, #likes{
     font-family: "Calibri Light";
     border-bottom: 1px solid #999999;
     width:200px;
@@ -446,7 +446,7 @@ td .textbox1{
 }
 footer{
     position:relative;
-    bottom:-460px;
+    bottom:-60px;
     background-image: url(../images/footer.png);
     text-align: center;
     color:white;
@@ -606,6 +606,7 @@ td .label_form{
 	top:1px;
 }
 #map_canvas{
+	
 	border:2px solid #2388ad;
     position:absolute;
     left:165px;
@@ -616,13 +617,14 @@ td .label_form{
     margin-left:250px;
 }
 #map_canvas_home{
-	border:2px solid #2388ad;
+	/*border:2px solid #2388ad;
     position:absolute;
     left:150px;
     top:810px;
     height:400px;
     width:500px;
     overflow: auto;
-    margin-left:250px;
+    margin-left:250px;*/
+	display:none;
 }
 
