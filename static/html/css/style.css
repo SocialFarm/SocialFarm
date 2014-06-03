@@ -33,7 +33,7 @@ h4{
 
 /*Main CSS*/
 
-html, body{
+html{
 	background-color:white;
     height: 100%;
 }
@@ -145,7 +145,7 @@ td .textbox1{
     margin-left:5px;
 
 }
-.info ul{
+.info ul, .interest ul{
     position:absolute;
     margin-top:-100px;
     
@@ -156,7 +156,7 @@ td .textbox1{
     width:200px;
     margin-left:215px;
 }
-#gender, #language_spoken, #cars, #smoke{
+#gender, #language_spoken, #cars, #smoke, #likes{
     font-family: "Calibri Light";
     border-bottom: 1px solid #999999;
     width:200px;
@@ -164,7 +164,7 @@ td .textbox1{
     margin-top:-100px;
     
 }
-#smoke{
+#smoke, #likes{
     font-family: "Calibri Light";
     border-bottom: 1px solid #999999;
     width:200px;
@@ -446,7 +446,7 @@ td .textbox1{
 }
 footer{
     position:relative;
-    bottom:-460px;
+    bottom:-60px;
     background-image: url(../images/footer.png);
     text-align: center;
     color:white;
@@ -498,20 +498,22 @@ footer img{
 .request{
     color:#136786;
     text-align: center;
+    font-size:18px;
     font-family: "AvantGarde-Book Bold";
     border-bottom:1px dashed;
-    margin-left:435px;
-    width:130px;
+    margin-left:740px;
+    width:140px;
     
 }
 #request_form{
 	font-family: "Calibri Light";
-    margin-left:325px;
-    margin-top:5px;
+    margin-left:645px;
+    margin-top:30px;
+    margin-bottom:50px;
     background-image: url(../images/border_background.png);
     border-radius:10px;
-    width: 350px;
-    height: 335px;
+    width: 340px;
+    height: 345px;
 }
 table{
     width:100%; 
@@ -606,23 +608,15 @@ td .label_form{
 	top:1px;
 }
 #map_canvas{
+	
 	border:2px solid #2388ad;
     position:absolute;
-    left:165px;
-    top:450px;
-    height:400px;
+    top:105px;
     width:500px;
     overflow: auto;
     margin-left:250px;
+
 }
 #map_canvas_home{
-	border:2px solid #2388ad;
-    position:absolute;
-    left:150px;
-    top:810px;
-    height:400px;
-    width:500px;
-    overflow: auto;
-    margin-left:250px;
+	display:none;
 }
-
