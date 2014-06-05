@@ -1,5 +1,4 @@
 /***Importing default css code***/
-@import url("reset.css");
 
 a{
 	text-decoration:none;
@@ -21,7 +20,7 @@ h1{
     
 }
 h3{
-	font-sie: 15px;
+	font-size: 15px;
 	color: #2388ad;
 }
 h4{
@@ -91,6 +90,7 @@ td .textbox1{
     text-align:center;
     
 }
+
 .km{
     position:absolute;
     margin-left:75px;
@@ -530,13 +530,13 @@ td .label_form{
     text-transform: capitalize;
     margin-left: 45px;
     margin-top: -5px;
-    border-bottom: 1px solid #002e63;
+	border-bottom: 1px solid #002e63;
     width:270px;
     
 }
 #sex {
     margin-left:150px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 #smoking{
     margin-left:150px;
@@ -619,4 +619,22 @@ td .label_form{
 }
 #map_canvas_home{
 	display:none;
+}
+/****adjustment for Chrome***/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+	td .textbox1{
+		 border-width: 1px 0px 1px 0px;
+		 margin-top:145px;
+	}
+	.sourceIcon{margin-top:5px;}
+	.sourceIcon2{margin-top:45px;}
+	.calendar_icon{margin-top:125px;}
+	
+	td .label_form{margin-top:10px;}
+	
+	#sex{margin-top:5px; margin-bottom:10px;}
+	#smoking{margin-top:5px}
+	
+
 }
