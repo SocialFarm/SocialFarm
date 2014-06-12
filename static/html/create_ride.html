@@ -2,6 +2,9 @@
 <html xmlns="http//www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <link rel = "stylesheet" type="text/css" href= "css/reset.css">
+	<link rel = "stylesheet" type="text/css" href= "css/style.css">
+    
 	<title>Social Ride - Create Ride </title>
 </head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
@@ -9,64 +12,92 @@
 <script type="text/javascript" src="map_utils.js"></script>
 
 <body>
+    <div id="container">
+    <div id = "header">
+        <h1> Social Ride  <img src="images/facebook.png" class="fb" alt="fb">
+    </div></h1>
+			<!---button class = "uiButton" id="login">Login</button><br--->
+           
+    <br>	
+    
+    <div class="request">Create Ride </div>
+    
+    <div id="userinfo">
+    </div>
+    <!-- Main Content -->
+    
+    <form id="request_form" onsubmit="return false;">			
+				<table width="100%" border="0" cellpadding="0" cellspacing="10" >
+					  <!--tr>
+					<td><label>Name </label></td>
+						<td><input type="text" id="name" name="name" value=""/></td>
+				  </tr-->
+                  <tr>
+						<td><label class="label_form"><img src="images/calendar_icon.png" alt="icon" class="calendar_icon"></label></td>
+						<td><input class="textbox" type="text" id="date" name="date" value=""/></td>
+				  </tr>                  
+				  <tr>
+						<td><label class="label_form"><img src="images/source_icon.png" alt="icon" class="sourceIcon">S </label></td>
+						<td><input class="textbox" type="text" id="source" name="source"  value="Enter your source address" 
+                        onblur="if (this.value == '') {this.value = 'Enter your source address';}" 
+                        onfocus="if (this.value == 'Enter your source address') {this.value = '';}"/> 
+                        </td>
+				  </tr>
+				  <tr>
+						<td><label class="label_form"><img src="images/source_icon.png" alt="sourceIcon2" class="sourceIcon2">D</label></td>
+						<td><input name="destination" type="text" class="textbox" id="destination" onfocus="if (this.value == 'Enter your destination address') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Enter your destination address';}" value="Enter your destination address" />
+                        </td>
+				  </tr>
+				  <tr>
+						<td><label class="label_form"><img src= "images/luggage_icon.png" alt="luggage" class="luggage"></label></td>
+						<td><input class="textbox" type="text" id="language" name="language" value="Enter quantity of luggage" 
+                        onblur="if (this.value == '') {this.value = 'Enter quantity of luggage';}"  
+                        onfocus="if (this.value == 'Enter quantity of luggage') {this.value = '';}"/></td>
+				  </tr>
+                  <td><label class="label_form"><img src= "images/stop_icon.png" alt="stop" class="stop"></label></td>
+						<td><input class="textbox" type="text" id="stop" name="stop"  value=""/></td>
+				  </tr>
+                   <td><label class="label_form"><img src= "images/friends_icon.png" alt="friend" class="friend"></label></td>
+						<td><input class="textbox" type="text" id="friends" name="friends"  value="Enter number of friends" 
+                        onblur="if (this.value == '') {this.value = 'Enter number of friends';}"  
+                        onfocus="if (this.value == 'Enter number of friends') {this.value = '';}"/></td>
+				  </tr>
+				  <!---<tr>
+						<td><label class="label_form">Time</label></td>    
+						<td><input class= "textbox" type="text" id="time" name="time" value=""/></td>
+				  </tr>
+				  <tr>	
+						<td><label class="label_form">Sex</label></td>
+						 <td><select id="sex" name="sex">
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+							<option value="both">Don't mind</option>
+						  </select></td>
+				  </tr>
+				  <tr>
+						<td><label class="label_form">Smoking</label></td>
+						<td><select id="smoking" name="smoking">
+						<option value="no">No</option>
+						<option value="yes">Yes</option>
+						<option value="both">Don't mind</option>
+					  </select></td>
+				  </tr>
+				  <tr--->
+						<td colspan="4"><button onclick="readform()" id="request_ride">Create Request</button></td>
+				  </tr>
+				</table>
+    </form>
 
-<div id = "header">
-    <button class = "uiButton" id="login">Login</button><br>
-</div>
-<br>	
-
-<div class="request">Create Ride </div>
-
-<div id="userinfo">
-</div>
-<!-- Main Content -->
-<form id="request_form" onsubmit="return false;">
-	<table width="100%" border="0" cellpadding="0" cellspacing="10" >
-          <!--tr>
-	    <td><label>Name </label></td>
-            <td><input type="text" id="name" name="name" value=""/></td>
-	  </tr-->
-      <tr>
-            <td><label>source </label></td>
-            <td><input type="text" id="source" name="source"  value=""/></td>
-	  </tr>
-	  <tr>
-            <td><label>destination</label></td>
-            <td><input type="text" id="destination" name="destination"  value=""/></td>
-	  </tr>
-      <tr>
-            <td><label>language</label></td>
-            <td><input type="text" id="language" name="language"  value=""/></td>
-      </tr>
-      <tr>
-            <td><label>Date</label></td>
-            <td><input type="text" id="date" name="date" value=""/></td>
-      </tr>
-      <tr>
-            <td><label>Time</label></td>    
-            <td><input type="text" id="time" name="time" value=""/></td>
-      </tr>
-	  <tr>
-            <td><label>Sex</label></td>
-            <td><select id="sex" name="sex">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="both">Don't mind</option>
-              </select></td>
-	  </tr>
-      <tr>
-            <td><label>Smoking</label></td>
-            <td><select id="smoking" name="smoking">
-                <option value="no">No</option>
-                <option value="yes">Yes</option>
-                <option value="both">Don't mind</option>
-              </select></td>
-      </tr>
-	  <tr>
-            <td colspan="4"><button onclick="readform()" id="create_ride">Create Request</button></td>
-	  </tr>
-</form>
-</table>
+    <footer>
+                
+                <ul id= "footer_nav">
+                    <li><a href = ""><img src="images/about_icon.png" class="about"><h4>About us</h4></a></li>	
+                    <li><a href = ""><img src="images/setting_icon.png" class="settings"><h4>Setting</h4></a></li>
+                    <li><a href = ""><img src="images/mail_icon.png" class="contact"><h4>Contact us</h4></a></li>
+                </ul>
+                
+            </footer><!--end of footer-->
+    </div><!--end container-->
 </body>
 
 <div id = "submit" style="postion: absolute; display:none;">

@@ -52,7 +52,7 @@ html{
     color:white;
     
 }
-#header img{
+.fb{
     float:right;
     margin-top: 8px;
     margin-right: 20px
@@ -63,7 +63,6 @@ html{
     margin-right:25px;
 
 }
-
 aside{
     width:500px;
     height:200px;
@@ -493,7 +492,7 @@ footer img{
 #footer_nav a:hover{
     background-image: url(../images/hover_footer.png);
 }
-/****REQUEST PAGE STYLE****/
+/****REQUEST/CREATE RIDE PAGE STYLE****/
 
 .request{
     color:#136786;
@@ -523,16 +522,16 @@ table{
     
     
 }
-td .label_form{
+.label_form{
     position: absolute;
     padding-bottom:5px;
     color: white;
-    text-transform: capitalize;
     margin-left: 45px;
     margin-top: -5px;
 	border-bottom: 1px solid #002e63;
     width:270px;
-    
+	font-family:"Calibri";
+	font-weight:bold;
 }
 #sex {
     margin-left:150px;
@@ -542,22 +541,8 @@ td .label_form{
     margin-left:150px;
     margin-top: 20px;
 }
-.sourceIcon{
-    position:absolute;
-    margin-top:15px;
-    margin-left:25px;
-    
-}
-.sourceIcon2{
-    position:absolute;
-    margin-top:55px;
-    margin-left:25px;
-    
-}
-.calendar_icon{
-    position:absolute;
-    margin-top:135px;
-    margin-left:25px; 
+.sourceIcon, .sourceIcon2, .calendar_icon, .luggage, .stop, .friend{
+    margin-left:20px;
     
 }
 .boundary{
@@ -567,17 +552,15 @@ td .label_form{
      
  }
 .textbox { 
-    height: 35px; 
-    width: 150px; 
-    text-transform:capitalize;
-    margin-top:1px;
-    margin-left:150px;
+    height: 30px; 
+    width: 200px; 
+    margin-top:10px;
+    margin-left:100px;
     background-color: transparent;  
     border-style: solid;  
     border-width: 0px 0px 1px 0px;  
     border-color: transparent;
     color:#a2d9ed;
-    
 } 
 #request_ride{
 	-moz-box-shadow: 0px 10px 14px -7px #276873;
@@ -623,15 +606,13 @@ td .label_form{
 /****adjustment for Chrome***/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 
-	td .textbox1{
+	.textbox1{
 		 border-width: 1px 0px 1px 0px;
 		 margin-top:145px;
 	}
-	.sourceIcon{margin-top:5px;}
-	.sourceIcon2{margin-top:45px;}
-	.calendar_icon{margin-top:125px;}
+
 	
-	td .label_form{margin-top:10px;}
+	.label_form{margin-top:20px;}
 	
 	#sex{margin-top:5px; margin-bottom:10px;}
 	#smoking{margin-top:5px}
