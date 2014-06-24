@@ -38,7 +38,7 @@ html{
 }
 #container{
 	width: 1024px;
-    height:320px;
+    height:100%;
     background: white;
     margin: 1em auto;
 }
@@ -426,25 +426,8 @@ td .textbox1{
  
     
 }
-.lug_past_offer{
-    color:#7a7a7a;
-    padding-left:10px;
-    
-    
-}
-.stopver_past_offer{
-   color:#7a7a7a;
-   padding-left:30px; 
-   padding-right:10px;  
-    
-}
-.friends_past_offer{
-   padding-left:10px; 
-   padding-right:15px; 
-   color:#7a7a7a;
-}
+
 footer{
-    position:relative;
     bottom:-60px;
     background-image: url(../images/footer.png);
     text-align: center;
@@ -498,21 +481,32 @@ footer img{
     color:#136786;
     text-align: center;
     font-size:18px;
-    font-family: "AvantGarde-Book Bold";
+    font-family: "AvantGarde-Book";
     border-bottom:1px dashed;
-    margin-left:110px;
+    margin-left:420px;
     width:140px;
+
     
 }
 #request_form{
 	font-family: "Calibri Light";
-    margin-top:30px;
-    margin-bottom:50px;
-    margin-left:20px;
-    background-image: url(../images/border_background.png);
-    border-radius:10px;
-    width: 340px;
+    margin-top:-15px;
+    margin-bottom:550px;
+    margin-left:285px;
+    background-color:#3e92b3;
+    width: 400px;
     height: 345px;
+    
+}
+#triangle-down{
+    width: 0;
+	height: 0;
+	position: relative;
+	top:355px;
+	left:290px;
+	border-left: 200px solid transparent;
+	border-right: 200px solid transparent;
+	border-top: 25px solid #3e92b3;
 }
 table{
     width:100%; 
@@ -526,12 +520,12 @@ table{
     position: absolute;
     padding-bottom:5px;
     color: white;
-    margin-left: 45px;
+    margin-left: 55px;
     margin-top: -5px;
 	border-bottom: 1px solid #002e63;
     width:270px;
 	font-family:"Calibri";
-	font-weight:bold;
+	font-weight:semi-bold;
 }
 #sex {
     margin-left:150px;
@@ -545,17 +539,25 @@ table{
     margin-left:20px;
     
 }
-.boundary{
+#boundary{
     position:absolute;
-    top:480px;
-    z-index:1;
-     
- }
+    width:76%;
+    top:510px;
+	border-top:2px solid #3e92b3;
+}
+
+#tab th{
+    text-transform:uppercase;
+	font-family: "AvantGarde-Book";
+	color:#3e92b3;
+	text-align:center;
+
+}
 .textbox { 
     height: 30px; 
     width: 200px; 
     margin-top:10px;
-    margin-left:100px;
+    margin-left:120px;
     background-color: transparent;  
     border-style: solid;  
     border-width: 0px 0px 1px 0px;  
@@ -573,14 +575,15 @@ table{
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
-	font-family:"AvantGarde-Book Bold";
+	font-family:"AvantGarde-Book";
 	font-size:12px;
 	font-weight:bold;
 	padding:5px 10px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #3d768a;
-    margin-left: 115px;
+    margin-left: 140px;
     margin-top:25px;
+
 }
 
 #request_ride:hover , #submit_button:hover{
@@ -590,12 +593,13 @@ table{
 	position:relative;
 	top:1px;
 }
+
 #map_canvas{
 	
 	border:2px solid #2388ad;
-    position:absolute;
-    top:110px;
-    width:500px;
+	position:absolute;
+    top:550px;
+    right:420px;
     overflow: auto;
     margin-left:640px;
 
@@ -610,7 +614,8 @@ table{
 		 border-width: 1px 0px 1px 0px;
 		 margin-top:145px;
 	}
-
+	
+	#request_form{margin-left:300px;}
 	
 	.label_form{margin-top:20px;}
 	
