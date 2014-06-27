@@ -7,11 +7,18 @@
 	<link rel = "stylesheet" type="text/css" href= "css/style.css">
 	
 	<title>Social Ride - Create Ride </title>
+    
+    <script type="text/javascript">
+		<!--
+		function submit_request() {
+			window.location = "create_ride.html"
+		
+		}
+		//-->
+	</script>
 </head>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script type="text/javascript" src="js/map_utils.js"></script>
-
-	
+	<script type="text/javascript" src="js/map_utils.js"></script>	
 <body>
 	<!--Container for our main-->
 	<div id="container">
@@ -45,9 +52,9 @@
 		
 		
 		<aside>
-			<div>
+			<div id="side">
 				<form id="road_sign" onsubmit="return false;">
-					<table class="create_rides" width="100%" border="0" cellpadding="0" cellspacing="10" >
+					<table class="create_rides">
 						<tr>
 							
 							<td><input class="textbox1" type="text" id="km" name="km" value=""/></td>
@@ -58,15 +65,15 @@
 							<td><label class="hours">Hours </label></td>
 						</tr>
 						<tr>
-							<!---Kindly check if the third input text in chrome is showing up Thankl you :)--->
+							<!--Kindly check if the third input text in chrome is showing up Thankl you :)-->
 							<td><input class="textbox1" type="text" id="companion" name="companion" value="" /></td>
 							<td><label class="companion">Companion </label></td>
 						</tr>
 					</table>
 				</form>
 			</div>
-				
-			<ul>
+			
+            <ul>
 			<li><img src ="images/sign.png" alt= "banner2" class= "ban2"></li>
 			<li><img src="images/car.png" alt="banner1" class="ban1"></li>
 			</ul>
@@ -242,6 +249,7 @@
 			
 			</div><!--end content-->
 				
+                
 				<button id = "submit_button" onclick=submit_request()>Create Ride</button><!--end button-->
 		
 		<footer>
@@ -257,7 +265,7 @@
 </body>
 	
 	<div id = "submit" style="postion: absolute; display:none;">
-  <button id = "submit_button" onclick=submit_request()>Create Ride</button>
+  	<button id = "submit_button" onclick=submit_request()>Create Ride</button>
 	</div>
 	
 	<div id="map_canvas_home" style="height:400px;width:500px;overflow: auto;"></div>

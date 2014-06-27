@@ -27,7 +27,7 @@
     <!-- Main Content -->
     <div id="triangle-down"></div>
    <form id="request_form" onsubmit="return false;">			
-				<table width="100%" border="0" cellpadding="0" cellspacing="10" >
+				<table>
 					  <!--tr>
 					<td><label>Name </label></td>
 						<td><input type="text" id="name" name="name" value=""/></td>
@@ -35,25 +35,30 @@
 				  <tr>
 
 						<td><label class="label_form">source </label></td>
-						<td><input class="textbox" type="text" id="source" name="source"  value=""/></td>
+						<td><input class="textbox" type="text" id="source" name="source"  value="Enter your Source address" 
+                        onfocus="if(this.value  == 'Enter your Source address') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Source address'; } " /></td>
 				  </tr>
 				  <tr>
 
 						<td><label class="label_form">destination</label></td>
-						<td><input class="textbox" type="text" id="destination" name="destination"  value=""/></td>
+						<td><input class="textbox" type="text" id="destination" name="destination"  value="Enter your Destination address" 
+                        onfocus="if(this.value  == 'Enter your Destination address') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Destination address'; } "/></td>
 				  </tr>
 				  <tr>
 						<td><label class="label_form">language</label></td>
-						<td><input class="textbox" type="text" id="language" name="language"  value=""/></td>
+						<td><input class="textbox" type="text" id="language" name="language"  value="Enter your Language" 
+                        onfocus="if(this.value  == 'Enter your Language') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Language'; } "/></td>
 				  </tr>
 				  <tr>
 
 						<td><label class="label_form">Date</label></td>
-						<td><input class="textbox" type="text" id="date" name="date" value=""/></td>
+						<td><input class="textbox" type="text" id="date" name="date" value="Enter your Date" 
+                        onfocus="if(this.value  == 'Enter your Date') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Date'; } "/></td>
 				  </tr>
 				  <tr>
 						<td><label class="label_form">Time</label></td>    
-						<td><input class= "textbox" type="text" id="time" name="time" value=""/></td>
+						<td><input class= "textbox" type="text" id="time" name="time" value="Enter your Time" 
+                        onfocus="if(this.value  == 'Enter your Time') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Time'; } "/></td>
 				  </tr>
 				  <tr>	
 						<td><label class="label_form">Sex</label></td>
