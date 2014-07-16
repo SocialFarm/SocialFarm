@@ -37,7 +37,11 @@ function( newdoc, olddoc, uxt )
             throw({forbidden : "Field can't be changed : " + field});
     }
 
-    
+ 
+    //Skip the validation check for delete operation
+    //TODO :: PRERAK :: If required, add proper validation for deletion of the documents.
+    if(newdoc._deleted) return true;
+
     // actual validation begins here  
     require( "type" ) ;
 
