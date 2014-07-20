@@ -1,0 +1,105 @@
+<!-- TODO:: Keeping it for future use -->
+<!-- 
+Begin db/info/shows/member.html
+ -->
+<div class = "content">
+    <form id="member_form" onsubmit="return false;" action="/api/business/{{bid}}/member/{{_id}}">
+		    <fieldset id="member_info">
+			    <legend>Member Information</legend>
+				    <ul>
+					    <li>
+						    <label for="_id">Member ID</label>
+						    <input type="text" name="_id" id="_id" value = ""/>
+					    </li>
+                        <li>
+						    <label for="name">Name</label>
+						    <input type="text" name="name" id="name" value = ""/>
+					    </li>
+                         <li>
+						    <label for="sex">Sex</label>
+						    <input type="text" name="sex" id="sex" value = ""/>
+					    </li>
+                         <li>
+						    <label for="Smocking">Smocking</label>
+						    <input type="text" name="smocking" id="smocking" value = ""/>
+					    </li>
+                        <li>
+						    <label for="likes">I Like</label>
+						    <input type="text" name="likes" id="likes" value = ""/>
+					    </li> 
+				    </ul>
+		    </fieldset>
+    </form>
+
+    <form id="car_info" onsubmit="return false;">
+        <fieldset id="car_info">
+            <legend>Car Information</legend>
+                <ul>
+                    <li id="Indx">Number </li>
+                    <li>
+                        <label for="model">Car Model</label>
+                        <input type="text" name="model" id="model" value=""/>
+                    </li>
+                    <li>
+                        <label for="capicity">Capicity</label>
+                        <input type="text" name="capicity" id="capicity" value=""/>
+                    </li>
+                </ul>
+        </fieldset>
+    </form>
+    <button id="update" type="button" >Add car </button>
+
+</div>
+	<div class="clr"></div>
+                    <div class="buttonStyle">
+                    <button id="update" type="button" >Update </button>
+                    <button id="cancel" type="button" >Cancel</button>
+                    </div>
+           </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#update").click(function(){
+            var additional_info = $('#additional_form').serializeArray();
+            var form;
+            var member = Object();
+            form = $("#member_form").serializeArray();
+            LOG(form);
+            LOG(additional_info);
+            $.each(form, function (item) {
+                LOG(form[item].name + " : " + form[item].value );
+                member[form[item].name] = form[item].value;
+            });
+            var items = Object();
+            $.each(additional_info, function (item) {
+                       items[additional_info[item].name] = additional_info[item].value;
+                });
+             
+            member.additional_info = items;
+            LOG(member);
+            url =  "/api/business/{{bid}}/object/{{_id}}";
+            var success = function(){
+                alert("Update is Successfull !1 ");
+                window.location ="/business/{{bid}}";
+            }
+            
+            var failure = function(){
+                warn("Update failed");
+            }
+            data = JSON.stringify(member) ;            
+            post_json(url,data,success,failure);
+            
+        });
+	    $("#cancel").click(function(){
+            window.location = "/business/{{bid}}";
+        });
+
+    });
+</script>
+<!-- 
+End db/info/shows/member.html
+ -->
+
+
+
