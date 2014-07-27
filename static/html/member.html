@@ -2,30 +2,45 @@
 <!-- 
 Begin db/info/shows/member.html
  -->
+	<link rel = "stylesheet" type="text/css" href= "css/reset.css">
+	<link rel = "stylesheet" type="text/css" href= "css/style.css">
+<div id="container">
 <div class = "content">
+	<div id = "header">
+			  <h1> Social Ride  <img src="images/facebook.png" class="fb" alt="fb"></h1>
+	</div><!--end of header-->
+				
+
     <form id="member_form" onsubmit="return false;" action="/api/business/{{bid}}/member/{{_id}}">
 		    <fieldset id="member_info">
 			    <legend>Member Information</legend>
+					
 				    <ul>
+						<li>
+							<input for="file" type="button" name="add_photo" id="add_photo" value="add photo"/>
+						</li>
 					    <li>
-						    <label for="_id">Member ID</label>
+						    <label for="_id" class="mem_id">Member ID*</label>
 						    <input type="text" name="_id" id="_id" value = ""/>
 					    </li>
                         <li>
-						    <label for="name">Name</label>
-						    <input type="text" name="name" id="name" value = ""/>
+						    <label for="name"  class="fullname">Full Name*</label><br />
+						    <input type="text" name="name" id="fullname" value = ""/>
 					    </li>
                          <li>
-						    <label for="sex">Sex</label>
-						    <input type="text" name="sex" id="sex" value = ""/>
+						    <label for="sex"  class="gend">Sex*</label><br />
+						    <input type="button" name="sex" id="male" value = "Male"/>
+							<input type="button" name="sex" id="female" value = "Female"/>
 					    </li>
                          <li>
-						    <label for="Smocking">Smocking</label>
-						    <input type="text" name="smocking" id="smocking" value = ""/>
+						    <label for="Smocking"class="smock">Smoking</label><br />
+						    <input type="button" name="Smocking" id="yes" value = "Yes"/>
+							<input type="button" name="Smocking" id="no" value = "No"/>
 					    </li>
                         <li>
-						    <label for="likes">I Like</label>
-						    <input type="text" name="likes" id="likes" value = ""/>
+						    <label for="likes"  class="like">I Like</label><br />
+						    <input type="text" name="likes" id="like" value = ""/>
+							<button id="add_likes" type="button" >Add Likes</button>
 					    </li> 
 				    </ul>
 		    </fieldset>
@@ -33,31 +48,42 @@ Begin db/info/shows/member.html
 
     <form id="car_info" onsubmit="return false;">
         <fieldset id="car_info">
-            <legend>Car Information</legend>
+            <legend class="car_fo">Car Information</legend>
                 <ul>
-                    <li id="Indx">Number </li>
+                    <li id="Indx">Number</li>
                     <li>
-                        <label for="model">Car Model</label>
+                        <label for="model">Car Model*</label><br />
                         <input type="text" name="model" id="model" value=""/>
                     </li>
                     <li>
-                        <label for="capicity">Capicity</label>
+                        <label for="capicity" class="capacity">Capicity*</label><br />
                         <input type="text" name="capicity" id="capicity" value=""/>
                     </li>
                 </ul>
         </fieldset>
     </form>
-    <button id="update" type="button" >Add car </button>
+    <button id="add_car" type="button" >Add Another car </button>
 
-</div>
+</div><!--End of content-->
 	<div class="clr"></div>
                     <div class="buttonStyle">
                     <button id="update" type="button" >Update </button>
                     <button id="cancel" type="button" >Cancel</button>
                     </div>
-           </div>
-</div>
+       
 
+	
+	<footer>
+			
+			<ul id= "footer_nav">
+				<li><a href = ""><img src="images/about_icon.png" class="about"><h4>About us</h4></a></li>	
+				<li><a href = ""><img src="images/setting_icon.png" class="settings"><h4>Setting</h4></a></li>
+				<li><a href = ""><img src="images/mail_icon.png" class="contact"><h4>Contact us</h4></a></li>
+			</ul>
+			
+	</footer><!--end of footer-->
+
+</div><!--End of container-->
 <script type="text/javascript">
     $(document).ready(function() {
         $("#update").click(function(){
