@@ -122,6 +122,16 @@ Begin db/info/shows/member.html
         });
 
     });
+    function failure(){
+        alert("failed to fetch data");
+    }
+    function load_user_info(){
+        var url = "http://socialfarm.org/couchdb/social_ride/user."+ get_user().id ;
+        get_json(url,function(data){
+            $('#_id').val(data._id);
+            $('#name').val(data.name);
+        },failure);
+    }
 </script>
 <!-- 
 End db/info/shows/member.html
