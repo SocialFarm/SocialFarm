@@ -29,13 +29,21 @@ Begin db/info/shows/member.html
 					    </li>
                          <li>
 						    <label for="sex"  class="gend">Sex*</label><br />
-						    <input type="button" name="sex" id="male" value = "Male"/>
-							<input type="button" name="sex" id="female" value = "Female"/>
+							<select id="male_female" name="sex">
+								<option value="male">Male</option>
+								<option value="female">Female</option>
+							</select>
+						    <!--input type="button" name="sex" id="male" value = "Male"/>
+							<input type="button" name="sex" id="female" value = "Female"/-->
 					    </li>
                          <li>
 						    <label for="Smocking"class="smock">Smoking</label><br />
-						    <input type="button" name="Smocking" id="yes" value = "Yes"/>
-							<input type="button" name="Smocking" id="no" value = "No"/>
+							<select id="smocking" name="smocking">
+								<option value="no">No</option>
+								<option value="yes">Yes</option>
+							</select>
+						    <!--input type="button" name="Smocking" id="yes" value = "Yes"/>
+							<input type="button" name="Smocking" id="no" value = "No"/-->
 					    </li>
                         <li>
 						    <label for="likes"  class="like">I Like</label><br />
