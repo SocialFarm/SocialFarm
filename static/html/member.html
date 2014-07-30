@@ -10,6 +10,8 @@ Begin db/info/shows/member.html
 			  <h1> Social Ride  <img src="images/facebook.png" class="fb" alt="fb"></h1>
 	</div><!--end of header-->
 				
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/map_utils.js"></script>
 
     <form id="member_form" onsubmit="return false;" action="/api/business/{{bid}}/member/{{_id}}">
 		    <fieldset id="member_info">
@@ -84,6 +86,11 @@ Begin db/info/shows/member.html
 	</footer><!--end of footer-->
 
 </div><!--End of container-->
+
+<div id="fb-root">
+    <script type="text/javascript" src="js/facebook.js"></script>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $("#update").click(function(){
@@ -129,7 +136,7 @@ Begin db/info/shows/member.html
         var url = "http://socialfarm.org/couchdb/social_ride/user."+ get_user().id ;
         get_json(url,function(data){
             $('#_id').val(data._id);
-            $('#name').val(data.name);
+            $('#fullname').val(data.name);
         },failure);
     }
 </script>
