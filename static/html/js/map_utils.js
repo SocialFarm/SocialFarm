@@ -223,22 +223,42 @@ function add_user_to_socialride() {
      get_json(url, success, failure);
 }
 
-function createRideInfoTable(data) {
-    var html = '<tr id="'+data._id+'">' +
-		'<td class="when">'+data.date+'</td>'+
-                '<td class="sd"><span>'+data.source + '-' + data.destination + '</span></td>'+
-                '<td class="lug">'+data.customer+'</td>' +
-                '<td class="stopver">'+data.distance+'</td>'+
+function appendRideInfoTable(data) {
+  /* Array description
+    0 -> ride id
+    1 -> user name
+    2 -> source
+    3 -> destination
+    4 -> date
+    5 -> time */
+    var html = '<tr id="'+data[0]+'">' +
+                '<td class="when">'+data[4]+'</td>'+
+                '<td class="sd"><span>'+data[2] + '-' + data[3] + '</span></td>'+
+                '<td class="lug">'+data[1]+'</td>' +
+                '<td class="stopver">'+data[5]+'</td>'+
                 '<td class="friends">2</td>'+
-                '</tr>';
-    return html;
+                '</tr><br/>';
+    $('#tab_request').append(html);
+    //return html;
 }
 
 function fillRideInfo(type,userId) {
+    var viewUrl;
     if( type === "request"){
-        var viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_ride";
-        get_json(viewUrl,function(data){
-            console.log(data);
-        },failure);
+        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/user_ride";
     }
-}
+    else {
+        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_ride";
+    }
+    
+    get_json(viewUrl,function(data){
+        console.log(data);
+        $(data.rows).each(function (i, row){
+            $(row).each(function (j, col) {
+                //console.log(col.id + "  " + col.value[2]);
+                appendRideInfoTable(col.value);
+                //console.log(html);
+});
+        });
+    },failure);
+ }
