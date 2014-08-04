@@ -215,10 +215,30 @@ function add_user_to_socialride() {
       revision_cache[url].rev = response.rev;
        };*/
      put_json(url, data, do_nothing, do_nothing);
-  }}
+    };
+  }
      var success = function(response){
          LOG('person is already in the datebase: ' + JSON.stringify(response));
-    }
+    };
      get_json(url, success, failure);
-    }
+}
 
+function createRideInfoTable(data) {
+    var html = '<tr id="'+data._id+'">' +
+		'<td class="when">'+data.date+'</td>'+
+                '<td class="sd"><span>'+data.source + '-' + data.destination + '</span></td>'+
+                '<td class="lug">'+data.customer+'</td>' +
+                '<td class="stopver">'+data.distance+'</td>'+
+                '<td class="friends">2</td>'+
+                '</tr>';
+    return html;
+}
+
+function fillRideInfo(type,userId) {
+    if( type === "request"){
+        var viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_ride";
+        get_json(viewUrl,function(data){
+            console.log(data);
+        },failure);
+    }
+}
