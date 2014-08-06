@@ -231,6 +231,7 @@ function appendRideInfoTable(data) {
     3 -> destination
     4 -> date
     5 -> time */
+    console.log("calling appendRideInfoTable");
     var html = '<tr id="'+data[0]+'">' +
                 '<td class="when">'+data[4]+'</td>'+
                 '<td class="sd"><span>'+data[2] + '-' + data[3] + '</span></td>'+
@@ -255,7 +256,7 @@ function fillRideInfo(type,userId) {
         console.log(data);
         $(data.rows).each(function (i, row){
             $(row).each(function (j, col) {
-                //console.log(col.id + "  " + col.value[2]);
+                console.log(col.id + "  " + col.key);
                 appendRideInfoTable(col.value);
                 //console.log(html);
 });
