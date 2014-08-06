@@ -221,26 +221,28 @@ function add_user_to_socialride() {
      get_json(url, success, failure);
 }
 
-function appendRideInfoTable(data,divId) {
+function appendNearByRideInfoTable(data,divId) {
   /* Array description
     0 -> ride id
     1 -> user name
     2 -> source
     3 -> destination
     4 -> date
-    5 -> time */
+    5 -> time 
+    6 -> friend */
+    
     var html = '<tr id="'+data[0]+'">' +
                 '<td class="when">'+data[4]+'</td>'+
                 '<td class="sd"><span>'+data[2] + '-' + data[3] + '</span></td>'+
                 '<td class="lug">'+data[1]+'</td>' +
                 '<td class="stopver">'+data[5]+'</td>'+
                 '<td class="friends">2</td>'+
-                '</tr><br/>';
+                '</tr>';
+        html += '<button id = "accept0" onclick=accept()>Accept</button><br/>';
     $('#'+divId).append(html);
-    //return html;
 }
 
-function fillRideInfo(type,userId) {
+function fillNearByRideInfo(type,userId) {
     var viewUrl;
     var divId;
 
@@ -256,7 +258,7 @@ function fillRideInfo(type,userId) {
     get_json(viewUrl,function(data){
         $(data.rows).each(function (i, row){
             $(row).each(function (j, col) {
-                appendRideInfoTable(col.value,divId);
+                appendNearByRideInfoTable(col.value,divId);
             });
         });
     },failure);
