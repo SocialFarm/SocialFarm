@@ -159,7 +159,6 @@ function put_json(url, data, successcb, failurecb){
             dataType: 'json',
             data : data,
             success: function (response){ 
-                LOG('PUT response: ' + JSON.stringify(response));
                 //should update cache rev
                 //revision_cache[url] = response; 
                 successcb(); 
@@ -178,7 +177,6 @@ function get_json(url, successcb, failurecb){
             type: 'GET',
             dataType: 'json',
             success: function (response){
-                LOG('GET response: ' + JSON.stringify(response));
                 //revision_cache[url] = JSON.stringify(response);
                 successcb(response);
             },
@@ -223,7 +221,7 @@ function add_user_to_socialride() {
      get_json(url, success, failure);
 }
 
-function appendRideInfoTable(data) {
+function appendRideInfoTable(data,divId) {
   /* Array description
     0 -> ride id
     1 -> user name
@@ -231,7 +229,6 @@ function appendRideInfoTable(data) {
     3 -> destination
     4 -> date
     5 -> time */
-    console.log("calling appendRideInfoTable");
     var html = '<tr id="'+data[0]+'">' +
                 '<td class="when">'+data[4]+'</td>'+
                 '<td class="sd"><span>'+data[2] + '-' + data[3] + '</span></td>'+
@@ -239,27 +236,28 @@ function appendRideInfoTable(data) {
                 '<td class="stopver">'+data[5]+'</td>'+
                 '<td class="friends">2</td>'+
                 '</tr><br/>';
-    $('#tab_request').append(html);
+    $('#'+divId).append(html);
     //return html;
 }
 
 function fillRideInfo(type,userId) {
     var viewUrl;
+    var divId;
+
     if( type === "request"){
         viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/user_ride";
+        divId = "tab_request";
     }
     else {
         viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_ride";
+        divId = "tab_offer";
     }
     
     get_json(viewUrl,function(data){
-        console.log(data);
         $(data.rows).each(function (i, row){
             $(row).each(function (j, col) {
-                console.log(col.id + "  " + col.key);
-                appendRideInfoTable(col.value);
-                //console.log(html);
-});
+                appendRideInfoTable(col.value,divId);
+            });
         });
     },failure);
  }
