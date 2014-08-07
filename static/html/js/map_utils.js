@@ -252,7 +252,7 @@ function fillNearByRideInfo(type,curLocGeoCode) {
         divId = "tab_request";
     }
     else {
-        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_ride";
+        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/user_offer";
         divId = "tab_offer";
     }
     
@@ -276,11 +276,11 @@ function appendMyRideInfoTable(data,divId) {
     6 -> status */
     
     var html = '<tr id="'+data[0]+'">' +
-                '<td class="when">'+data[4]+'</td>'+
-                '<td class="sd"><span>'+data[2] + '-' + data[3] + '</span></td>'+
-                '<td class="stopver">'+data[5]+'</td>'+
+                '<td class="when">'+data[3]+'</td>'+
+                '<td class="sd"><span>'+data[1] + '-' + data[2] + '</span></td>'+
+                '<td class="stopver">'+data[4]+'</td>'+
                 '<td class="friends">2</td>'+
-                '<td class="friends">'+data[6]+'</td>'+
+                '<td class="friends">'+data[5]+'</td>'+
                 '<td> <button id = "rate">Rate</button> </td>'+
                 '</tr>';
         
@@ -291,12 +291,14 @@ function fillMyRideInfo(type,userId) {
     var divId;
 
     if( type === "request"){
-        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_request?key='+userId+'"';
-        divId = "tab_request";
+        //viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_request?key='+userId+'"';
+        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/temp"
+        divId = "tab_my_req";
     }
     else {
-        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_offer?key='+userId+'"';
-        divId = "tab_offer";
+        //viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_offer?key='+userId+'"';
+        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/temp"
+        divId = "tab_my_offer";
     }
     get_json(viewUrl,function(data){
         $(data.rows).each(function (i, row){

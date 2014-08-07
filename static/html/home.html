@@ -109,7 +109,7 @@
                         <br/>							
                     </table>
 
-                    <table id="past_my_offer">
+                    <table id="tab_my_offer">
                         <h3>My Offers </h3>
                         <tr class="heading_offer">
                             <th>Date</th>
@@ -159,8 +159,10 @@
             });
             //fill_requested_rides(data);
             fillNearByRideInfo("request", null);
+            fillNearByRideInfo("offer",null);
+            fillMyRideInfo("request", null);
+            fillMyRideInfo("offer", null);
         }
-
         function fill_requested_rides(data) {
             console.log("temp " + data.requested_rides.length);
             var html = "";
