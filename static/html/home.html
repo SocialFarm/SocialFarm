@@ -1,276 +1,188 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http//www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	
-	<link rel = "stylesheet" type="text/css" href= "css/reset.css">
-	<link rel = "stylesheet" type="text/css" href= "css/style.css">
-	
-	<title>Social Ride - Create Ride </title>
-    
-    <script type="text/javascript">
-		<!--
-		function submit_request() {
-			window.location = "create_ride.html"
-		
-		}
-		//-->
-	</script>
-</head>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-	<script type="text/javascript" src="js/map_utils.js"></script>	
-<body>
-	<!--Container for our main-->
-	<div id="container">
-			
-		<div id = "header">
-			<h1> Social Ride</h1> 	
-			<button class = "uiButton" id="login">Login</button><br>
-		</div><!--end of header-->
-				
-		<div id="user_details">
-		
-			<!--It should not be hard-coded, PHP or Jquery needed-->
-			<img src= "images/Avatar.png" alt= "Upicture" class="UpictureImage">	
-				<br />
-				<h3> User Details </h3>
-				<div class="info">
-					<ul>
-						<li id="name">Name: </li>
-						<li id="gender">Sex: </li>
-						<li id="language_spoken">Language Spoken: </li>
-						<li id="cars">Cars: </li>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+        <link rel = "stylesheet" type="text/css" href= "css/reset.css"/>
+        <link rel = "stylesheet" type="text/css" href= "css/style.css"/>
+
+        <title>Social Ride - Home </title>
+
+    </head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/map_utils.js"></script>	
+    <body>
+        <!--Container for our main-->
+        <div id="container">
+
+            <div id = "header">
+                <h1> Social Ride</h1> 	
+                <button class = "uiButton" id="login">Login</button><br/>
+            </div><!--end of header-->
+
+            <div id="user_details">
+
+                <!--It should not be hard-coded, PHP or Jquery needed-->
+                <img src= "images/Avatar.png" alt= "Upicture" class="UpictureImage"/>	
+                <br />
+                <h3> User Details </h3>
+                <div class="info">
+                    <ul>
+                        <li id="name">Name: </li>
+                        <li id="gender">Sex: </li>
+                        <li id="language_spoken">Language Spoken: </li>
+                        <li id="cars">Cars: </li>
                         <li id="smoke">I smoke: </li>
-						<li id="likes">I Like: </li>
-					</ul>
-				</div>
-		</div><!-- end user_details---->
-		
-		
-		<aside>
-			<div id="side">
-				<form id="road_sign" onsubmit="return false;">
-					<table class="create_rides">
-						<tr>
-							
-							<td><input class="textbox1" type="text" id="km" name="km" value=""/></td>
-							<td><label class="km">km </label></td>
-						</tr>
-						<tr>
-							<td><input class="textbox1" type="text" id="hours" name="hours" value=""/></td>
-							<td><label class="hours">Hours </label></td>
-						</tr>
-						<tr>
-							<!--Kindly check if the third input text in chrome is showing up Thankl you :)-->
-							<td><input class="textbox1" type="text" id="companion" name="companion" value="" /></td>
-							<td><label class="companion">Companion </label></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-			
-            <ul>
-			<li><img src ="images/sign.png" alt= "banner2" class= "ban2"></li>
-			<li><img src="images/car.png" alt="banner1" class="ban1"></li>
-			</ul>
-		</aside><!--end of aside-->
-			
-			<div id= "content">		
-				
-				<div id= "requested_rides">
-						<h3>Requested Rides</h3>
-						<table id="tab_request">
-							<tr class="tab_heading">
-								<th>Date </th>
-								<th>Source - Destination </th>
-								<th>Requester </th>
-								<th>Time of Ride </th>
-								<th>Friends </th>
-							</tr>	
-							<br />
-						</table>
-				                <h3>My Requests</h3>	
-						<table id="tab_past_req">
-							<tr class="tab_heading">
-								<th>Date</th>
-								<th>Source - Destination </th>
-								<th>Time of Ride </th>
-								<th>Friends </th>
-								<th> </th>
-							</tr>
-							<br />
-							<tr id="data_sample_past_req">
-								<td class="when_past_req">30/5/14</td>
-								<td class="sd_past_req"><span>New York - Pacadema CA </span></td>
-								<td class="lug_past_req">120</td>
-								<td class="stopver_past_req">4(2h)</td>
-								<td class="friends_past_req">2</td>
-							</tr>
-							<br />
-							<tr id="data_sample_past_req">
-								<td class="when_past_req">30/5/14</td>
-								<td class="sd_past_req"><span>New York - Pacadema CA </span></td>
-								<td class="lug_past_req">120</td>
-								<td class="stopver_past_req">4(2h)</td>
-								<td class="friends_past_req">2</td>
-							</tr>
-							<br />
-							<tr id="data_sample_past_req">
-								<td class="when_past_req">30/5/14</td>
-								<td class="sd_past_req"><span>New York - Pacadema CA </span></td>
-								<td class="lug_past_req">120</td>
-								<td class="stopver_past_req">4(2h)</td>
-								<td class="friends_past_req">2</td>
-							</tr>
-							<br />
-						</table>
-					
-				</div><!--end requested_rides-->
-					
-				<div id= "offered_rides">
-						<h3>Offered Rides</h3>
-						<table id="tab_offer">
-							<tr class="heading_offer">
-								<th>Date </th>
-								<th>Source - Destination </th>
-								<th>Luggage </th>
-								<th>Stopovers </th>
-								<th>Friends </th>
-							</tr>	
-							<br />
-							<tr id="sample_offer">
-								<td class="when_offer">30/5/14</td>
-								<td class="sd_offer"><span>New York - Pacadema CA </span></td>
-								<td class="lug_offer">120</td>
-								<td class="stopver_offer">4(3min)</td>
-								<td class="friends_offer">2</td>
-							
-							</tr>
-							<br />
-							<tr id="sample_offer">
-								<td class="when_offer">30/5/14</td>
-								<td class="sd_offer"><span>New York - Pacadema CA </span></td>
-								<td class="lug_offer">120</td>
-								<td class="stopver_offer">4(2h)</td>
-								<td class="friends_offer">2</td>
-							
-							</tr>
-							<tr id="sample_offer">
-								<td class="when_offer">30/5/14</td>
-								<td class="sd_offer"><span>New York - Pacadema CA </span></td>
-								<td class="lug_offer">120</td>
-								<td class="stopver_offer">4(3h)</td>
-								<td class="friends_offer">2</td>
-							</tr>
-							<tr id="sample_offer">
-								<td class="when_offer">30/5/14</td>
-								<td class="sd_offer"><span>New York - Pacadema CA </span></td>
-								<td class="lug_offer">120</td>
-								<td class="stopver_offer">4(3h)</td>
-								<td class="friends_offer">2</td>
-							</tr>
-							
-						</table>
-					
-						<table id="past_offer">
-							<tr class="past_head_offer">
-								<th>Past Request</th>
-								<th> </th>
-								<th> </th>
-								<th> </th>
-								<th> </th>
-							<tr>
-							<br />
-							<tr id="sample_past_offer">
-								<td class="when_past_offer">30/5/14</td>
-								<td class="sd_past_offer"><span>New York - Pacadema CA </span></td>
-								<td class="lug_past_offer">120</td>
-								<td class="stopver_past_offer">4(1h)</td>
-								<td class="friends_past_offer">2</td>
-							</tr>
-							<br />
-							<tr id="sample_past_offer">
-								<td class="when_past_offer">30/5/14</td>
-								<td class="sd_past_offer"><span>New York - Pacadema CA </span></td>
-								<td class="lug_past_offer">120</td>
-								<td class="stopver_past_offer">4(1h)</td>
-								<td class="friends_past_offer">2</td>
-							</tr>
-							<br />
-							<tr id="sample_past_offer">
-								<td class="when_past_offer">30/5/14</td>
-								<td class="sd_past_offer"><span>New York - Pacadema CA </span></td>
-								<td class="lug_past_offer">120</td>
-								<td class="stopver_past_offer">4(30mins)</td>
-								<td class="friends_past_offer">2</td>
-							</tr>
-							<br />
-						</table>
-					
-				</div><!--end requested_rides-->
-			
+                        <li id="likes">I Like: </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- end user_details-->
 
-			
-			</div><!--end content-->
-				
-                
-				<button id = "submit_button" onclick=submit_request()>Create Ride</button><!--end button-->
-		
-		<footer>
-			
-			<ul id= "footer_nav">
-				<li><a href = ""><img src="images/about_icon.png" class="about"><h4>About us</h4></a></li>	
-				<li><a href = ""><img src="images/setting_icon.png" class="settings"><h4>Setting</h4></a></li>
-				<li><a href = ""><img src="images/mail_icon.png" class="contact"><h4>Contact us</h4></a></li>
-			</ul>
-			
-		</footer><!--end of footer-->
-	</div><!--end of container-->	
-</body>
-	
-	<div id = "submit" style="postion: absolute; display:none;">
-  	<button id = "submit_button" onclick=submit_request()>Create Ride</button>
-	</div>
-	
-	<div id="map_canvas_home" style="height:400px;width:500px;overflow: auto;"></div>
 
-<script type="text/javascript">
-  var failure = function(){
-    alert("FAILED");
-  }
-  var success = function(){
-    alert("SUCCESS!!");
-  }
+            <aside>
+                <div id="side">
+                    <form id="road_sign" onsubmit="return false;">
+                        <table class="create_rides">
+                            <tr>
 
-  function fill_user_info(data) {
-    $("#name").text(function(c,n) { return  n + data.name });
-    $("#gender").text(function(c,n) { return  n + data.gender });
-    //fill_requested_rides(data);
-    fillRideInfo("request",null);
-  }
+                                <td><input class="textbox1" type="text" id="km" name="km" value=""/></td>
+                                <td><label class="km">km </label></td>
+                            </tr>
+                            <tr>
+                                <td><input class="textbox1" type="text" id="hours" name="hours" value=""/></td>
+                                <td><label class="hours">Hours </label></td>
+                            </tr>
+                            <tr>
+                                <!--Kindly check if the third input text in chrome is showing up Thankl you :)-->
+                                <td><input class="textbox1" type="text" id="companion" name="companion" value="" /></td>
+                                <td><label class="companion">Companion </label></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
 
-  function fill_requested_rides(data) {
-    console.log("temp "+data.requested_rides.length);
-    var html = "";
-    for(i=0;i<data.requested_rides.length;i++) {
-      console.log("Array "+data.requested_rides[i]);
-      html = html + '<div id=" ' + data.requested_rides[i] +'"> <a href="http://socialfarm.org/socialride/job.html?jobId=' + data.requested_rides[i] + '">'+
-                    data.requested_rides[i] + '</a> </div>' ;
-      console.log(html);
-    }
-    $('#requested_rides').append($(html));
-  }
- 
- function load_user_info() {
-    var url = "http://socialfarm.org/couchdb/social_ride/user."+ get_user().id ;
-    get_json(url,fill_user_info,failure);
-    //TODO Add code to put the data to couchdb using the uuid reveived in previous step
-  }
+                <ul>
+                    <li><img src ="images/sign.png" alt= "banner2" class= "ban2"/></li>
+                    <li><img src="images/car.png" alt="banner1" class="ban1"/></li>
+                </ul>
+            </aside><!--end of aside-->
 
-</script>
+            <div id= "content">		
 
-<div id="fb-root">
-	<script type="text/javascript" src="js/facebook.js"></script>
-</div>
+                <div id= "requested_rides">
+                    <h3>Requested Rides</h3>
+                    <table id="tab_request">
+                        <tr class="tab_heading">
+                            <th>Date </th>
+                            <th>Source - Destination </th>
+                            <th>Requester </th>
+                            <th>Time of Ride </th>
+                            <th>Friends </th>
+                        </tr>	
+                        <br />
+                    </table>
+                    <h3>My Requests</h3>	
+                    <table id="tab_my_req">
+                        <tr class="tab_heading">
+                            <th>Date</th>
+                            <th>Source - Destination </th>
+                            <th>Time of Ride </th>
+                            <th>Friends </th>
+                            <th>Status </th>
+                        </tr>
+                        <br />
+                    </table>
+
+                </div><!--end requested_rides-->
+
+                <div id= "offered_rides">
+                    <h3>Offered Rides</h3>
+                    <table id="tab_offer">
+                        <tr class="heading_offer">
+                            <th>Date </th>
+                            <th>Source - Destination </th>
+                            <th>Offerer </th>
+                            <th>Time of Ride </th>
+                            <th>Friends </th>
+                        </tr>	
+                        <br/>							
+                    </table>
+
+                    <table id="past_my_offer">
+                        <h3>My Offers </h3>
+                        <tr class="heading_offer">
+                            <th>Date</th>
+                            <th>Source - Destination </th>
+                            <th>Time of Ride </th>
+                            <th>Friends </th>
+                            <th>Status </th>
+                        </tr>
+                        <br />
+                    </table>					
+                </div><!--end requested_rides-->
+            </div><!--end content-->
+
+            <button id = "submit_button" onclick=submit_request()>Create Ride</button><!--end button-->
+            
+            <footer>
+
+                <ul id= "footer_nav">
+                    <li><a href = ""><img src="images/about_icon.png" class="about"/><h4>About us</h4></a></li>	
+                    <li><a href = ""><img src="images/setting_icon.png" class="settings"/><h4>Setting</h4></a></li>
+                    <li><a href = ""><img src="images/mail_icon.png" class="contact"/><h4>Contact us</h4></a></li>
+                </ul>
+            </footer><!--end of footer-->
+        </div><!--end of container-->	
+    </body>
+
+    <div id = "submit" style="postion: absolute; display:none;">
+        <button id = "submit_button" onclick=submit_request()>Create Ride</button>
+    </div>
+
+    <div id="map_canvas_home" style="height:400px;width:500px;overflow: auto;"></div>
+
+    <script type="text/javascript">
+        var failure = function() {
+            alert("FAILED");
+        };
+        var success = function() {
+            alert("SUCCESS!!");
+        };
+
+        function fill_user_info(data) {
+            $("#name").text(function(c, n) {
+                return  n + data.name;
+            });
+            $("#gender").text(function(c, n) {
+                return  n + data.gender;
+            });
+            //fill_requested_rides(data);
+            fillNearByRideInfo("request", null);
+        }
+
+        function fill_requested_rides(data) {
+            console.log("temp " + data.requested_rides.length);
+            var html = "";
+            for (i = 0; i < data.requested_rides.length; i++) {
+                console.log("Array " + data.requested_rides[i]);
+                html = html + '<div id=" ' + data.requested_rides[i] + '"> <a href="http://socialfarm.org/socialride/job.html?jobId=' + data.requested_rides[i] + '">' +
+                        data.requested_rides[i] + '</a> </div>';
+                console.log(html);
+            }
+            $('#requested_rides').append($(html));
+        }
+
+        function load_user_info() {
+            var url = "http://socialfarm.org/couchdb/social_ride/user." + get_user().id;
+            get_json(url, fill_user_info, failure);
+            //TODO Add code to put the data to couchdb using the uuid reveived in previous step
+        }
+
+    </script>
+
+    <div id="fb-root">
+        <script type="text/javascript" src="js/facebook.js"></script>
+    </div>
 
 </html>
