@@ -237,15 +237,16 @@ function appendNearByRideInfoTable(data,divId) {
                 '<td class="lug">'+data[1]+'</td>' +
                 '<td class="stopver">'+data[5]+'</td>'+
                 '<td class="friends">2</td>'+
+                '<td> <button id = "accept">Accept</button> </td>'+
                 '</tr>';
-        html += '<button id = "accept0" onclick=accept()>Accept</button><br/>';
+        
     $('#'+divId).append(html);
 }
 
-function fillNearByRideInfo(type,userId) {
+function fillNearByRideInfo(type,curLocGeoCode) {
     var viewUrl;
     var divId;
-
+// TODO :: Change the below url to nearby view url
     if( type === "request"){
         viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/user_ride";
         divId = "tab_request";
@@ -263,3 +264,45 @@ function fillNearByRideInfo(type,userId) {
         });
     },failure);
  }
+
+function appendMyRideInfoTable(data,divId) {
+  /* Array description
+    0 -> ride id
+    1 -> source
+    2 -> destination
+    3 -> date
+    4 -> time 
+    5 -> friend 
+    6 -> status */
+    
+    var html = '<tr id="'+data[0]+'">' +
+                '<td class="when">'+data[4]+'</td>'+
+                '<td class="sd"><span>'+data[2] + '-' + data[3] + '</span></td>'+
+                '<td class="stopver">'+data[5]+'</td>'+
+                '<td class="friends">2</td>'+
+                '<td class="friends">'+data[6]+'</td>'+
+                '<td> <button id = "rate">Rate</button> </td>'+
+                '</tr>';
+        
+    $('#'+divId).append(html);
+}
+function fillMyRideInfo(type,userId) {
+    var viewUrl;
+    var divId;
+
+    if( type === "request"){
+        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_request?key='+userId+'"';
+        divId = "tab_request";
+    }
+    else {
+        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_offer?key='+userId+'"';
+        divId = "tab_offer";
+    }
+    get_json(viewUrl,function(data){
+        $(data.rows).each(function (i, row){
+            $(row).each(function (j, col) {
+                appendMyRideInfoTable(col.value,divId);
+            });
+        });
+    },failure);
+}
