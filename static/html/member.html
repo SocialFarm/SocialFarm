@@ -4,6 +4,25 @@ Begin db/info/shows/member.html
  -->
 	<link rel = "stylesheet" type="text/css" href= "css/reset.css">
 	<link rel = "stylesheet" type="text/css" href= "css/style.css">
+	<script src="js/zepto.js"></script>
+	<link rel = "stylesheet" type="text/css" href="css/blue.css" >
+	<script src="js/icheck.js"></script>
+<script>
+$(document).ready(function(){
+  $('input').each(function(){
+    var self = $(this),
+      label = self.next(),
+      label_text = label.text();
+
+    label.remove();
+    self.iCheck({
+      checkboxClass: 'icheckbox_line-blue',
+      radioClass: 'iradio_line-blue',
+      insert: label_text
+    });
+  });
+});
+</script>
 <div id="container">
 <div class = "content">
 	<div id = "header">
@@ -29,26 +48,30 @@ Begin db/info/shows/member.html
 					    </li>
                          <li>
 						    <label for="sex"  class="gend">Sex*</label><br />
-							<select id="male_female" name="sex">
-								<option value="male">Male</option>
-								<option value="female">Female</option>
-							</select>
-						    <!--input type="button" name="sex" id="male" value = "Male"/>
-							<input type="button" name="sex" id="female" value = "Female"/-->
+						    <div class="radio_button" >
+							<input type="radio" name="sex" checked />
+							<label>Male</label>
+							</div>
+							<div class="radio_button2" >
+							<input type="radio" name="sex" />
+							<label>Female</label>
+							</div>
 					    </li>
                          <li>
-						    <label for="Smocking"class="smock">Smoking</label><br />
-							<select id="smocking" name="smocking">
-								<option value="no">No</option>
-								<option value="yes">Yes</option>
-							</select>
-						    <!--input type="button" name="Smocking" id="yes" value = "Yes"/>
-							<input type="button" name="Smocking" id="no" value = "No"/-->
+						    <label for = "smocking" class="smock">Smoking</label><br />
+						    <div class="radio_button3" >
+							<input type="radio" name="smocking" class="radio_button" checked />
+							<label>Yes</label>
+							</div>
+							<div class="radio_button4" >
+							<input type="radio" name="smocking" class="radio_button" />
+							<label>No</label>
+							</div>
 					    </li>
                         <li>
 						    <label for="likes"  class="like">I Like</label><br />
 						    <input type="text" name="likes" id="like" value = ""/>
-							<button id="add_likes" type="button" >Add Likes</button>
+							
 					    </li> 
 				    </ul>
 		    </fieldset>
@@ -70,6 +93,7 @@ Begin db/info/shows/member.html
                 </ul>
         </fieldset>
     </form>
+	<button id="add_likes" type="button" >Add Likes</button>
     <button id="add_car" type="button" >Add Another car </button>
 
 </div><!--End of content-->
@@ -134,6 +158,3 @@ Begin db/info/shows/member.html
 <!-- 
 End db/info/shows/member.html
  -->
-
-
-

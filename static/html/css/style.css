@@ -1224,10 +1224,10 @@ table {
 
 /***MEMBER PAGE STYLE***/
 legend{
+	float:left;
     color: #136786;
 	text-align: center;
-	font-size: 15px;
-	font-family: "AvantGarde-Book";
+	font:normal 15px "AvantGarde-Book";
 	border-bottom: 1px dashed;
 	margin-left: 410px;
     margin-top:10px;
@@ -1294,112 +1294,34 @@ legend{
    
     
 }
-#male{
-    
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0px;
-  color: black;
-  font:normal 16px "Calibri";
-  padding: 5px 30px 5px 30px;
-  border: solid #242424 1px;
-  text-decoration: none;
-  margin-left:230px; 
-  margin-top:5px;
-  background:none;
-    
 
+.radio_button{
+	margin-left: 230px;
+	margin-top: 10px;
 }
+.radio_button2{
+	margin-left: 339px;
+	margin-top: -39px;
+}
+.radio_button3{
+	float:right;
+	margin-right: 330px;
+	margin-top: -76px;
+	
+}
+.radio_button4{
+	float:right;
+	margin-right: 221px;
+	margin-top: -76px;
 
-#female{
-  
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0px;
-  margin-left:-5px;
-  color: black;
-  font:normal 16px "Calibri";
-  padding: 5px 30px 5px 30px;
-  border: solid #242424 1px;
-  text-decoration: none;
-  background:none;
-     
-}
-#yes{
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0px;
-  color: black;
-  font:normal 16px "Calibri";
-  padding: 5px 30px 5px 30px;
-  border: solid #242424 1px;
-  text-decoration: none;
-  background:none;
-  margin-top:-95px;
-  margin-left:600px;
-}
-#no{
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0px;
-  color: black;
-  font:normal 16px "Calibri";
-  padding: 5px 30px 5px 30px;
-  border: solid #242424 1px;
-  text-decoration: none;
-  background:none;
-  margin-top:-95px;
-  margin-left:-5px;
-    
-}
-
-#smocking{
-  margin-top:-95px;
-  margin-left:600px;
-  color: #ffffff;
-  font:normal 16px "Calibri";
-  background: #1d89aa;
-  padding: 5px 30px 5px 30px;
-  text-decoration: none;
-  border:1px solid transparent;
-}
-#male_female{
-
-  color: #ffffff;
-  font:normal 16px "Calibri";
-  background: #1d89aa;
-  padding: 5px 30px 5px 30px;
-  text-decoration: none;
-  border:1px solid transparent;
-  margin-left:230px; 
-  margin-top:5px;
-}
-
-#male:focus, #female:focus, #yes:focus, #no:focus{
-  background: #3498db;
-  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-  background-image: -o-linear-gradient(top, #3498db, #2980b9);
-  background-image: linear-gradient(to bottom, #3498db, #2980b9);
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0px;
-  color: #ffffff;
-  font:normal 16px "Calibri";
-  background: #1d89aa;
-  padding: 5px 30px 5px 30px;
-  text-decoration: none;
-  border:1px solid transparent;
-    
+	
 }
 
 .smock{
    float:right;
-   margin-left:300px;
    font:normal 16px "Calibri";
    color:#a3a7aa;
-   margin-top:-81px;
+   margin-top:-90px;
    margin-right:350px;
     
     
@@ -1451,7 +1373,7 @@ legend{
 }
 #add_likes{
     float:right;
-    margin-top:-45px;
+    margin-top:-190px;
     margin-right:220px;
     color: #ffffff;
     text-transform:Uppercase; 
@@ -1583,34 +1505,30 @@ legend{
 	}
 
 	
-.smock{
-		margin-bottom:100px;
-	}
-#smocking{
-	
+#add_likes{
 	float:right;
-	margin-right:300px;
+	margin-top:-125px;
 	
-}
-.capacity{
-	margin-bottom:78px;
-}
-#capicity{
-	float:right;
-	margin-right:450px;
-	
+}	
+#like{
+	float:left;
+	margin-top:-20px;
 }
 .like{
-	margin-top:-15px;
-}
-#add_likes{
-	margin-top:-5px;
-	
-}
-legend{
-	padding:10px;
 	float:left;
-	font:20px "AvantGarde-Book";
-	width:170px;
+	margin-top:-30px;
+}
+#capicity{
+	float:left;
+	margin-top:-46px;
+}
+#add_car{
+	margin-top:-46px;
+}
+
+legend{
+	float:left;
+    margin-top:20px;
+	font:normal 18px "AvantGarde-Book";
 }
 }
