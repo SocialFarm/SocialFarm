@@ -262,7 +262,7 @@ function fillNearByRideInfo(type,curLocGeoCode) {
                 appendNearByRideInfoTable(col.value,divId);
             });
         });
-    },failure);
+    },do_nothing);
  }
 
 function appendMyRideInfoTable(data,divId) {
@@ -291,12 +291,12 @@ function fillMyRideInfo(type,userId) {
     var divId;
 
     if( type === "request"){
-        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_request?key=%22user.'+userId+'%22"';
+        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_request?key=%22user.'+userId+'%22';
         //viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/temp"
         divId = "tab_my_req";
     }
     else {
-        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_offer?key=%22user.'+userId+'%22"';
+        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_offer?key=%22user.'+userId+'%22';
         //viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/temp"
         divId = "tab_my_offer";
     }
@@ -306,5 +306,5 @@ function fillMyRideInfo(type,userId) {
                 appendMyRideInfoTable(col.value,divId);
             });
         });
-    },failure);
+    },do_nothing);
 }

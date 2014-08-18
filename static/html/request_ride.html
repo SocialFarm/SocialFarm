@@ -5,7 +5,7 @@
     <link rel = "stylesheet" type="text/css" href= "css/reset.css">
 	<link rel = "stylesheet" type="text/css" href= "css/style.css">
     
-	<title>Social Ride - Create Ride </title>
+	<title>Social Ride - Request Ride </title>
 </head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAUcTvML7PuCUAqSU8RzF-OLtu5EvDqY9Q&sensor=false"></script>
@@ -20,7 +20,7 @@
            
     <br>	
     
-    <div class="request">Create Ride </div>
+    <div class="request">Request Ride </div>
      <!-- Main Content -->
     <div id="triangle-down"></div>
    <form id="request_form" onsubmit="return false;">			
@@ -94,7 +94,7 @@
 </body>
 
 <div id = "submit" style="postion: absolute; display:none;">
-  <button id = "submit_button" onclick=submit_request()>Create Ride</button>
+  <button id = "submit_button" onclick=submit_request()>Request Ride</button>
 </div>
 
 <div id="map_canvas" style="height:400px;width:500px;overflow: auto;"></div>
@@ -153,7 +153,7 @@
 
   function create_ride(data) {
     console.log(data);
-    var url = "http://socialfarm.org/couchdb/social_ride/ride."+data.uuids[0];
+    var url = "http://socialfarm.org/couchdb/social_ride/request."+data.uuids[0];
     console.log(url +" -d "+ JSON.stringify(form_data));
     put_json(url, JSON.stringify(form_data),success,failure);
   }
