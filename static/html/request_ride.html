@@ -2,60 +2,56 @@
 <html xmlns="http//www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<link rel = "stylesheet" type="text/css" href= "css/reset.css">
+    <link rel = "stylesheet" type="text/css" href= "css/reset.css">
 	<link rel = "stylesheet" type="text/css" href= "css/style.css">
-	
-	
-	<title>Social Ride - Request Ride </title>
-	
+    
+	<title>Social Ride - Create Ride </title>
 </head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAUcTvML7PuCUAqSU8RzF-OLtu5EvDqY9Q&sensor=false"></script>
-<script type="text/javascript" src="map_utils.js"></script>
+<script type="text/javascript" src="js/map_utils.js"></script>
 
 <body>
-	
-	<div id="container">
-		<div id = "header">
-			<h1> Social Ride </h1>
-			<button class = "uiButton" id="login">Login</button><br>
-		</div><!--end header-->
-		<br />	
-		
-		<div class="request">Request Ride </div>
-
-		<div id="userinfo">
-		</div>			
-		<!-- Main Content -->
-		
-			<form id="request_form" onsubmit="return false;">			
-				<table width="100%" border="0" cellpadding="0" cellspacing="10" >
-					  <!--tr>
-					<td><label>Name </label></td>
-						<td><input type="text" id="name" name="name" value=""/></td>
-				  </tr-->
+    <div id="container">
+    <div id = "header">
+        <h1> Social Ride  <img src="images/facebook.png" class="fb" alt="fb">
+    </div></h1>
+			<!---button class = "uiButton" id="login">Login</button><br--->
+           
+    <br>	
+    
+    <div class="request">Create Ride </div>
+     <!-- Main Content -->
+    <div id="triangle-down"></div>
+   <form id="request_form" onsubmit="return false;">			
+				<table>
 				  <tr>
-						<label><img src="images/source_icon.png" alt="icon" class="sourceIcon"></label>
+
 						<td><label class="label_form">source </label></td>
-						<td><input class="textbox" type="text" id="source" name="source"  value=""/></td>
+						<td><input class="textbox" type="text" id="source" name="source"  value="Enter your Source address" 
+                        onfocus="if(this.value  == 'Enter your Source address') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Source address'; } " /></td>
 				  </tr>
 				  <tr>
-						<label><img src="images/source_icon.png" alt="icon" class="sourceIcon2">
+
 						<td><label class="label_form">destination</label></td>
-						<td><input class="textbox" type="text" id="destination" name="destination"  value=""/></td>
+						<td><input class="textbox" type="text" id="destination" name="destination"  value="Enter your Destination address" 
+                        onfocus="if(this.value  == 'Enter your Destination address') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Destination address'; } "/></td>
 				  </tr>
 				  <tr>
 						<td><label class="label_form">language</label></td>
-						<td><input class="textbox" type="text" id="language" name="language"  value=""/></td>
+						<td><input class="textbox" type="text" id="language" name="language"  value="Enter your Language" 
+                        onfocus="if(this.value  == 'Enter your Language') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Language'; } "/></td>
 				  </tr>
 				  <tr>
-						<label><img src="images/calendar_icon.png" alt="icon" class="calendar_icon"></label>
+
 						<td><label class="label_form">Date</label></td>
-						<td><input class="textbox" type="text" id="date" name="date" value=""/></td>
+						<td><input class="textbox" type="text" id="date" name="date" value="Enter your Date" 
+                        onfocus="if(this.value  == 'Enter your Date') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Date'; } "/></td>
 				  </tr>
 				  <tr>
 						<td><label class="label_form">Time</label></td>    
-						<td><input class= "textbox" type="text" id="time" name="time" value=""/></td>
+						<td><input class= "textbox" type="text" id="time" name="time" value="Enter your Time" 
+                        onfocus="if(this.value  == 'Enter your Time') { this.value = ''; } " onblur="if(this.value == '') { this.value = 'Enter your Time'; } "/></td>
 				  </tr>
 				  <tr>	
 						<td><label class="label_form">Sex</label></td>
@@ -78,24 +74,27 @@
 				  </tr>
 				</table>
 			</form>
-		
-		<!--footer-->
-		<footer>
-			
-			<ul id= "footer_nav">
-				<li><a href = ""><img src="images/about_icon.png" class="about"><h4>About us</h4></a></li>	
-				<li><a href = ""><img src="images/setting_icon.png" class="settings"><h4>Setting</h4></a></li>
-				<li><a href = ""><img src="images/mail_icon.png" class="contact"><h4>Contact us</h4></a></li>
-			</ul>
-			
-		</footer><!--end of footer-->
-	</div><!--end container-->
-	
+	<div id="boundary">
+    	<table id="tab">
+        	<th> Source Place</th>
+            <th>Destination Place </th>
+        </table>
+         
+    </div><!--boundary-->
+    <footer>
+                
+                <ul id= "footer_nav">
+                    <li><a href = ""><img src="images/about_icon.png" class="about"><h4>About us</h4></a></li>	
+                    <li><a href = ""><img src="images/setting_icon.png" class="settings"><h4>Setting</h4></a></li>
+                    <li><a href = ""><img src="images/mail_icon.png" class="contact"><h4>Contact us</h4></a></li>
+                </ul>
+                
+            </footer><!--end of footer-->
+    </div><!--end container-->
 </body>
 
-<!--Code/Script for map function-->
 <div id = "submit" style="postion: absolute; display:none;">
-  <button id = "submit_button" onclick=submit_request()>Submit Request</button>
+  <button id = "submit_button" onclick=submit_request()>Create Ride</button>
 </div>
 
 <div id="map_canvas" style="height:400px;width:500px;overflow: auto;"></div>
@@ -109,7 +108,11 @@
 <script type="text/javascript">
   var form_data ;
   var request;
-  var job;
+
+  function load_user_info(){
+     //Void funtion
+  }
+
   var change_location = function(address,geolocation,type){
 //    console.log("Address " + address, "  geolocation " + geolocation + " type  " + type);
 
@@ -129,44 +132,29 @@
   var failure = function(){
     alert("FAILED");
   }
-
-  function load_user_info(){
-    //Void funtion
-  }
-  function update_user_info(data)
-  {
-    var url = "http://socialfarm.org/couchdb/social_ride/user."+ get_user().id ;
-    data.requested_rides.push(job);
-    console.log(JSON.stringify(data));
-    put_json(url,JSON.stringify(data),do_nothing,failure);
-  }
-
   var success = function(){
-    //add the ride to ride list
-    var url = "http://socialfarm.org/couchdb/social_ride/user."+ get_user().id ;
-    get_json(url,update_user_info,failure);
-    alert("Success !!");
+    alert("SUCCESS!!");
   }
 
   function readform(){
     init_map();
-    $("#request_ride").hide();
+    $("#create_ride").hide();
     $("#submit").show();
     form_data = read_html_form_data("request_form");
+    console.log("Form data:" + JSON.stringify(form_data));
     map_address_on_map(form_data['source'],'source',change_location,failure);
     map_address_on_map(form_data['destination'],'destination',change_location,failure);
-    form_data['type']="job";
+    form_data['type']="request";
     form_data['price']="10.0";
     form_data['customer']=get_user().name;
-    form_data['customerId']=get_user().id;
+    form_data['customerId']="user."+get_user().id;
     form_data['state']="ready";
   }
 
-  function createJob(data) {
+  function create_ride(data) {
     console.log(data);
-    var url = "http://socialfarm.org/couchdb/social_ride/job."+data.uuids[0];
-    //console.log(url +" -d "+ JSON.stringify(form_data));
-    job = "job."+data.uuids[0];
+    var url = "http://socialfarm.org/couchdb/social_ride/ride."+data.uuids[0];
+    console.log(url +" -d "+ JSON.stringify(form_data));
     put_json(url, JSON.stringify(form_data),success,failure);
   }
   
@@ -174,13 +162,14 @@
     //console.log("Form "+JSON.stringify(form_data));
     //var url = "http://socialfarm.iriscouch.com/_uuids?callback=?";
     var url = "http://socialfarm.org:5984/_uuids?callback=?";
-    get_json(url,createJob,failure);
+    get_json(url,create_ride,failure);
     //TODO Add code to put the data to couchdb using the uuid reveived in previous step
   }
 
 </script>
 
 <div id="fb-root">
-	<script type="text/javascript" src="facebook.js"></script>
+	<script type="text/javascript" src="js/facebook.js"></script>
 </div>
+
 </html>
