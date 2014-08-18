@@ -82,4 +82,7 @@ install_social_ride:
 	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.nearby_jobs.map socialride/nearby_jobs/map.js
 	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.nearby_request.map socialride/nearby_jobs/map_request.js
 	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.nearby_offer.map socialride/nearby_jobs/map_offer.js
+	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.my_offer.map  socialride/user_ride/user_offer.js
+	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.my_request.map  socialride/user_ride/user_request.js
+
 
