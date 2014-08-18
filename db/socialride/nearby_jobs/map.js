@@ -5,7 +5,7 @@
 
 
 function(doc) {
-    if(doc.type == "ride" && 
+    if(doc.type == "offer" && 
        doc.state == "ready" ) {
         emit( doc.dest_geocode, doc ) ; 
     }

@@ -248,11 +248,11 @@ function fillNearByRideInfo(type,curLocGeoCode) {
     var divId;
 // TODO :: Change the below url to nearby view url
     if( type === "request"){
-        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/user_ride";
+        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/info/_view/nearby_request";
         divId = "tab_request";
     }
     else {
-        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/user_offer";
+        viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/info/_view/nearby_offer";
         divId = "tab_offer";
     }
     
@@ -291,12 +291,12 @@ function fillMyRideInfo(type,userId) {
     var divId;
 
     if( type === "request"){
-        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_request?key=%22user.'+userId+'%22';
+        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/my_request?key=%22user.'+userId+'%22';
         //viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/temp"
         divId = "tab_my_req";
     }
     else {
-        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/user_offer?key=%22user.'+userId+'%22';
+        viewUrl = 'http://socialfarm.org/couchdb/social_ride/_design/info/_view/my_offer?key=%22user.'+userId+'%22';
         //viewUrl = "http://socialfarm.org/couchdb/social_ride/_design/test/_view/temp"
         divId = "tab_my_offer";
     }
