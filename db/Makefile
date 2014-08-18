@@ -27,8 +27,8 @@ install_info :
 	$(UPDATE_INFO) 		views.all_activities.map 		    info/views/all_activities.js 
 	$(UPDATE_INFO) 		views.all_jobs.map 				    info/views/all_jobs.js 
 	$(UPDATE_INFO) 		views.all_tasks.map 			    info/views/all_tasks.js
-	$(UPDATE_INFO)		views.user_request						info/views/user_request.js
-	$(UPDATE_INFO)		views.user_offer							info/views/user_offer.js
+	$(UPDATE_INFO)		views.user_request.map						info/views/user_request.js
+	$(UPDATE_INFO)		views.user_offer.map							info/views/user_offer.js
 
 #shows
 	$(UPDATE_INFO) 		shows.member 				        info/shows/member.js
