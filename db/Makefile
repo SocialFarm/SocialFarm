@@ -27,6 +27,7 @@ install_info :
 	$(UPDATE_INFO) 		views.all_activities.map 		    info/views/all_activities.js 
 	$(UPDATE_INFO) 		views.all_jobs.map 				    info/views/all_jobs.js 
 	$(UPDATE_INFO) 		views.all_tasks.map 			    info/views/all_tasks.js
+
 #shows
 	$(UPDATE_INFO) 		shows.member 				        info/shows/member.js
 	$(UPDATE_INFO) 		shows.activity 				        info/shows/activity.js
@@ -79,4 +80,9 @@ endif
 
 install_social_ride:
 	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.nearby_jobs.map socialride/nearby_jobs/map.js
+	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.nearby_request.map socialride/nearby_jobs/map_request.js
+	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.nearby_offer.map socialride/nearby_jobs/map_offer.js
+	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.my_offer.map  socialride/user_ride/user_offer.js
+	./scripts/update_field.py $(CREDENTIALS) social_ride _design/info views.my_request.map  socialride/user_ride/user_request.js
+
 

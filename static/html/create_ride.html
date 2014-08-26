@@ -9,7 +9,7 @@
 </head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAUcTvML7PuCUAqSU8RzF-OLtu5EvDqY9Q&sensor=false"></script>
-<script type="text/javascript" src="map_utils.js"></script>
+<script type="text/javascript" src="js/map_utils.js"></script>
 
 <body>
     <div id="container">
@@ -144,15 +144,16 @@
     console.log("Form data:" + JSON.stringify(form_data));
     map_address_on_map(form_data['source'],'source',change_location,failure);
     map_address_on_map(form_data['destination'],'destination',change_location,failure);
-    form_data['type']="ride";
+    form_data['type']="offer";
     form_data['price']="10.0";
     form_data['customer']=get_user().name;
+    form_data['customerId']="user."+get_user().id;
     form_data['state']="ready";
   }
 
   function create_ride(data) {
     console.log(data);
-    var url = "http://socialfarm.org/couchdb/social_ride/ride."+data.uuids[0];
+    var url = "http://socialfarm.org/couchdb/social_ride/offer."+data.uuids[0];
     console.log(url +" -d "+ JSON.stringify(form_data));
     put_json(url, JSON.stringify(form_data),success,failure);
   }
@@ -168,7 +169,7 @@
 </script>
 
 <div id="fb-root">
-	<script type="text/javascript" src="facebook.js"></script>
+	<script type="text/javascript" src="js/facebook.js"></script>
 </div>
 
 </html>
