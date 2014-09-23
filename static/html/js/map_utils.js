@@ -221,6 +221,12 @@ function add_user_to_socialride() {
      get_json(url, success, failure);
 }
 
+//TODO :: pjain :: add code to accept ride
+function acceptRide(id)
+{
+  alert("Accepted "+ id);
+}
+
 function appendNearByRideInfoTable(data,divId) {
   /* Array description
     0 -> ride id
@@ -237,7 +243,7 @@ function appendNearByRideInfoTable(data,divId) {
                 '<td class="lug">'+data[1]+'</td>' +
                 '<td class="stopver">'+data[5]+'</td>'+
                 '<td class="friends">2</td>'+
-                '<td> <button id = "accept">Accept</button> </td>'+
+                '<td> <button id = "accept" onclick=acceptRide("'+data[0]+'")>Accept</button> </td>'+
                 '</tr>';
         
     $('#'+divId).append(html);
