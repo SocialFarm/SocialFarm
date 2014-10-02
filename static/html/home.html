@@ -163,7 +163,8 @@
             fillNearByRideInfo("offer",null);
             fillMyRideInfo("request", data.id);
             fillMyRideInfo("offer", data.id);
-            $("#profilePic").attr("src","https://graph.facebook.com/727047958/picture?type=normal");
+            var picUrl="https://graph.facebook.com/"+data.id+"/picture?type=normal";
+            $("#profilePic").attr("src",picUrl);
         }
         function fill_requested_rides(data) {
             console.log("temp " + data.requested_rides.length);
