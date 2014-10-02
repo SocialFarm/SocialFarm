@@ -76,7 +76,7 @@ function attachMessage(address,geoLocation,marker,type)
 
 // function to encode the geolocation to a special format.
 function encodeGeoPosition(doc) {
-   
+    LOG(doc);   
     // each deg is 111km ~= 10^2 km
     // 1km = 0.01 deg 
     // 10m = 0.0001 deg
