@@ -75,8 +75,9 @@ function attachMessage(address,geoLocation,marker,type)
 //TODO :: Add code to get the new location after dragging the map marker
 
 // function to encode the geolocation to a special format.
-function encodeGeoPosition(doc) {
-   
+function encodeGeoPosition(lat,lng) {
+ 
+    //LOG(doc);
     // each deg is 111km ~= 10^2 km
     // 1km = 0.01 deg 
     // 10m = 0.0001 deg
@@ -112,9 +113,9 @@ function encodeGeoPosition(doc) {
             return zerovalue;
     } 
 
-    if( MIGRATING > 0 || doc.type == "profile" ) {
-        var latkeys = getkeys( DEPTH, 90.0, -90.0, doc.lat() ) ; 
-        var lonkeys = getkeys( DEPTH, 180, -180, doc.lng() ) ; 
+    if( MIGRATING > 0 ) {
+        var latkeys = getkeys( DEPTH, 90.0, -90.0, lat ) ; 
+        var lonkeys = getkeys( DEPTH, 180, -180, lng ) ; 
         // log( "length of keys = " + latkeys.length + " , " + lonkeys.length ) ; 
 
         var maxlen = latkeys.length <  lonkeys.length ? 
@@ -313,4 +314,16 @@ function fillMyRideInfo(type,userId) {
             });
         });
     },do_nothing);
+}
+
+function updatePosition(userId)
+{
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function savePosition(position) {
+            var loc = encodeGeoPosition(position.coords.latitude ,position.coords.longitude);
+            LOG(loc);
+        });
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
 }
