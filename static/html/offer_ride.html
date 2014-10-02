@@ -99,12 +99,6 @@
 
 <div id="map_canvas" style="height:400px;width:500px;overflow: auto;"></div>
 
-<!--TODO :: Add javascript code to read the form data (Done)
-             Add a map after someone presses the submit button(done)
-             Attach the FB API(Done)
-             Add validation for data and time.
-             Add js code to store the doc to couchdb -->
-
 <script type="text/javascript">
   var form_data ;
   var request;
@@ -114,7 +108,6 @@
   }
 
   var change_location = function(address,geolocation,type){
-//    console.log("Address " + address, "  geolocation " + geolocation + " type  " + type);
 
     if(type == "source")
     {
@@ -183,11 +176,8 @@
   }
   
   function submit_request() {
-    //console.log("Form "+JSON.stringify(form_data));
-    //var url = "http://socialfarm.iriscouch.com/_uuids?callback=?";
     var url = "http://socialfarm.org:5984/_uuids?callback=?";
     get_json(url,create_ride,failure);
-    //TODO Add code to put the data to couchdb using the uuid reveived in previous step
   }
 
 </script>
