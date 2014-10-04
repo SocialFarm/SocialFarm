@@ -75,8 +75,8 @@ function attachMessage(address,geoLocation,marker,type)
 //TODO :: Add code to get the new location after dragging the map marker
 
 // function to encode the geolocation to a special format.
-function encodeGeoPosition(doc) {
-   
+function encodeGeoPosition(lat,lng) {
+ 
     // each deg is 111km ~= 10^2 km
     // 1km = 0.01 deg 
     // 10m = 0.0001 deg
@@ -112,9 +112,9 @@ function encodeGeoPosition(doc) {
             return zerovalue;
     } 
 
-    if( MIGRATING > 0 || doc.type == "profile" ) {
-        var latkeys = getkeys( DEPTH, 90.0, -90.0, doc.lat() ) ; 
-        var lonkeys = getkeys( DEPTH, 180, -180, doc.lng() ) ; 
+    if( MIGRATING > 0 ) {
+        var latkeys = getkeys( DEPTH, 90.0, -90.0, lat ) ; 
+        var lonkeys = getkeys( DEPTH, 180, -180, lng ) ; 
         // log( "length of keys = " + latkeys.length + " , " + lonkeys.length ) ; 
 
         var maxlen = latkeys.length <  lonkeys.length ? 
@@ -136,7 +136,7 @@ function encodeGeoPosition(doc) {
         while( ch = kdkeys.shift() ) 
             str += ch ;  
 
-        LOG(str);
+        //LOG(str);
         return str;
     }
 }
@@ -217,8 +217,15 @@ function add_user_to_socialride() {
   }
      var success = function(response){
          LOG('person is already in the datebase: ' + JSON.stringify(response));
+         updateCurrentLocation(url,response);
     };
      get_json(url, success, failure);
+}
+
+//TODO :: pjain :: add code to accept ride
+function acceptRide(id)
+{
+  alert("Accepted "+ id);
 }
 
 function appendNearByRideInfoTable(data,divId) {
@@ -237,7 +244,7 @@ function appendNearByRideInfoTable(data,divId) {
                 '<td class="lug">'+data[1]+'</td>' +
                 '<td class="stopver">'+data[5]+'</td>'+
                 '<td class="friends">2</td>'+
-                '<td> <button id = "accept">Accept</button> </td>'+
+                '<td> <button id = "accept" onclick=acceptRide("'+data[0]+'")>Accept</button> </td>'+
                 '</tr>';
         
     $('#'+divId).append(html);
@@ -307,4 +314,20 @@ function fillMyRideInfo(type,userId) {
             });
         });
     },do_nothing);
+}
+var tmp = 0;
+function updateCurrentLocation(url,user)
+{
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function savePosition(position) {
+            var loc = encodeGeoPosition(position.coords.latitude ,position.coords.longitude);
+            user['curLocation']=loc;
+            var data = JSON.stringify(user);
+            if(tmp == 0){
+            // to prevent calling put_json twice with the same rev_id
+            put_json(url,data,do_nothing,do_nothing);tmp++;}
+        });
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
 }

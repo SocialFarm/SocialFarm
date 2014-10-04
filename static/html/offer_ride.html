@@ -99,12 +99,6 @@
 
 <div id="map_canvas" style="height:400px;width:500px;overflow: auto;"></div>
 
-<!--TODO :: Add javascript code to read the form data (Done)
-             Add a map after someone presses the submit button(done)
-             Attach the FB API(Done)
-             Add validation for data and time.
-             Add js code to store the doc to couchdb -->
-
 <script type="text/javascript">
   var form_data ;
   var request;
@@ -114,18 +108,17 @@
   }
 
   var change_location = function(address,geolocation,type){
-//    console.log("Address " + address, "  geolocation " + geolocation + " type  " + type);
 
     if(type == "source")
     {
       form_data['source_address'] = address;
       form_data['source_location']= geolocation;
-      form_data['source_geocode'] = encodeGeoPosition(geolocation);
+      form_data['source_geocode'] = encodeGeoPosition(geolocation.lat(),geolocation.lng());
     }
     else {
       form_data['dest_address'] = address;
       form_data['dest_location']= geolocation;
-      form_data['dest_geocode'] = encodeGeoPosition(geolocation);
+      form_data['dest_geocode'] = encodeGeoPosition(geolocation.lat(),geolocation.lng());
     }
 
   }
@@ -161,7 +154,6 @@
     $("#create_ride").hide();
     $("#submit").show();
     form_data = read_html_form_data("request_form");
-    console.log("Form data:" + JSON.stringify(form_data));
     
     if(validateForm(form_data))
     {
@@ -176,18 +168,15 @@
   }
 
   function create_ride(data) {
-    console.log(data);
+    //LOG(data);
     var url = "http://socialfarm.org/couchdb/social_ride/offer."+data.uuids[0];
-    console.log(url +" -d "+ JSON.stringify(form_data));
+    //LOG(url +" -d "+ JSON.stringify(form_data));
     put_json(url, JSON.stringify(form_data),success,failure);
   }
   
   function submit_request() {
-    //console.log("Form "+JSON.stringify(form_data));
-    //var url = "http://socialfarm.iriscouch.com/_uuids?callback=?";
     var url = "http://socialfarm.org:5984/_uuids?callback=?";
     get_json(url,create_ride,failure);
-    //TODO Add code to put the data to couchdb using the uuid reveived in previous step
   }
 
 </script>

@@ -126,34 +126,25 @@ $(document).ready(function(){
 <script type="text/javascript">
     $(document).ready(function() {
         $("#update").click(function(){
-            var additional_info = $('#additional_form').serializeArray();
-            var form;
             var member = Object();
             form = $("#member_form").serializeArray();
             LOG(form);
-            LOG(additional_info);
             $.each(form, function (item) {
                 LOG(form[item].name + " : " + form[item].value );
                 member[form[item].name] = form[item].value;
             });
-            var items = Object();
-            $.each(additional_info, function (item) {
-                       items[additional_info[item].name] = additional_info[item].value;
-                });
              
-            member.additional_info = items;
             LOG(member);
-            url =  "/api/business/{{bid}}/object/{{_id}}";
             var success = function(){
                 alert("Update is Successfull !1 ");
-                window.location ="/business/{{bid}}";
+                //window.location ="/business/{{bid}}";
             }
             
             var failure = function(){
                 warn("Update failed");
             }
-            data = JSON.stringify(member) ;            
-            post_json(url,data,success,failure);
+            //data = JSON.stringify(member) ;            
+            //post_json(url,data,success,failure);
             
         });
 	    $("#cancel").click(function(){

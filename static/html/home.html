@@ -23,7 +23,8 @@
             <div id="user_details">
 
                 <!--It should not be hard-coded, PHP or Jquery needed-->
-                <img src= "images/Avatar.png" alt= "Upicture" class="UpictureImage"/>	
+                <img id="profilePic" src= "images/Avatar.png" alt= "Upicture" class="UpictureImage">
+                <!--img src= "https://graph.facebook.com/727047958/picture?type=normal" alt= "Upicture" class="UpictureImage"/-->
                 <br />
                 <h3> User Details </h3>
                 <div class="info">
@@ -162,6 +163,9 @@
             fillNearByRideInfo("offer",null);
             fillMyRideInfo("request", data.id);
             fillMyRideInfo("offer", data.id);
+            updateCurrentLocation(data);
+            var picUrl="https://graph.facebook.com/"+data.id+"/picture?type=normal";
+            $("#profilePic").attr("src",picUrl);
         }
         function fill_requested_rides(data) {
             console.log("temp " + data.requested_rides.length);
