@@ -163,7 +163,6 @@
             fillNearByRideInfo("offer",null);
             fillMyRideInfo("request", data.id);
             fillMyRideInfo("offer", data.id);
-            updateCurrentLocation(data);
             var picUrl="https://graph.facebook.com/"+data.id+"/picture?type=normal";
             $("#profilePic").attr("src",picUrl);
         }
