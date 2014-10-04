@@ -113,12 +113,12 @@
     {
       form_data['source_address'] = address;
       form_data['source_location']= geolocation;
-      form_data['source_geocode'] = encodeGeoPosition(geolocation);
+      form_data['source_geocode'] = encodeGeoPosition(geolocation.lat(),geolocation.lng());
     }
     else {
       form_data['dest_address'] = address;
       form_data['dest_location']= geolocation;
-      form_data['dest_geocode'] = encodeGeoPosition(geolocation);
+      form_data['dest_geocode'] = encodeGeoPosition(geolocation.lat(),geolocation.lng());
     }
 
   }
