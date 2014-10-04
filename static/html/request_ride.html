@@ -166,9 +166,9 @@
   }
 
   function create_ride(data) {
-    console.log(data);
+    //LOG(data);
     var url = "http://socialfarm.org/couchdb/social_ride/request."+data.uuids[0];
-    console.log(url +" -d "+ JSON.stringify(form_data));
+    //LOG(url +" -d "+ JSON.stringify(form_data));
     put_json(url, JSON.stringify(form_data),success,failure);
   }
   

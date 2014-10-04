@@ -154,7 +154,6 @@
     $("#create_ride").hide();
     $("#submit").show();
     form_data = read_html_form_data("request_form");
-    console.log("Form data:" + JSON.stringify(form_data));
     
     if(validateForm(form_data))
     {
@@ -169,9 +168,9 @@
   }
 
   function create_ride(data) {
-    console.log(data);
+    //LOG(data);
     var url = "http://socialfarm.org/couchdb/social_ride/offer."+data.uuids[0];
-    console.log(url +" -d "+ JSON.stringify(form_data));
+    //LOG(url +" -d "+ JSON.stringify(form_data));
     put_json(url, JSON.stringify(form_data),success,failure);
   }
   

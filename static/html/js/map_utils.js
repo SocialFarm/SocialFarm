@@ -136,7 +136,7 @@ function encodeGeoPosition(lat,lng) {
         while( ch = kdkeys.shift() ) 
             str += ch ;  
 
-        LOG(str);
+        //LOG(str);
         return str;
     }
 }
@@ -192,27 +192,6 @@ function get_json(url, successcb, failurecb){
 
 function do_nothing()
 {}
-function post_json(url, data, successcb, failurecb){
-   /* if (url in revision_cache && data == revision_cache[url]){
-        // trying to post the same object 
-        LOG('trying to post the same object...');
-    } else {*/
-        $.ajax({
-        url: url,
-        type: 'POST',
-        dataType: 'json',
-        data : data,
-        success: function (response){ 
-                LOG('POST response: ' + JSON.stringify(response));
-                //should update cache rev
-                //revision_cache[url] = response; 
-                successcb(); 
-            },
-        error: failurecb,
-        beforeSend: setHeader
-        });
-    }
-//}
 
 function add_user_to_socialride() {
   var userInfo = get_user();
@@ -339,18 +318,16 @@ function fillMyRideInfo(type,userId) {
 var tmp = 0;
 function updateCurrentLocation(url,user)
 {
-    LOG("cnt "+ tmp);
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function savePosition(position) {
             var loc = encodeGeoPosition(position.coords.latitude ,position.coords.longitude);
             user['curLocation']=loc;
-            LOG(JSON.stringify(user));
             var data = JSON.stringify(user);
             if(tmp == 0){
             // to prevent calling put_json twice with the same rev_id
             put_json(url,data,do_nothing,do_nothing);tmp++;}
         });
     } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
+        alert("Geolocation is not supported by this browser.");
     }
 }
